@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor:"rgba(10, 50, 109, 0.2)", //#0A326D || orange
     paddingTop: 30,
-    flex: 0.09
+    flex: 0.1 //was 0.09
   },
   container2:{
     backgroundColor:"orange",
