@@ -18,7 +18,7 @@ const PUGbutton: FC = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    backgroundColor:"#0A326D", //#0A326D || orange
+    backgroundColor:"rgba(10, 50, 109, 0.2)", //#0A326D || orange
     paddingTop: 30,
     flex: 0.09
   },
@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     backgroundColor: "#0A326D",
-    paddingRight: 15,
+    paddingRight: 10,
     paddingTop: 10,
-    paddingLeft: 15,
+    paddingLeft: 10,
     paddingBottom: 10,
     marginLeft: 10,
     borderWidth: 1,
