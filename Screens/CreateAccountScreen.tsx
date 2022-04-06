@@ -50,8 +50,10 @@ const styles = StyleSheet.create({
         alignSelf: "center" //bad practice probably...
     },
     input:{
-        height: 50,
-        margin: 12,
+        height: 55,
+        marginTop: 20,
+        marginLeft: 12,
+        marginRight: 12,
         borderWidth: 1,
         padding: 10,
         color: "rgba(59, 86, 124, 1)",
