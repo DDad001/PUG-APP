@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
   BtnBox: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
     backgroundColor: "#0A326D",
-    paddingRight: 10,
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingBottom: 10,
+    paddingRight: 8,
+    paddingTop: 5,
+    paddingLeft: 8,
+    paddingBottom: 5,
     marginLeft: 10,
     borderWidth: 1,
     borderColor: "white"
