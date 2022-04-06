@@ -3,20 +3,32 @@ import { View, Text, StyleSheet } from "react-native";
 
 const PugOpeningScreen: FC = () => {
     return (
-        <View style={{ backgroundColor: "#0A326D"}}>
-            <Text>Hello I am the Pug Opening Screen</Text>
-            <Text>Hello I am the Pug Opening Screen</Text>
-            <Text>Hello I am the Pug Opening Screen</Text>
-            <Text>Hello I am the Pug Opening Screen</Text>
+        <View style={styles.container}>
+            <Text style={styles.Titletxt}>PUG</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    blueContainer: {
+    container: {
+        flex: 1,
         backgroundColor: "#0A326D",
-        flex: 1
+        justifyContent: "center",
+        alignItems: "center"
     },
+    Titletxt: {
+        // fontFamily: "Lato" ,
+        fontSize: 64,
+        fontWeight: "bold",
+        color: "white",
+        borderWidth: 5,
+        borderColor: "white",
+        paddingTop: 50,
+        paddingBottom: 50,
+        paddingLeft: 50,
+        paddingRight: 50
+      
+    }
 });
 
 export default PugOpeningScreen;
