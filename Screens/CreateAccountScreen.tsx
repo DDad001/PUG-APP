@@ -12,11 +12,13 @@ const CreateAccountScreen: FC = () => {
             <ImageBackground source={GuyOnBasketballCourt} resizeMode="cover" style={{ height: 700, width: 375, zIndex: 3, backgroundColor: "#0A326D" }}>
                 <View style={styles.overlayContainer}>
                     <PUGbutton />
+                    <View>
+
+                    </View>
                         <Text style={styles.headingTxt}>Want to upload your first event?</Text>
                         <Text style={styles.subheadingTxt}>Join the PUG family to create your account.</Text>
                     <TextInput style={styles.input} onChangeText={(text) => setFirstName(text)} value={firstName} placeholder="First name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
                     <TextInput style={styles.input} onChangeText={(text) => setLastName(text)} value={lastName} placeholder="Last name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
-
                     {/* <Text>{firstName}</Text>
                     <Text>{lastName}</Text> */}
                 </View>
@@ -50,16 +52,19 @@ const styles = StyleSheet.create({
         alignSelf: "center" //bad practice probably...
     },
     input:{
-        height: 55,
+        height: 60,
         marginTop: 20,
-        marginLeft: 12,
-        marginRight: 12,
+        marginLeft: 20,
+        marginRight: 20,
         borderWidth: 1,
         padding: 10,
         color: "rgba(59, 86, 124, 1)",
         borderColor: "white",
         backgroundColor: "white",
         borderRadius: 20
+    },
+    box: {
+        
     }
 
 });

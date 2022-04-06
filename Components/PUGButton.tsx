@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     backgroundColor: "#0A326D",
     paddingRight: 8,
-    paddingTop: 5,
+    paddingTop: 8,
     paddingLeft: 8,
-    paddingBottom: 5,
+    paddingBottom: 8,
     marginLeft: 10,
     borderWidth: 1,
     borderColor: "white"
