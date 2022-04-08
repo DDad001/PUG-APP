@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     overlayContainer:{
         flex: 1,
-        backgroundColor: "rgba(10, 50, 109, 0.6)"
+        // backgroundColor: "rgba(10, 50, 109, 0.6)"
     },
     headingTxt:{
         color: "white",
@@ -53,16 +53,18 @@ const styles = StyleSheet.create({
     },
     subheadingTxt:{
         fontSize: 16,
+        paddingLeft: 15,
         color: "white",
     },
     input:{
+        //Text styling for the input fields!
         height: 60,
         marginTop: 10,
         marginLeft: 18,
         marginRight: 20,
+        marginBottom: 20,
         borderWidth: 1,
         padding: 10,
-        color: "rgba(59, 86, 124, 1)",
         borderColor: "white",
         backgroundColor: "white",
         borderRadius: 20
