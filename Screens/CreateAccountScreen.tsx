@@ -9,16 +9,20 @@ const CreateAccountScreen: FC = () => {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={GuyOnBasketballCourt} resizeMode="cover" style={{ height: 700, width: 375, zIndex: 3, backgroundColor: "#0A326D" }}>
+            <ImageBackground source={GuyOnBasketballCourt} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
                 <View style={styles.overlayContainer}>
                     <PUGbutton />
-                    <View>
+                        <View style={{flex: 0.18, marginLeft: 16, marginRight: 16}}>
+                            <View style={{alignItems: "flex-start", padding: 0}}>
+                                <Text style={styles.headingTxt}>Want to upload your first event?</Text>
+                            </View>
+                        </View>
+                        <View style={{flex: 0.04, marginLeft: 16, marginRight: 16}}>
+                            <Text style={styles.subheadingTxt}>Join the PUG family to create your account.</Text>
+                        </View>
 
-                    </View>
-                        <Text style={styles.headingTxt}>Want to upload your first event?</Text>
-                        <Text style={styles.subheadingTxt}>Join the PUG family to create your account.</Text>
-                    <TextInput style={styles.input} onChangeText={(text) => setFirstName(text)} value={firstName} placeholder="First name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
-                    <TextInput style={styles.input} onChangeText={(text) => setLastName(text)} value={lastName} placeholder="Last name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
+                        <TextInput style={styles.input} onChangeText={(text) => setFirstName(text)} value={firstName} placeholder="First name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
+                        <TextInput style={styles.input} onChangeText={(text) => setLastName(text)} value={lastName} placeholder="Last name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
                     {/* <Text>{firstName}</Text>
                     <Text>{lastName}</Text> */}
                 </View>
@@ -32,6 +36,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         height: "100%",
+        backgroundColor: "orange"
     },
     overlayContainer:{
         flex: 1,
@@ -43,18 +48,17 @@ const styles = StyleSheet.create({
         // fontFamily: "Roboto", //Roboto is not a system font!!!
         fontSize: 24,
         marginTop: 30,
-        alignSelf: "center" //bad practice probably
+        // alignSelf: "center" 
 
     },
     subheadingTxt:{
         fontSize: 16,
         color: "white",
-        alignSelf: "center" //bad practice probably...
     },
     input:{
         height: 60,
-        marginTop: 20,
-        marginLeft: 20,
+        marginTop: 10,
+        marginLeft: 18,
         marginRight: 20,
         borderWidth: 1,
         padding: 10,
@@ -63,9 +67,6 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 20
     },
-    box: {
-        
-    }
 
 });
 
