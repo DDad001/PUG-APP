@@ -1,6 +1,16 @@
 import { FC } from 'react';
-import { Text } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
 const NotificationsScreen: FC = () => {
-    return <Text>Text</Text>
+    return (
+        <View>
+
+        </View>
+    )
 }
+
+const styles = StyleSheet.create({
+
+})
+
+export default NotificationsScreen;
