@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { View, StyleSheet, Text, TextInput, ImageBackground } from "react-native";
 import PUGbutton from "../Components/PUGButton";
-import GuyOnBasketballCourt from "../assets/GuyOnBasketBallCourt.png";
+import CourtPicture from "../assets/Court.png";
 
 const CreateAccountScreen: FC = () => {
     const [firstName, setFirstName] = useState<string>("");
@@ -9,7 +9,7 @@ const CreateAccountScreen: FC = () => {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={GuyOnBasketballCourt} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
+            <ImageBackground source={CourtPicture} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
                 <View style={styles.overlayContainer}>
                     <PUGbutton />
                         <View style={{flex: 0.18, marginLeft: 16, marginRight: 16}}>
@@ -21,7 +21,7 @@ const CreateAccountScreen: FC = () => {
                             <Text style={styles.subheadingTxt}>Join the PUG family to create your account.</Text>
                         </View>
 
-                        <TextInput style={styles.input} onChangeText={(text) => setFirstName(text)} value={firstName} placeholder="First name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
+                        <TextInput style={[styles.input, {marginTop: 50}]} onChangeText={(text) => setFirstName(text)} value={firstName} placeholder="First name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
                         <TextInput style={styles.input} onChangeText={(text) => setLastName(text)} value={lastName} placeholder="Last name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
                     {/* <Text>{firstName}</Text>
                     <Text>{lastName}</Text> */}

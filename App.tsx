@@ -10,8 +10,8 @@ import PUGbutton from './Components/PUGButton';
 export default function App() {
   return (
     <>
-      {/* <CreateAccountScreen /> */}
-      <LoadingLogoScreen/>
+      <CreateAccountScreen />
+      {/* <LoadingLogoScreen/> */}
     </>
     // <View style={styles.container}>
     //   <Text>In the Dev Branch</Text>
