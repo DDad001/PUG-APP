@@ -9,7 +9,7 @@ const CreateAccountScreen: FC = () => {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={CourtPicture} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
+            <ImageBackground source={CourtPicture} resizeMode="cover" style={{ height: "100%", width: "100%"}}>
                 <View style={styles.overlayContainer}>
                     <PUGbutton />
                         <View style={{flex: 0.18, marginLeft: 16, marginRight: 16}}>
@@ -36,11 +36,9 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         height: "100%",
-        backgroundColor: "orange"
     },
     overlayContainer:{
         flex: 1,
-        // backgroundColor: "rgba(10, 50, 109, 0.6)"
     },
     headingTxt:{
         color: "white",
@@ -48,7 +46,6 @@ const styles = StyleSheet.create({
         // fontFamily: "Roboto", //Roboto is not a system font!!!
         fontSize: 24,
         marginTop: 30,
-        // alignSelf: "center" 
 
     },
     subheadingTxt:{
@@ -58,7 +55,7 @@ const styles = StyleSheet.create({
     },
     input:{
         //Text styling for the input fields!
-        height: 60,
+        height: 55,
         marginTop: 10,
         marginLeft: 18,
         marginRight: 20,
