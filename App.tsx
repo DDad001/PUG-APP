@@ -16,10 +16,10 @@ import CardListComponent from './Components/CardListComponent';
 export default function App() {
   return (
     <>
-      <ListViewEventsScreen/>
+      {/* <ListViewEventsScreen/> */}
       {/* <CreateAccountScreen /> */}
       {/* <LoadingLogoScreen/> */}
-      <FooterComponent/>
+      {/* <FooterComponent/> */}
       <LoginScreen />
       {/* <CreateAccountScreen /> */}
       {/* <LoadingLogoScreen/> */}
