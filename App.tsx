@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 //Screens
 import LoadingLogoScreen from './Screens/LoadingLogoScreen';
 import CreateAccountScreen from './Screens/CreateAccountScreen';
+import NotificationsScreen from './Screens/NotificationsScreen';
 
 //Components
 import PUGbutton from './Components/PUGButton';
@@ -12,6 +13,7 @@ export default function App() {
     <>
       <CreateAccountScreen />
       {/* <LoadingLogoScreen/> */}
+      {/* <NotificationsScreen /> */}
     </>
     // <View style={styles.container}>
     //   <Text>In the Dev Branch</Text>
