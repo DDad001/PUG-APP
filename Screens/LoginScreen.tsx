@@ -6,7 +6,10 @@ import {
   TextInput,
   ImageBackground,
   Pressable,
+  Image
 } from "react-native";
+
+import { FontAwesome } from "@expo/vector-icons";
 import AppLoading from "expo-app-loading";
 import Skater from "../assets/Skateboard.png";
 import {
@@ -118,7 +121,7 @@ const LoginScreen: FC = () => {
             accessibilityLabel="Enter your password"
           />
         </View>
-        <View style={{ flex: 0.4, alignItems: "center", marginTop: 50 }}>
+        <View style={{ flex: 0.2, alignItems: "center", marginTop: 50 }}>
           <Pressable
             style={{
               backgroundColor: "rgba(10, 50, 109, 1)",
@@ -143,9 +146,12 @@ const LoginScreen: FC = () => {
             </Text>
           </Pressable>
         </View>
-        <View>
-          <Pressable>
-            <Text>Need help ?</Text>
+        <View style={{flex: 0.2, alignItems: "center"}}>
+          <Pressable onPress={() => console.log("Send the user to help!")}>
+            <View style={{flexDirection: "row"}}>
+                <Text style={{color: "white", fontFamily: "Roboto_400Regular", fontSize: 16 , textDecorationLine: "underline", textDecorationColor: "white", marginRight: 7}}>Need help</Text>
+                <FontAwesome name="question-circle-o" size={19} color="white"/>
+            </View>
           </Pressable>
         </View>
       </ImageBackground>
