@@ -1,6 +1,14 @@
-import { FC } from "react";
-import { Text, View, StyleSheet, ImageBackground } from "react-native";
+import { FC, useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ImageBackground,
+  TextInput,
+  TouchableHighlight,
+} from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
+import { FontAwesome } from "@expo/vector-icons";
 
 import AppLoading from "expo-app-loading";
 import {
@@ -33,6 +41,8 @@ const FollowingScreen: FC = () => {
     Lato_900Black_Italic,
   });
 
+  const [input, setInput] = useState("");
+
   if (!fontsLoaded) {
     return <AppLoading />;
   }
@@ -44,7 +54,48 @@ const FollowingScreen: FC = () => {
         resizeMode="cover"
         style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}
       >
-       <View style={styles.overlayContainer}>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text style={{ color: "white" }}>Toggle</Text>
+        </View>
+
+        <View style={{ flexDirection: "row", justifyContent: 'center', paddingBottom: 33 }}>
+          <View>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setInput(text)}
+              onSubmitEditing={() => {
+                alert(`Your message is: ${input}`);
+                setInput("");
+              }}
+              value={input}
+              placeholder="Search following"
+              placeholderTextColor={"#959494"}
+            />
+          </View>
+          <TouchableHighlight>
+            <View
+              style={{
+                backgroundColor: "#0A326D",
+                width: 54,
+                height: 45,
+                marginTop: 18,
+                borderBottomRightRadius: 7,
+                borderTopRightRadius: 7,
+              }}
+            >
+              <FontAwesome
+                name="search"
+                size={15}
+                color="white"
+                style={{ marginTop: 14, marginLeft: 17 }}
+              />
+            </View>
+          </TouchableHighlight>
+        </View>
+
+        <View style={styles.overlayContainer}>
           <Text style={styles.FollowingText}>Following</Text>
           <FollowingComponent />
         </View>
@@ -60,9 +111,9 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   overlayContainer: {
-    flex: 1,
-    marginTop: 104,
-    marginLeft: 27,
+    flex: 6,
+    // marginTop: 104,
+    marginLeft: 45,
   },
   FollowingText: {
     fontFamily: "Lato_400Regular",
@@ -71,6 +122,18 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 32,
     marginBottom: 5,
+  },
+  input: {
+    marginLeft: 10,
+    marginTop: 18,
+    width: 300,
+    height: 45,
+    backgroundColor: "white",
+    borderColor: "white",
+    borderWidth: 1,
+    borderTopStartRadius: 7,
+    borderBottomStartRadius: 7,
+    padding: 10,
   },
 });
 
