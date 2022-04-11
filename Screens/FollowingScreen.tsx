@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Text, View, StyleSheet, ImageBackground } from "react-native";
+import FollowingComponent from "../Components/FollowingComponent";
 
 import AppLoading from "expo-app-loading";
 import {
@@ -38,7 +39,16 @@ const FollowingScreen: FC = () => {
 
   return (
     <View style={styles.container}>
-      
+      <ImageBackground
+        source={BaseballPicture}
+        resizeMode="cover"
+        style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}
+      >
+       <View style={styles.overlayContainer}>
+          <Text style={styles.FollowingText}>Following</Text>
+          <FollowingComponent />
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -53,6 +63,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 104,
     marginLeft: 27,
+  },
+  FollowingText: {
+    fontFamily: "Lato_400Regular",
+    fontStyle: "normal",
+    fontWeight: "800",
+    color: "white",
+    fontSize: 32,
+    marginBottom: 5,
   },
 });
 
