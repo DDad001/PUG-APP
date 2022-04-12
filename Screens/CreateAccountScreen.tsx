@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
     },
     input:{
         //Text styling for the input fields!
+        fontFamily: "Roboto_400Regular",
+        color: "rgba(59, 86, 124, 1)",
+        fontSize: 15,
         height: 55,
         marginTop: 10,
         marginLeft: 18,
@@ -64,7 +67,11 @@ const styles = StyleSheet.create({
         padding: 10,
         borderColor: "white",
         backgroundColor: "white",
-        borderRadius: 20
+        borderRadius: 20,
+        shadowColor: "black",
+        shadowOffset: { width: -2, height: 4 },
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
     },
 
 });

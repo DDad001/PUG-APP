@@ -155,7 +155,9 @@ const styles = StyleSheet.create({
     padding: 35,
   },
   input: {
-    //Text styling for the input fields!
+    fontFamily: "Roboto_400Regular",
+    color: "rgba(59, 86, 124, 1)",
+    fontSize: 15,
     height: 55,
     marginTop: 10,
     marginLeft: 18,
