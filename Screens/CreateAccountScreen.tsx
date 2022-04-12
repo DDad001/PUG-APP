@@ -2,10 +2,48 @@ import { FC, useState } from "react";
 import { View, StyleSheet, Text, TextInput, ImageBackground } from "react-native";
 import PUGbutton from "../Components/PUGButton";
 import CourtPicture from "../assets/Court.png";
+import AppLoading from "expo-app-loading";
+import {
+    useFonts,
+    Roboto_100Thin,
+    Roboto_100Thin_Italic,
+    Roboto_300Light,
+    Roboto_300Light_Italic,
+    Roboto_400Regular,
+    Roboto_400Regular_Italic,
+    Roboto_500Medium,
+    Roboto_500Medium_Italic,
+    Roboto_700Bold,
+    Roboto_700Bold_Italic,
+    Roboto_900Black,
+    Roboto_900Black_Italic,
+  } from "@expo-google-fonts/roboto";
 
 const CreateAccountScreen: FC = () => {
-    const [firstName, setFirstName] = useState<string>("");
-    const [lastName, setLastName] = useState<string>("");
+    const [newFirstName, setNewFirstName] = useState<string>("");
+    const [newLastName, setNewLastName] = useState<string>("");
+    const [newUsername, setNewUsername] = useState<string>("");
+    const [newPassword, setNewPassword] = useState<string>("");
+
+    let [fontsLoaded, error] = useFonts({
+        Roboto_100Thin,
+        Roboto_100Thin_Italic,
+        Roboto_300Light,
+        Roboto_300Light_Italic,
+        Roboto_400Regular,
+        Roboto_400Regular_Italic,
+        Roboto_500Medium,
+        Roboto_500Medium_Italic,
+        Roboto_700Bold,
+        Roboto_700Bold_Italic,
+        Roboto_900Black,
+        Roboto_900Black_Italic,
+      });
+    
+      if (!fontsLoaded) {
+        return <AppLoading />;
+      }
+    
 
     return (
         <View style={styles.container}>
@@ -21,8 +59,10 @@ const CreateAccountScreen: FC = () => {
                             <Text style={styles.subheadingTxt}>Join the PUG family to create your account.</Text>
                         </View>
 
-                        <TextInput style={[styles.input, {marginTop: 50}]} onChangeText={(text) => setFirstName(text)} value={firstName} placeholder="First name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
-                        <TextInput style={styles.input} onChangeText={(text) => setLastName(text)} value={lastName} placeholder="Last name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"}/>
+                        <TextInput style={[styles.input, {marginTop: 50}]} onChangeText={(text) => setNewFirstName(text)} value={newFirstName} placeholder="First name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter first name"/>
+                        <TextInput style={styles.input} onChangeText={(text) => setNewLastName(text)} value={newLastName} placeholder="Last name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter last name"/>
+                        <TextInput style={styles.input} onChangeText={(text) => setNewUsername(text)} value={newUsername} placeholder="Username" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter username"/>
+                        <TextInput style={styles.input} onChangeText={(text) => setNewPassword(text)} value={newPassword} placeholder="Password" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter password"/>
                     {/* <Text>{firstName}</Text>
                     <Text>{lastName}</Text> */}
                 </View>
