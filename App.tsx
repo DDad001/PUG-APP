@@ -17,10 +17,10 @@ export default function App() {
   return (
     <>
       {/* <ListViewEventsScreen/> */}
-      {/* <CreateAccountScreen /> */}
+      <CreateAccountScreen />
       {/* <LoadingLogoScreen/> */}
       {/* <FooterComponent/> */}
-      <LoginScreen />
+      {/* <LoginScreen /> */}
       {/* <CreateAccountScreen /> */}
       {/* <LoadingLogoScreen/> */}
       {/* <NotificationsScreen /> */}
