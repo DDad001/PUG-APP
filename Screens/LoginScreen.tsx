@@ -114,6 +114,7 @@ const LoginScreen: FC = () => {
             style={{
               backgroundColor: "rgba(10, 50, 109, 1)",
               borderRadius: 50,
+              paddingLeft: 100, paddingRight: 100
             }}
             onPress={() => console.log("Login")}
             accessibilityLabel="Login Button"
@@ -124,7 +125,7 @@ const LoginScreen: FC = () => {
         <View style={{flex: 0.2, alignItems: "center"}}>
           <Pressable onPress={() => console.log("Send the user to help!")}>
             <View style={{flexDirection: "row"}}>
-                <Text style={{color: "white", fontFamily: "Roboto_400Regular", fontSize: 16 , textDecorationLine: "underline", textDecorationColor: "white", marginRight: 7}}>Need help</Text>
+                <Text style={styles.subTxt}>Need help</Text>
                 <FontAwesome name="question-circle-o" size={19} color="white"/>
             </View>
           </Pressable>
@@ -178,10 +179,16 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto_400Regular",
     fontSize: 20,
     justifyContent: "center",
-    paddingLeft: "30%",
-    paddingRight: "30%",
     paddingTop: 20,
     paddingBottom: 20,
+  },
+  subTxt:{
+    color: "white",
+    fontFamily: "Roboto_400Regular",
+    fontSize: 16,
+    textDecorationLine: "underline",
+    textDecorationColor: "white",
+    marginRight: 7
   }
 });
 
