@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Text, ScrollView, StyleSheet, Image, View } from "react-native";
+import { Text, ScrollView, StyleSheet, Image, View, Pressable } from "react-native";
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
@@ -65,10 +65,18 @@ const FollowingComponent: FC = () => {
   return (
     <ScrollView style={styles.ScrollStyle}>
 
-      <View style={styles.NotificationView}>
+      <View style={styles.NotificationView} >
         <Image source={Skier} style={styles.ImageStyle} />
-        <View style={{ justifyContent: "center" }}>
+        <View style={{ flexDirection: 'row', alignItems: "center"  }}>
             <Text style={styles.TextStyle}>Scott Morenzone </Text>
+
+            <Pressable
+            style={styles.unfollowBtn}
+            onPress={() => console.log("Login")}
+            accessibilityLabel="Followers Button"
+          >
+              <Text style={styles.unfollowTxt}>Unfollow</Text>
+          </Pressable>
         </View>
       </View>
 
@@ -81,14 +89,14 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
     borderRadius: 50,
-    marginRight: 20,
+    marginRight: 15,
   },
   ScrollStyle: {
     paddingTop: 10,
   },
   TextStyle: {
     color: "white",
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: "Roboto_500Medium",
     fontWeight: '500',
   },
@@ -99,14 +107,35 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto_500Medium",
   },
   NotificationView: {
+    flex: 1,
+    justifyContent: "center",
     flexDirection: "row",
     paddingTop: 5,
     paddingBottom: 34,
+    // marginLeft: 10,
+    //marginRight: 25,
   },
   MiddleTextStyle: {
     color: "white",
     fontSize: 16,
     fontFamily: "Lato_300Light",
+  },
+  unfollowBtn: {
+    backgroundColor: "#0A326D",
+    borderRadius: 10,
+    marginLeft: 15,
+    //marginRight: 55,
+  },
+  unfollowTxt: {
+    color: 'white',
+    fontFamily: "Lato_700Bold",
+    fontSize: 15,
+    fontWeight: '800',
+    justifyContent: "center",
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
 });
 
