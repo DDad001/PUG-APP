@@ -33,6 +33,8 @@ import {
 
 import Skier from "../assets/Skier.png";
 
+import { Ionicons } from '@expo/vector-icons';
+
 const SettingsNotificationsComponent: FC = () => {
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
@@ -69,9 +71,29 @@ const SettingsNotificationsComponent: FC = () => {
 
   return (
     <View style={styles.ScrollStyle}>
-      <View style={styles.NotificationView}>
+      <View style={styles.NotificationView }>
         <Text style={styles.TextStyle}>Notifications</Text>
-        <Switch value={isSwitchOn} onValueChange={onToggleSwitch} style={styles.SwitchStyle} />
+        <Switch value={isSwitchOn} onValueChange={onToggleSwitch} style={[styles.SwitchStyle, styles.IconStyle]} />
+      </View>
+
+      <View style={styles.NotificationView}>
+        <Text style={styles.TextStyle}>Change Username</Text>
+        <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
+      </View>
+
+      <View style={styles.NotificationView}>
+        <Text style={styles.TextStyle}>Change Password</Text>
+        <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
+      </View>
+
+      <View style={styles.NotificationView}>
+        <Text style={styles.TextStyle}>Help</Text>
+        <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
+      </View>
+
+      <View style={styles.NotificationView}>
+        <Text style={styles.TextStyle}>Delete Account</Text>
+        <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
       </View>
 
     </View>
@@ -92,18 +114,21 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     fontFamily: "Lato_400Regular",
-    marginRight: 95,
+    marginLeft: 35,
   },
   NotificationView: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   SwitchStyle: {
     borderColor: 'white',
     borderWidth: 1,
-    borderRadius: 15,  
+    borderRadius: 15,
+  },
+  IconStyle: {
+    marginRight: 35,
   }
 });
 
