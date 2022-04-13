@@ -29,6 +29,21 @@ import {
   Lato_900Black_Italic,
 } from "@expo-google-fonts/lato";
 
+import {
+    Roboto_100Thin,
+    Roboto_100Thin_Italic,
+    Roboto_300Light,
+    Roboto_300Light_Italic,
+    Roboto_400Regular,
+    Roboto_400Regular_Italic,
+    Roboto_500Medium,
+    Roboto_500Medium_Italic,
+    Roboto_700Bold,
+    Roboto_700Bold_Italic,
+    Roboto_900Black,
+    Roboto_900Black_Italic,
+  } from "@expo-google-fonts/roboto";
+
 const AddEventScreen: FC = () => {
 
     const [nameOfEvent, setNameOfEvent] = useState<string>("");
@@ -49,6 +64,18 @@ const AddEventScreen: FC = () => {
     Lato_700Bold_Italic,
     Lato_900Black,
     Lato_900Black_Italic,
+    Roboto_100Thin,
+    Roboto_100Thin_Italic,
+    Roboto_300Light,
+    Roboto_300Light_Italic,
+    Roboto_400Regular,
+    Roboto_400Regular_Italic,
+    Roboto_500Medium,
+    Roboto_500Medium_Italic,
+    Roboto_700Bold,
+    Roboto_700Bold_Italic,
+    Roboto_900Black,
+    Roboto_900Black_Italic,
   });
 
   if (!fontsLoaded) {
@@ -97,15 +124,16 @@ const AddEventScreen: FC = () => {
                         <TextInput style={{backgroundColor: "orange", paddingRight: 40, paddingLeft: 10}} onChangeText={(text) => setEventTime(text)} value={eventTime} placeholder="Time" accessibilityLabel="Enter the time of when the event starts" placeholderTextColor={"rgba(59, 86, 124, 1)"} />
                 </View>
           </View>
-          <View style={{flex: 1, backgroundColor: "red" }}>
-            <TextInput style={[styles.LargeTxtInput,{alignItems: "flex-start"}]} multiline={true} maxLength={200} onChangeText={(text) => setEventDetails(text)} value={eventDetails} placeholder="Event Details" accessibilityLabel="Enter the time of when the event starts" placeholderTextColor={"rgba(59, 86, 124, 1)"} />
+          <View style={{flex: 1 }}>
+            <TextInput style={[styles.LargeTxtInput,{alignItems: "flex-start"}]} multiline={true} maxLength={200} onChangeText={(text) => setEventDetails(text)} value={eventDetails} placeholder="Event Details" accessibilityLabel="Enter the details of the event under 200 characters or less" placeholderTextColor={"rgba(59, 86, 124, 1)"} />
+            <Text style={{color: "white", fontFamily: "Roboto_400Regular", fontSize: 15, paddingLeft: 25 }}>{eventDetails.length}/200 character limit</Text>
           </View>
 
           <View style={{flex: 1, backgroundColor: "green" }}>
               <Text>Space to Add images!!!</Text>
           </View>
           <View>
-              
+
           </View>
         </ScrollView>
       </ImageBackground>
@@ -167,7 +195,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 18,
     marginRight: 20,
-    marginBottom: 20,
+    marginBottom: 5,
     borderWidth: 1,
     padding: 10,
     borderColor: "white",
