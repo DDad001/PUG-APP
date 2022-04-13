@@ -74,7 +74,6 @@ const ProfileScreen: FC = () => {
             </View>
           </View>
 
-              
                 <Text style={{marginTop:10, marginLeft:4}}>Hal Bartholomew Sports Park Football Game </Text>
                 <Text style={{marginTop:5, marginLeft:4, fontSize:12}}>6300 Whitelock Pkwy, Elk Grove, CA 95757</Text>
             
