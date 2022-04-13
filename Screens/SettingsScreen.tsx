@@ -1,6 +1,10 @@
 import { FC } from "react";
 import { Text, View, StyleSheet, ImageBackground } from "react-native";
-import NotificationComponent from "../Components/NotificationComponent";
+import FooterComponent from "../Components/FooterComponent";
+import SettingsProfileComponent from "../Components/SettingsProfileComponent";
+import SettingsNotificationsComponent from "../Components/SettingsNotificationsComponent";
+import SignoutBtnComponent from "../Components/SignoutBtnComponent";
+
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
@@ -32,9 +36,9 @@ const SettingsScreen: FC = () => {
     Lato_900Black_Italic,
   });
 
-//   if (!fontsLoaded) {
-//     return <AppLoading />;
-//   }
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   return (
     <View style={styles.container}>
@@ -43,6 +47,12 @@ const SettingsScreen: FC = () => {
         resizeMode="cover"
         style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}
       >
+          <View style={styles.overlayContainer}>
+            <SettingsProfileComponent />
+            <SettingsNotificationsComponent />
+            <SignoutBtnComponent />
+            <FooterComponent />
+        </View>
       </ImageBackground>
     </View>
   );
@@ -53,6 +63,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: "100%",
+  },
+  overlayContainer: {
+    flex: 1,
   },
 });
 

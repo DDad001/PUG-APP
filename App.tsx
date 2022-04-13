@@ -33,9 +33,7 @@ export default function App() {
     
   // <PassedLikedEventsScreen />
     // <CreateAccountScreen />
-    //   <ListViewEventsScreen/>
     //   <LoadingLogoScreen/>
-    //   <FooterComponent/>
     //   <LoginScreen />
     //   <CreateAccountScreen /> 
     //   <LoadingLogoScreen/> 
