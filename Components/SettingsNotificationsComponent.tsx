@@ -59,9 +59,9 @@ const SettingsNotificationsComponent: FC = () => {
     Roboto_900Black_Italic,
   });
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+//   if (!fontsLoaded) {
+//     return <AppLoading />;
+//   }
 
   const [isSwitchOn, setIsSwitchOn] = useState(false);
 
@@ -71,7 +71,7 @@ const SettingsNotificationsComponent: FC = () => {
     <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView}>
         <Text style={styles.TextStyle}>Notifications</Text>
-        <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+        <Switch value={isSwitchOn} onValueChange={onToggleSwitch} style={styles.SwitchStyle} />
       </View>
 
     </View>
@@ -92,13 +92,19 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     fontFamily: "Lato_400Regular",
+    marginRight: 95,
   },
   NotificationView: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
   },
+  SwitchStyle: {
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 15,  
+  }
 });
 
 export default SettingsNotificationsComponent;
