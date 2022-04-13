@@ -78,7 +78,7 @@ const LoginScreen: FC = () => {
       <ImageBackground
         source={Skater}
         resizeMode="cover"
-        style={{ height: "100%", width: "100%" }}
+        style={styles.overlay}
       >
         <View
           style={{
@@ -87,19 +87,7 @@ const LoginScreen: FC = () => {
             paddingTop: 75,
           }}
         >
-          <Text
-            style={{
-              fontFamily: "Lato_700Bold",
-              fontWeight: "bold",
-              fontSize: 50,
-              color: "white",
-              borderColor: "white",
-              borderWidth: 5,
-              padding: 35,
-            }}
-          >
-            PUG
-          </Text>
+          <Text style={styles.headingTxt}>PUG</Text>
         </View>
         <View style={{ flex: 0.3, marginTop: 10 }}>
           <TextInput
@@ -126,30 +114,18 @@ const LoginScreen: FC = () => {
             style={{
               backgroundColor: "rgba(10, 50, 109, 1)",
               borderRadius: 50,
+              paddingLeft: 100, paddingRight: 100
             }}
             onPress={() => console.log("Login")}
             accessibilityLabel="Login Button"
           >
-            <Text
-              style={{
-                color: "white",
-                fontFamily: "Roboto_400Regular",
-                fontSize: 20,
-                justifyContent: "center",
-                paddingLeft: "30%",
-                paddingRight: "30%",
-                paddingTop: 20,
-                paddingBottom: 20,
-              }}
-            >
-              Login
-            </Text>
+            <Text style={styles.loginBtnTxt}>Login</Text>
           </Pressable>
         </View>
         <View style={{flex: 0.2, alignItems: "center"}}>
-          <Pressable onPress={() => console.log("Send the user to help!")}>
+          <Pressable onPress={() => console.log("Send the user to help!")} accessibilityLabel="Click here if you need help?">
             <View style={{flexDirection: "row"}}>
-                <Text style={{color: "white", fontFamily: "Roboto_400Regular", fontSize: 16 , textDecorationLine: "underline", textDecorationColor: "white", marginRight: 7}}>Need help</Text>
+                <Text style={styles.subTxt}>Need help</Text>
                 <FontAwesome name="question-circle-o" size={19} color="white"/>
             </View>
           </Pressable>
@@ -165,11 +141,24 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  overlayContainer: {
-    flex: 1,
+  overlay:{
+      flex: 1,
+      width: "100%",
+      height: "100%"
+  },
+  headingTxt:{
+    fontFamily: "Lato_700Bold",
+    fontWeight: "bold",
+    fontSize: 50,
+    color: "white",
+    borderColor: "white",
+    borderWidth: 5,
+    padding: 35,
   },
   input: {
-    //Text styling for the input fields!
+    fontFamily: "Roboto_400Regular",
+    color: "rgba(59, 86, 124, 1)",
+    fontSize: 15,
     height: 55,
     marginTop: 10,
     marginLeft: 18,
@@ -185,6 +174,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
+  loginBtnTxt:{
+    color: "white",
+    fontFamily: "Roboto_400Regular",
+    fontSize: 20,
+    justifyContent: "center",
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  subTxt:{
+    color: "white",
+    fontFamily: "Roboto_400Regular",
+    fontSize: 16,
+    textDecorationLine: "underline",
+    textDecorationColor: "white",
+    marginRight: 7
+  }
 });
 
 export default LoginScreen;

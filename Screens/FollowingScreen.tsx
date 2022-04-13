@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TextInput,
   TouchableHighlight,
+  Pressable,
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome } from "@expo/vector-icons";
@@ -55,12 +56,55 @@ const FollowingScreen: FC = () => {
         style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}
       >
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "flex-end",
+            marginTop: 20,
+            justifyContent: "center",
+            marginBottom: 28,
+            marginLeft: 77,
+            marginRight: 77,
+          }}
         >
-          <Text style={{ color: "white" }}>Toggle</Text>
+          <View style={{ flex: 0.5 }}>
+            <Pressable
+              style={{
+                backgroundColor: "white",
+                borderTopLeftRadius: 10,
+                borderBottomLeftRadius: 10,
+                borderRightColor: "grey",
+                borderRightWidth: 1,
+              }}
+              onPress={() => console.log("Login")}
+              accessibilityLabel="Following Button"
+            >
+              <Text style={styles.loginBtnTxt}>Following</Text>
+            </Pressable>
+          </View>
+
+          <View style={{ flex: 0.5 }}>
+            <Pressable
+              style={{
+                backgroundColor: "white",
+                borderBottomRightRadius: 10,
+                borderTopRightRadius: 10,
+              }}
+              onPress={() => console.log("Login")}
+              accessibilityLabel="Followers Button"
+            >
+              <Text style={styles.loginBtnTxt}>Followers</Text>
+            </Pressable>
+          </View>
         </View>
 
-        <View style={{ flexDirection: "row", justifyContent: 'center', paddingBottom: 33 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            paddingBottom: 33,
+          }}
+        >
           <View>
             <TextInput
               style={styles.input}
@@ -113,7 +157,6 @@ const styles = StyleSheet.create({
   overlayContainer: {
     flex: 6,
     // marginTop: 104,
-    marginLeft: 45,
   },
   FollowingText: {
     fontFamily: "Lato_400Regular",
@@ -122,6 +165,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 32,
     marginBottom: 5,
+    marginLeft: 25,
   },
   input: {
     marginLeft: 10,
@@ -134,6 +178,17 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 7,
     borderBottomStartRadius: 7,
     padding: 10,
+  },
+  loginBtnTxt: {
+    color: "#0A326D",
+    fontFamily: "Lato_400Regular",
+    fontSize: 14,
+    fontWeight: "600",
+    justifyContent: "center",
+    paddingLeft: 28,
+    paddingRight: 28,
+    paddingTop: "10%",
+    paddingBottom: "10%",
   },
 });
 
