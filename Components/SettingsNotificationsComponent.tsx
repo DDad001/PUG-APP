@@ -1,5 +1,6 @@
-import { FC } from "react";
-import { Text, ScrollView, StyleSheet, Image, View } from "react-native";
+import { FC, useState } from "react";
+import { Text, ScrollView, StyleSheet, Image, View, } from "react-native";
+import { Switch } from "react-native-paper";
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
@@ -32,7 +33,7 @@ import {
 
 import Skier from "../assets/Skier.png";
 
-const NotificationComponent: FC = () => {
+const SettingsNotificationsComponent: FC = () => {
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -62,55 +63,42 @@ const NotificationComponent: FC = () => {
     return <AppLoading />;
   }
 
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+
+  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+
   return (
-    <ScrollView style={styles.ScrollStyle}>
+    <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView}>
-        <Image source={Skier} style={styles.ImageStyle} />
-        <View style={{ justifyContent: "center" }}>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={styles.TextStyle}>Scott Morenzone </Text>
-            <Text style={styles.MiddleTextStyle}>liked</Text>
-            <Text style={styles.TextStyle}> your post</Text>
-          </View>
-          <Text style={styles.TimeText}>8:00 am</Text>
-        </View>
+        <Text style={styles.TextStyle}>Notifications</Text>
+        <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
       </View>
 
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   ImageStyle: {
-    height: 70,
-    width: 70,
+    height: 100,
+    width: 100,
     borderRadius: 50,
     marginRight: 20,
   },
   ScrollStyle: {
-    paddingTop: 10,
+    flex: 1,
   },
   TextStyle: {
     color: "white",
-    fontSize: 16,
-    fontFamily: "Lato_700Bold",
-  },
-  TimeText: {
-    color: "#DFE6F5",
-    fontSize: 13,
-    paddingTop: 5,
-    fontFamily: "Roboto_500Medium",
+    fontSize: 20,
+    fontFamily: "Lato_400Regular",
   },
   NotificationView: {
-    flexDirection: "row",
-    paddingTop: 5,
-    paddingBottom: 34,
-  },
-  MiddleTextStyle: {
-    color: "white",
-    fontSize: 16,
-    fontFamily: "Lato_300Light",
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
   },
 });
 
-export default NotificationComponent;
+export default SettingsNotificationsComponent;
