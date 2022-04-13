@@ -58,7 +58,7 @@ const CreateAccountScreen: FC = () => {
     return (
         <View style={styles.container}>
             <ImageBackground source={CourtPicture} resizeMode="cover" style={{ height: "100%", width: "100%"}}>
-                <ScrollView style={[styles.overlayContainer, {marginTop: 50, paddingTop: 20}]}>
+                <ScrollView style={[styles.overlayContainer, {marginTop: 50, }]}>
                         <View style={{flex: 0.05, alignItems: "center", justifyContent: "center", marginBottom: 10}}>
                             <View style={{}}>
                                 <Text style={styles.headingTxt}>Want to upload your first event?</Text>
@@ -83,8 +83,10 @@ const CreateAccountScreen: FC = () => {
                                 onSelect={(nextDate) => setDate(nextDate)}
                                 />
                             {/* State dropdown and city input field! */}
-                            <View style={{flex: 1, flexDirection: "row"}}>
-                                <TextInput style={styles.stateInput} onChangeText={(text) => setState(text)} value={state} placeholder="State" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter the state you reside in"/>
+                            <View style={{flex: 1, flexDirection: "row",}}>
+                                <View style={{flex: 1, flexDirection: "row"}}>
+                                    <TextInput style={styles.stateInput} onChangeText={(text) => setState(text)} value={state} placeholder="State" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter the state you reside in"/>
+                                </View>
                                 <TextInput style={styles.cityInput} onChangeText={(text) => setCity(text)} value={city} placeholder="City" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter the city you reside in"/>
                             </View>
                         </View>
@@ -157,8 +159,8 @@ const styles = StyleSheet.create({
         height: 55,
         width: 150,
         // marginTop: 10,
-        marginLeft: 18,
-        marginRight: 20,
+        marginLeft: 18, //might actually need this!
+        // marginRight: 20,
         marginBottom: 20,
         borderWidth: 1,
         padding: 10,
