@@ -10,23 +10,26 @@ import CreateAccountScreen from './Screens/CreateAccountScreen';
 import NotificationsScreen from './Screens/NotificationsScreen';
 import FollowingScreen from './Screens/FollowingScreen';
 import SettingsScreen from './Screens/SettingsScreen';
+import PassedLikedEventsScreen from './Screens/PassedLikedEventsScreen';
 
 //Components
 import PUGbutton from './Components/PUGButton';
 import ListViewEventsScreen from './Screens/ListViewEventsScreen';
 import FooterComponent from './Components/FooterComponent';
 import CardListComponent from './Components/CardListComponent';
+import EventDisplayedScreen from './Screens/EventDisplayedScreen';
+import ProfileScreen from './Screens/ProfileScreen';
 
 export default function App() {
   return (
 
     <ApplicationProvider {...eva} theme={eva.light}>
-      {/* <CreateAccountScreen /> */}
-      <SettingsScreen />
+      <PassedLikedEventsScreen />
     </ApplicationProvider>
 
 
     
+    // <CreateAccountScreen />
     //   <ListViewEventsScreen/>
     //   <LoadingLogoScreen/>
     //   <FooterComponent/>
@@ -39,7 +42,6 @@ export default function App() {
    
     // <View style={styles.container}>
     //   <Text>In the Dev Branch</Text>
-    //   <StatusBar style="auto" />
     // </View>
   );
 }
