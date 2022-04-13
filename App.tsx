@@ -9,6 +9,7 @@ import LoadingLogoScreen from './Screens/LoadingLogoScreen';
 import CreateAccountScreen from './Screens/CreateAccountScreen';
 import NotificationsScreen from './Screens/NotificationsScreen';
 import FollowingScreen from './Screens/FollowingScreen';
+import SettingsScreen from './Screens/SettingsScreen';
 
 //Components
 import PUGbutton from './Components/PUGButton';
@@ -33,6 +34,7 @@ export default function App() {
     //   <LoadingLogoScreen/> 
     //   <NotificationsScreen />
     //  <FollowingScreen /> 
+    // <SettingsScreen />
    
     // <View style={styles.container}>
     //   <Text>In the Dev Branch</Text>
