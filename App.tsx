@@ -17,6 +17,8 @@ import PUGbutton from './Components/PUGButton';
 import ListViewEventsScreen from './Screens/ListViewEventsScreen';
 import FooterComponent from './Components/FooterComponent';
 import CardListComponent from './Components/CardListComponent';
+import EventDisplayedScreen from './Screens/EventDisplayedScreen';
+import ProfileScreen from './Screens/ProfileScreen';
 
 export default function App() {
   return (
@@ -40,7 +42,6 @@ export default function App() {
    
     // <View style={styles.container}>
     //   <Text>In the Dev Branch</Text>
-    //   <StatusBar style="auto" />
     // </View>
   );
 }
