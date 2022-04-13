@@ -55,38 +55,56 @@ const FollowingScreen: FC = () => {
         resizeMode="cover"
         style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}
       >
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: "flex-end", marginTop: 20, justifyContent: 'center', marginBottom: 28, marginLeft: 77, marginRight: 77 }}>
-          <View style={{ flex: 0.5}}>
-          <Pressable
-            style={{
-              backgroundColor: "white",
-              borderTopLeftRadius: 10,
-              borderBottomLeftRadius: 10,
-            }}
-            onPress={() => console.log("Login")}
-            accessibilityLabel="Following Button"
-          >
-            <Text style={styles.loginBtnTxt}>Following</Text>
-          </Pressable>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "flex-end",
+            marginTop: 20,
+            justifyContent: "center",
+            marginBottom: 28,
+            marginLeft: 77,
+            marginRight: 77,
+          }}
+        >
+          <View style={{ flex: 0.5 }}>
+            <Pressable
+              style={{
+                backgroundColor: "white",
+                borderTopLeftRadius: 10,
+                borderBottomLeftRadius: 10,
+                borderRightColor: "grey",
+                borderRightWidth: 1,
+              }}
+              onPress={() => console.log("Login")}
+              accessibilityLabel="Following Button"
+            >
+              <Text style={styles.loginBtnTxt}>Following</Text>
+            </Pressable>
           </View>
-          <View style={{flex: 0.5}}>
-          <Pressable
-            style={{
-              backgroundColor: "white",
-              borderBottomRightRadius: 10,
-              borderTopRightRadius: 10
-            }}
-            onPress={() => console.log("Login")}
-            accessibilityLabel="Followers Button"
-          >
-            <Text style={styles.loginBtnTxt}>Followers</Text>
-          </Pressable>
+
+          <View style={{ flex: 0.5 }}>
+            <Pressable
+              style={{
+                backgroundColor: "white",
+                borderBottomRightRadius: 10,
+                borderTopRightRadius: 10,
+              }}
+              onPress={() => console.log("Login")}
+              accessibilityLabel="Followers Button"
+            >
+              <Text style={styles.loginBtnTxt}>Followers</Text>
+            </Pressable>
           </View>
-          
-          
         </View>
 
-        <View style={{ flexDirection: "row", justifyContent: 'center', paddingBottom: 33, }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            paddingBottom: 33,
+          }}
+        >
           <View>
             <TextInput
               style={styles.input}
@@ -161,18 +179,17 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 7,
     padding: 10,
   },
-  loginBtnTxt:{
-    color: '#0A326D',
+  loginBtnTxt: {
+    color: "#0A326D",
     fontFamily: "Lato_400Regular",
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     justifyContent: "center",
     paddingLeft: 28,
     paddingRight: 28,
     paddingTop: "10%",
     paddingBottom: "10%",
   },
-  
 });
 
 export default FollowingScreen;
