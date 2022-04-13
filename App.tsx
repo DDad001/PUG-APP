@@ -12,23 +12,27 @@ import PUGbutton from './Components/PUGButton';
 import ListViewEventsScreen from './Screens/ListViewEventsScreen';
 import FooterComponent from './Components/FooterComponent';
 import CardListComponent from './Components/CardListComponent';
+import EventDisplayedScreen from './Screens/EventDisplayedScreen';
+import ProfileScreen from './Screens/ProfileScreen';
 
 export default function App() {
   return (
     <>
-      <ListViewEventsScreen/>
+      {/* <ListViewEventsScreen/> */}
+      <ProfileScreen/>
       {/* <CreateAccountScreen /> */}
       {/* <LoadingLogoScreen/> */}
-      <FooterComponent/>
-      <LoginScreen />
+      {/* <FooterComponent/> */}
+      {/* <EventDisplayedScreen/> */}
+      {/* <LoginScreen /> */}
       {/* <CreateAccountScreen /> */}
       {/* <LoadingLogoScreen/> */}
       {/* <NotificationsScreen /> */}
       {/* <FollowingScreen /> */}
+      <StatusBar style="auto" backgroundColor='black'/>
     </>
     // <View style={styles.container}>
     //   <Text>In the Dev Branch</Text>
-    //   <StatusBar style="auto" />
     // </View>
   );
 }
