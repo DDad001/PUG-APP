@@ -123,7 +123,7 @@ const LoginScreen: FC = () => {
           </Pressable>
         </View>
         <View style={{flex: 0.2, alignItems: "center"}}>
-          <Pressable onPress={() => console.log("Send the user to help!")}>
+          <Pressable onPress={() => console.log("Send the user to help!")} accessibilityLabel="Click here if you need help?">
             <View style={{flexDirection: "row"}}>
                 <Text style={styles.subTxt}>Need help</Text>
                 <FontAwesome name="question-circle-o" size={19} color="white"/>
