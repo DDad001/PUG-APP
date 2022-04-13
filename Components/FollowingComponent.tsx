@@ -1,5 +1,12 @@
 import { FC } from "react";
-import { Text, ScrollView, StyleSheet, Image, View, Pressable } from "react-native";
+import {
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  View,
+  Pressable,
+} from "react-native";
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
@@ -64,22 +71,20 @@ const FollowingComponent: FC = () => {
 
   return (
     <ScrollView style={styles.ScrollStyle}>
-
-      <View style={styles.NotificationView} >
+      <View style={styles.NotificationView}>
         <Image source={Skier} style={styles.ImageStyle} />
-        <View style={{ flexDirection: 'row', alignItems: "center"  }}>
-            <Text style={styles.TextStyle}>Scott Morenzone </Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={styles.TextStyle}>Scott Morenzone </Text>
 
-            <Pressable
+          <Pressable
             style={styles.unfollowBtn}
             onPress={() => console.log("Login")}
             accessibilityLabel="Followers Button"
           >
-              <Text style={styles.unfollowTxt}>Unfollow</Text>
+            <Text style={styles.unfollowTxt}>Unfollow</Text>
           </Pressable>
         </View>
       </View>
-
     </ScrollView>
   );
 };
@@ -98,7 +103,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 22,
     fontFamily: "Roboto_500Medium",
-    fontWeight: '500',
+    fontWeight: "500",
   },
   TimeText: {
     color: "#DFE6F5",
@@ -127,10 +132,10 @@ const styles = StyleSheet.create({
     //marginRight: 55,
   },
   unfollowTxt: {
-    color: 'white',
+    color: "white",
     fontFamily: "Lato_700Bold",
     fontSize: 15,
-    fontWeight: '800',
+    fontWeight: "800",
     justifyContent: "center",
     paddingLeft: 15,
     paddingRight: 15,
