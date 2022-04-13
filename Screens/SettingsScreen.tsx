@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, ImageBackground } from "react-native";
 import FooterComponent from "../Components/FooterComponent";
 import SettingsProfileComponent from "../Components/SettingsProfileComponent";
 import SettingsNotificationsComponent from "../Components/SettingsNotificationsComponent";
-
+import SignoutBtnComponent from "../Components/SignoutBtnComponent";
 
 import AppLoading from "expo-app-loading";
 import {
@@ -50,7 +50,8 @@ const SettingsScreen: FC = () => {
           <View style={styles.overlayContainer}>
             <SettingsProfileComponent />
             <SettingsNotificationsComponent />
-            
+            <SignoutBtnComponent />
+            <FooterComponent />
         </View>
       </ImageBackground>
     </View>
