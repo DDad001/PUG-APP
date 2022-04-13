@@ -1,11 +1,13 @@
 import React, { FC, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ImageBackground, Pressable } from "react-native";
+import TennisRacket from "../assets/tennisRacket.png";
 
 
 const PassedLikedEventsScreen: FC = () => {
   return (
-    <View>
-      <Text>Hello I am the Passed liked events screen!</Text>
+    <View style={styles.container}>
+      <ImageBackground source={TennisRacket} style={styles.overlay} >
+      </ImageBackground>
     </View>
   );
 };
@@ -14,7 +16,12 @@ const PassedLikedEventsScreen: FC = () => {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-    }
+    },
+    overlay:{
+        flex: 1,
+        width: "100%",
+        height: "100%"
+    },
 });
 
 
