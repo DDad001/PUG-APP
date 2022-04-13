@@ -1,5 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, Layout } from '@ui-kitten/components';
+
 //Screens
 import LoginScreen from './Screens/LoginScreen';
 import LoadingLogoScreen from './Screens/LoadingLogoScreen';
@@ -15,17 +18,22 @@ import CardListComponent from './Components/CardListComponent';
 
 export default function App() {
   return (
-    <>
-      {/* <ListViewEventsScreen/> */}
+
+    <ApplicationProvider {...eva} theme={eva.light}>
       <CreateAccountScreen />
-      {/* <LoadingLogoScreen/> */}
-      {/* <FooterComponent/> */}
-      {/* <LoginScreen /> */}
-      {/* <CreateAccountScreen /> */}
-      {/* <LoadingLogoScreen/> */}
-      {/* <NotificationsScreen /> */}
-      {/* <FollowingScreen /> */}
-    </>
+    </ApplicationProvider>
+
+
+    
+    //   <ListViewEventsScreen/>
+    //   <LoadingLogoScreen/>
+    //   <FooterComponent/>
+    //   <LoginScreen />
+    //   <CreateAccountScreen /> 
+    //   <LoadingLogoScreen/> 
+    //   <NotificationsScreen />
+    //  <FollowingScreen /> 
+   
     // <View style={styles.container}>
     //   <Text>In the Dev Branch</Text>
     //   <StatusBar style="auto" />

@@ -1,5 +1,7 @@
 import { FC, useState } from "react";
 import { View, StyleSheet, Text, TextInput, ImageBackground, ScrollView, Pressable } from "react-native";
+import { Datepicker, Icon, Layout } from "@ui-kitten/components";
+
 import PUGbutton from "../Components/PUGButton";
 import CourtPicture from "../assets/Court.png";
 import AppLoading from "expo-app-loading";
@@ -25,6 +27,8 @@ const CreateAccountScreen: FC = () => {
     const [newLastName, setNewLastName] = useState<string>("");
     const [newUsername, setNewUsername] = useState<string>("");
     const [newPassword, setNewPassword] = useState<string>("");
+
+    const [date, setDate] = useState<Date>(new Date());
 
     //place holders Not actually being used!
     const [DOB, setDOB] = useState<string>("");
@@ -68,8 +72,16 @@ const CreateAccountScreen: FC = () => {
                             <TextInput style={styles.input} onChangeText={(text) => setNewLastName(text)} value={newLastName} placeholder="Last name" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter last name"/>
                             <TextInput style={styles.input} onChangeText={(text) => setNewUsername(text)} value={newUsername} placeholder="Username" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter username"/>
                             <TextInput style={styles.input} onChangeText={(text) => setNewPassword(text)} value={newPassword} placeholder="Password" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter password"/>
-                            <TextInput style={styles.input} onChangeText={(text) => setDOB(text)} value={DOB} placeholder="Date of birth" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter your date of birth"/>
-
+                            {/* What the hell does "layout do!!!" */}
+                            <Datepicker
+                                style={[styles.input, {}]}
+                                // date={new Date(2000, 0, 1)}
+                                initialVisibleDate={new Date(2000, 0, 1)}
+                                date={date}
+                                min={new Date(1900, 0, 0)}
+                                max={new Date(2004, 7, 4)}
+                                onSelect={(nextDate) => setDate(nextDate)}
+                                />
                             {/* State dropdown and city input field! */}
                             <View style={{flex: 1, flexDirection: "row"}}>
                                 <TextInput style={styles.stateInput} onChangeText={(text) => setState(text)} value={state} placeholder="State" keyboardType="default" placeholderTextColor={"rgba(59, 86, 124, 1)"} accessibilityLabel="Enter the state you reside in"/>
@@ -90,8 +102,6 @@ const CreateAccountScreen: FC = () => {
                                 </View>
                             </Pressable>
                         </View>
-                    {/* <Text>{firstName}</Text>
-                    <Text>{lastName}</Text> */}
                 </ScrollView>
             </ImageBackground>
         </View>
