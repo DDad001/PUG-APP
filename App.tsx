@@ -24,11 +24,11 @@ export default function App() {
   return (
 
     <ApplicationProvider {...eva} theme={eva.light}>
-      <CreateAccountScreen />
+      {/* <CreateAccountScreen /> */}
+      <ProfileScreen/>
     </ApplicationProvider>
 
 
-    
     //   <ListViewEventsScreen/>
     //   <LoadingLogoScreen/>
     //   <FooterComponent/>
