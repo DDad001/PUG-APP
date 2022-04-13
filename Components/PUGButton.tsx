@@ -5,10 +5,8 @@ import { View, StyleSheet, Text, Pressable } from "react-native";
 const PUGbutton: FC = () => {
   return (
     <>
-      <View style={{ flex: 0.1, flexDirection: "row", alignItems: "center", marginLeft: 10, paddingTop: 20, }}>
-        <Pressable onPress={() => console.log("Take Me Home!!!!")} accessibilityLabel="Take Me Home">
+      <View>  
             <Text style={styles.BtnBox}>PUG</Text>
-        </Pressable>
       </View>
     </>
   );
