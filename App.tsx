@@ -10,6 +10,7 @@ import CreateAccountScreen from './Screens/CreateAccountScreen';
 import NotificationsScreen from './Screens/NotificationsScreen';
 import FollowingScreen from './Screens/FollowingScreen';
 import SettingsScreen from './Screens/SettingsScreen';
+import PassedLikedEventsScreen from './Screens/PassedLikedEventsScreen';
 
 //Components
 import PUGbutton from './Components/PUGButton';
