@@ -66,7 +66,7 @@ const SettingsProfileComponent: FC = () => {
     <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView}>
         <Image source={Skier} style={styles.ImageStyle} />
-        <Text style={styles.TextStyle}>smorenzone@codestack.co</Text>
+        <Text style={styles.TextStyle}>Scotterpop</Text>
       </View>
 
     </View>
@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 50,
-    marginRight: 20,
   },
   ScrollStyle: {
     flex: 1,
