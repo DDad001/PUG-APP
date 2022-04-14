@@ -318,6 +318,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     textDecorationColor: "white",
     marginRight: 7,
+    marginBottom:50
   },
   subTxtNoUnderline: {
     color: "white",
