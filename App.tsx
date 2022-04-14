@@ -33,7 +33,8 @@ export default function App() {
       {/* <AddEventScreen /> */}
       {/* <PassedLikedEventsScreen/> */}
       {/* <ProfileScreen/> */}
-      <CreateAccountScreen />
+      {/* <CreateAccountScreen /> */}
+      <SettingsScreen />
     </NativeBaseProvider>
     </ApplicationProvider>
 

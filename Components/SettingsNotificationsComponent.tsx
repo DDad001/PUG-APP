@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import {  ScrollView, StyleSheet, Image, View, } from "react-native";
+import {  ScrollView, StyleSheet, Image, View, Pressable} from "react-native";
 import { Switch } from "react-native-paper";
 import AppLoading from "expo-app-loading";
 import {
@@ -78,6 +78,9 @@ const SettingsNotificationsComponent: FC = () => {
 
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
+  const [showModal, setShowModal] = useState(false);
+  let [service, setService] = useState("");
+
   return (
     <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView }>
@@ -86,8 +89,12 @@ const SettingsNotificationsComponent: FC = () => {
       </View>
 
       <View style={styles.NotificationView}>
-        <Text style={styles.TextStyle}>Edit Profile</Text>
+      <Text style={styles.TextStyle}>Edit Profile</Text>
+        <Pressable onPress={() => setShowModal(true)}>
+        
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
+        </Pressable>
+        
       </View>
 
       <View style={styles.NotificationView}>
@@ -99,6 +106,86 @@ const SettingsNotificationsComponent: FC = () => {
         <Text style={styles.TextStyle}>Delete Account</Text>
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
       </View>
+
+      <Center style={{ marginTop: 50, flexDirection: 'row' }}>
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+        <Modal.Content maxWidth="400px">
+          <Modal.CloseButton />
+          <Modal.Header><Text style={{color: '#0A326D', fontSize: 20,}}>Edit Profile</Text></Modal.Header>
+          <Modal.Body>
+            <Box>
+              <FormControl.Label> First Name</FormControl.Label>
+              <Input placeholder="Enter First Name" />
+            </Box>
+            <Box mt="3">
+              <FormControl.Label>Last Name</FormControl.Label>
+              <Input placeholder="Enter Last Name" />
+            </Box>
+            <Box mt="3">
+              <FormControl.Label>Username</FormControl.Label>
+              <Input placeholder="Enter Username" />
+            </Box>
+            <Box mt="3">
+              <FormControl.Label>Password</FormControl.Label>
+              <Input placeholder="Enter Password" type="password" />
+            </Box>
+            <Box mt="3">
+              <FormControl.Label>Date of Birth</FormControl.Label>
+              <Input placeholder="MM/DD/YYYY" />
+            </Box>
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', marginTop: 13}}>
+            <Box>
+              <FormControl.Label>State</FormControl.Label>
+              <Select
+                selectedValue={service}
+                minWidth="130"
+                accessibilityLabel="Choose Service"
+                placeholder="Choose State"
+                _selectedItem={{
+                  bg: "teal.600",
+                  endIcon: <CheckIcon size="5" />,
+                }}
+                onValueChange={(itemValue) => setService(itemValue)}
+              >
+                <Select.Item label="California" value="CA" />
+                <Select.Item label="Arizona" value="AZ" />
+                <Select.Item label="Nevada" value="NV" />
+                <Select.Item label="Oregon" value="OR" />
+                <Select.Item label="Washington" value="WA" />
+              </Select>
+            </Box>
+            <Box>
+              <FormControl.Label >City</FormControl.Label>
+              <Input placeholder="Enter City" minWidth="150" />
+            </Box>
+            </View>
+            
+          </Modal.Body>
+          <Modal.Footer>
+            <Button.Group space={2}>
+              <Button
+                variant="ghost"
+                colorScheme="blueGray"
+                onPress={() => {
+                  setShowModal(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                onPress={() => {
+                  setShowModal(false);
+                }}
+                style={{backgroundColor: '#0A326D'}}
+              >
+                Save Changes
+              </Button>
+            </Button.Group>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+    </Center>
+
 
     </View>
   );
