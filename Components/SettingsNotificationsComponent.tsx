@@ -32,6 +32,7 @@ import {
 } from "@expo-google-fonts/roboto";
 
 import { Ionicons } from '@expo/vector-icons';
+// import { Modal } from 'native-base';
 
 const SettingsNotificationsComponent: FC = () => {
   let [fontsLoaded] = useFonts({
