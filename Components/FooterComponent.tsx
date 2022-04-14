@@ -8,7 +8,7 @@ import PUGbutton from "./PUGButton";
 const FooterComponent:FC = () => {
     return (
         <View style={styles.footerContainer}>
-           <MaterialIcons name="home" size={35} color="white" />
+           <MaterialIcons name="home" size={35} color="white" style={{}}/>
            <Entypo name="chat" size={35} color="white" />
             <PUGbutton/>
            <Ionicons name="add" size={35} color="white" />
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
 
     footerContainer:{
         backgroundColor:'#0A326D', 
-        paddingBottom:5,
-        paddingTop:10,
+        paddingBottom:15,
+        paddingTop:15,
         flexDirection: 'row',
         justifyContent:'space-evenly'
     },
