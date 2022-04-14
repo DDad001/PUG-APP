@@ -9,12 +9,15 @@ import PUGHeader from "../Components/PUGHeader";
 
 const ListViewEventsScreen: FC = () => {
     return (
+        <>
       <View style={styles.container}>
           <ImageBackground source={SoccerBall} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
               <PUGHeader/>
               <CardListComponent/>
           </ImageBackground>
       </View>
+      <FooterComponent/>
+        </>
     //   ic:baseline-notifications
     )
 }

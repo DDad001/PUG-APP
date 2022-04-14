@@ -28,7 +28,8 @@ export default function App() {
       {/* <ProfileScreen/>
       <FooterComponent/> */}
       {/* <ListViewEventsScreen/> */}
-        <PassedLikedEventsScreen/>
+      <EventDisplayedScreen/>
+        {/* <PassedLikedEventsScreen/> */}
      {/* <FooterComponent/>  */}
     </ApplicationProvider>
 

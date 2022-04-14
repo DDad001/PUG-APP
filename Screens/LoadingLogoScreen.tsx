@@ -60,6 +60,7 @@ const LoadingLogoScreen: FC = () => {
         Lato_700Bold_Italic,
         Lato_900Black,
         Lato_900Black_Italic,
+        OpenSans_400Regular,
     });
 
     if(!fontsLoaded){
