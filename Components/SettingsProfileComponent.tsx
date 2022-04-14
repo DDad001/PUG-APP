@@ -31,6 +31,7 @@ import {
 } from "@expo-google-fonts/roboto";
 
 import Skier from "../assets/Skier.png";
+import { Ionicons } from '@expo/vector-icons';
 
 const SettingsProfileComponent: FC = () => {
   let [fontsLoaded] = useFonts({
@@ -65,6 +66,7 @@ const SettingsProfileComponent: FC = () => {
   return (
     <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView}>
+      <Ionicons name="chevron-back" size={35} color="white" style={{marginTop:7, marginLeft: 15, alignSelf:'flex-start'}}/>
         <Image source={Skier} style={styles.ImageStyle} />
         <Text style={styles.TextStyle}>Scotterpop</Text>
       </View>

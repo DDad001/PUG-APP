@@ -11,6 +11,7 @@ import NotificationsScreen from './Screens/NotificationsScreen';
 import FollowingScreen from './Screens/FollowingScreen';
 import SettingsScreen from './Screens/SettingsScreen';
 import PassedLikedEventsScreen from './Screens/PassedLikedEventsScreen';
+import AddEventScreen from './Screens/AddEventScreen';
 
 //Components
 import PUGbutton from './Components/PUGButton';
@@ -24,17 +25,13 @@ export default function App() {
   return (
 
     <ApplicationProvider {...eva} theme={eva.light}>
-      {/* <SettingsScreen /> */}
-      {/* <ProfileScreen/>
-      <FooterComponent/> */}
-      {/* <ListViewEventsScreen/> */}
-      <EventDisplayedScreen/>
-        {/* <PassedLikedEventsScreen/> */}
-     {/* <FooterComponent/>  */}
+      <AddEventScreen />
+      {/* <CreateAccountScreen /> */}
     </ApplicationProvider>
 
 
     
+  // <PassedLikedEventsScreen />
     // <CreateAccountScreen />
     //   <LoadingLogoScreen/>
     //   <LoginScreen />
