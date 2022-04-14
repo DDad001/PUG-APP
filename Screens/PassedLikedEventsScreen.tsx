@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { View, Text, StyleSheet, ImageBackground, Pressable, Image } from "react-native";
-import tennis from "../assets/tennisRacket.png";
+import tennis from "../assets/TennisRacket.png";
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -115,10 +115,19 @@ const PassedLikedEventsScreen: FC = () => {
           </View>
                 <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:15}}>Hal Bartholomew Sports Park {'\n'}Football Game </Text>
 
-                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+                {/* DO NOT DELETE THIS--- CODE FOR LIKED EVENTS PAGE */}
+                {/* <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
                 <MaterialIcons name="location-on" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginLeft: 12, padding:5  }} />
                 <FontAwesome5 name="heart" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
+                </View> */}
+
+                {/* CODE FOR PAST EVENTS PAGE */}
+                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+                <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:110, height:27 }} >
+                    <Text style={{marginLeft:10, color:'white', fontFamily:"Lato_400Regular"}}>Delete Event</Text>
                 </View>
+                </View>
+  
 
         </View>
       </View>
