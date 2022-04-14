@@ -30,7 +30,7 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-import Skier from "../assets/Skier.png";
+import man from '../assets/man.jpg';
 import { Ionicons } from '@expo/vector-icons';
 
 const SettingsProfileComponent: FC = () => {
@@ -67,7 +67,7 @@ const SettingsProfileComponent: FC = () => {
     <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView}>
       <Ionicons name="chevron-back" size={35} color="white" style={{marginTop:7, marginLeft: 15, alignSelf:'flex-start'}}/>
-        <Image source={Skier} style={styles.ImageStyle} />
+        <Image source={man} style={styles.ImageStyle} />
         <Text style={styles.TextStyle}>Scotterpop</Text>
       </View>
 

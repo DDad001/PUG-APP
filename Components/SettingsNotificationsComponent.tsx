@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Text, ScrollView, StyleSheet, Image, View, } from "react-native";
+import {  ScrollView, StyleSheet, Image, View, } from "react-native";
 import { Switch } from "react-native-paper";
 import AppLoading from "expo-app-loading";
 import {
@@ -31,9 +31,18 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-import Skier from "../assets/Skier.png";
-
 import { Ionicons } from '@expo/vector-icons';
+import {
+  Modal,
+  Center,
+  Button,
+  FormControl,
+  Input,
+  Select,
+  Text,
+  CheckIcon,
+  Box
+} from "native-base";
 
 const SettingsNotificationsComponent: FC = () => {
   let [fontsLoaded] = useFonts({
@@ -77,12 +86,7 @@ const SettingsNotificationsComponent: FC = () => {
       </View>
 
       <View style={styles.NotificationView}>
-        <Text style={styles.TextStyle}>Change Username</Text>
-        <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
-      </View>
-
-      <View style={styles.NotificationView}>
-        <Text style={styles.TextStyle}>Change Password</Text>
+        <Text style={styles.TextStyle}>Edit Profile</Text>
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
       </View>
 

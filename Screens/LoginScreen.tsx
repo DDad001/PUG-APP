@@ -82,14 +82,15 @@ const LoginScreen: FC = () => {
       >
         <View
           style={{
-            flex: 0.3,
+            flex: 0.35,
             alignItems: "center",
-            paddingTop: 75,
+            justifyContent: "center",
+            paddingTop: 50,
           }}
         >
           <Text style={styles.headingTxt}>PUG</Text>
         </View>
-        <View style={{ flex: 0.3, marginTop: 10 }}>
+        <View style={{ flex: 0.3}}>
           <TextInput
             style={styles.input}
             onChangeText={(text) => setEmail(text)}
@@ -109,7 +110,7 @@ const LoginScreen: FC = () => {
             accessibilityLabel="Enter your password"
           />
         </View>
-        <View style={{ flex: 0.2, alignItems: "center", marginTop: 50 }}>
+        <View style={{ flex: 0.15, alignItems: "center"}}>
           <Pressable
             style={{
               backgroundColor: "rgba(10, 50, 109, 1)",
@@ -122,13 +123,11 @@ const LoginScreen: FC = () => {
             <Text style={styles.loginBtnTxt}>Login</Text>
           </Pressable>
         </View>
-        <View style={{flex: 0.2, alignItems: "center"}}>
-          <Pressable onPress={() => console.log("Send the user to help!")} accessibilityLabel="Click here if you need help?">
-            <View style={{flexDirection: "row"}}>
-                <Text style={styles.subTxt}>Need help</Text>
-                <FontAwesome name="question-circle-o" size={19} color="white"/>
-            </View>
-          </Pressable>
+        <View style={{flex: 0.1, flexDirection: "row", justifyContent: "center"}}>
+            <Text style={styles.subTxtNoUnderline}>Don't have an account?</Text>
+            <Pressable onPress={() => console.log("Send the user to the create account screen")} accessibilityLabel="If you don">
+                <Text style={styles.subTxt}>Sign up here!</Text>
+            </Pressable>
         </View>
       </ImageBackground>
     </View>
@@ -187,6 +186,13 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto_400Regular",
     fontSize: 16,
     textDecorationLine: "underline",
+    textDecorationColor: "white",
+    marginRight: 7
+  },
+  subTxtNoUnderline:{
+    color: "white",
+    fontFamily: "Roboto_400Regular",
+    fontSize: 16,
     textDecorationColor: "white",
     marginRight: 7
   }
