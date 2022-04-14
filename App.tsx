@@ -20,15 +20,21 @@ import FooterComponent from './Components/FooterComponent';
 import CardListComponent from './Components/CardListComponent';
 import EventDisplayedScreen from './Screens/EventDisplayedScreen';
 import ProfileScreen from './Screens/ProfileScreen';
+import { NativeBaseProvider } from 'native-base';
+
 
 export default function App() {
   return (
 
     <ApplicationProvider {...eva} theme={eva.light}>
+      <NativeBaseProvider>
+     
+
       {/* <AddEventScreen /> */}
       {/* <PassedLikedEventsScreen/> */}
-      <ProfileScreen/>
-      {/* <CreateAccountScreen /> */}
+      {/* <ProfileScreen/> */}
+      <CreateAccountScreen />
+    </NativeBaseProvider>
     </ApplicationProvider>
 
 
