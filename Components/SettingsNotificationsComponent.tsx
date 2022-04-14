@@ -31,8 +31,6 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-import Skier from "../assets/Skier.png";
-
 import { Ionicons } from '@expo/vector-icons';
 
 const SettingsNotificationsComponent: FC = () => {
@@ -77,12 +75,7 @@ const SettingsNotificationsComponent: FC = () => {
       </View>
 
       <View style={styles.NotificationView}>
-        <Text style={styles.TextStyle}>Change Username</Text>
-        <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
-      </View>
-
-      <View style={styles.NotificationView}>
-        <Text style={styles.TextStyle}>Change Password</Text>
+        <Text style={styles.TextStyle}>Edit Profile</Text>
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
       </View>
 

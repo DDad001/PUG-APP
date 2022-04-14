@@ -26,8 +26,9 @@ export default function App() {
 
     <ApplicationProvider {...eva} theme={eva.light}>
       {/* <AddEventScreen /> */}
-      <PassedLikedEventsScreen/>
+      {/* <PassedLikedEventsScreen/> */}
       {/* <CreateAccountScreen /> */}
+      <SettingsScreen />
     </ApplicationProvider>
 
 
