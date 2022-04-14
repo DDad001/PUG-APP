@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Text, ScrollView, StyleSheet, Image, View, } from "react-native";
+import {  ScrollView, StyleSheet, Image, View, } from "react-native";
 import { Switch } from "react-native-paper";
 import AppLoading from "expo-app-loading";
 import {
@@ -32,7 +32,17 @@ import {
 } from "@expo-google-fonts/roboto";
 
 import { Ionicons } from '@expo/vector-icons';
-// import { Modal } from 'native-base';
+import {
+  Modal,
+  Center,
+  Button,
+  FormControl,
+  Input,
+  Select,
+  Text,
+  CheckIcon,
+  Box
+} from "native-base";
 
 const SettingsNotificationsComponent: FC = () => {
   let [fontsLoaded] = useFonts({
