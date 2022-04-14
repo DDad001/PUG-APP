@@ -113,7 +113,7 @@ const PassedLikedEventsScreen: FC = () => {
               </View>
             </View>
           </View>
-                <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:15}}>Hal Bartholomew Sports Park {'\n'}Football Game </Text>
+                <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:14}}>Hal Bartholomew Sports Park {'\n'}Football Game </Text>
 
                 <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
                 <MaterialIcons name="location-on" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginLeft: 12, padding:5  }} />
