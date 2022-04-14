@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
     footerContainer:{
         backgroundColor:'#0A326D', 
-        paddingBottom:13,
+        paddingBottom:15,
         paddingTop:15,
         flexDirection: 'row',
         justifyContent:'space-evenly'
