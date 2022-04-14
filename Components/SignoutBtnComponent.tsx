@@ -63,13 +63,13 @@ const SignoutBtnComponent: FC = () => {
   return (
     
       <View style={styles.NotificationView}>
-        <Pressable style={{backgroundColor: "#7E90AB", borderRadius: 50, alignItems: "center", marginLeft: 50, marginRight: 50}} onPress={() => console.log("Take Me Home!!!!")} accessibilityLabel="Take Me Home" >
+        <Pressable style={{backgroundColor: "#7E90AB", borderRadius: 50, alignItems: "center", marginLeft: 70, marginRight: 70}} onPress={() => console.log("Take Me Home!!!!")} accessibilityLabel="Take Me Home" >
             <Text style={{ color: "white",
     fontFamily: "Roboto_400Regular",
     fontSize: 24,
     justifyContent: "center",
-    paddingTop: 25,
-    paddingBottom: 25}}>Sign out</Text>
+    paddingTop: 18,
+    paddingBottom: 18}}>Sign out</Text>
         </Pressable>
       </View>
     
