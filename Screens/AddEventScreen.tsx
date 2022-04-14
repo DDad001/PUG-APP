@@ -91,46 +91,48 @@ const AddEventScreen: FC = () => {
         resizeMode="cover"
         style={{ height: "100%", width: "100%" }}
       >
-        <ScrollView style={{ flex: 1, marginTop: 50 }}>
-          <View
-            style={{
-              flex: 0.1,
-              flexDirection: "row",
-              paddingLeft: 20,
-            }}
-          >
-            <View style={{ flex: 1, alignItems: "flex-start" }}>
-              <Text
-                style={{
-                  fontFamily: "Lato_700Bold",
-                  fontWeight: "bold",
-                  fontSize: 35,
-                  color: "white",
-                }}
-              >
-                Event
-              </Text>
-            </View>
-            <View
+        <View
+          style={{
+            flex: 0.1,
+            flexDirection: "row",
+            paddingLeft: 20,
+            marginBottom: 10
+          }}
+        >
+          <View style={{ flex: 1, alignItems: "flex-start", justifyContent: "flex-end"}}>
+            <Text
               style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
+                fontFamily: "Lato_700Bold",
+                fontWeight: "bold",
+                fontSize: 35,
+                color: "white",
               }}
             >
-              <Text
-                style={{
-                  fontFamily: "Lato_700Bold",
-                  fontWeight: "bold",
-                  fontSize: 20,
-                  color: "white",
-                }}
-              >
-                Category
-              </Text>
-            </View>
+              Event
+            </Text>
           </View>
-          <View style={{ flex: 1, marginTop: 20 }}>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Lato_700Bold",
+                fontWeight: "bold",
+                fontSize: 20,
+                color: "white",
+              }}
+            >
+              Category
+            </Text>
+          </View>
+        </View>
+        {/* Place under here */}
+        <ScrollView style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>
             <TextInput
               style={styles.input}
               onChangeText={(text) => setNameOfEvent(text)}
@@ -291,7 +293,7 @@ const AddEventScreen: FC = () => {
               </Text>
             </Pressable>
           </View>
-          
+
           <View style={{ flex: 0.2, alignItems: "center", marginTop: 40 }}>
             <Pressable
               onPress={() => console.log("Send the user to help!")}
@@ -305,7 +307,6 @@ const AddEventScreen: FC = () => {
           </View>
 
           {/* Add the need help section here */}
-
         </ScrollView>
       </ImageBackground>
     </View>
