@@ -31,6 +31,8 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
+import { Box, CheckIcon, FormControl, Select } from "native-base";
+import { Entypo } from '@expo/vector-icons';
 
 const CreateAccountScreen: FC = () => {
   const [newFirstName, setNewFirstName] = useState<string>("");
@@ -151,27 +153,36 @@ const CreateAccountScreen: FC = () => {
               />
               {/* State dropdown and city input field! */}
               <View style={{ flex: 1, flexDirection: "row" }}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <TextInput
-                    style={styles.stateInput}
-                    onChangeText={(text) => setState(text)}
-                    value={state}
-                    placeholder="State"
-                    keyboardType="default"
-                    placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                    accessibilityLabel="Enter the state you reside in"
-                  />
-                </View>
-                <TextInput
-                  style={styles.cityInput}
-                  onChangeText={(text) => setCity(text)}
-                  value={city}
-                  placeholder="City"
-                  keyboardType="default"
-                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                  accessibilityLabel="Enter the city you reside in"
-                />
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                  <View style={{marginTop:3,marginLeft:18,}}>
+              <Box maxW="155" borderRadius={15} style={{backgroundColor:"white", shadowColor: "black",shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3,}}>
+          <Select minWidth="150"minHeight="53" accessibilityLabel="Choose Service" placeholderTextColor={'#3B567C'} placeholder="Select State" _selectedItem={{
+              bg: "black.300",
+              endIcon: <CheckIcon size={5} color="#3B567C"
+              />
+            }} borderWidth="0" fontFamily={"Roboto_400Regular"} fontSize={15} color={'#3B567C'}>
+            <Select.Item label="CA" value="ux" />
+            <Select.Item label="AL" value="web" />
+            <Select.Item label="PA" value="cross" />
+            <Select.Item label="WD" value="ui" />
+            <Select.Item label="NY" value="backend" />
+          </Select>
+          {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+            Please make a selection!
+        </FormControl.ErrorMessage> */}
+        </Box>
               </View>
+        </View>
+              <TextInput
+                style={styles.cityInput}
+                onChangeText={(text) => setCity(text)}
+                value={city}
+                placeholder="City"
+                keyboardType="default"
+                placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                accessibilityLabel="Enter the city you reside in"
+              />
+            </View>
             </View>
             {/* Flex losses all meaning when scroll view is used! Disregard logic with flex below! */}
             <View style={{ flex: 0.2, alignItems: "center", marginTop: 20 }}>
@@ -307,6 +318,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     textDecorationColor: "white",
     marginRight: 7,
+    marginBottom:50
   },
   subTxtNoUnderline: {
     color: "white",
