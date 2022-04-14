@@ -153,6 +153,7 @@ const CreateAccountScreen: FC = () => {
               />
               {/* State dropdown and city input field! */}
               <View style={{ flex: 1, flexDirection: "row" }}>
+              <View style={{ flex: 1, flexDirection: "row" }}>
                   <View style={{marginTop:3,marginLeft:18,}}>
               <Box maxW="155" borderRadius={15} style={{backgroundColor:"white", shadowColor: "black",shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3,}}>
           <Select minWidth="150"minHeight="53" accessibilityLabel="Choose Service" placeholderTextColor={'#3B567C'} placeholder="Select State" _selectedItem={{
@@ -181,6 +182,7 @@ const CreateAccountScreen: FC = () => {
                 placeholderTextColor={"rgba(59, 86, 124, 1)"}
                 accessibilityLabel="Enter the city you reside in"
               />
+            </View>
             </View>
             {/* Flex losses all meaning when scroll view is used! Disregard logic with flex below! */}
             <View style={{ flex: 0.2, alignItems: "center", marginTop: 20 }}>
