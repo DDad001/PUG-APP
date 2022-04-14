@@ -7,6 +7,7 @@ import {
   ImageBackground,
   ScrollView,
   Pressable,
+  KeyboardAvoidingView
 } from "react-native";
 import { Datepicker, Icon, Layout } from "@ui-kitten/components";
 
@@ -14,6 +15,7 @@ import PUGbutton from "../Components/PUGButton";
 import CourtPicture from "../assets/Court.png";
 import AppLoading from "expo-app-loading";
 import { FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 import {
   useFonts,
   Roboto_100Thin,
@@ -63,32 +65,36 @@ const CreateAccountScreen: FC = () => {
   }
 
   return (
+    <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
     <View style={styles.container}>
       <ImageBackground
         source={CourtPicture}
         resizeMode="cover"
         style={{ height: "100%", width: "100%" }}
       >
-        <ScrollView style={[styles.overlayContainer, { marginTop: 50 }]}>
-          <View
-            style={{
-              flex: 0.05,
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: 10,
-            }}
-          >
-            <View style={{}}>
-              <Text style={styles.headingTxt}>
-                Want to upload your first event?
-              </Text>
-            </View>
-          </View>
-          <View style={{ flex: 0.05, alignItems: "center", marginBottom: 20 }}>
-            <Text style={styles.subheadingTxt}>
-              Join the PUG family to create your account.
+        <View style={{flex: 0.15, justifyContent: "center", paddingTop: 20, backgroundColor: "purple"}}>
+          <Ionicons name="chevron-back" size={35} color="white" style={{marginTop:7, marginLeft: 15, alignSelf:'flex-start'}}/>
+        </View>
+        <View
+          style={{
+            flex: 0.1,
+            alignItems: "center",
+            justifyContent: "center",
+            marginBottom: 5,
+          }}
+        >
+            <Text style={styles.headingTxt}>
+              Want to upload your first event?
             </Text>
-          </View>
+        </View>
+        <View style={{ flex: 0.08, alignItems: "center"}}>
+          <Text style={styles.subheadingTxt}>
+            Join the PUG family to create your account.
+          </Text>
+        </View>
+        <ScrollView
+          style={[styles.overlayContainer, { }]}
+        >
           <View style={{ flex: 0.7 }}>
             <TextInput
               style={[styles.input, { marginTop: 0 }]}
@@ -126,7 +132,6 @@ const CreateAccountScreen: FC = () => {
               placeholderTextColor={"rgba(59, 86, 124, 1)"}
               accessibilityLabel="Enter password"
             />
-            {/* What the hell does "layout do!!!" */}
             <Datepicker
               style={[styles.input, {}]}
               // date={new Date(2000, 0, 1)}
@@ -188,6 +193,8 @@ const CreateAccountScreen: FC = () => {
         </ScrollView>
       </ImageBackground>
     </View>
+    </KeyboardAvoidingView>
+
   );
 };
 
