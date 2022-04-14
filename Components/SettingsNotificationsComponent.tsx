@@ -208,10 +208,11 @@ const styles = StyleSheet.create({
     marginLeft: 35,
   },
   NotificationView: {
-    flex: 1,
+    //flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    marginTop: 30,
   },
   SwitchStyle: {
     borderColor: 'white',
