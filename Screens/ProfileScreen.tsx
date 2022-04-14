@@ -36,6 +36,7 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
+import FooterComponent from "../Components/FooterComponent";
 
 const ProfileScreen: FC = () => {
 
@@ -69,17 +70,18 @@ const ProfileScreen: FC = () => {
   }
 
  return (
+     <>
     <View style={styles.mainContainer}>
          <ImageBackground source={SoccerField} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
              <View style={{flexDirection:'row', justifyContent:'center'}}>
                 <View style={{backgroundColor:'white', height:35, width:110, marginTop:50, borderTopLeftRadius:10, borderBottomLeftRadius:10}}>
-                    <Text style={{marginLeft:20, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>My Profile</Text>
+                    <Text style={{marginLeft:20, marginTop:10, fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>My Profile</Text>
                 </View>
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:50}}>
-                    <Text style={{marginLeft:12, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
+                    <Text style={{marginLeft:12, marginTop:10,fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
                 </View>
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:50,borderTopRightRadius:10, borderBottomRightRadius:10}}>
-                    <Text style={{marginLeft:10, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Liked events</Text>
+                    <Text style={{marginLeft:10, marginTop:10,fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Liked events</Text>
                 </View>
              </View>
           <View style={{alignItems:'center'}}>
@@ -116,12 +118,12 @@ const ProfileScreen: FC = () => {
             <View>
               <View style={{ flexDirection: 'row' }}>
                 <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
-                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16}}>3/13/22</Text>
+                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13}}>3/13/22</Text>
               </View>
               <View style={{ flexDirection: 'column', }}>
                 <View style={{ flexDirection: 'row', }}>
                 <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop:5, marginLeft: 14 }} />
-                  <Text style={{ marginTop: 8, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16 }}>9:30 am</Text>
+                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13 }}>9:30 am</Text>
                 </View>
 
                 <View style={{ flexDirection: 'row' }}>
@@ -134,9 +136,13 @@ const ProfileScreen: FC = () => {
             </View>
           </View>
 
-                <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:15 }}>Hal Bartholomew Sports Park Football Game </Text>
-                <Text style={{marginTop:5, marginLeft:4, fontSize:13, fontFamily: "Lato_400Regular"}}>6300 Whitelock Pkwy, Elk Grove, CA 95757</Text>
-          
+                <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>Hal Bartholomew Sports Park Football Game </Text>
+                <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>6300 Whitelock Pkwy,{'\n'}Elk Grove, CA 95757</Text>
+                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+                <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:105, height:27 }} >
+                    <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
+                </View>
+                </View>
         </View>
       </View>
    </ScrollView>
@@ -146,6 +152,8 @@ const ProfileScreen: FC = () => {
 
           </ImageBackground>
     </View>
+    <FooterComponent/>
+     </>
  )   
 }
 
@@ -164,7 +172,7 @@ const styles = StyleSheet.create({
         marginHorizontal:20,
         marginVertical: 20,
         marginLeft:18,
-        height:185,
+        height:205,
         width:260
       },
       cardContent: {
