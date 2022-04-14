@@ -12,7 +12,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-
+import { FontAwesome } from "@expo/vector-icons";
 import GreenCourt from "../assets/GreenCourt.png";
 import AppLoading from "expo-app-loading";
 import {
@@ -91,12 +91,11 @@ const AddEventScreen: FC = () => {
         resizeMode="cover"
         style={{ height: "100%", width: "100%" }}
       >
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1, marginTop: 50 }}>
           <View
             style={{
               flex: 0.1,
               flexDirection: "row",
-              marginTop: 50,
               paddingLeft: 20,
             }}
           >
@@ -292,10 +291,21 @@ const AddEventScreen: FC = () => {
               </Text>
             </Pressable>
           </View>
-
+          
+          <View style={{ flex: 0.2, alignItems: "center", marginTop: 40 }}>
+            <Pressable
+              onPress={() => console.log("Send the user to help!")}
+              accessibilityLabel="Click here if you need help?"
+            >
+              <View style={{ flexDirection: "row" }}>
+                <Text style={styles.subTxt}>Need help</Text>
+                <FontAwesome name="question-circle-o" size={19} color="white" />
+              </View>
+            </Pressable>
+          </View>
 
           {/* Add the need help section here */}
-          
+
         </ScrollView>
       </ImageBackground>
     </View>
@@ -366,6 +376,14 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
+  },
+  subTxt: {
+    color: "white",
+    fontFamily: "Roboto_400Regular",
+    fontSize: 16,
+    textDecorationLine: "underline",
+    textDecorationColor: "white",
+    marginRight: 7,
   },
 });
 
