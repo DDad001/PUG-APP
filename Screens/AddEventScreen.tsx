@@ -8,7 +8,9 @@ import {
   TouchableHighlight,
   Pressable,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
+import FooterComponent from "../Components/FooterComponent";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -85,6 +87,8 @@ const AddEventScreen: FC = () => {
   }
 
   return (
+    <>
+   
     <View style={styles.container}>
       <ImageBackground
         source={GreenCourt}
@@ -93,29 +97,31 @@ const AddEventScreen: FC = () => {
       >
         <View
           style={{
-            flex: 0.1,
+            flex: 0.15,
             flexDirection: "row",
             paddingLeft: 20,
-            marginBottom: 10
+            marginBottom: 10,
+            marginTop: 20,
+            // backgroundColor :"orange"
           }}
         >
-          <View style={{ flex: 1, alignItems: "flex-start", justifyContent: "flex-end"}}>
+          <View style={{ flex: 1, alignItems: "flex-start", justifyContent: "center"}}>
             <Text
               style={{
                 fontFamily: "Lato_700Bold",
                 fontWeight: "bold",
-                fontSize: 35,
+                fontSize: 28,
                 color: "white",
               }}
             >
-              Event
+              Add an Event
             </Text>
           </View>
           <View
             style={{
               flex: 1,
               alignItems: "center",
-              justifyContent: "flex-end",
+              justifyContent: "center",
             }}
           >
             <Text
@@ -126,11 +132,12 @@ const AddEventScreen: FC = () => {
                 color: "white",
               }}
             >
-              Category
+              Sport
             </Text>
           </View>
         </View>
-        {/* Place under here */}
+        <KeyboardAvoidingView style={{flex: 1}} behavior="height">
+
         <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1 }}>
             <TextInput
@@ -140,7 +147,7 @@ const AddEventScreen: FC = () => {
               placeholder="Name of the event"
               accessibilityLabel="Enter the event's name"
               placeholderTextColor={"rgba(59, 86, 124, 1)"}
-            />
+              />
           </View>
 
           <View style={{ flex: 1, flexDirection: "row" }}>
@@ -153,7 +160,7 @@ const AddEventScreen: FC = () => {
                   size={30}
                   color="rgba(59, 86, 124, 1)"
                   style={{ marginTop: 3, marginLeft: 8 }}
-                />
+                  />
                 <TextInput
                   style={{
                     backgroundColor: "orange",
@@ -165,7 +172,7 @@ const AddEventScreen: FC = () => {
                   placeholder="Date"
                   accessibilityLabel="Enter the date of when the event takes place"
                   placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                />
+                  />
               </View>
             </View>
             <View style={[styles.smallerInput, { flexDirection: "row" }]}>
@@ -174,7 +181,7 @@ const AddEventScreen: FC = () => {
                 size={30}
                 color="rgba(59, 86, 124, 1)"
                 style={{ marginLeft: 8, marginTop: 3 }}
-              />
+                />
               <TextInput
                 style={{
                   backgroundColor: "orange",
@@ -186,7 +193,7 @@ const AddEventScreen: FC = () => {
                 placeholder="Time"
                 accessibilityLabel="Enter the time of when the event starts"
                 placeholderTextColor={"rgba(59, 86, 124, 1)"}
-              />
+                />
             </View>
           </View>
           <View style={{ flex: 1 }}>
@@ -199,7 +206,7 @@ const AddEventScreen: FC = () => {
               placeholder="Event Details"
               accessibilityLabel="Enter the details of the event under 200 characters or less"
               placeholderTextColor={"rgba(59, 86, 124, 1)"}
-            />
+              />
             <Text
               style={{
                 color: "white",
@@ -207,7 +214,7 @@ const AddEventScreen: FC = () => {
                 fontSize: 15,
                 paddingLeft: 25,
               }}
-            >
+              >
               {eventDetails.length}/200 character limit
             </Text>
           </View>
@@ -222,16 +229,16 @@ const AddEventScreen: FC = () => {
               marginBottom: 10,
               marginTop: 10,
             }}
-          >
+            >
             <Text
               style={{
                 fontFamily: "Lato_700Bold",
                 fontWeight: "bold",
-                fontSize: 35,
+                fontSize: 28,
                 paddingLeft: 20,
                 color: "white",
               }}
-            >
+              >
               Location
             </Text>
           </View>
@@ -244,7 +251,7 @@ const AddEventScreen: FC = () => {
               placeholder="Address"
               accessibilityLabel="Enter the address of where the event takes place"
               placeholderTextColor={"rgba(59, 86, 124, 1)"}
-            />
+              />
           </View>
           <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={{ flex: 1, flexDirection: "row" }}>
@@ -255,7 +262,7 @@ const AddEventScreen: FC = () => {
                 placeholder="State"
                 accessibilityLabel="Enter the state where your event takes place"
                 placeholderTextColor={"rgba(59, 86, 124, 1)"}
-              />
+                />
             </View>
             <TextInput
               style={styles.smallerInput}
@@ -264,7 +271,7 @@ const AddEventScreen: FC = () => {
               placeholder="City"
               accessibilityLabel="Enter the city where your event takes place"
               placeholderTextColor={"rgba(59, 86, 124, 1)"}
-            />
+              />
           </View>
 
           {/* Add the create event button here */}
@@ -278,7 +285,7 @@ const AddEventScreen: FC = () => {
                 paddingLeft: 60,
                 paddingRight: 60,
               }}
-            >
+              >
               <Text
                 style={{
                   color: "white",
@@ -288,7 +295,7 @@ const AddEventScreen: FC = () => {
                   paddingTop: 20,
                   paddingBottom: 20,
                 }}
-              >
+                >
                 Create an event
               </Text>
             </Pressable>
@@ -298,7 +305,7 @@ const AddEventScreen: FC = () => {
             <Pressable
               onPress={() => console.log("Send the user to help!")}
               accessibilityLabel="Click here if you need help?"
-            >
+              >
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.subTxt}>Need help</Text>
                 <FontAwesome name="question-circle-o" size={19} color="white" />
@@ -308,8 +315,11 @@ const AddEventScreen: FC = () => {
 
           {/* Add the need help section here */}
         </ScrollView>
+              </KeyboardAvoidingView>
+              <FooterComponent />
       </ImageBackground>
     </View>
+    </> 
   );
 };
 
@@ -385,6 +395,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     textDecorationColor: "white",
     marginRight: 7,
+    marginBottom: 50
   },
 });
 
