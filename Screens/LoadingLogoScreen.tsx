@@ -68,10 +68,13 @@ const LoadingLogoScreen: FC = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={[{fontFamily: "Lato_400Regular",  fontSize:20}, styles.Titletxt]}>PUG</Text>
-            {/* <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']}>
-            <Text>Sign in with Facebook</Text>
-            </LinearGradient> */}
+            <View style={{flex: 0.6, justifyContent: "flex-end", alignItems: "center"}}>
+                <Text style={[{fontFamily: "Lato_400Regular",  fontSize:20, fontWeight: "bold", }, styles.Titletxt]}>PUG</Text>
+            </View>
+
+            <View style= {{flex: 0.1, alignItems: "center", paddingTop: 40}}>
+                <Text style={{fontFamily: "Lato_400Regular", color: "white", fontSize: 18}}>Pick up games</Text>
+            </View>
         </View>
     )
 }
@@ -80,8 +83,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#0A326D",
-        justifyContent: "center",
-        alignItems: "center"
     },
     Titletxt: {
         // fontFamily: "Lato" ,
