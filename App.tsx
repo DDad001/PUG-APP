@@ -28,7 +28,23 @@ import useUser from './Hooks/use-user';
 import UserContext from './Context/UserContext';
 
 
+import { GetAllFriends } from './Services/DataService';
+import { useEffect, useState } from 'react';
+
 export default function App() {
+
+  const [allFriends, setAllFriends] = useState([]);
+
+  useEffect(() => {
+    fetchFriend();
+  }, [])
+
+  const fetchFriend = async () => {
+    let results = await GetAllFriends();
+    setAllFriends(results.value)
+    console.log(results);
+  }
+
   return (
     <UserContext.Provider value={useUser()}>
       

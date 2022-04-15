@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -10,7 +10,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
-import { Box, CheckIcon, FormControl, Select } from "native-base";
+import { Box, CheckIcon, FormControl, Input, Select } from "native-base";
 import FooterComponent from "../Components/FooterComponent";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -47,17 +47,36 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
+
+
+
 const AddEventScreen: FC = () => {
   const [nameOfEvent, setNameOfEvent] = useState<string>("");
   const [eventDetails, setEventDetails] = useState<string>("");
   const [eventAddress, setEventAddress] = useState<string>("");
-
+  
   //dummy usestates!
   const [eventDate, setEventDate] = useState<string>("");
   const [eventTime, setEventTime] = useState<string>("");
   const [eventState, setEventState] = useState<string>("");
   const [eventCity, setEventCity] = useState<string>("");
 
+  
+  // const handleGetAllFriends = async () => {
+  //   let results = await GetAllFriends();
+  //   console.log(results);
+  // };
+
+
+  
+  // useEffect( async () => {
+
+  //     let allPeople = await GetAllFriends();
+  //     console.log(allPeople);
+
+  // }, []);
+  
+  
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -86,7 +105,6 @@ const AddEventScreen: FC = () => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
   return (
     <>
       <View style={styles.container}>
@@ -101,7 +119,7 @@ const AddEventScreen: FC = () => {
               flexDirection: "row",
               paddingLeft: 20,
               marginBottom: 10,
-              marginTop: 20,
+              marginTop: 25,
               // backgroundColor :"orange"
             }}
           >
@@ -131,7 +149,7 @@ const AddEventScreen: FC = () => {
               }}
             >
 
-<View style={{ marginLeft: 18, marginRight: 30 }}>
+                    <View style={{ marginLeft: 18, marginRight: 30 }}>
                     <Box
                       maxW="155"
                       borderRadius={14}
@@ -171,7 +189,7 @@ const AddEventScreen: FC = () => {
                   </View>            
             </View>
           </View>
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView style={{ flex: 1 }}>
               <View style={{ flex: 1 }}>
                 <TextInput
@@ -189,24 +207,7 @@ const AddEventScreen: FC = () => {
                 {/* Peter used a view to mimic the textInput instead! */}
                 <View style={{ flex: 1, flexDirection: "row" }}>
                   <View style={[styles.smallerInput, { flexDirection: "row" }]}>
-                    <MaterialCommunityIcons
-                      name="calendar-month"
-                      size={30}
-                      color="rgba(59, 86, 124, 1)"
-                      style={{ marginTop: 3, marginLeft: 8 }}
-                    />
-                    <TextInput
-                      style={{
-                        backgroundColor: "orange",
-                        paddingRight: 40,
-                        paddingLeft: 10,
-                      }}
-                      onChangeText={(text) => setEventDate(text)}
-                      value={eventDate}
-                      placeholder="Date"
-                      accessibilityLabel="Enter the date of when the event takes place"
-                      placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                    />
+                     <input type="date"/>
                   </View>
                 </View>
                 <View style={[styles.smallerInput, { flexDirection: "row" }]}>
