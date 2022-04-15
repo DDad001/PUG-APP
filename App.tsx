@@ -21,10 +21,12 @@ import CardListComponent from './Components/CardListComponent';
 import EventDisplayedScreen from './Screens/EventDisplayedScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import { NativeBaseProvider } from 'native-base';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 export default function App() {
   return (
+    <NavigationContainer>
 
     <ApplicationProvider {...eva} theme={eva.light}>
       <NativeBaseProvider>
@@ -37,6 +39,8 @@ export default function App() {
       {/* <SettingsScreen /> */}
     </NativeBaseProvider>
     </ApplicationProvider>
+
+    </NavigationContainer>
 
 
     
