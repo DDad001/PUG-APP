@@ -30,11 +30,11 @@ export default function App() {
       <NativeBaseProvider>
      
 
-      {/* <AddEventScreen /> */}
+      <AddEventScreen />
       {/* <PassedLikedEventsScreen/> */}
       {/* <ProfileScreen/> */}
       {/* <CreateAccountScreen /> */}
-      <SettingsScreen />
+      {/* <SettingsScreen /> */}
     </NativeBaseProvider>
     </ApplicationProvider>
 
