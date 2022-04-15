@@ -22,21 +22,35 @@ import EventDisplayedScreen from './Screens/EventDisplayedScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import { NativeBaseProvider } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
-
+import { GetAllFriends } from './Services/DataService';
+import { useEffect, useState } from 'react';
 
 export default function App() {
+
+  const [allFriends, setAllFriends] = useState([]);
+
+  useEffect(() => {
+    fetchFriend();
+  }, [])
+
+  const fetchFriend = async () => {
+    let results = await GetAllFriends();
+    setAllFriends(results.value)
+    console.log(results);
+  }
+
   return (
     <NavigationContainer>
 
     <ApplicationProvider {...eva} theme={eva.light}>
       <NativeBaseProvider>
-     
 
-      <AddEventScreen />
+
+      {/* <AddEventScreen /> */}
       {/* <PassedLikedEventsScreen/> */}
       {/* <ProfileScreen/> */}
       {/* <CreateAccountScreen /> */}
-      {/* <SettingsScreen /> */}
+      <SettingsScreen />
     </NativeBaseProvider>
     </ApplicationProvider>
 
