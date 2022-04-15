@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { FC, useState } from "react";
+import { View, StyleSheet, Pressable } from "react-native";
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
@@ -29,6 +29,19 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
+
+import {
+  Modal,
+  Center,
+  Button,
+  FormControl,
+  Input,
+  Select,
+  Text,
+  CheckIcon,
+  Box
+} from "native-base";
+
 //You can't style a button have to use a pressable!
 const SignoutBtnComponent: FC = () => {
     let [fontsLoaded] = useFonts({
@@ -56,14 +69,16 @@ const SignoutBtnComponent: FC = () => {
         Roboto_900Black_Italic,
       });
     
-      if (!fontsLoaded) {
-        return <AppLoading />;
-      }
+      // if (!fontsLoaded) {
+      //   return <AppLoading />;
+      // }
+
+      const [showSignoutModal, setShowSignoutModal] = useState(false);
 
   return (
     
       <View style={styles.NotificationView}>
-        <Pressable style={{backgroundColor: "#7E90AB", borderRadius: 50, alignItems: "center", marginLeft: 70, marginRight: 70}} onPress={() => console.log("Take Me Home!!!!")} accessibilityLabel="Take Me Home" >
+        <Pressable style={{backgroundColor: "#7E90AB", borderRadius: 50, alignItems: "center", marginLeft: 70, marginRight: 70}} onPress={() => setShowSignoutModal(true)} accessibilityLabel="Take Me Home"  >
             <Text style={{ color: "white",
     fontFamily: "Roboto_400Regular",
     fontSize: 24,
@@ -71,6 +86,41 @@ const SignoutBtnComponent: FC = () => {
     paddingTop: 18,
     paddingBottom: 18}}>Sign out</Text>
         </Pressable>
+
+        <Center style={{ marginTop: 50, flexDirection: 'row' }}>
+      <Modal isOpen={showSignoutModal} onClose={() => setShowSignoutModal(false)}>
+        <Modal.Content maxWidth="400px">
+          <Modal.CloseButton />
+          <Modal.Body style={{ marginLeft: 25, marginRight: 25, marginTop: 20}}>
+            <Text style={{ fontFamily: 'Lato_700Bold', fontSize: 16, fontWeight: '800', color: '#0A326D', textAlign: 'center' }}>Are You Sure You Want To Sign Out?</Text>
+          </Modal.Body>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 20}}> 
+              <Button
+                style={{backgroundColor: '#0A326D', paddingLeft: 30, paddingRight: 30, borderRadius: 10}}
+                onPress={() => {
+                  setShowSignoutModal(false);
+                }}
+              >
+                <Text style={{ fontFamily: 'Lato_700Bold', fontSize: 16, fontWeight: '800', color: 'white'}}>Yes</Text>
+              </Button>
+              <Button
+                onPress={() => {
+                  setShowSignoutModal(false);
+                }}
+                style={{backgroundColor: '#0A326D', paddingLeft: 35, paddingRight: 35, borderRadius: 10}}
+              >
+                <Text style={{ fontFamily: 'Lato_700Bold', fontSize: 16, fontWeight: '800', color: 'white'}}>No</Text>
+              </Button>
+              </View>
+            
+             
+            
+          
+        </Modal.Content>
+      </Modal>
+    </Center>
+
+
       </View>
     
   );
