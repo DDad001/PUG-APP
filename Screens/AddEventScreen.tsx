@@ -206,15 +206,17 @@ const AddEventScreen: FC = () => {
                 {/*Calendar and clocks  */}
                 {/* Peter used a view to mimic the textInput instead! */}
                 <View style={{ flex: 1, flexDirection: "row" }}>
-                  <View style={[{ flexDirection: "row" }]}>
+                  <View style={[{ flexDirection: "row", alignItems:'center'}]}>
                     
-                    <DateField
-                      labelDate="Input date"
-                      labelMonth="Input month"
-                      labelYear="Input year"
-                      onSubmit={(value) => console.log(value)}
-                      styleInput={{ borderBottomColor:'red' }}
-                    />
+                  <DateField
+                  styleInput={styles.inputBorder}
+                  labelDate="Date"
+                  labelMonth="Month"
+                  labelYear="Year"
+                  maximumDate={new Date(2023, 3, 10)}
+                  minimumDate={new Date(2021, 4, 21)}
+                  handleErrors={() => console.log('You must be the age of 18 years to create an account')}
+                  />
 
                   </View>
                 </View>
@@ -473,6 +475,15 @@ const styles = StyleSheet.create({
     textDecorationColor: "white",
     marginRight: 7,
     marginBottom: 50,
+  },
+  inputBorder: {
+    width: '30%',
+    color:'white',
+    borderRadius: 5,
+    borderColor: 'black',
+    backgroundColor:'balck',
+    borderWidth: 1,
+    marginBottom: 20,
   },
 });
 
