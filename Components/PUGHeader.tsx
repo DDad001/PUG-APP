@@ -47,6 +47,7 @@ import {
     Roboto_900Black,
     Roboto_900Black_Italic,
   } from '@expo-google-fonts/roboto';
+import { background } from "native-base/lib/typescript/theme/styled-system";
 
 
   //You can't style a button have to use a pressable!
@@ -75,9 +76,9 @@ import {
           <View style={{flex:1, alignItems: 'flex-end', marginTop:7, marginRight:10}}>
               <MaterialIcons name="notifications" size={35} color="#E8F1FF" />
           </View>
-          <View style={{backgroundColor:'#7E90AB',borderBottomLeftRadius:50, borderBottomEndRadius:5, borderTopLeftRadius:5, width:45, height: 46}}>
+          {/* <View style={{backgroundColor:'#7E90AB',borderBottomLeftRadius:50, borderBottomEndRadius:5, borderTopLeftRadius:5, width:45, height: 46}}>
           <Ionicons name="add" size={45} color="white" style={{marginLeft:4}}/>
-          </View>
+          </View> */}
       </View>
       </>
   );
@@ -87,7 +88,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     paddingTop: 25,
-    flex: 0.2 
+    flex: 0.3,
+    alignItems: "center"
   },
   BtnBox: {
     color: "white",

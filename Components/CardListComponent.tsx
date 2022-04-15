@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, Picker, ScrollView } from 'react-native';
+import { Box, CheckIcon, FormControl, Select } from "native-base";
 import { useState } from 'react';
 import man from '../assets/man.jpg';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -112,13 +113,50 @@ if(!fontsLoaded){
         </TouchableHighlight>
       </View>
 
-      <View>
-
+      <View style={{flex: 0, alignItems: "flex-end", justifyContent: "center", marginTop: 25, marginBottom: 5}}>
+      <View style={{ marginRight: 10 }}>
+                    <Box
+                      maxW="155"
+                      borderRadius={8}
+                      style={{
+                        backgroundColor: "#E8F1FF",
+                        shadowColor: "black",
+                        shadowOffset: { width: -2, height: 4 },
+                        shadowOpacity: 0.5,
+                        shadowRadius: 3,
+                      }}
+                    >
+                      <Select
+                        minWidth="150"
+                        minHeight="35"
+                        accessibilityLabel="Choose the sport type for this event"
+                        placeholderTextColor={"#0A326D"}
+                        placeholder="Filters"
+                        _selectedItem={{
+                          bg: "black.300",
+                          endIcon: <CheckIcon size={5} color="#3B567C" />,
+                        }}
+                        borderWidth="0"
+                        fontFamily={"Roboto_500Medium"}
+                        fontSize={15}
+                        color={"#0A326D"}
+                      >
+                        <Select.Item label="Basketball" value="ux" />
+                        <Select.Item label="Soccer" value="web" />
+                        <Select.Item label="Football" value="cross" />
+                        <Select.Item label="Tennis" value="ui" />
+                        <Select.Item label="Handball" value="backend" />
+                      </Select>
+                      {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+            Please make a selection!
+        </FormControl.ErrorMessage> */}
+                    </Box>
+                  </View>   
       </View>
 
         {/* make into fliatlist when time to map or later */}
 
-        <ScrollView>
+        <ScrollView style={{}}>
       <View style={styles.card}>
         <View style={styles.cardContent}>
           <View style={{ flexDirection: 'row', }}>
