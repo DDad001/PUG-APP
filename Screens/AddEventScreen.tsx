@@ -202,23 +202,28 @@ const AddEventScreen: FC = () => {
                 />
               </View>
 
-              <View style={{ flex: 1, flexDirection: "row" }}>
+              <View>
+                <Text style={[ styles.dateHeading ,{flex: 0.1, marginBottom: 10, marginLeft: 20}]}>
+                  Enter the date of the event below!
+                </Text>
+              </View>
+
+              <View style={{flex: 0.5}}>
                 {/*Calendar and clocks  */}
-                {/* Peter used a view to mimic the textInput instead! */}
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <View style={[{ flexDirection: "row", alignItems:'center'}]}>
-                    
+                <View style={{ flex: 1, alignItems: "center", justifyContent: "space-evenly" }}>
                   <DateField
-                  styleInput={styles.inputBorder}
+                  containerStyle={{}}
+                  styleInput={[styles.inputBorder, { marginRight: 15, marginLeft: 14}]}
                   labelDate="Date"
                   labelMonth="Month"
                   labelYear="Year"
+                  placeholderTextColor="#0A326D"
                   maximumDate={new Date(2023, 3, 10)}
                   minimumDate={new Date(2021, 4, 21)}
                   handleErrors={() => console.log('You must be the age of 18 years to create an account')}
+                  
                   />
 
-                  </View>
                 </View>
               </View>
               <View style={{ flex: 1 }}>
@@ -476,14 +481,25 @@ const styles = StyleSheet.create({
     marginRight: 7,
     marginBottom: 50,
   },
+  dateHeading: {
+    color: "white",
+    fontFamily: "Roboto_500Medium",
+    fontSize: 18,
+  },
   inputBorder: {
-    width: '30%',
-    color:'white',
-    borderRadius: 5,
-    borderColor: 'black',
-    backgroundColor:'balck',
+    height: '100%',
+    width: '25%',
+    color:'#0A326D',
+    borderRadius: 20,
+    borderColor: 'white',
+    backgroundColor:'white',
     borderWidth: 1,
+    marginTop: 8,
     marginBottom: 20,
+    shadowColor: 'black',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.5,
+
   },
 });
 
