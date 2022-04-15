@@ -8,7 +8,10 @@ import {
   TouchableHighlight,
   Pressable,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
+import { Box, CheckIcon, FormControl, Select } from "native-base";
+import FooterComponent from "../Components/FooterComponent";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -85,231 +88,306 @@ const AddEventScreen: FC = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={GreenCourt}
-        resizeMode="cover"
-        style={{ height: "100%", width: "100%" }}
-      >
-        <View
-          style={{
-            flex: 0.1,
-            flexDirection: "row",
-            paddingLeft: 20,
-            marginBottom: 10
-          }}
+    <>
+      <View style={styles.container}>
+        <ImageBackground
+          source={GreenCourt}
+          resizeMode="cover"
+          style={{ height: "100%", width: "100%" }}
         >
-          <View style={{ flex: 1, alignItems: "flex-start", justifyContent: "flex-end"}}>
-            <Text
-              style={{
-                fontFamily: "Lato_700Bold",
-                fontWeight: "bold",
-                fontSize: 35,
-                color: "white",
-              }}
-            >
-              Event
-            </Text>
-          </View>
           <View
             style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "flex-end",
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: "Lato_700Bold",
-                fontWeight: "bold",
-                fontSize: 20,
-                color: "white",
-              }}
-            >
-              Category
-            </Text>
-          </View>
-        </View>
-        {/* Place under here */}
-        <ScrollView style={{ flex: 1 }}>
-          <View style={{ flex: 1 }}>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => setNameOfEvent(text)}
-              value={nameOfEvent}
-              placeholder="Name of the event"
-              accessibilityLabel="Enter the event's name"
-              placeholderTextColor={"rgba(59, 86, 124, 1)"}
-            />
-          </View>
-
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            {/*Calendar and clocks  */}
-            {/* Peter used a view to mimic the textInput instead! */}
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <View style={[styles.smallerInput, { flexDirection: "row" }]}>
-                <MaterialCommunityIcons
-                  name="calendar-month"
-                  size={30}
-                  color="rgba(59, 86, 124, 1)"
-                  style={{ marginTop: 3, marginLeft: 8 }}
-                />
-                <TextInput
-                  style={{
-                    backgroundColor: "orange",
-                    paddingRight: 40,
-                    paddingLeft: 10,
-                  }}
-                  onChangeText={(text) => setEventDate(text)}
-                  value={eventDate}
-                  placeholder="Date"
-                  accessibilityLabel="Enter the date of when the event takes place"
-                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                />
-              </View>
-            </View>
-            <View style={[styles.smallerInput, { flexDirection: "row" }]}>
-              <MaterialCommunityIcons
-                name="clock-time-three-outline"
-                size={30}
-                color="rgba(59, 86, 124, 1)"
-                style={{ marginLeft: 8, marginTop: 3 }}
-              />
-              <TextInput
-                style={{
-                  backgroundColor: "orange",
-                  paddingRight: 40,
-                  paddingLeft: 10,
-                }}
-                onChangeText={(text) => setEventTime(text)}
-                value={eventTime}
-                placeholder="Time"
-                accessibilityLabel="Enter the time of when the event starts"
-                placeholderTextColor={"rgba(59, 86, 124, 1)"}
-              />
-            </View>
-          </View>
-          <View style={{ flex: 1 }}>
-            <TextInput
-              style={[styles.LargeTxtInput, { alignItems: "flex-start" }]}
-              multiline={true}
-              maxLength={200}
-              onChangeText={(text) => setEventDetails(text)}
-              value={eventDetails}
-              placeholder="Event Details"
-              accessibilityLabel="Enter the details of the event under 200 characters or less"
-              placeholderTextColor={"rgba(59, 86, 124, 1)"}
-            />
-            <Text
-              style={{
-                color: "white",
-                fontFamily: "Roboto_400Regular",
-                fontSize: 15,
-                paddingLeft: 25,
-              }}
-            >
-              {eventDetails.length}/200 character limit
-            </Text>
-          </View>
-
-          <View style={{ flex: 1, backgroundColor: "green" }}>
-            <Text>Space to Add images!!!</Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              alignItems: "flex-start",
+              flex: 0.15,
+              flexDirection: "row",
+              paddingLeft: 20,
               marginBottom: 10,
-              marginTop: 10,
+              marginTop: 20,
+              // backgroundColor :"orange"
             }}
           >
-            <Text
+            <View
               style={{
-                fontFamily: "Lato_700Bold",
-                fontWeight: "bold",
-                fontSize: 35,
-                paddingLeft: 20,
-                color: "white",
-              }}
-            >
-              Location
-            </Text>
-          </View>
-
-          <View style={{ flex: 1 }}>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => setEventAddress(text)}
-              value={eventAddress}
-              placeholder="Address"
-              accessibilityLabel="Enter the address of where the event takes place"
-              placeholderTextColor={"rgba(59, 86, 124, 1)"}
-            />
-          </View>
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <TextInput
-                style={styles.smallerInput}
-                onChangeText={(text) => setEventAddress(text)}
-                value={eventState}
-                placeholder="State"
-                accessibilityLabel="Enter the state where your event takes place"
-                placeholderTextColor={"rgba(59, 86, 124, 1)"}
-              />
-            </View>
-            <TextInput
-              style={styles.smallerInput}
-              onChangeText={(text) => setEventCity(text)}
-              value={eventCity}
-              placeholder="City"
-              accessibilityLabel="Enter the city where your event takes place"
-              placeholderTextColor={"rgba(59, 86, 124, 1)"}
-            />
-          </View>
-
-          {/* Add the create event button here */}
-          <View style={{ flex: 1, alignItems: "center", marginTop: 30 }}>
-            <Pressable
-              onPress={() => console.log("Create an Event!")}
-              accessibilityLabel="Click this button to create an event"
-              style={{
-                backgroundColor: "rgba(10, 50, 109, 1)",
-                borderRadius: 50,
-                paddingLeft: 60,
-                paddingRight: 60,
+                flex: 1,
+                alignItems: "flex-start",
+                justifyContent: "center",
               }}
             >
               <Text
                 style={{
+                  fontFamily: "Lato_700Bold",
+                  fontWeight: "bold",
+                  fontSize: 28,
                   color: "white",
-                  fontFamily: "Roboto_400Regular",
-                  fontSize: 20,
-                  justifyContent: "center",
-                  paddingTop: 20,
-                  paddingBottom: 20,
                 }}
               >
-                Create an event
+                Add an Event
               </Text>
-            </Pressable>
-          </View>
-
-          <View style={{ flex: 0.2, alignItems: "center", marginTop: 40 }}>
-            <Pressable
-              onPress={() => console.log("Send the user to help!")}
-              accessibilityLabel="Click here if you need help?"
+            </View>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              <View style={{ flexDirection: "row" }}>
-                <Text style={styles.subTxt}>Need help</Text>
-                <FontAwesome name="question-circle-o" size={19} color="white" />
-              </View>
-            </Pressable>
-          </View>
 
-          {/* Add the need help section here */}
-        </ScrollView>
-      </ImageBackground>
-    </View>
+<View style={{ marginTop: 10, marginLeft: 18 }}>
+                    <Box
+                      maxW="155"
+                      borderRadius={15}
+                      style={{
+                        backgroundColor: "white",
+                        shadowColor: "black",
+                        shadowOffset: { width: -2, height: 4 },
+                        shadowOpacity: 0.5,
+                        shadowRadius: 3,
+                      }}
+                    >
+                      <Select
+                        minWidth="150"
+                        minHeight="25"
+                        accessibilityLabel="Choose the sport type for this event"
+                        placeholderTextColor={"#0A326D"}
+                        placeholder="Choose Sport"
+                        _selectedItem={{
+                          bg: "black.300",
+                          endIcon: <CheckIcon size={5} color="#3B567C" />,
+                        }}
+                        borderWidth="0"
+                        fontFamily={"Roboto_500Medium"}
+                        fontSize={15}
+                        color={"#0A326D"}
+                      >
+                        <Select.Item label="Basketball" value="ux" />
+                        <Select.Item label="Soccer" value="web" />
+                        <Select.Item label="Football" value="cross" />
+                        <Select.Item label="Tennis" value="ui" />
+                        <Select.Item label="Handball" value="backend" />
+                      </Select>
+                      {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+            Please make a selection!
+        </FormControl.ErrorMessage> */}
+                    </Box>
+                  </View>            
+            </View>
+          </View>
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
+            <ScrollView style={{ flex: 1 }}>
+              <View style={{ flex: 1 }}>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(text) => setNameOfEvent(text)}
+                  value={nameOfEvent}
+                  placeholder="Name of the event"
+                  accessibilityLabel="Enter the event's name"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                />
+              </View>
+
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                {/*Calendar and clocks  */}
+                {/* Peter used a view to mimic the textInput instead! */}
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <View style={[styles.smallerInput, { flexDirection: "row" }]}>
+                    <MaterialCommunityIcons
+                      name="calendar-month"
+                      size={30}
+                      color="rgba(59, 86, 124, 1)"
+                      style={{ marginTop: 3, marginLeft: 8 }}
+                    />
+                    <TextInput
+                      style={{
+                        backgroundColor: "orange",
+                        paddingRight: 40,
+                        paddingLeft: 10,
+                      }}
+                      onChangeText={(text) => setEventDate(text)}
+                      value={eventDate}
+                      placeholder="Date"
+                      accessibilityLabel="Enter the date of when the event takes place"
+                      placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                    />
+                  </View>
+                </View>
+                <View style={[styles.smallerInput, { flexDirection: "row" }]}>
+                  <MaterialCommunityIcons
+                    name="clock-time-three-outline"
+                    size={30}
+                    color="rgba(59, 86, 124, 1)"
+                    style={{ marginLeft: 8, marginTop: 3 }}
+                  />
+                  <TextInput
+                    style={{
+                      backgroundColor: "orange",
+                      paddingRight: 40,
+                      paddingLeft: 10,
+                    }}
+                    onChangeText={(text) => setEventTime(text)}
+                    value={eventTime}
+                    placeholder="Time"
+                    accessibilityLabel="Enter the time of when the event starts"
+                    placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                  />
+                </View>
+              </View>
+              <View style={{ flex: 1 }}>
+                <TextInput
+                  style={[styles.LargeTxtInput, { alignItems: "flex-start" }]}
+                  multiline={true}
+                  maxLength={200}
+                  onChangeText={(text) => setEventDetails(text)}
+                  value={eventDetails}
+                  placeholder="Event Details"
+                  accessibilityLabel="Enter the details of the event under 200 characters or less"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                />
+                <Text
+                  style={{
+                    color: "white",
+                    fontFamily: "Roboto_400Regular",
+                    fontSize: 15,
+                    paddingLeft: 25,
+                  }}
+                >
+                  {eventDetails.length}/200 character limit
+                </Text>
+              </View>
+
+              <View style={{ flex: 1, backgroundColor: "green" }}>
+                <Text>Space to Add images!!!</Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "flex-start",
+                  marginBottom: 10,
+                  marginTop: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Lato_700Bold",
+                    fontWeight: "bold",
+                    fontSize: 28,
+                    paddingLeft: 20,
+                    color: "white",
+                  }}
+                >
+                  Location
+                </Text>
+              </View>
+
+              <View style={{ flex: 1 }}>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(text) => setEventAddress(text)}
+                  value={eventAddress}
+                  placeholder="Address"
+                  accessibilityLabel="Enter the address of where the event takes place"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                />
+              </View>
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <View style={{ marginTop: 10, marginLeft: 18 }}>
+                    <Box
+                      maxW="155"
+                      borderRadius={15}
+                      style={{
+                        backgroundColor: "white",
+                        shadowColor: "black",
+                        shadowOffset: { width: -2, height: 4 },
+                        shadowOpacity: 0.5,
+                        shadowRadius: 3,
+                      }}
+                    >
+                      <Select
+                        minWidth="150"
+                        minHeight="53"
+                        accessibilityLabel="Choose Service"
+                        placeholderTextColor={"#3B567C"}
+                        placeholder="Select State"
+                        _selectedItem={{
+                          bg: "black.300",
+                          endIcon: <CheckIcon size={5} color="#3B567C" />,
+                        }}
+                        borderWidth="0"
+                        fontFamily={"Roboto_400Regular"}
+                        fontSize={15}
+                        color={"#3B567C"}
+                      >
+                        <Select.Item label="CA" value="ux" />
+                        <Select.Item label="AL" value="web" />
+                        <Select.Item label="PA" value="cross" />
+                        <Select.Item label="WD" value="ui" />
+                        <Select.Item label="NY" value="backend" />
+                      </Select>
+                      {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+            Please make a selection!
+        </FormControl.ErrorMessage> */}
+                    </Box>
+                  </View>
+                </View>
+                <TextInput
+                  style={styles.smallerInput}
+                  onChangeText={(text) => setEventCity(text)}
+                  value={eventCity}
+                  placeholder="City"
+                  accessibilityLabel="Enter the city where your event takes place"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                />
+              </View>
+
+              {/* Add the create event button here */}
+              <View style={{ flex: 1, alignItems: "center", marginTop: 30 }}>
+                <Pressable
+                  onPress={() => console.log("Create an Event!")}
+                  accessibilityLabel="Click this button to create an event"
+                  style={{
+                    backgroundColor: "rgba(10, 50, 109, 1)",
+                    borderRadius: 50,
+                    paddingLeft: 60,
+                    paddingRight: 60,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      fontFamily: "Roboto_400Regular",
+                      fontSize: 20,
+                      justifyContent: "center",
+                      paddingTop: 20,
+                      paddingBottom: 20,
+                    }}
+                  >
+                    Create an event
+                  </Text>
+                </Pressable>
+              </View>
+
+              <View style={{ flex: 0.2, alignItems: "center", marginTop: 40 }}>
+                <Pressable
+                  onPress={() => console.log("Send the user to help!")}
+                  accessibilityLabel="Click here if you need help?"
+                >
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.subTxt}>Need help</Text>
+                    <FontAwesome
+                      name="question-circle-o"
+                      size={19}
+                      color="white"
+                    />
+                  </View>
+                </Pressable>
+              </View>
+
+              {/* Add the need help section here */}
+            </ScrollView>
+          </KeyboardAvoidingView>
+          <FooterComponent />
+        </ImageBackground>
+      </View>
+    </>
   );
 };
 
@@ -385,6 +463,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     textDecorationColor: "white",
     marginRight: 7,
+    marginBottom: 50,
   },
 });
 
