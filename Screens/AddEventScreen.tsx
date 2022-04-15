@@ -48,7 +48,7 @@ import {
 } from "@expo-google-fonts/roboto";
 
 
-
+import DateField from 'react-native-datefield';
 
 const AddEventScreen: FC = () => {
   const [nameOfEvent, setNameOfEvent] = useState<string>("");
@@ -206,29 +206,19 @@ const AddEventScreen: FC = () => {
                 {/*Calendar and clocks  */}
                 {/* Peter used a view to mimic the textInput instead! */}
                 <View style={{ flex: 1, flexDirection: "row" }}>
-                  <View style={[styles.smallerInput, { flexDirection: "row" }]}>
-                     <input type="date"/>
+                  <View style={[{ flexDirection: "row", alignItems:'center'}]}>
+                    
+                  <DateField
+                  styleInput={styles.inputBorder}
+                  labelDate="Date"
+                  labelMonth="Month"
+                  labelYear="Year"
+                  maximumDate={new Date(2023, 3, 10)}
+                  minimumDate={new Date(2021, 4, 21)}
+                  handleErrors={() => console.log('You must be the age of 18 years to create an account')}
+                  />
+
                   </View>
-                </View>
-                <View style={[styles.smallerInput, { flexDirection: "row" }]}>
-                  <MaterialCommunityIcons
-                    name="clock-time-three-outline"
-                    size={30}
-                    color="rgba(59, 86, 124, 1)"
-                    style={{ marginLeft: 8, marginTop: 3 }}
-                  />
-                  <TextInput
-                    style={{
-                      backgroundColor: "orange",
-                      paddingRight: 40,
-                      paddingLeft: 10,
-                    }}
-                    onChangeText={(text) => setEventTime(text)}
-                    value={eventTime}
-                    placeholder="Time"
-                    accessibilityLabel="Enter the time of when the event starts"
-                    placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                  />
                 </View>
               </View>
               <View style={{ flex: 1 }}>
@@ -438,6 +428,26 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
+  // dateInput: {
+  //   fontFamily: "Roboto_400Regular",
+  //   color: "rgba(59, 86, 124, 1)",
+  //   fontSize: 8,
+  //   height: 55,
+  //   width: 300,
+  //   marginTop: 10,
+  //   marginLeft: 18,
+  //   marginRight: 20,
+  //   marginBottom: 20,
+  //   borderWidth: 1,
+  //   padding: 10,
+  //   borderColor: "white",
+  //   backgroundColor: "white",
+  //   borderRadius: 20,
+  //   shadowColor: "black",
+  //   shadowOffset: { width: -2, height: 4 },
+  //   shadowOpacity: 0.5,
+  //   shadowRadius: 3,
+  // },
   LargeTxtInput: {
     fontFamily: "Roboto_400Regular",
     color: "rgba(59, 86, 124, 1)",
@@ -465,6 +475,15 @@ const styles = StyleSheet.create({
     textDecorationColor: "white",
     marginRight: 7,
     marginBottom: 50,
+  },
+  inputBorder: {
+    width: '30%',
+    color:'white',
+    borderRadius: 5,
+    borderColor: 'black',
+    backgroundColor:'balck',
+    borderWidth: 1,
+    marginBottom: 20,
   },
 });
 
