@@ -148,7 +148,6 @@ const AddEventScreen: FC = () => {
                 justifyContent: "center",
               }}
             >
-
                     <View style={{ marginLeft: 18, marginRight: 30 }}>
                     <Box
                       maxW="155"
@@ -208,7 +207,7 @@ const AddEventScreen: FC = () => {
                 </Text>
               </View>
 
-              <View style={{flex: 0.5}}>
+              <View style={{flex: 0.5, marginBottom: 10}}>
                 {/*Calendar and clocks  */}
                 <View style={{ flex: 1, alignItems: "center", justifyContent: "space-evenly" }}>
                   <DateField
