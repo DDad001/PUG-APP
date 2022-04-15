@@ -130,16 +130,45 @@ const AddEventScreen: FC = () => {
                 justifyContent: "center",
               }}
             >
-              <Text
-                style={{
-                  fontFamily: "Lato_700Bold",
-                  fontWeight: "bold",
-                  fontSize: 20,
-                  color: "white",
-                }}
-              >
-                Sport
-              </Text>
+
+<View style={{ marginTop: 10, marginLeft: 18 }}>
+                    <Box
+                      maxW="155"
+                      borderRadius={15}
+                      style={{
+                        backgroundColor: "white",
+                        shadowColor: "black",
+                        shadowOffset: { width: -2, height: 4 },
+                        shadowOpacity: 0.5,
+                        shadowRadius: 3,
+                      }}
+                    >
+                      <Select
+                        minWidth="150"
+                        minHeight="25"
+                        accessibilityLabel="Choose the sport type for this event"
+                        placeholderTextColor={"#0A326D"}
+                        placeholder="Choose Sport"
+                        _selectedItem={{
+                          bg: "black.300",
+                          endIcon: <CheckIcon size={5} color="#3B567C" />,
+                        }}
+                        borderWidth="0"
+                        fontFamily={"Roboto_500Medium"}
+                        fontSize={15}
+                        color={"#0A326D"}
+                      >
+                        <Select.Item label="Basketball" value="ux" />
+                        <Select.Item label="Soccer" value="web" />
+                        <Select.Item label="Football" value="cross" />
+                        <Select.Item label="Tennis" value="ui" />
+                        <Select.Item label="Handball" value="backend" />
+                      </Select>
+                      {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+            Please make a selection!
+        </FormControl.ErrorMessage> */}
+                    </Box>
+                  </View>            
             </View>
           </View>
           <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
