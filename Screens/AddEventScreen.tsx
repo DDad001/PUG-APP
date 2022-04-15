@@ -101,7 +101,7 @@ const AddEventScreen: FC = () => {
               flexDirection: "row",
               paddingLeft: 20,
               marginBottom: 10,
-              marginTop: 20,
+              marginTop: 30,
               // backgroundColor :"orange"
             }}
           >
@@ -171,7 +171,7 @@ const AddEventScreen: FC = () => {
                   </View>            
             </View>
           </View>
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView style={{ flex: 1 }}>
               <View style={{ flex: 1 }}>
                 <TextInput
