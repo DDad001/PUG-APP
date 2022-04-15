@@ -10,7 +10,6 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { Datepicker, Icon, Layout } from "@ui-kitten/components";
-
 import PUGbutton from "../Components/PUGButton";
 import CourtPicture from "../assets/Court.png";
 import AppLoading from "expo-app-loading";
@@ -31,14 +30,17 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
-import { Box, CheckIcon, FormControl, Select } from "native-base";
-import { Entypo } from '@expo/vector-icons';
+import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input } from "native-base";
+import { Entypo } from "@expo/vector-icons";
 
 const CreateAccountScreen: FC = () => {
   const [newFirstName, setNewFirstName] = useState<string>("");
   const [newLastName, setNewLastName] = useState<string>("");
   const [newUsername, setNewUsername] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
+
+  //Native base useStates
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const [date, setDate] = useState<Date>(new Date());
 
@@ -153,39 +155,106 @@ const CreateAccountScreen: FC = () => {
               />
               {/* State dropdown and city input field! */}
               <View style={{ flex: 1, flexDirection: "row" }}>
-              <View style={{ flex: 1, flexDirection: "row" }}>
-                  <View style={{marginTop:3,marginLeft:18,}}>
-              <Box maxW="155" borderRadius={15} style={{backgroundColor:"white", shadowColor: "black",shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3,}}>
-          <Select minWidth="150"minHeight="53" accessibilityLabel="Choose Service" placeholderTextColor={'#3B567C'} placeholder="Select State" _selectedItem={{
-              bg: "black.300",
-              endIcon: <CheckIcon size={5} color="#3B567C"
-              />
-            }} borderWidth="0" fontFamily={"Roboto_400Regular"} fontSize={15} color={'#3B567C'}>
-            <Select.Item label="CA" value="ux" />
-            <Select.Item label="AL" value="web" />
-            <Select.Item label="PA" value="cross" />
-            <Select.Item label="WD" value="ui" />
-            <Select.Item label="NY" value="backend" />
-          </Select>
-          {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <View style={{ marginTop: 3, marginLeft: 18 }}>
+                    <Box
+                      maxW="155"
+                      borderRadius={15}
+                      style={{
+                        backgroundColor: "white",
+                        shadowColor: "black",
+                        shadowOffset: { width: -2, height: 4 },
+                        shadowOpacity: 0.5,
+                        shadowRadius: 3,
+                      }}
+                    >
+                      <Select
+                        minWidth="150"
+                        minHeight="53"
+                        accessibilityLabel="Choose Service"
+                        placeholderTextColor={"#3B567C"}
+                        placeholder="Select State"
+                        _selectedItem={{
+                          bg: "black.300",
+                          endIcon: <CheckIcon size={5} color="#3B567C" />,
+                        }}
+                        borderWidth="0"
+                        fontFamily={"Roboto_400Regular"}
+                        fontSize={15}
+                        color={"#3B567C"}
+                      >
+                        <Select.Item label="CA" value="ux" />
+                        <Select.Item label="AL" value="web" />
+                        <Select.Item label="PA" value="cross" />
+                        <Select.Item label="WD" value="ui" />
+                        <Select.Item label="NY" value="backend" />
+                      </Select>
+                      {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
         </FormControl.ErrorMessage> */}
-        </Box>
+                    </Box>
+                  </View>
+                </View>
+                <TextInput
+                  style={styles.cityInput}
+                  onChangeText={(text) => setCity(text)}
+                  value={city}
+                  placeholder="City"
+                  keyboardType="default"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                  accessibilityLabel="Enter the city you reside in"
+                />
               </View>
-        </View>
-              <TextInput
-                style={styles.cityInput}
-                onChangeText={(text) => setCity(text)}
-                value={city}
-                placeholder="City"
-                keyboardType="default"
-                placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                accessibilityLabel="Enter the city you reside in"
-              />
             </View>
-            </View>
+
+            {/* one checkBox */}
+            <View style={{flex: 0.2, marginBottom: 20,}}>     
+              <HStack>
+                  <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="test" size="lg" accessibilityLabel="This is a dummy checkbox" />
+                  <View style={{flex: 1, marginLeft: 10,alignItems: "center", flexDirection: "row"}}>
+                    <Text style={styles.subTxtNoUnderline}>I accept PUG's</Text>
+                    <Pressable onPress={() => setShowModal(true)}>
+                      <Text style={styles.subTxtNoMargin}>terms and services</Text>
+                    </Pressable>
+                  </View>
+              </HStack>
+            </View> 
+            {/* One checkbox */}
+            <View style={{flex: 0.2}}>     
+              <HStack>
+                  <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="test" size="lg" accessibilityLabel="This is a dummy checkbox" />
+                  <View style={{flex: 1, marginLeft: 10, justifyContent: "center"}}>
+                    <Text style={styles.subTxtNoUnderline}>I am 18 years old or over</Text>
+                  </View>
+              </HStack>
+            </View> 
+            <Center>
+              <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+              <Modal.Content maxWidth="400px">
+              <Modal.CloseButton />
+              <Modal.Header>PUG's Terms and Services</Modal.Header>
+              <Modal.Body>
+                <Box>
+                  <Text>
+                    We, the PUG team are not liable for any damages, or bodily harm that occur when using the app. Use descretion when going to sporting events.
+                  </Text>
+                </Box>
+              </Modal.Body>
+              <Modal.Footer>
+            <Button.Group space={2}>
+              <Button onPress={() => {
+              setShowModal(false);
+            }}>
+                Close
+              </Button>
+            </Button.Group>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+    </Center>
+
             {/* Flex losses all meaning when scroll view is used! Disregard logic with flex below! */}
-            <View style={{ flex: 0.2, alignItems: "center", marginTop: 20 }}>
+            <View style={{ flex: 0.2, alignItems: "center", marginTop: 20}}>
               <Pressable
                 style={{
                   backgroundColor: "rgba(10, 50, 109, 1)",
@@ -318,7 +387,14 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     textDecorationColor: "white",
     marginRight: 7,
-    marginBottom:50
+    marginBottom: 50,
+  },
+  subTxtNoMargin: {
+    color: "white",
+    fontFamily: "Roboto_400Regular",
+    fontSize: 16,
+    textDecorationLine: "underline",
+    textDecorationColor: "white",
   },
   subTxtNoUnderline: {
     color: "white",
