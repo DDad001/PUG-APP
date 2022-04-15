@@ -101,7 +101,7 @@ const AddEventScreen: FC = () => {
               flexDirection: "row",
               paddingLeft: 20,
               marginBottom: 10,
-              marginTop: 30,
+              marginTop: 25,
               // backgroundColor :"orange"
             }}
           >
