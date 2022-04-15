@@ -131,12 +131,12 @@ const AddEventScreen: FC = () => {
               }}
             >
 
-<View style={{ marginTop: 10, marginLeft: 18 }}>
+<View style={{ marginLeft: 18, marginRight: 30 }}>
                     <Box
                       maxW="155"
-                      borderRadius={15}
+                      borderRadius={14}
                       style={{
-                        backgroundColor: "white",
+                        backgroundColor: "#E8F1FF",
                         shadowColor: "black",
                         shadowOffset: { width: -2, height: 4 },
                         shadowOpacity: 0.5,
