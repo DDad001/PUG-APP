@@ -77,15 +77,15 @@ const ProfileScreen: FC = () => {
            <View style={{marginTop:40, flexDirection:'row', justifyContent:'flex-end', marginRight:20}}>
             <Ionicons name="md-settings-outline" size={28} color="white" />
            </View>
-             <View style={{flexDirection:'row', justifyContent:'center'}}>
-                <View style={{backgroundColor:'white', height:35, width:110, marginTop:15, borderTopLeftRadius:10, borderBottomLeftRadius:10}}>
-                    <Text style={{marginLeft:20, marginTop:10, fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>My Profile</Text>
+              <View style={{flexDirection:'row', justifyContent:'center'}}>
+                <View style={{backgroundColor:'white', height:35,width:110, marginTop:15, borderTopLeftRadius:10, borderBottomLeftRadius:10,}}>
+                    <Text style={{marginLeft:25, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>My Profile</Text>
                 </View>
-                <View style={{backgroundColor:'white', height:35,width:110, marginTop:15}}>
-                    <Text style={{marginLeft:12, marginTop:10,fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
+                <View style={{backgroundColor:'white', height:35,width:110, marginTop:15, borderLeftWidth: 1, borderRightWidth: 1, borderLeftColor: "grey", borderRightColor: "grey"}}>
+                    <Text style={{marginLeft:16, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
                 </View>
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:15,borderTopRightRadius:10, borderBottomRightRadius:10}}>
-                    <Text style={{marginLeft:10, marginTop:10,fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Liked events</Text>
+                    <Text style={{marginLeft:15, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Liked events</Text>
                 </View>
              </View>
           <View style={{alignItems:'center'}}>
