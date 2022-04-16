@@ -30,6 +30,7 @@ import UserContext from './Context/UserContext';
 
 import { GetAllFriends } from './Services/DataService';
 import { useEffect, useState } from 'react';
+import FollowingComponent from "./Components/FollowingComponent";
 
 export default function App() {
 
@@ -51,11 +52,7 @@ export default function App() {
       <NavigationContainer>
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeBaseProvider>
-            <AddEventScreen />
-            {/* <PassedLikedEventsScreen/> */}
-            {/* <ProfileScreen/> */}
-            {/* <CreateAccountScreen /> */}
-            {/* <SettingsScreen /> */}
+            <FollowingScreen />
           </NativeBaseProvider>
         </ApplicationProvider>
       </NavigationContainer>
