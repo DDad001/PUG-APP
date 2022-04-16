@@ -31,6 +31,7 @@ import UserContext from './Context/UserContext';
 import { GetAllFriends } from './Services/DataService';
 import { useEffect, useState } from 'react';
 import FAQScreen from "./Screens/FAQScreen";
+import FollowingComponent from "./Components/FollowingComponent";
 
 export default function App() {
 

@@ -63,8 +63,8 @@ const FollowingScreen: FC = () => {
             marginTop: 20,
             justifyContent: "center",
             marginBottom: 28,
-            marginLeft: 77,
-            marginRight: 77,
+            marginLeft: 70,
+            marginRight: 70,
           }}
         >
           <View style={{ flex: 0.5 }}>
@@ -97,7 +97,6 @@ const FollowingScreen: FC = () => {
             </Pressable>
           </View>
         </View>
-
         <View
           style={{
             flexDirection: "row",

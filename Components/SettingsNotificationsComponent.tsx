@@ -81,6 +81,10 @@ const SettingsNotificationsComponent: FC = () => {
   const [showModal, setShowModal] = useState(false);
   let [service, setService] = useState("");
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  
+  
+
   return (
     <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView }>
@@ -104,7 +108,10 @@ const SettingsNotificationsComponent: FC = () => {
 
       <View style={styles.NotificationView}>
         <Text style={styles.TextStyle}>Delete Account</Text>
+        <Pressable onPress={() => setShowDeleteModal(true)}>
+        
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
+        </Pressable>
       </View>
 
       <Center style={{ marginTop: 50, flexDirection: 'row' }}>
@@ -185,6 +192,42 @@ const SettingsNotificationsComponent: FC = () => {
         </Modal.Content>
       </Modal>
     </Center>
+
+    <Center style={{ marginTop: 50, flexDirection: 'row' }}>
+      <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)}>
+        <Modal.Content maxWidth="400px">
+          <Modal.CloseButton />
+          <Modal.Body style={{ marginLeft: 25, marginRight: 25, marginTop: 20}}>
+            <Text style={{ fontFamily: 'Lato_700Bold', fontSize: 16, fontWeight: '800', color: '#0A326D', textAlign: 'center' }}>Are You Sure You Want to Delete Your Account? Your Account Will Be Permanently Deleted.</Text>
+          </Modal.Body>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 20}}> 
+              <Button
+                style={{backgroundColor: '#0A326D', paddingLeft: 30, paddingRight: 30, borderRadius: 10}}
+                onPress={() => {
+                  setShowDeleteModal(false);
+                }}
+              >
+                <Text style={{ fontFamily: 'Lato_700Bold', fontSize: 16, fontWeight: '800', color: 'white'}}>Yes</Text>
+              </Button>
+              <Button
+                onPress={() => {
+                  setShowDeleteModal(false);
+                }}
+                style={{backgroundColor: '#0A326D', paddingLeft: 35, paddingRight: 35, borderRadius: 10}}
+              >
+                <Text style={{ fontFamily: 'Lato_700Bold', fontSize: 16, fontWeight: '800', color: 'white'}}>No</Text>
+              </Button>
+              </View>
+            
+             
+            
+          
+        </Modal.Content>
+      </Modal>
+    </Center>
+
+
+   
 
 
     </View>
