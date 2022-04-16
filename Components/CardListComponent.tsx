@@ -107,13 +107,13 @@ if(!fontsLoaded){
           />
         </View>
         <TouchableHighlight style={{ marginRight:10}} >
-          <View style={{ backgroundColor: '#0A326D', width: 54, height: 45, marginTop: 18, borderBottomRightRadius: 7, borderTopRightRadius: 7, }}>
+          <View style={{ backgroundColor: '#0A326D', width: 54, height: 45, marginTop: 10, borderBottomRightRadius: 7, borderTopRightRadius: 7, }}>
             <FontAwesome name="search" size={15} color="white" style={{ marginTop: 14, marginLeft: 17 }} />
           </View>
         </TouchableHighlight>
       </View>
 
-      <View style={{flex: 0, alignItems: "flex-end", justifyContent: "center", marginTop: 25, marginBottom: 5}}>
+      <View style={{flex: 0, alignItems: "flex-end", justifyContent: "center", marginTop: 20, marginBottom: 5}}>
       <View style={{ marginRight: 10 }}>
                     <Box
                       maxW="155"
@@ -159,25 +159,25 @@ if(!fontsLoaded){
         <ScrollView style={{}}>
       <View style={styles.card}>
         <View style={styles.cardContent}>
-          <View style={{ flexDirection: 'row', }}>
-            <Image source={man} style={{ height: 90, width: 120, borderRadius: 8 }} />
+          <View style={{ flexDirection: 'row',flex:1,}}>
+            <Image source={man} style={{ flex:1, height: 90, width: 120, borderRadius: 8 }} />
             <View>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={{ marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily:"Lato_700Bold" }}>Oak Park Basketball Game</Text>
-                <MaterialIcons name="location-on" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 10, marginLeft: 8, padding:5  }} />
-                <FontAwesome5 name="heart" size={11} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9, marginTop: 10, }} />
+              <View style={{ flex:1, flexDirection: 'row',  }}>
+                <Text style={{marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily:"Lato_700Bold" }}>Oak Park Basketball Game</Text>
+                <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 5, marginLeft: 8, padding:7  }} />
+                <FontAwesome5 name="heart" size={14} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
               </View>
               <View style={{ flexDirection: 'column', }}>
                 <View style={{ flexDirection: 'row', }}>
-                  <Text style={{ fontSize: 10, marginLeft: 21, marginTop: 2, fontFamily:"Lato_400Regular" }}>4520 W Eight Mile Rd,{'\n'}Stockton, CA 95209</Text>
-                  <MaterialCommunityIcons name="calendar-month" size={18} color="black" style={{ marginTop: 10, marginLeft: 43 }} />
+                  <Text style={{ fontSize: 10, marginLeft: 21, marginBottom:10, fontFamily:"Lato_400Regular" }}>4520 W Eight Mile Rd,{'\n'}Stockton, CA 95209</Text>
+                  <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10, marginLeft: 43 }} />
                   <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily:"Roboto_400Regular" }}>Today</Text>
                 </View>
 
                 <View style={{ flexDirection: 'row' }}>
-                  <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginTop: 8, marginLeft: 22 }} />
-                  <Text style={{ marginLeft: 10, marginTop: 13, fontSize: 10, fontFamily:"Roboto_500Medium" }}>Matthew David</Text>
-                  <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="black" style={{ marginLeft: 41, marginTop: 4, }} />
+                  <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
+                  <Text style={{ marginLeft: 10, marginTop:7, fontSize: 10, fontFamily:"Roboto_500Medium" }}>Matthew David</Text>
+                  <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 41, marginTop: 4, }} />
                   <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily:"Roboto_400Regular"}}>9:30 am</Text>
                 </View>
 
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 2,
     marginHorizontal: 8,
-    marginTop:25
+    marginTop:17
   },
   cardContent: {
     marginHorizontal: 8,
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginLeft: 10,
-    marginTop: 18,
+    marginTop: 10,
     height: 45,
     backgroundColor: 'white',
     borderColor: "white",

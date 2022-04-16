@@ -30,6 +30,7 @@ import UserContext from './Context/UserContext';
 
 import { GetAllFriends } from './Services/DataService';
 import { useEffect, useState } from 'react';
+import FAQScreen from "./Screens/FAQScreen";
 
 export default function App() {
 
@@ -51,11 +52,16 @@ export default function App() {
       <NavigationContainer>
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeBaseProvider>
-            <AddEventScreen />
+  
+            <ListViewEventsScreen/>
+            {/* <AddEventScreen /> */}
             {/* <PassedLikedEventsScreen/> */}
             {/* <ProfileScreen/> */}
+            {/* <FAQScreen/> */}
             {/* <CreateAccountScreen /> */}
             {/* <SettingsScreen /> */}
+            {/* <EventDisplayedScreen/> */}
+
           </NativeBaseProvider>
         </ApplicationProvider>
       </NavigationContainer>

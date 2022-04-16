@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -49,6 +49,10 @@ import {
 
 
 import DateField from 'react-native-datefield';
+import { DatePickerModal } from 'react-native-paper-dates'
+import { TimePickerModal } from 'react-native-paper-dates'
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+
 
 const AddEventScreen: FC = () => {
   const [nameOfEvent, setNameOfEvent] = useState<string>("");
@@ -61,7 +65,37 @@ const AddEventScreen: FC = () => {
   const [eventState, setEventState] = useState<string>("");
   const [eventCity, setEventCity] = useState<string>("");
 
+  const [visible, setVisible] = React.useState(false)
+  const onDismiss = React.useCallback(() => {
+    setVisible(false)
+  }, [setVisible])
+
+  const onChange = React.useCallback(({ date }) => {
+    setVisible(false)
+    console.log({ date })
+  }, [])
+
+  const date = new Date()
+
+  const [showTimePicker, setShowTimePicker] = React.useState(false)
+  const onCancel = React.useCallback(() => {
+    setShowTimePicker(false)
+  }, [setShowTimePicker])
+
+  const onApproved= React.useCallback(
+    ({ hours, minutes }) => {
+      setShowTimePicker(false);
+      console.log({ hours, minutes });
+    },
+    [setShowTimePicker]
+  );
   
+  const theme = { ...DefaultTheme,colors: {
+    ...DefaultTheme.colors,
+    primary: '#3498db',
+    accent: '#f1c40f',
+  }, }
+
   // const handleGetAllFriends = async () => {
   //   let results = await GetAllFriends();
   //   console.log(results);
@@ -148,7 +182,6 @@ const AddEventScreen: FC = () => {
                 justifyContent: "center",
               }}
             >
-
                     <View style={{ marginLeft: 18, marginRight: 30 }}>
                     <Box
                       maxW="155"
@@ -202,24 +235,50 @@ const AddEventScreen: FC = () => {
                 />
               </View>
 
-              <View style={{ flex: 1, flexDirection: "row" }}>
-                {/*Calendar and clocks  */}
-                {/* Peter used a view to mimic the textInput instead! */}
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <View style={[{ flexDirection: "row", alignItems:'center'}]}>
-                    
-                  <DateField
-                  styleInput={styles.inputBorder}
-                  labelDate="Date"
-                  labelMonth="Month"
-                  labelYear="Year"
-                  maximumDate={new Date(2023, 3, 10)}
-                  minimumDate={new Date(2021, 4, 21)}
-                  handleErrors={() => console.log('You must be the age of 18 years to create an account')}
-                  />
+              <View style={{flex: 1, marginBottom: 20, flexDirection:'row', marginTop:10}}>
 
+              <PaperProvider theme={theme}>
+                <View style={{flexDirection:'row',flex: 1}}>
+                  <View style={{flexDirection:'row',flex: 0.93}}>
+                <DatePickerModal 
+                  mode="single"
+                  visible={visible}
+                  onDismiss={onDismiss}
+                  date={date}
+                  onConfirm={onChange}
+                  saveLabel="Save" // optional
+                  label="Select date" // optional
+                  animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
+                  locale={'en'}// optional, default is automically detected by your system  
+                  /> 
+                <Pressable style={{backgroundColor:'white', width:150, height:55, borderRadius:20, marginLeft:16, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
+                  <View style={{flexDirection:'row', shadowColor: "black",}}>
+                <MaterialCommunityIcons name="calendar-month" size={23} color="#0A326D" style={{ marginTop: 17, marginLeft: 20}} />
+                <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>Date</Text>
                   </View>
+                </Pressable>
+                  </View>
+
+                <TimePickerModal
+                visible={showTimePicker}
+                onDismiss={onCancel}
+                onConfirm={onApproved}
+                hours={12} // default: current hours
+                minutes={14} // default: current minutes
+                label="Select time" // optional, default 'Select time'
+                cancelLabel="Cancel" // optional, default: 'Cancel'
+                confirmLabel="Ok" // optional, default: 'Ok'
+                animationType="fade" // optional, default is 'none'
+                locale={'en'} // optional, default is automically detected by your system
+                />
+              <Pressable style={{backgroundColor:'white', width:150, height:55, borderRadius:20, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3,}} onPress={()=> setShowTimePicker(true)}>
+                <View style={{flexDirection:'row', shadowColor: "black"}}>
+              <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="#0A326D" style={{ marginTop:17, marginLeft: 20 }} />
+              <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>Time</Text>
                 </View>
+              </Pressable> 
+                </View>
+                  </PaperProvider>
               </View>
               <View style={{ flex: 1 }}>
                 <TextInput
@@ -244,15 +303,20 @@ const AddEventScreen: FC = () => {
                 </Text>
               </View>
 
-              <View style={{ flex: 1, backgroundColor: "green" }}>
-                <Text>Space to Add images!!!</Text>
+              <View style={{ flex: 1, marginTop:20}}>
+              <View style={{backgroundColor:'#7E90AB', width:120, height: 90, marginLeft:18, borderRadius: 8}}>
+              <MaterialCommunityIcons name="image-plus" size={40} color="white" style={{marginLeft:38, marginTop:25}}/>
               </View>
+              </View>
+
+
+
               <View
                 style={{
                   flex: 1,
                   alignItems: "flex-start",
-                  marginBottom: 10,
-                  marginTop: 10,
+                  marginBottom:10,
+                  marginTop: 20,
                 }}
               >
                 <Text
@@ -476,14 +540,25 @@ const styles = StyleSheet.create({
     marginRight: 7,
     marginBottom: 50,
   },
+  dateHeading: {
+    color: "white",
+    fontFamily: "Roboto_500Medium",
+    fontSize: 18,
+  },
   inputBorder: {
-    width: '30%',
-    color:'white',
-    borderRadius: 5,
-    borderColor: 'black',
-    backgroundColor:'balck',
+    height: '100%',
+    width: '25%',
+    color:'#0A326D',
+    borderRadius: 20,
+    borderColor: 'white',
+    backgroundColor:'white',
     borderWidth: 1,
+    marginTop: 8,
     marginBottom: 20,
+    shadowColor: 'black',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.5,
+
   },
 });
 

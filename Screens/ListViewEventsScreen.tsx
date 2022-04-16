@@ -28,14 +28,6 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
     },
-    customMargin:{
-        marginTop:10
-    },
-    stretch: {
-        width: 100,
-        height: 100,
-        resizeMode:'stretch'
-      },
 })
 
 export default ListViewEventsScreen;
