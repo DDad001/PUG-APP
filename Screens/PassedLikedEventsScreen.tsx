@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { View, Text, StyleSheet, ImageBackground, Pressable, Image } from "react-native";
-import tennis from "../assets/TennisRacket.png";
+import tennis from "../assets/tennisRacket.png";
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
