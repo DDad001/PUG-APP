@@ -73,9 +73,9 @@ import { background } from "native-base/lib/typescript/theme/styled-system";
       <>
       <View style={styles.container}> 
           <Text style={{fontSize:22, color:'white', marginLeft:12, marginTop:10, fontFamily:"Lato_900Black"}}>Sport Events</Text>
-          <View style={{flex:1, alignItems: 'flex-end', marginTop:7, marginRight:10}}>
+          {/* <View style={{flex:1, alignItems: 'flex-end', marginTop:7, marginRight:10}}>
               <MaterialIcons name="notifications" size={35} color="#E8F1FF" />
-          </View>
+          </View> */}
           {/* <View style={{backgroundColor:'#7E90AB',borderBottomLeftRadius:50, borderBottomEndRadius:5, borderTopLeftRadius:5, width:45, height: 46}}>
           <Ionicons name="add" size={45} color="white" style={{marginLeft:4}}/>
           </View> */}
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     marginLeft: 10,
     borderWidth: 1,
-    borderColor: 'white'
+    borderColor: 'white',
   },
 });
 

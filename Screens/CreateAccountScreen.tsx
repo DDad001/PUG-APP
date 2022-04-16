@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -32,6 +32,8 @@ import {
 } from "@expo-google-fonts/roboto";
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input } from "native-base";
 import { Entypo } from "@expo/vector-icons";
+import { DatePickerModal } from 'react-native-paper-dates'
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 const CreateAccountScreen: FC = () => {
   const [newFirstName, setNewFirstName] = useState<string>("");
@@ -48,6 +50,25 @@ const CreateAccountScreen: FC = () => {
   const [DOB, setDOB] = useState<string>("");
   const [state, setState] = useState<string>("");
   const [city, setCity] = useState<string>("");
+
+  const [visible, setVisible] = React.useState(false)
+
+  const onDismiss = React.useCallback(() => {
+    setVisible(false)
+  }, [setVisible])
+
+  const onChange = React.useCallback(({ date }) => {
+    setVisible(false)
+    console.log({ date })
+  }, [])
+
+  const newDate = new Date()
+
+  const theme = { ...DefaultTheme,colors: {
+    ...DefaultTheme.colors,
+    primary: '#3498db',
+    accent: '#f1c40f',
+  }, }
 
   let [fontsLoaded, error] = useFonts({
     Roboto_100Thin,
@@ -144,7 +165,7 @@ const CreateAccountScreen: FC = () => {
                 placeholderTextColor={"rgba(59, 86, 124, 1)"}
                 accessibilityLabel="Enter password"
               />
-              <Datepicker
+              {/* <Datepicker
                 style={[styles.input, {}]}
                 // date={new Date(2000, 0, 1)}
                 initialVisibleDate={new Date(2000, 0, 1)}
@@ -152,7 +173,35 @@ const CreateAccountScreen: FC = () => {
                 min={new Date(1900, 0, 0)}
                 max={new Date(2004, 7, 4)}
                 onSelect={(nextDate) => setDate(nextDate)}
-              />
+              /> */}
+
+                <PaperProvider theme={theme}>
+                  <View style={{flexDirection:'row',flex: 1}}>
+                <DatePickerModal 
+                  mode="single"
+                  visible={visible}
+                  onDismiss={onDismiss}
+                  date={newDate}
+                  // validRange={{
+                  //   startDate: new Date(2005, 15, 2),  // optional
+                  //    endDate: new Date(2005, 3, 2), // optional
+                  //  }}
+                  onConfirm={onChange}
+                  saveLabel="Save" // optional
+                  label="Select date" // optional
+                  animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
+                  locale={'en'}// optional, default is automically detected by your system  
+                  /> 
+                <Pressable style={{backgroundColor:'white', flex:0.95, height:55, borderRadius:20, marginLeft:16, marginBottom:20, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
+                  <View style={{flexDirection:'row', shadowColor: "black",}}>
+                  <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>Date of birth</Text>
+                 <Text style={{color:'#3B567C',  marginLeft:130, marginTop:19, fontSize:15}}>MM/DD/YYYY</Text>
+                  </View>
+                </Pressable>
+                  </View>
+                  </PaperProvider>
+
+
               {/* State dropdown and city input field! */}
               <View style={{ flex: 1, flexDirection: "row" }}>
                 <View style={{ flex: 1, flexDirection: "row" }}>

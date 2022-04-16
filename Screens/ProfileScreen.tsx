@@ -1,11 +1,12 @@
 import { FC } from "react";
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import SoccerField from '../assets/SoccerField.png';
 import man from '../assets/man.jpg';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
+import { Ionicons } from '@expo/vector-icons';
 
 // Import fonts
 import {
@@ -73,19 +74,24 @@ const ProfileScreen: FC = () => {
      <>
     <View style={styles.mainContainer}>
          <ImageBackground source={SoccerField} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
+           <View style={{marginTop:40, flexDirection:'row', justifyContent:'flex-end', marginRight:20}}>
+            <Ionicons name="md-settings-outline" size={28} color="white" />
+           </View>
              <View style={{flexDirection:'row', justifyContent:'center'}}>
-                <View style={{backgroundColor:'white', height:35, width:110, marginTop:50, borderTopLeftRadius:10, borderBottomLeftRadius:10}}>
+                <View style={{backgroundColor:'white', height:35, width:110, marginTop:15, borderTopLeftRadius:10, borderBottomLeftRadius:10}}>
                     <Text style={{marginLeft:20, marginTop:10, fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>My Profile</Text>
                 </View>
-                <View style={{backgroundColor:'white', height:35,width:110, marginTop:50}}>
+                <View style={{backgroundColor:'white', height:35,width:110, marginTop:15}}>
                     <Text style={{marginLeft:12, marginTop:10,fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
                 </View>
-                <View style={{backgroundColor:'white', height:35,width:110, marginTop:50,borderTopRightRadius:10, borderBottomRightRadius:10}}>
+                <View style={{backgroundColor:'white', height:35,width:110, marginTop:15,borderTopRightRadius:10, borderBottomRightRadius:10}}>
                     <Text style={{marginLeft:10, marginTop:10,fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Liked events</Text>
                 </View>
              </View>
           <View style={{alignItems:'center'}}>
-                <Image source={man} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}} />
+            <Pressable onPress={() => console.log('Change Photo')}>
+                <Image source={man} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}}/>
+            </Pressable>
           </View>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
                 <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>Jack Smith, </Text>
