@@ -78,8 +78,8 @@ const PassedLikedEventsScreen: FC = () => {
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:50, borderTopLeftRadius:10, borderBottomLeftRadius:10,}}>
                     <Text style={{marginLeft:20, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>My Profile</Text>
                 </View>
-                <View style={{backgroundColor:'white', height:35,width:110, marginTop:50}}>
-                    <Text style={{marginLeft:12, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
+                <View style={{backgroundColor:'white', height:35,width:110, marginTop:50, borderLeftWidth: 1, borderRightWidth: 1, borderLeftColor: "grey", borderRightColor: "grey"}}>
+                    <Text style={{marginLeft:16, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
                 </View>
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:50,borderTopRightRadius:10, borderBottomRightRadius:10}}>
                     <Text style={{marginLeft:10, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Liked events</Text>
