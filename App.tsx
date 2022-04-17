@@ -53,8 +53,9 @@ export default function App() {
       <NavigationContainer>
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeBaseProvider>
-              <PassedLikedEventsScreen />
+              {/* <PassedLikedEventsScreen /> */}
             {/* <FollowingScreen /> */}
+            <EventDisplayedScreen />
           </NativeBaseProvider>
         </ApplicationProvider>
       </NavigationContainer>

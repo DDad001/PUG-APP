@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { Button, Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import React,{ FC, useState } from "react";
+import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import PUGHeader from "../Components/PUGHeader";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,6 +9,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import FooterComponent from "../Components/FooterComponent";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
+import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input } from "native-base";
+
 
 import {
     useFonts,
@@ -39,7 +41,14 @@ import {
   } from "@expo-google-fonts/roboto";
 
   const EventDisplayedScreen:FC = () => {
-      
+    
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [showModal2, setShowModal2] = useState<boolean>(false);
+
+    const [selectItem, setSelectItem] = useState<string>("");
+    const [selectReportUser, setSelectReportUser] = useState<boolean>(false);
+    const [selectReportEvent, setSelectReportEvent] = useState<boolean>(false);
+
         let [fontsLoaded, error] = useFonts({
           Lato_100Thin,
           Lato_100Thin_Italic,
@@ -67,6 +76,19 @@ import {
       
         if (!fontsLoaded) {
           return <AppLoading />;
+        }
+
+        const reportUserOrEvent = (str: string) => {
+          console.log(str);
+          if(str.length > 0){
+            if(str === "reportUser"){
+              // setSelectReportUser(true);
+              //show the first modal to report the user!
+              setShowModal(true);
+            }else{
+              setShowModal2(true);
+            }
+          }
         }
 
       return (
@@ -112,18 +134,104 @@ import {
                   </View>
                 
                 <Pressable onPress={() => console.log('clicked')} style={{marginLeft:9}}>
-                <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginTop:5, marginLeft: 20, padding:5, width:130, height:30,}} >
-                    <Text style={{marginLeft:7,marginTop:2, color:'white', fontFamily:"Lato_400Regular"}}>Report this Event</Text>
-                </View>
+                  {/* <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginTop:5, marginLeft: 20, padding:5, width:130, height:30,}} >
+                      <Text style={{marginLeft:7,marginTop:2, color:'white', fontFamily:"Lato_400Regular"}}>Report this...</Text>
+                  </View> */}
+                  <View>
+                  <Box
+                      maxW="155"
+                      borderRadius={8}
+                      style={{
+                        backgroundColor: "#0A326D",
+                        // shadowColor: "black",
+                        // shadowOffset: { width: -2, height: 4 },
+                        // shadowOpacity: 0.5,
+                        // shadowRadius: 3,
+                      }}
+                    >
+                      <Select
+                        minWidth="150"
+                        minHeight="25"
+                        accessibilityLabel="Report this event or user"
+                        placeholderTextColor={"white"}
+                        placeholder="Report..."
+                        onValueChange={(text) => reportUserOrEvent(text)}
+                        _selectedItem={{
+                          bg: "black",
+                          opacity: 0.2,
+                          endIcon: <CheckIcon size={5} color="#3B567C" />,
+                        }}
+                        borderWidth="0"
+                        fontFamily={"Roboto_400Regular"}
+                        fontSize={15}
+                        color={"white"}
+                      >
+                          <Select.Item label="Report user" value="reportUser" />
+                          <Select.Item label="Report event" value="reportEvent" />
+                        {/* <Select.Item label="Cancel" value="cancel" /> */}
+                      </Select>
+                      {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+            Please make a selection!
+        </FormControl.ErrorMessage> */}
+                    </Box>
+                  </View>
                 </Pressable>
                 </View>
                 
+                  <Center>
+                    <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+                    <Modal.Content maxWidth="400px">
+                    <Modal.CloseButton />
+                    <Modal.Header>Report this user</Modal.Header>
+                    <Modal.Body>
+                      <Box>
+                        <Text>
+                          Why would you like to report this user?
+                        </Text>
+                      </Box>
+                    </Modal.Body>
+                    <Modal.Footer>
+                  <Button.Group space={2}>
+                    <Button onPress={() => {
+                    setShowModal(false)
+                  }}>
+                      Close
+                    </Button>
+                  </Button.Group>
+                </Modal.Footer>
+              </Modal.Content>
+            </Modal>
+          </Center>
+          <Center>
+            <Modal isOpen={showModal2} onClose={() => setShowModal2(false)}>
+            <Modal.Content maxWidth="400px">
+            <Modal.CloseButton />
+            <Modal.Header>Report this event</Modal.Header>
+            <Modal.Body>
+              <Box>
+                <Text>
+                  Why would you like to report this event?
+                </Text>
+              </Box>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button.Group space={2}>
+                <Button onPress={() => {
+                setShowModal2(false)
+              }}>
+                  Close
+                </Button>
+              </Button.Group>
+            </Modal.Footer>
+            </Modal.Content>
+            </Modal>
+          </Center>
                 <View style={{flexDirection:'row'}}>
                 <View style={{flexDirection:'row', flex: 1, backgroundColor: '#7E90AB', marginTop: 15, height:80,shadowRadius:8,shadowColor: '#333',shadowOffset: { width: 5, height: 5 },shadowOpacity: 0.4}}>
                 <Image source={man} style={{ height: 55, width: 55, borderRadius: 30, marginTop: 13, marginLeft: 22 }} />
                 <Text style={{flex:0.9, marginTop:30, marginLeft:17, fontSize:16,color:'white', fontFamily:"Roboto_700Bold"}}>Matthew David</Text>
 
-                <Pressable onPress={() => console.log('clicked')} style={{marginLeft:20, marginTop:17}}>
+                <Pressable onPress={() => console.log('clicked')} style={{marginLeft:20, marginTop:17}} accessibilityLabel="Follow this user">
                 <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginTop: 10, marginLeft: 12, padding:5, width:90, height:27 }} >
                     <Text style={{marginLeft:16, color:'white', fontFamily:"Lato_400Regular"}}>Follow</Text>
                 </View>
