@@ -38,6 +38,7 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ScrollView } from "native-base";
 
 interface EventsProps{ 
   handlePastEvents: Function,
@@ -123,6 +124,7 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
  
                  <Text style={{marginLeft:22, marginTop:50,color:'white', fontSize:35, fontFamily: "Lato_700Bold", fontWeight: "bold",}}>Past Events</Text>
   
+          <ScrollView>
 
              <View style={styles.card}>
             <View style={styles.cardContent}>
@@ -161,6 +163,7 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
 
         </View>
       </View>
+          </ScrollView>
 
       </ImageBackground>
     </View> 

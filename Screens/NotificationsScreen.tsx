@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Text, View, StyleSheet, ImageBackground } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, ScrollView } from "react-native";
 import NotificationComponent from "../Components/NotificationComponent";
 import AppLoading from "expo-app-loading";
 import {
@@ -45,7 +45,12 @@ const NotificationsScreen: FC = () => {
       >
         <View style={styles.overlayContainer}>
           <Text style={styles.NotificationsText}>Notifications</Text>
+          <ScrollView>
           <NotificationComponent />
+          <NotificationComponent />
+          <NotificationComponent />
+          <NotificationComponent />
+          </ScrollView>
         </View>
       </ImageBackground>
     </View>

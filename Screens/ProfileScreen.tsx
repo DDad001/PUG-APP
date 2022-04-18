@@ -148,6 +148,7 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
 
         <ScrollView horizontal>
           <Pressable onPress={() => navigation.navigate('YourActiveEvents')}>
+            
           <View style={styles.card}>
         <View style={styles.cardContent}>
             <View style={{ flexDirection: 'row', }}>
