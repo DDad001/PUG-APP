@@ -50,7 +50,7 @@ import {
     const [selectReportEvent, setSelectReportEvent] = useState<boolean>(false);
 
     //Report an event other reason
-    const [eventOtherReason, setEventOtherReason] = useState<boolean>(false);
+    const [radioEventValue, setRadioEventValue] = useState<string>("");
     const [otherReasonTxt, setOtherReasonTxt] = useState<string>("");
 
         let [fontsLoaded, error] = useFonts({
@@ -92,6 +92,13 @@ import {
             }else{
               setShowModal2(true);
             }
+          }
+        }
+        
+        const RadioEvent = (value: string) => {
+          setRadioEventValue(value);
+          if(value != "seven"){
+            setOtherReasonTxt("");
           }
         }
 
@@ -219,7 +226,7 @@ import {
                   What are the following reasons for reporting this event?
                 </Text>
                 <View style={{marginTop: 10}}>
-                  <Radio.Group name="Report Event" accessibilityLabel="Choose a reason to report this event">
+                  <Radio.Group name="Report Event" accessibilityLabel="Choose a reason to report this event" onChange={(value) => RadioEvent(value)}>
                   <Radio value="one" my={1}>
                     <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Malicious Content</Text>
                   </Radio>
@@ -238,15 +245,14 @@ import {
                   <Radio value="six" my={1}>
                     <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Spam</Text>
                   </Radio>
-                  <Radio value="seven" my={1} >
+                  <Radio value="seven" my={1}>
                     <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Other</Text>
                   </Radio>
                   </Radio.Group>
                 </View>
                 <View style={{flex: 1, backgroundColor: "red",}}>
                    {
-                     eventOtherReason === true ?
-                    //  <TextInput onChangeText={(text) => setOtherReasonTxt(text)} value={otherReasonTxt}  multiline={true} maxLength={200} />
+                     radioEventValue === "seven" ?
                     <View>
                       <TextInput onChangeText={(text) => setOtherReasonTxt(text)} value={otherReasonTxt} multiline={true}/>
                     </View>
@@ -257,11 +263,16 @@ import {
             </Modal.Body>
             <Modal.Footer>
               <Button.Group space={2}>
-                <Button onPress={() => {
+                <Button backgroundColor={"#0A326D"} onPress={() => {
                 setShowModal2(false)
               }}>
                   Close
                 </Button>
+                <Button backgroundColor={"#0A326D"} onPress={() => {
+                    console.log("send report")
+                  }}>
+                      Report Event
+                  </Button>
               </Button.Group>
             </Modal.Footer>
             </Modal.Content>
