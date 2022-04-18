@@ -1,5 +1,5 @@
 import React,{ FC, useState } from "react";
-import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, TextInput } from "react-native";
 import PUGHeader from "../Components/PUGHeader";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,7 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import FooterComponent from "../Components/FooterComponent";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
-import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input } from "native-base";
+import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio } from "native-base";
 
 
 import {
@@ -48,6 +48,10 @@ import {
     const [selectItem, setSelectItem] = useState<string>("");
     const [selectReportUser, setSelectReportUser] = useState<boolean>(false);
     const [selectReportEvent, setSelectReportEvent] = useState<boolean>(false);
+
+    //Report an event other reason
+    const [eventOtherReason, setEventOtherReason] = useState<boolean>(false);
+    const [otherReasonTxt, setOtherReasonTxt] = useState<string>("");
 
         let [fontsLoaded, error] = useFonts({
           Lato_100Thin,
@@ -140,9 +144,11 @@ import {
                   <View>
                   <Box
                       maxW="155"
-                      borderRadius={8}
+                      borderRadius={2}
                       style={{
-                        backgroundColor: "#0A326D",
+                        backgroundColor: "white",
+                        borderColor: "black",
+                        borderWidth: 1,
                         // shadowColor: "black",
                         // shadowOffset: { width: -2, height: 4 },
                         // shadowOpacity: 0.5,
@@ -153,21 +159,21 @@ import {
                         minWidth="150"
                         minHeight="25"
                         accessibilityLabel="Report this event or user"
-                        placeholderTextColor={"white"}
+                        placeholderTextColor={"black"}
                         placeholder="Report..."
                         onValueChange={(text) => reportUserOrEvent(text)}
                         _selectedItem={{
                           bg: "black",
                           opacity: 0.2,
-                          endIcon: <CheckIcon size={5} color="#3B567C" />,
+                          endIcon: <CheckIcon size={5} color="white" />,
                         }}
                         borderWidth="0"
                         fontFamily={"Roboto_400Regular"}
                         fontSize={15}
-                        color={"white"}
+                        color={"black"}
                       >
-                          <Select.Item label="Report user" value="reportUser" />
-                          <Select.Item label="Report event" value="reportEvent" />
+                          <Select.Item label="Report User" value="reportUser" />
+                          <Select.Item label="Report Event" value="reportEvent" />
                         {/* <Select.Item label="Cancel" value="cancel" /> */}
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
@@ -203,15 +209,50 @@ import {
             </Modal>
           </Center>
           <Center>
-            <Modal isOpen={showModal2} onClose={() => setShowModal2(false)}>
+            <Modal isOpen={showModal2} onClose={() => setShowModal2(false)} size="full">
             <Modal.Content maxWidth="400px">
             <Modal.CloseButton />
             <Modal.Header>Report this event</Modal.Header>
             <Modal.Body>
               <Box>
-                <Text>
-                  Why would you like to report this event?
+                <Text style={{fontSize: 18, fontFamily: "Roboto_400Regular", color: "black", alignItems: "center"}}>
+                  What are the following reasons for reporting this event?
                 </Text>
+                <View style={{marginTop: 10}}>
+                  <Radio.Group name="Report Event" accessibilityLabel="Choose a reason to report this event">
+                  <Radio value="one" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Malicious Content</Text>
+                  </Radio>
+                  <Radio value="two" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Illegal activity</Text>
+                  </Radio>
+                  <Radio value="three" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Hate speech or symbols</Text>
+                  </Radio>
+                  <Radio value="four" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Bullying or harassment</Text>
+                  </Radio>
+                  <Radio value="five" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Nudity or sexual activity</Text>
+                  </Radio>
+                  <Radio value="six" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Spam</Text>
+                  </Radio>
+                  <Radio value="seven" my={1} >
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Other</Text>
+                  </Radio>
+                  </Radio.Group>
+                </View>
+                <View style={{flex: 1, backgroundColor: "red",}}>
+                   {
+                     eventOtherReason === true ?
+                    //  <TextInput onChangeText={(text) => setOtherReasonTxt(text)} value={otherReasonTxt}  multiline={true} maxLength={200} />
+                    <View>
+                      <TextInput onChangeText={(text) => setOtherReasonTxt(text)} value={otherReasonTxt} multiline={true}/>
+                    </View>
+                     : null
+                   } 
+                </View>
               </Box>
             </Modal.Body>
             <Modal.Footer>
