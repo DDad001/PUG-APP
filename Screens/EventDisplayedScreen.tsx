@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { Button, Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import React,{ FC, useState } from "react";
+import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, TextInput } from "react-native";
 import PUGHeader from "../Components/PUGHeader";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,6 +8,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
+import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio } from "native-base";
+
 
 import {
     useFonts,
@@ -52,7 +54,19 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
   type Props = NativeStackScreenProps<RootStackParamList, "GoToProfile">;
 
   const EventDisplayedScreen:FC<Props> = ({navigation, route}) => {
-      
+
+    
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [showModal2, setShowModal2] = useState<boolean>(false);
+
+    const [selectItem, setSelectItem] = useState<string>("");
+    const [selectReportUser, setSelectReportUser] = useState<boolean>(false);
+    const [selectReportEvent, setSelectReportEvent] = useState<boolean>(false);
+
+    //Report an event other reason
+    const [radioEventValue, setRadioEventValue] = useState<string>("");
+    const [otherReasonTxt, setOtherReasonTxt] = useState<string>("");
+
         let [fontsLoaded, error] = useFonts({
           Lato_100Thin,
           Lato_100Thin_Italic,
@@ -80,6 +94,26 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
       
         if (!fontsLoaded) {
           return <AppLoading />;
+        }
+
+        const reportUserOrEvent = (str: string) => {
+          console.log(str);
+          if(str.length > 0){
+            if(str === "reportUser"){
+              // setSelectReportUser(true);
+              //show the first modal to report the user!
+              setShowModal(true);
+            }else{
+              setShowModal2(true);
+            }
+          }
+        }
+        
+        const RadioEvent = (value: string) => {
+          setRadioEventValue(value);
+          if(value != "seven"){
+            setOtherReasonTxt("");
+          }
         }
 
       return (
@@ -119,13 +153,140 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
                   </View>
                 
                 <Pressable onPress={() => console.log('clicked')} style={{marginLeft:9}}>
-                <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginTop:5, marginLeft: 20, padding:5, width:130, height:30,}} >
-                    <Text style={{marginLeft:7,marginTop:2, color:'white', fontFamily:"Lato_400Regular"}}>Report this Event</Text>
-                </View>
+                  {/* <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginTop:5, marginLeft: 20, padding:5, width:130, height:30,}} >
+                      <Text style={{marginLeft:7,marginTop:2, color:'white', fontFamily:"Lato_400Regular"}}>Report this...</Text>
+                  </View> */}
+                  <View>
+                  <Box
+                      maxW="155"
+                      borderRadius={2}
+                      style={{
+                        backgroundColor: "white",
+                        borderColor: "black",
+                        borderWidth: 1,
+                        // shadowColor: "black",
+                        // shadowOffset: { width: -2, height: 4 },
+                        // shadowOpacity: 0.5,
+                        // shadowRadius: 3,
+                      }}
+                    >
+                      <Select
+                        minWidth="150"
+                        minHeight="25"
+                        accessibilityLabel="Report this event or user"
+                        placeholderTextColor={"black"}
+                        placeholder="Report..."
+                        onValueChange={(text) => reportUserOrEvent(text)}
+                        _selectedItem={{
+                          bg: "black",
+                          opacity: 0.2,
+                          endIcon: <CheckIcon size={5} color="white" />,
+                        }}
+                        borderWidth="0"
+                        fontFamily={"Roboto_400Regular"}
+                        fontSize={15}
+                        color={"black"}
+                      >
+                          <Select.Item label="Report User" value="reportUser" />
+                          <Select.Item label="Report Event" value="reportEvent" />
+                        {/* <Select.Item label="Cancel" value="cancel" /> */}
+                      </Select>
+                      {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+            Please make a selection!
+        </FormControl.ErrorMessage> */}
+                    </Box>
+                  </View>
                 </Pressable>
                 </View>
                 
                   <Pressable onPress={() => navigation.navigate('profile', {name:'profile'})}>
+                  <Center>
+                    <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+                    <Modal.Content maxWidth="400px">
+                    <Modal.CloseButton />
+                    <Modal.Header>Report this user</Modal.Header>
+                    <Modal.Body>
+                      <Box>
+                        <Text>
+                          Why would you like to report this user?
+                        </Text>
+                      </Box>
+                    </Modal.Body>
+                    <Modal.Footer>
+                  <Button.Group space={2}>
+                    <Button onPress={() => {
+                    setShowModal(false)
+                  }}>
+                      Close
+                    </Button>
+                  </Button.Group>
+                </Modal.Footer>
+              </Modal.Content>
+            </Modal>
+          </Center>
+          <Center>
+            <Modal isOpen={showModal2} onClose={() => setShowModal2(false)} size="full">
+            <Modal.Content maxWidth="400px">
+            <Modal.CloseButton />
+            <Modal.Header>Report this event</Modal.Header>
+            <Modal.Body>
+              <Box>
+                <Text style={{fontSize: 18, fontFamily: "Roboto_400Regular", color: "black", alignItems: "center"}}>
+                  What are the following reasons for reporting this event?
+                </Text>
+                <View style={{marginTop: 10}}>
+                  <Radio.Group name="Report Event" accessibilityLabel="Choose a reason to report this event" onChange={(value) => RadioEvent(value)}>
+                  <Radio value="one" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Malicious Content</Text>
+                  </Radio>
+                  <Radio value="two" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Illegal activity</Text>
+                  </Radio>
+                  <Radio value="three" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Hate speech or symbols</Text>
+                  </Radio>
+                  <Radio value="four" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Bullying or harassment</Text>
+                  </Radio>
+                  <Radio value="five" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Nudity or sexual activity</Text>
+                  </Radio>
+                  <Radio value="six" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Spam</Text>
+                  </Radio>
+                  <Radio value="seven" my={1}>
+                    <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Other</Text>
+                  </Radio>
+                  </Radio.Group>
+                </View>
+                <View style={{flex: 1, backgroundColor: "red",}}>
+                   {
+                     radioEventValue === "seven" ?
+                    <View>
+                      <TextInput onChangeText={(text) => setOtherReasonTxt(text)} value={otherReasonTxt} multiline={true}/>
+                    </View>
+                     : null
+                   } 
+                </View>
+              </Box>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button.Group space={2}>
+                <Button backgroundColor={"#0A326D"} onPress={() => {
+                setShowModal2(false)
+              }}>
+                  Close
+                </Button>
+                <Button backgroundColor={"#0A326D"} onPress={() => {
+                    console.log("send report")
+                  }}>
+                      Report Event
+                  </Button>
+              </Button.Group>
+            </Modal.Footer>
+            </Modal.Content>
+            </Modal>
+          </Center>
                 <View style={{flexDirection:'row'}}>
 
                 <View style={{flexDirection:'row', flex: 1, backgroundColor: '#7E90AB', marginTop: 15, height:80,shadowRadius:8,shadowColor: '#333',shadowOffset: { width: 5, height: 5 },shadowOpacity: 0.4}}>

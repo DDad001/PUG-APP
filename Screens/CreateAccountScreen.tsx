@@ -32,7 +32,7 @@ import {
 } from "@expo-google-fonts/roboto";
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input } from "native-base";
 import { Entypo } from "@expo/vector-icons";
-import { DatePickerModal } from 'react-native-paper-dates'
+import { DatePickerModal } from 'react-native-paper-dates';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 const CreateAccountScreen: FC = () => {
