@@ -70,7 +70,6 @@ const FollowingComponent: FC = () => {
   }
 
   return (
-    <ScrollView style={styles.ScrollStyle}>
       <View style={styles.NotificationView}>
         <Image source={Skier} style={styles.ImageStyle} />
         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -85,7 +84,6 @@ const FollowingComponent: FC = () => {
           </Pressable>
         </View>
       </View>
-    </ScrollView>
   );
 };
 
@@ -95,9 +93,6 @@ const styles = StyleSheet.create({
     width: 70,
     borderRadius: 50,
     marginRight: 15,
-  },
-  ScrollStyle: {
-    paddingTop: 10,
   },
   TextStyle: {
     color: "white",

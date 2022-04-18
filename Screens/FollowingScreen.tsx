@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableHighlight,
   Pressable,
+  ScrollView
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome } from "@expo/vector-icons";
@@ -140,7 +141,16 @@ const FollowingScreen: FC = () => {
 
         <View style={styles.overlayContainer}>
           <Text style={styles.FollowingText}>Following</Text>
-          <FollowingComponent />
+          <ScrollView>
+           <FollowingComponent />
+           <FollowingComponent />
+           <FollowingComponent />
+           <FollowingComponent />
+           <FollowingComponent />
+           <FollowingComponent />
+           <FollowingComponent />
+           <FollowingComponent />
+          </ScrollView>
         </View>
       </ImageBackground>
     </View>
