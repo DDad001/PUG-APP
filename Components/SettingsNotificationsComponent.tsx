@@ -44,7 +44,18 @@ import {
   Box
 } from "native-base";
 
-const SettingsNotificationsComponent: FC = () => {
+
+interface SettingsProps{ 
+  onHelpPress: Function,
+}
+
+
+const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
+
+   const HelpHandler = () => {
+    props.onHelpPress();
+   }
+
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -95,16 +106,17 @@ const SettingsNotificationsComponent: FC = () => {
       <View style={styles.NotificationView}>
       <Text style={styles.TextStyle}>Edit Profile</Text>
         <Pressable onPress={() => setShowModal(true)}>
-        
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
         </Pressable>
         
       </View>
 
-      <View style={styles.NotificationView}>
+        <Pressable onPress={HelpHandler}>
+        <View style={styles.NotificationView}>
         <Text style={styles.TextStyle}>Help</Text>
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
-      </View>
+        </View>
+        </Pressable>
 
       <View style={styles.NotificationView}>
         <Text style={styles.TextStyle}>Delete Account</Text>

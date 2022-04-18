@@ -53,6 +53,7 @@ type RootStackParamList ={
   settings:undefined,
   following:undefined,
   YourActiveEvents:undefined,
+  followers:undefined,
 }
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
@@ -134,13 +135,15 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
                 <Text style={{marginTop: 20, color:'white', marginLeft:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>38</Text>
           </View>
 
+                    <View style={{justifyContent:'center', flexDirection:'row'}}>
+                    <Pressable onPress={() => navigation.navigate('followers')}>
+                        <Text style={{marginTop: 10, color:'white', marginRight:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Followers</Text>
+                    </Pressable>
+                  <Pressable onPress={() => navigation.navigate('following')}>             
+                      <Text style={{marginTop: 10, color:'white', marginLeft:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Following</Text>
+                  </Pressable>
+                    </View>
 
-             <Pressable onPress={() => navigation.navigate('following')}>
-                <View style={{justifyContent:'center', flexDirection:'row'}}>
-                <Text style={{marginTop: 10, color:'white', marginRight:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Followers</Text>
-                <Text style={{marginTop: 10, color:'white', marginLeft:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Following</Text>
-              </View>
-            </Pressable>
 
           <View>
               <Text style={{marginTop: 30, color:'white', marginLeft:25, fontSize:30, fontFamily: "Lato_900Black",}}>Active Events</Text>

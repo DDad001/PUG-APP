@@ -7,7 +7,8 @@ import {
   TextInput,
   TouchableHighlight,
   Pressable,
-  ScrollView
+  ScrollView,
+  Image
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome } from "@expo/vector-icons";
@@ -27,7 +28,25 @@ import {
   Lato_900Black_Italic,
 } from "@expo-google-fonts/lato";
 
+import {
+  Roboto_100Thin,
+  Roboto_100Thin_Italic,
+  Roboto_300Light,
+  Roboto_300Light_Italic,
+  Roboto_400Regular,
+  Roboto_400Regular_Italic,
+  Roboto_500Medium,
+  Roboto_500Medium_Italic,
+  Roboto_700Bold,
+  Roboto_700Bold_Italic,
+  Roboto_900Black,
+  Roboto_900Black_Italic,
+} from "@expo-google-fonts/roboto";
+
+
 import BaseballPicture from "../assets/BaseballGlove.png";
+import Skier from "../assets/Skier.png";
+
 
 const FollowingScreen: FC = () => {
   let [fontsLoaded] = useFonts({
@@ -41,7 +60,20 @@ const FollowingScreen: FC = () => {
     Lato_700Bold_Italic,
     Lato_900Black,
     Lato_900Black_Italic,
+    Roboto_100Thin,
+    Roboto_100Thin_Italic,
+    Roboto_300Light,
+    Roboto_300Light_Italic,
+    Roboto_400Regular,
+    Roboto_400Regular_Italic,
+    Roboto_500Medium,
+    Roboto_500Medium_Italic,
+    Roboto_700Bold,
+    Roboto_700Bold_Italic,
+    Roboto_900Black,
+    Roboto_900Black_Italic,
   });
+
 
   const [input, setInput] = useState("");
 
@@ -142,14 +174,20 @@ const FollowingScreen: FC = () => {
         <View style={styles.overlayContainer}>
           <Text style={styles.FollowingText}>Following</Text>
           <ScrollView>
-           <FollowingComponent />
-           <FollowingComponent />
-           <FollowingComponent />
-           <FollowingComponent />
-           <FollowingComponent />
-           <FollowingComponent />
-           <FollowingComponent />
-           <FollowingComponent />
+          <View style={styles.NotificationView}>
+          <Image source={Skier} style={styles.ImageStyle} />
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={styles.TextStyle}>Scott Morenzone </Text>
+
+          <Pressable
+            style={styles.unfollowBtn}
+            onPress={() => console.log("Login")}
+            accessibilityLabel="Followers Button"
+          >
+            <Text style={styles.unfollowTxt}>Unfollow</Text>
+          </Pressable>
+        </View>
+      </View>
           </ScrollView>
         </View>
       </ImageBackground>
@@ -198,6 +236,55 @@ const styles = StyleSheet.create({
     paddingRight: 28,
     paddingTop: "10%",
     paddingBottom: "10%",
+  },
+  ImageStyle: {
+    height: 70,
+    width: 70,
+    borderRadius: 50,
+    marginRight: 15,
+  },
+  TextStyle: {
+    color: "white",
+    fontSize: 22,
+    fontFamily: "Roboto_500Medium",
+    fontWeight: "500",
+  },
+  TimeText: {
+    color: "#DFE6F5",
+    fontSize: 13,
+    paddingTop: 5,
+    fontFamily: "Roboto_500Medium",
+  },
+  NotificationView: {
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "row",
+    paddingTop: 5,
+    paddingBottom: 34,
+    // marginLeft: 10,
+    //marginRight: 25,
+  },
+  MiddleTextStyle: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Lato_300Light",
+  },
+  unfollowBtn: {
+    backgroundColor: "#0A326D",
+    borderRadius: 10,
+    marginLeft: 15,
+    //marginRight: 55,
+  },
+  unfollowTxt: {
+    color: "white",
+    fontFamily: "Lato_700Bold",
+    fontSize: 15,
+    fontWeight: "800",
+    justifyContent: "center",
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
 });
 

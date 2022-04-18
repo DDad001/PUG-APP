@@ -8,7 +8,7 @@ const FAQScreen: FC = () => {
         <>
       <View style={styles.container}>
           <ImageBackground source={GradientBackground} resizeMode="cover" style={{ height: "100%", width: "100%"}}>
-             <Text>FAQ</Text>
+             <Text style={{color:'white',fontSize:20}}>FAQ</Text>
           </ImageBackground>
       </View>
         </>
