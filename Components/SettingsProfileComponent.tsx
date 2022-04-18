@@ -66,11 +66,9 @@ const SettingsProfileComponent: FC = () => {
   return (
     <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView}>
-      <Ionicons name="chevron-back" size={35} color="white" style={{marginTop:7, marginLeft: 15, alignSelf:'flex-start'}}/>
         <Image source={man} style={styles.ImageStyle} />
         <Text style={styles.TextStyle}>Scotterpop</Text>
       </View>
-
     </View>
   );
 };

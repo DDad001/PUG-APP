@@ -39,24 +39,18 @@ import {
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-interface EventsProps{ 
-  handlePastEvents: Function,
-  handleLikedEvents: Function
-}
-
 type RootStackParamList ={
   Nav: undefined,
   event:{name:string},
   profile:{name:string},
   PastEvents:undefined,
   LikedEvents:undefined,
-  settings:undefined,
-  following:undefined,
-  YourActiveEvents:undefined,
+  LookAtEvent:undefined,
+  OtherPersonsFollowers:undefined,
 }
-type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
+type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
-const ProfileScreen: FC<Props> = ({navigation, route})  => {
+const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -91,30 +85,7 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
      <>
     <View style={styles.mainContainer}>
          <ImageBackground source={SoccerField} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
-           <View style={{marginTop:40, flexDirection:'row', justifyContent:'flex-end', marginRight:20}}>
-             <Pressable onPress={() => navigation.navigate('settings')}>
-                  <Ionicons name="md-settings-outline" size={28} color="white" />
-             </Pressable>
-           </View>
-             <View style={{flexDirection:'row', justifyContent:'center'}}>
-                <View style={{backgroundColor:'white', height:35, width:110, marginTop:15, borderTopLeftRadius:10, borderBottomLeftRadius:10}}>
-                    <Text style={{marginLeft:20, marginTop:10, fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>My Profile</Text>
-                </View>
-
-                <Pressable onPress={() => navigation.navigate('PastEvents')}>
-                <View style={{backgroundColor:'white', height:35,width:110, marginTop:15}}>
-                    <Text style={{marginLeft:12, marginTop:10,fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
-                </View>
-                </Pressable>
-
-                <Pressable onPress={() => navigation.navigate('LikedEvents')}>
-                <View style={{backgroundColor:'white', height:35,width:110, marginTop:15,borderTopRightRadius:10, borderBottomRightRadius:10}}>
-                    <Text style={{marginLeft:10, marginTop:10,fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Liked events</Text>
-                </View>
-                </Pressable>
-
-             </View>
-          <View style={{alignItems:'center'}}>
+          <View style={{alignItems:'center', marginTop:30}}>
             <Pressable onPress={() => console.log('Change Photo')}>
                 <Image source={man} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}}/>
             </Pressable>
@@ -134,20 +105,20 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
                 <Text style={{marginTop: 20, color:'white', marginLeft:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>38</Text>
           </View>
 
-
-             <Pressable onPress={() => navigation.navigate('following')}>
-                <View style={{justifyContent:'center', flexDirection:'row'}}>
+            <Pressable onPress={() => navigation.navigate('OtherPersonsFollowers')}>
+          <View style={{justifyContent:'center', flexDirection:'row'}}>
                 <Text style={{marginTop: 10, color:'white', marginRight:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Followers</Text>
                 <Text style={{marginTop: 10, color:'white', marginLeft:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Following</Text>
-              </View>
+          </View>
             </Pressable>
+
 
           <View>
               <Text style={{marginTop: 30, color:'white', marginLeft:25, fontSize:30, fontFamily: "Lato_900Black",}}>Active Events</Text>
           </View>
 
         <ScrollView horizontal>
-          <Pressable onPress={() => navigation.navigate('YourActiveEvents')}>
+            <Pressable onPress={() => navigation.navigate('LookAtEvent')}>
           <View style={styles.card}>
         <View style={styles.cardContent}>
             <View style={{ flexDirection: 'row', }}>
@@ -176,18 +147,12 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
                 <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>Hal Bartholomew Sports Park Football Game </Text>
                 <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>6300 Whitelock Pkwy,{'\n'}Elk Grove, CA 95757</Text>
                 <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
-                <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:105, height:27 }} >
-                    <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
-                </View>
                 </View>
         </View>
       </View>
-          </Pressable>
+     </Pressable>
+
    </ScrollView>
-
-
-
-
           </ImageBackground>
     </View>
      </>
@@ -209,7 +174,7 @@ const styles = StyleSheet.create({
         marginHorizontal:20,
         marginVertical: 20,
         marginLeft:18,
-        height:205,
+        height:190,
         width:260
       },
       cardContent: {
@@ -217,4 +182,4 @@ const styles = StyleSheet.create({
         marginVertical: 8,
       },
 })
-export default ProfileScreen;
+export default ProfileOfOther;

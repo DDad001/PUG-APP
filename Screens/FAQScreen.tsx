@@ -1,7 +1,6 @@
 import { FC } from "react"
 import { ImageBackground, StyleSheet, Text, View } from "react-native"
 import GradientBackground from '../assets/GradientBackground.png';
-import FooterComponent from "../Components/FooterComponent";
 
 
 const FAQScreen: FC = () => {
@@ -12,7 +11,6 @@ const FAQScreen: FC = () => {
              <Text>FAQ</Text>
           </ImageBackground>
       </View>
-      <FooterComponent/>
         </>
     )
 }

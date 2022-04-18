@@ -1,5 +1,5 @@
-import React from 'react';
-import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, Picker, ScrollView } from 'react-native';
+import React, { FC } from 'react';
+import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, Picker, ScrollView, Pressable } from 'react-native';
 import { Box, CheckIcon, FormControl, Select } from "native-base";
 import { useState } from 'react';
 import man from '../assets/man.jpg';
@@ -9,7 +9,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import AppLoading from 'expo-app-loading';
 // import { Divider, Menu, Provider, Button } from 'react-native-paper';
-
 // import SelectDropdown from 'react-native-select-dropdown'
 // import { IndexPath, Layout, Select, SelectItem } from '@ui-kitten/components';
 
@@ -56,11 +55,35 @@ import {
     Roboto_900Black,
     Roboto_900Black_Italic,
   } from '@expo-google-fonts/roboto';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
-  
-  
-  const CardListComponent = () => {
-  
+interface CardProps{ 
+  onProfilePress: Function,
+  onEventDisplayPress: Function
+}
+
+  type RootStackParamList ={
+    Nav: undefined,
+    event:{name: string},
+    schedule:undefined,
+    cardList:{name:string}
+  }
+
+  // type Props = NativeStackScreenProps<RootStackParamList, "cardList">;
+  // const navigation = useNavigation();
+
+
+  const CardListComponent: FC<CardProps> = (props) => {
+ 
+    const ProfileHandler = () => {
+      props.onProfilePress()
+    }
+
+    const EventHandler = () => {
+      props.onEventDisplayPress()
+    }
+
     const [visible, setVisible] = React.useState(false);
   
     const openMenu = () => setVisible(true);
@@ -159,13 +182,22 @@ if(!fontsLoaded){
         <ScrollView style={{}}>
       <View style={styles.card}>
         <View style={styles.cardContent}>
+                <Pressable onPress={EventHandler}>
           <View style={{ flexDirection: 'row',flex:1,}}>
             <Image source={man} style={{ flex:1, height: 90, width: 120, borderRadius: 8 }} />
             <View>
               <View style={{ flex:1, flexDirection: 'row',  }}>
+
                 <Text style={{marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily:"Lato_700Bold" }}>Oak Park Basketball Game</Text>
+
+                <Pressable onPress={() => console.log('clicked')}>
                 <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 5, marginLeft: 8, padding:7  }} />
-                <FontAwesome5 name="heart" size={14} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                </Pressable>
+
+                <Pressable onPress={() => console.log('clicked')}>
+                <FontAwesome5 name="heart" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                </Pressable>
+
               </View>
               <View style={{ flexDirection: 'column', }}>
                 <View style={{ flexDirection: 'row', }}>
@@ -175,8 +207,14 @@ if(!fontsLoaded){
                 </View>
 
                 <View style={{ flexDirection: 'row' }}>
+
+                  <Pressable onPress={ProfileHandler}>
+                    <View  style={{ flexDirection: 'row' }}>
                   <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
                   <Text style={{ marginLeft: 10, marginTop:7, fontSize: 10, fontFamily:"Roboto_500Medium" }}>Matthew David</Text>
+                    </View>
+                  </Pressable>
+           
                   <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 41, marginTop: 4, }} />
                   <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily:"Roboto_400Regular"}}>9:30 am</Text>
                 </View>
@@ -184,6 +222,7 @@ if(!fontsLoaded){
               </View>
             </View>
           </View>
+                </Pressable>
 
 
         </View>

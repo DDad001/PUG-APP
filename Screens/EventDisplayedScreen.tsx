@@ -6,7 +6,6 @@ import { Ionicons } from '@expo/vector-icons';
 import man from '../assets/man.jpg';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import FooterComponent from "../Components/FooterComponent";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
 
@@ -37,8 +36,22 @@ import {
     Roboto_900Black,
     Roboto_900Black_Italic,
   } from "@expo-google-fonts/roboto";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-  const EventDisplayedScreen:FC = () => {
+
+  
+  type RootStackParamList ={
+    Nav: undefined,
+    event:{name: string},
+    schedule:undefined,
+    cardList:{name:string},
+    GoToEvent:undefined,
+    profile:{name:string},
+    GoToProfile:undefined,
+  }
+  type Props = NativeStackScreenProps<RootStackParamList, "GoToProfile">;
+
+  const EventDisplayedScreen:FC<Props> = ({navigation, route}) => {
       
         let [fontsLoaded, error] = useFonts({
           Lato_100Thin,
@@ -73,12 +86,6 @@ import {
         <>
         <StatusBar style="dark" />
         <View style={styles.container}> 
-        <View style={{ flexDirection:'row', marginBottom:10 ,}}>
-            <View style={{alignItems: 'flex-start', marginLeft:8}}>
-                 <Ionicons name="chevron-back" size={35} color="#7E90AB" style={{marginTop:7, justifyContent:'flex-start'}}/>
-            </View>
-        </View>
-
         <ScrollView>
         <View style={{ flex:1,}}>
 
@@ -118,10 +125,15 @@ import {
                 </Pressable>
                 </View>
                 
+                  <Pressable onPress={() => navigation.navigate('profile', {name:'profile'})}>
                 <View style={{flexDirection:'row'}}>
+
                 <View style={{flexDirection:'row', flex: 1, backgroundColor: '#7E90AB', marginTop: 15, height:80,shadowRadius:8,shadowColor: '#333',shadowOffset: { width: 5, height: 5 },shadowOpacity: 0.4}}>
+
+
                 <Image source={man} style={{ height: 55, width: 55, borderRadius: 30, marginTop: 13, marginLeft: 22 }} />
                 <Text style={{flex:0.9, marginTop:30, marginLeft:17, fontSize:16,color:'white', fontFamily:"Roboto_700Bold"}}>Matthew David</Text>
+
 
                 <Pressable onPress={() => console.log('clicked')} style={{marginLeft:20, marginTop:17}}>
                 <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginTop: 10, marginLeft: 12, padding:5, width:90, height:27 }} >
@@ -130,7 +142,9 @@ import {
                 </Pressable>
 
                 </View>
+
                 </View>
+                  </Pressable>
 
                 <View style={{marginLeft:20, marginTop:15}} >
                     <Text style={{fontFamily:"Roboto_500Medium", fontSize:17}}>Details:</Text>
@@ -138,7 +152,6 @@ import {
                 </View>
            </ScrollView>
         </View>
-           <FooterComponent/>
         </>
     )
 }
@@ -146,7 +159,6 @@ import {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 20,
         flex: 1,
       },
 

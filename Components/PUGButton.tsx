@@ -18,15 +18,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     backgroundColor: "rgba(10, 50, 109, 0.1)",
-    paddingRight: 7,
-    paddingTop: 7,
-    paddingLeft: 7,
-    paddingBottom: 7,
-    marginLeft: 10,
+    padding:5,
     borderWidth: 1,
     borderColor: "white",
-    marginTop:8,
-    marginRight:18
   },
 });
 

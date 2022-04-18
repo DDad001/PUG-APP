@@ -1,4 +1,3 @@
-import * as React from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import * as eva from "@eva-design/eva";
@@ -10,30 +9,47 @@ import LoadingLogoScreen from "./Screens/LoadingLogoScreen";
 import CreateAccountScreen from "./Screens/CreateAccountScreen";
 import NotificationsScreen from "./Screens/NotificationsScreen";
 import FollowingScreen from "./Screens/FollowingScreen";
-import SettingsScreen from "./Screens/SettingsScreen";
-import PassedLikedEventsScreen from "./Screens/PassedLikedEventsScreen";
+import SettingsScreen from "./Screens/SettingsScreen"
 import AddEventScreen from "./Screens/AddEventScreen";
 
 //Components
 import PUGbutton from "./Components/PUGButton";
 import ListViewEventsScreen from "./Screens/ListViewEventsScreen";
-import FooterComponent from "./Components/FooterComponent";
+
 import CardListComponent from "./Components/CardListComponent";
 import EventDisplayedScreen from "./Screens/EventDisplayedScreen";
-import ProfileScreen from "./Screens/ProfileScreen";
 import { NativeBaseProvider } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 
 import useUser from './Hooks/use-user';
 import UserContext from './Context/UserContext';
 
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GetAllFriends } from './Services/DataService';
 import { useEffect, useState } from 'react';
 import FAQScreen from "./Screens/FAQScreen";
 import FollowingComponent from "./Components/FollowingComponent";
+import React, { FC } from 'react';
+import NavigationComponent from "./Components/NavigationComponent";
+import PassedEventsScreen from "./Screens/PassedEventsScreen";
+import LikedEventsScreen from "./Screens/LikedEventsScreen";
+import ProfileOfOther from "./Screens/ProfileOfOther";
 
-export default function App() {
+type RootStackParamList ={
+  Nav: undefined,
+  event:{name:string},
+  profile:{name:string},
+  PastEvents:undefined,
+  LikedEvents:undefined,
+  settings:undefined,
+  following:undefined,
+  LookAtEvent:undefined,
+  OtherPersonsFollowers:undefined,
+  YourActiveEvents:undefined,
+}
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const App: FC =()=> {
 
   const [allFriends, setAllFriends] = useState([]);
 
@@ -47,14 +63,46 @@ export default function App() {
     console.log(results);
   }
 
+
   return (
     <UserContext.Provider value={useUser()}>
       
       <NavigationContainer>
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeBaseProvider>
-  
-            <ListViewEventsScreen/>
+          <Stack.Navigator>
+          <Stack.Screen name="Nav"
+          component={NavigationComponent}
+          options={{headerShown: false}} />
+          <Stack.Screen name="event"
+           options={{ title: 'Event' }}
+          component={EventDisplayedScreen}/>
+          <Stack.Screen name="profile"
+           options={{ title: 'Profile' }}
+          component={ProfileOfOther}/>
+          <Stack.Screen name="PastEvents"
+           options={{ title: 'Past Events', headerShown: false}}
+          component={PassedEventsScreen}/>
+          <Stack.Screen name="LikedEvents"
+           options={{ title: 'Liked Events', headerShown: false}}
+          component={LikedEventsScreen}/>
+          <Stack.Screen name="settings"
+           options={{ title: 'Settings',}}
+          component={SettingsScreen}/>
+          <Stack.Screen name="following"
+           options={{ title: 'Following',}}
+          component={FollowingScreen}/>
+          <Stack.Screen name="LookAtEvent"
+           options={{ title: 'Look At Event',}}
+          component={EventDisplayedScreen}/>
+          <Stack.Screen name="OtherPersonsFollowers"
+           options={{ title: 'OtherPersonFollowers',}}
+          component={FollowingScreen}/>
+          <Stack.Screen name="YourActiveEvents"
+           options={{ title: 'Your Active Events',}}
+          component={EventDisplayedScreen}/>
+
+            {/* <ListViewEventsScreen/> */}
             {/* <AddEventScreen /> */}
             {/* <PassedLikedEventsScreen/> */}
             {/* <ProfileScreen/> */}
@@ -63,6 +111,7 @@ export default function App() {
             {/* <SettingsScreen /> */}
             {/* <EventDisplayedScreen/> */}
 
+         </Stack.Navigator>  
           </NativeBaseProvider>
         </ApplicationProvider>
       </NavigationContainer>
@@ -85,6 +134,7 @@ export default function App() {
     // </View>
   );
 }
+export default App;
 
 const styles = StyleSheet.create({
   container: {

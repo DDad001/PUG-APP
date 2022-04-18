@@ -11,7 +11,6 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { Box, CheckIcon, FormControl, Input, Select } from "native-base";
-import FooterComponent from "../Components/FooterComponent";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -439,7 +438,6 @@ const AddEventScreen: FC = () => {
               {/* Add the need help section here */}
             </ScrollView>
           </KeyboardAvoidingView>
-          <FooterComponent />
         </ImageBackground>
       </View>
     </>

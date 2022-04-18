@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { Text, View, StyleSheet, ImageBackground } from "react-native";
-import FooterComponent from "../Components/FooterComponent";
 import SettingsProfileComponent from "../Components/SettingsProfileComponent";
 import SettingsNotificationsComponent from "../Components/SettingsNotificationsComponent";
 import SignoutBtnComponent from "../Components/SignoutBtnComponent";
@@ -51,7 +50,6 @@ const SettingsScreen: FC = () => {
             <SettingsProfileComponent />
             <SettingsNotificationsComponent />
             <SignoutBtnComponent />
-            <FooterComponent />
         </View>
       </ImageBackground>
     </View>

@@ -5,7 +5,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import man from '../assets/man.jpg';
-import FooterComponent from "../Components/FooterComponent";
 
 import AppLoading from "expo-app-loading";
 
@@ -38,8 +37,37 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const PassedLikedEventsScreen: FC = () => {
+interface EventsProps{ 
+  handlePastEvents: Function,
+  handleLikedEvents: Function
+}
+
+
+type RootStackParamList ={
+  Nav: undefined,
+  event:{name:string},
+  profile:{name:string},
+  PastEvents:undefined,
+  LikedEvents:undefined
+}
+
+type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
+
+const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
+
+  const [name, setName] = useState('')
+  const [tabColor, setTabColor] = useState('');
+  
+  const handlePastEvents = () => {
+    setName('Past Events')
+    navigation.navigate('PastEvents')
+  }
+  const handleLikedEvents = () => {
+    setName('Liked Events')
+    navigation.navigate('LikedEvents')
+  }
 
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -75,20 +103,26 @@ const PassedLikedEventsScreen: FC = () => {
     <View style={styles.container}>
       <ImageBackground source={tennis} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
       <View style={{flexDirection:'row', justifyContent:'center'}}>
+              <Pressable onPress={() => navigation.navigate('Nav')}>
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:50, borderTopLeftRadius:10, borderBottomLeftRadius:10,}}>
                     <Text style={{marginLeft:20, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>My Profile</Text>
                 </View>
+              </Pressable>
+                <Pressable onPress={handlePastEvents}>    
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:50}}>
                     <Text style={{marginLeft:12, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
                 </View>
+                </Pressable>
+                <Pressable onPress={handleLikedEvents}>
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:50,borderTopRightRadius:10, borderBottomRightRadius:10}}>
                     <Text style={{marginLeft:10, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Liked events</Text>
                 </View>
+                </Pressable>
              </View>
 
-             <View>
-               <Text style={{marginLeft:22, marginTop:50,color:'white', fontSize:35, fontFamily: "Lato_700Bold", fontWeight: "bold",}}>Past Events</Text>
-             </View>
+ 
+                 <Text style={{marginLeft:22, marginTop:50,color:'white', fontSize:35, fontFamily: "Lato_700Bold", fontWeight: "bold",}}>Past Events</Text>
+  
 
              <View style={styles.card}>
             <View style={styles.cardContent}>
@@ -110,31 +144,26 @@ const PassedLikedEventsScreen: FC = () => {
                 </View>
 
 
+                  </View>
+                </View>
               </View>
-            </View>
-          </View>
                 <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:14}}>Hal Bartholomew Sports Park {'\n'}Football Game </Text>
 
-                {/* DO NOT DELETE THIS--- CODE FOR LIKED EVENTS PAGE */}
-                {/* <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
-                <MaterialIcons name="location-on" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginLeft: 12, padding:5  }} />
-                <FontAwesome5 name="heart" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
-                </View> */}
+                  {/* DO NOT DELETE THIS--- CODE FOR LIKED EVENTS PAGE */}
 
-                {/* CODE FOR PAST EVENTS PAGE */}
+                  {/* CODE FOR PAST EVENTS PAGE */}
+
                 <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
                 <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:110, height:27 }} >
                     <Text style={{marginLeft:10, color:'white', fontFamily:"Lato_400Regular"}}>Delete Event</Text>
                 </View>
                 </View>
-  
 
         </View>
       </View>
 
       </ImageBackground>
-    </View>
-      <FooterComponent/> 
+    </View> 
     </>
   );
 };
@@ -164,4 +193,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default PassedLikedEventsScreen;
+export default PassedEventsScreen;
