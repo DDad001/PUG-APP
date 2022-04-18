@@ -90,51 +90,10 @@ const FollowingScreen: FC = () => {
       >
         <View
           style={{
-            flex: 1,
-            flexDirection: "row",
-            alignItems: "flex-end",
-            marginTop: 20,
-            justifyContent: "center",
-            marginBottom: 28,
-            marginLeft: 70,
-            marginRight: 70,
-          }}
-        >
-          <View style={{ flex: 0.5 }}>
-            <Pressable
-              style={{
-                backgroundColor: "white",
-                borderTopLeftRadius: 10,
-                borderBottomLeftRadius: 10,
-                borderRightColor: "grey",
-                borderRightWidth: 1,
-              }}
-              onPress={() => console.log("Login")}
-              accessibilityLabel="Following Button"
-            >
-              <Text style={styles.loginBtnTxt}>Following</Text>
-            </Pressable>
-          </View>
-
-          <View style={{ flex: 0.5 }}>
-            <Pressable
-              style={{
-                backgroundColor: "white",
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 10,
-              }}
-              onPress={() => console.log("Login")}
-              accessibilityLabel="Followers Button"
-            >
-              <Text style={styles.loginBtnTxt}>Followers</Text>
-            </Pressable>
-          </View>
-        </View>
-        <View
-          style={{
             flexDirection: "row",
             justifyContent: "center",
             paddingBottom: 33,
+            marginTop:30
           }}
         >
           <View>

@@ -40,9 +40,58 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-const LoginScreen: FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+import { login, GetUserByUsername } from '../Services/DataService';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+type RootStackParamList ={
+  login:undefined,
+  Nav: undefined,
+  event:{name:string},
+  profile:{name:string},
+  PastEvents:undefined,
+  LikedEvents:undefined,
+  settings:undefined,
+  following:undefined,
+  LookAtEvent:undefined,
+  OtherPersonsFollowers:undefined,
+  OtherPersonsFollowings:undefined,
+  YourActiveEvents:undefined,
+  followers:undefined,
+  FAQ:undefined,
+}
+
+type Props = NativeStackScreenProps<RootStackParamList, "login">;
+
+const LoginScreen: FC<Props> = ({navigation}) => {
+  const [Username, setUsername] = useState<string>("");
+  const [Password, setPassword] = useState<string>("");
+
+  const handleLogin = async () => {
+    let userData:object = {
+        Username: "",
+        Password: ""
+    }
+  //   let token = await login(userData);
+  //   if(token.token != null){
+  //     localStorage.setItem("Token", token.token);
+  //     GetUserByUsername(Username)
+  //     ;
+  // }
+}
+
+// const [allFriends, setAllFriends] = useState([]);
+
+// useEffect(() => {
+//   fetchFriend();
+// }, [])
+
+// const fetchFriend = async () => {
+//   let results = await GetAllFriends();
+//   setAllFriends(results.value)
+//   console.log(results);
+// }
+
+
 
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -93,8 +142,8 @@ const LoginScreen: FC = () => {
         <View style={{ flex: 0.3}}>
           <TextInput
             style={styles.input}
-            onChangeText={(text) => setEmail(text)}
-            value={email}
+            onChangeText={(text) => setUsername(text)}
+            value={Username}
             placeholder="Email"
             keyboardType="default"
             placeholderTextColor={"rgba(59, 86, 124, 1)"}
@@ -103,7 +152,7 @@ const LoginScreen: FC = () => {
           <TextInput
             style={styles.input}
             onChangeText={(text) => setPassword(text)}
-            value={password}
+            value={Password}
             placeholder="Password"
             keyboardType="default"
             placeholderTextColor={"rgba(59, 86, 124, 1)"}
@@ -117,7 +166,7 @@ const LoginScreen: FC = () => {
               borderRadius: 50,
               paddingLeft: 100, paddingRight: 100
             }}
-            onPress={() => console.log("Login")}
+            onPress={handleLogin}
             accessibilityLabel="Login Button"
           >
             <Text style={styles.loginBtnTxt}>Login</Text>

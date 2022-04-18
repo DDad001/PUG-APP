@@ -37,6 +37,7 @@ import ProfileOfOther from "./Screens/ProfileOfOther";
 import FollowersScreen from "./Screens/FollowersScreen";
 
 type RootStackParamList ={
+  login:undefined,
   Nav: undefined,
   event:{name:string},
   profile:{name:string},
@@ -75,6 +76,9 @@ const App: FC =()=> {
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeBaseProvider>
           <Stack.Navigator>
+          {/* <Stack.Screen name="login"
+          component={LoginScreen}
+          options={{headerShown: false}} /> */}
           <Stack.Screen name="Nav"
           component={NavigationComponent}
           options={{headerShown: false}} />

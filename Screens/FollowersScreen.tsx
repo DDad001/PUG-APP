@@ -90,51 +90,10 @@ const FollowersScreen: FC = () => {
       >
         <View
           style={{
-            flex: 1,
-            flexDirection: "row",
-            alignItems: "flex-end",
-            marginTop: 20,
-            justifyContent: "center",
-            marginBottom: 28,
-            marginLeft: 70,
-            marginRight: 70,
-          }}
-        >
-          <View style={{ flex: 0.5 }}>
-            <Pressable
-              style={{
-                backgroundColor: "white",
-                borderTopLeftRadius: 10,
-                borderBottomLeftRadius: 10,
-                borderRightColor: "grey",
-                borderRightWidth: 1,
-              }}
-              onPress={() => console.log("Login")}
-              accessibilityLabel="Following Button"
-            >
-              <Text style={styles.loginBtnTxt}>Following</Text>
-            </Pressable>
-          </View>
-
-          <View style={{ flex: 0.5 }}>
-            <Pressable
-              style={{
-                backgroundColor: "white",
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 10,
-              }}
-              onPress={() => console.log("Login")}
-              accessibilityLabel="Followers Button"
-            >
-              <Text style={styles.loginBtnTxt}>Followers</Text>
-            </Pressable>
-          </View>
-        </View>
-        <View
-          style={{
             flexDirection: "row",
             justifyContent: "center",
             paddingBottom: 33,
+            marginTop:30
           }}
         >
           <View>
@@ -174,12 +133,13 @@ const FollowersScreen: FC = () => {
         <View style={styles.overlayContainer}>
           <Text style={styles.FollowingText}>Followers</Text>
           <ScrollView>
-          <View style={styles.NotificationView}>
+            <View style={{flexDirection:'row', marginLeft:20, marginTop:20}}>
           <Image source={Skier} style={styles.ImageStyle} />
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={{ flexDirection: "row", alignItems: "center", }}>
           <Text style={styles.TextStyle}>Scott Morenzone </Text>
         </View>
-      </View>
+            </View>
+
           </ScrollView>
         </View>
       </ImageBackground>
@@ -195,7 +155,6 @@ const styles = StyleSheet.create({
   },
   overlayContainer: {
     flex: 6,
-    // marginTop: 104,
   },
   FollowingText: {
     fontFamily: "Lato_400Regular",
@@ -237,6 +196,7 @@ const styles = StyleSheet.create({
   TextStyle: {
     color: "white",
     fontSize: 22,
+    marginLeft:30,
     fontFamily: "Roboto_500Medium",
     fontWeight: "500",
   },
@@ -252,30 +212,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingTop: 5,
     paddingBottom: 34,
-    // marginLeft: 10,
-    //marginRight: 25,
   },
   MiddleTextStyle: {
     color: "white",
     fontSize: 16,
     fontFamily: "Lato_300Light",
-  },
-  unfollowBtn: {
-    backgroundColor: "#0A326D",
-    borderRadius: 10,
-    marginLeft: 15,
-    //marginRight: 55,
-  },
-  unfollowTxt: {
-    color: "white",
-    fontFamily: "Lato_700Bold",
-    fontSize: 15,
-    fontWeight: "800",
-    justifyContent: "center",
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingTop: 12,
-    paddingBottom: 12,
   },
 });
 export default FollowersScreen;
