@@ -34,8 +34,10 @@ import NavigationComponent from "./Components/NavigationComponent";
 import PassedEventsScreen from "./Screens/PassedEventsScreen";
 import LikedEventsScreen from "./Screens/LikedEventsScreen";
 import ProfileOfOther from "./Screens/ProfileOfOther";
+import FollowersScreen from "./Screens/FollowersScreen";
 
 type RootStackParamList ={
+  login:undefined,
   Nav: undefined,
   event:{name:string},
   profile:{name:string},
@@ -45,7 +47,10 @@ type RootStackParamList ={
   following:undefined,
   LookAtEvent:undefined,
   OtherPersonsFollowers:undefined,
+  OtherPersonsFollowings:undefined,
   YourActiveEvents:undefined,
+  followers:undefined,
+  FAQ:undefined,
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -71,6 +76,9 @@ const App: FC =()=> {
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeBaseProvider>
           <Stack.Navigator>
+          {/* <Stack.Screen name="login"
+          component={LoginScreen}
+          options={{headerShown: false}} /> */}
           <Stack.Screen name="Nav"
           component={NavigationComponent}
           options={{headerShown: false}} />
@@ -92,15 +100,24 @@ const App: FC =()=> {
           <Stack.Screen name="following"
            options={{ title: 'Following',}}
           component={FollowingScreen}/>
+          <Stack.Screen name="followers"
+           options={{ title: 'Followers',}}
+          component={FollowersScreen}/>
           <Stack.Screen name="LookAtEvent"
            options={{ title: 'Look At Event',}}
           component={EventDisplayedScreen}/>
           <Stack.Screen name="OtherPersonsFollowers"
            options={{ title: 'OtherPersonFollowers',}}
+          component={FollowersScreen}/>
+          <Stack.Screen name="OtherPersonsFollowings"
+           options={{ title: 'OtherPersonsFollowings',}}
           component={FollowingScreen}/>
           <Stack.Screen name="YourActiveEvents"
            options={{ title: 'Your Active Events',}}
           component={EventDisplayedScreen}/>
+          <Stack.Screen name="FAQ"
+           options={{ title: 'FAQ',}}
+          component={FAQScreen}/>
 
             {/* <ListViewEventsScreen/> */}
             {/* <AddEventScreen /> */}

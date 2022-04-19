@@ -20,8 +20,31 @@ import {
 } from "@expo-google-fonts/lato";
 
 import VolleyballPicture from "../assets/VolleyBall.png";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const SettingsScreen: FC = () => {
+interface SettingsProps{ 
+  onHelpPress: Function,
+}
+
+
+type RootStackParamList ={
+  Nav: undefined,
+  event:{name:string},
+  profile:{name:string},
+  PastEvents:undefined,
+  LikedEvents:undefined,
+  settings:undefined,
+  following:undefined,
+  LookAtEvent:undefined,
+  OtherPersonsFollowers:undefined,
+  OtherPersonsFollowings:undefined,
+  YourActiveEvents:undefined,
+  followers:undefined,
+  FAQ:undefined,
+}
+type Props = NativeStackScreenProps<RootStackParamList, "FAQ">;
+
+const SettingsScreen: FC<Props> = ({navigation}) => {
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -48,7 +71,7 @@ const SettingsScreen: FC = () => {
       >
           <View style={styles.overlayContainer}>
             <SettingsProfileComponent />
-            <SettingsNotificationsComponent />
+            <SettingsNotificationsComponent onHelpPress={() =>  navigation.navigate('FAQ')}/>
             <SignoutBtnComponent />
         </View>
       </ImageBackground>

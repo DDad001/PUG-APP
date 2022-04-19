@@ -7,6 +7,8 @@ import {
   TextInput,
   TouchableHighlight,
   Pressable,
+  ScrollView,
+  Image
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome } from "@expo/vector-icons";
@@ -26,10 +28,27 @@ import {
   Lato_900Black_Italic,
 } from "@expo-google-fonts/lato";
 
+import {
+  Roboto_100Thin,
+  Roboto_100Thin_Italic,
+  Roboto_300Light,
+  Roboto_300Light_Italic,
+  Roboto_400Regular,
+  Roboto_400Regular_Italic,
+  Roboto_500Medium,
+  Roboto_500Medium_Italic,
+  Roboto_700Bold,
+  Roboto_700Bold_Italic,
+  Roboto_900Black,
+  Roboto_900Black_Italic,
+} from "@expo-google-fonts/roboto";
+
+
 import BaseballPicture from "../assets/BaseballGlove.png";
+import Skier from "../assets/Skier.png";
+
 
 const FollowersScreen: FC = () => {
-
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -41,7 +60,20 @@ const FollowersScreen: FC = () => {
     Lato_700Bold_Italic,
     Lato_900Black,
     Lato_900Black_Italic,
+    Roboto_100Thin,
+    Roboto_100Thin_Italic,
+    Roboto_300Light,
+    Roboto_300Light_Italic,
+    Roboto_400Regular,
+    Roboto_400Regular_Italic,
+    Roboto_500Medium,
+    Roboto_500Medium_Italic,
+    Roboto_700Bold,
+    Roboto_700Bold_Italic,
+    Roboto_900Black,
+    Roboto_900Black_Italic,
   });
+
 
   const [input, setInput] = useState("");
 
@@ -58,51 +90,10 @@ const FollowersScreen: FC = () => {
       >
         <View
           style={{
-            flex: 1,
-            flexDirection: "row",
-            alignItems: "flex-end",
-            marginTop: 20,
-            justifyContent: "center",
-            marginBottom: 28,
-            marginLeft: 70,
-            marginRight: 70,
-          }}
-        >
-          <View style={{ flex: 0.5 }}>
-            <Pressable
-              style={{
-                backgroundColor: "white",
-                borderTopLeftRadius: 10,
-                borderBottomLeftRadius: 10,
-                borderRightColor: "grey",
-                borderRightWidth: 1,
-              }}
-              onPress={() => console.log("Login")}
-              accessibilityLabel="Following Button"
-            >
-              <Text style={styles.loginBtnTxt}>Following</Text>
-            </Pressable>
-          </View>
-
-          <View style={{ flex: 0.5 }}>
-            <Pressable
-              style={{
-                backgroundColor: "white",
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 10,
-              }}
-              onPress={() => console.log("Login")}
-              accessibilityLabel="Followers Button"
-            >
-              <Text style={styles.loginBtnTxt}>Followers</Text>
-            </Pressable>
-          </View>
-        </View>
-        <View
-          style={{
             flexDirection: "row",
             justifyContent: "center",
             paddingBottom: 33,
+            marginTop:30
           }}
         >
           <View>
@@ -140,8 +131,16 @@ const FollowersScreen: FC = () => {
         </View>
 
         <View style={styles.overlayContainer}>
-          <Text style={styles.FollowingText}>Following</Text>
-          <FollowingComponent />
+          <Text style={styles.FollowingText}>Followers</Text>
+          <ScrollView>
+            <View style={{flexDirection:'row', marginLeft:20, marginTop:20}}>
+          <Image source={Skier} style={styles.ImageStyle} />
+        <View style={{ flexDirection: "row", alignItems: "center", }}>
+          <Text style={styles.TextStyle}>Scott Morenzone </Text>
+        </View>
+            </View>
+
+          </ScrollView>
         </View>
       </ImageBackground>
     </View>
@@ -156,7 +155,6 @@ const styles = StyleSheet.create({
   },
   overlayContainer: {
     flex: 6,
-    // marginTop: 104,
   },
   FollowingText: {
     fontFamily: "Lato_400Regular",
@@ -190,6 +188,35 @@ const styles = StyleSheet.create({
     paddingTop: "10%",
     paddingBottom: "10%",
   },
+  ImageStyle: {
+    height: 70,
+    width: 70,
+    borderRadius: 50,
+  },
+  TextStyle: {
+    color: "white",
+    fontSize: 22,
+    marginLeft:30,
+    fontFamily: "Roboto_500Medium",
+    fontWeight: "500",
+  },
+  TimeText: {
+    color: "#DFE6F5",
+    fontSize: 13,
+    paddingTop: 5,
+    fontFamily: "Roboto_500Medium",
+  },
+  NotificationView: {
+    flex: 1,
+    justifyContent: "center",
+    flexDirection: "row",
+    paddingTop: 5,
+    paddingBottom: 34,
+  },
+  MiddleTextStyle: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Lato_300Light",
+  },
 });
-
 export default FollowersScreen;

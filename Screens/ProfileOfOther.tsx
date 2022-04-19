@@ -47,6 +47,8 @@ type RootStackParamList ={
   LikedEvents:undefined,
   LookAtEvent:undefined,
   OtherPersonsFollowers:undefined,
+  OtherPersonsFollowings:undefined,
+
 }
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
@@ -105,12 +107,14 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
                 <Text style={{marginTop: 20, color:'white', marginLeft:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>38</Text>
           </View>
 
-            <Pressable onPress={() => navigation.navigate('OtherPersonsFollowers')}>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
+            <Pressable onPress={() => navigation.navigate('OtherPersonsFollowers')}>
                 <Text style={{marginTop: 10, color:'white', marginRight:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Followers</Text>
-                <Text style={{marginTop: 10, color:'white', marginLeft:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Following</Text>
-          </View>
             </Pressable>
+            <Pressable  onPress={() => navigation.navigate('OtherPersonsFollowings')}>
+                <Text style={{marginTop: 10, color:'white', marginLeft:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Following</Text>
+            </Pressable>
+          </View>
 
 
           <View>
