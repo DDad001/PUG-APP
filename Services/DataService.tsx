@@ -1,13 +1,14 @@
-let userData = {}
-function checkToken() {
-    let result = false
-    let lsData = localStorage.getItem('Token');
-    if(lsData && lsData != null)
-    {
-        result = true
-    }
-    return result;
-}
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// function checkToken() {
+//     let result = false
+//     let lsData = AsyncStorage.getItem('Token');
+//     if(lsData && lsData != null)
+//     {
+//         result = true
+//     }
+//     return result;
+// }
 
 async function GetAllFriends(){
     let res = await fetch("http://localhost:5216/Friend/GetAllFriends");
@@ -21,13 +22,13 @@ async function GetUserByUsername(username:string){
     return data;
 }
 
-async function login(loginUser:string){
+async function LoginUser(userData:object){
    let res = await fetch('http://localhost:5216/User/login', {
        method:"POST",
        headers:{
            "Content-Type": "application/json"
        },
-       body:JSON.stringify(loginUser)
+       body:JSON.stringify(userData)
      
    });
    if(!res.ok)
@@ -39,4 +40,4 @@ async function login(loginUser:string){
    return data;
 }
 
-export{ GetAllFriends, login, GetUserByUsername, checkToken }
+export{ GetAllFriends, LoginUser, GetUserByUsername }

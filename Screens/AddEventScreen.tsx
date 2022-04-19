@@ -279,9 +279,10 @@ const AddEventScreen: FC = () => {
                 </View>
                   </PaperProvider>
               </View>
-              <View style={{ flex: 1 }}>
+
                 <TextInput
-                  style={[styles.LargeTxtInput, { alignItems: "flex-start" }]}
+                  style={[styles.LargeTxtInput,{alignItems: 'flex-start'}]}
+                  textAlignVertical="top"
                   multiline={true}
                   maxLength={200}
                   onChangeText={(text) => setEventDetails(text)}
@@ -289,6 +290,7 @@ const AddEventScreen: FC = () => {
                   placeholder="Event Details"
                   accessibilityLabel="Enter the details of the event under 200 characters or less"
                   placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                  numberOfLines={5}
                 />
                 <Text
                   style={{
@@ -300,7 +302,7 @@ const AddEventScreen: FC = () => {
                 >
                   {eventDetails.length}/200 character limit
                 </Text>
-              </View>
+        
 
               <View style={{ flex: 1, marginTop:20}}>
               <View style={{backgroundColor:'#7E90AB', width:120, height: 90, marginLeft:18, borderRadius: 8}}>
@@ -521,6 +523,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderWidth: 1,
     padding: 10,
+    minWidth:200,
     borderColor: "white",
     backgroundColor: "white",
     borderRadius: 20,

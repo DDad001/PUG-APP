@@ -40,8 +40,9 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-import { login, GetUserByUsername } from '../Services/DataService';
+import { LoginUser, GetUserByUsername } from '../Services/DataService';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type RootStackParamList ={
   login:undefined,
@@ -63,24 +64,30 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "login">;
 
 const LoginScreen: FC<Props> = ({navigation}) => {
-  const [Username, setUsername] = useState<string>("");
-  const [Password, setPassword] = useState<string>("");
+  const [Username, setUsername] = useState("");
+  const [Password, setPassword] = useState("");
+
+  // interface LoginProps {
+  //   Username:string;
+  //   Password:string;
+  // }
 
   const handleLogin = async () => {
-    let userData:object = {
-        Username: "",
-        Password: ""
-    }
-  //   let token = await login(userData);
-  //   if(token.token != null){
-  //     localStorage.setItem("Token", token.token);
-  //     GetUserByUsername(Username)
-  //     ;
-  // }
+    let userData = { 
+        Username: Username,
+        Password: Password
+    };
+    let token = await LoginUser(userData);
+    if(token.token != null){
+      AsyncStorage.setItem("Token", token.token);
+      navigation.navigate('Nav');
+      GetUserByUsername(Username);
+      console.log(token); 
+  }
 }
 
-// const [allFriends, setAllFriends] = useState([]);
 
+// const [allFriends, setAllFriends] = useState([]);
 // useEffect(() => {
 //   fetchFriend();
 // }, [])
@@ -90,7 +97,6 @@ const LoginScreen: FC<Props> = ({navigation}) => {
 //   setAllFriends(results.value)
 //   console.log(results);
 // }
-
 
 
   let [fontsLoaded, error] = useFonts({

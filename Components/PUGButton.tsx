@@ -5,8 +5,8 @@ import { View, StyleSheet, Text, Pressable } from "react-native";
 const PUGbutton: FC = () => {
   return (
     <>
-      <View>  
-            <Text style={styles.BtnBox}>PUG</Text>
+      <View style={styles.BtnBox}>  
+            <Text style={{color:'white',fontWeight: "bold",}}>PUG</Text>
       </View>
     </>
   );

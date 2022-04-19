@@ -72,7 +72,7 @@ import { background } from "native-base/lib/typescript/theme/styled-system";
   return (
       <>
       <View style={styles.container}> 
-          <Text style={{fontSize:22, color:'white', marginLeft:12, marginTop:10, fontFamily:"Lato_900Black"}}>Sport Events</Text>
+          <Text style={{fontSize:22, color:'white', marginLeft:12, fontFamily:"Lato_900Black"}}>Sport Events</Text>
           {/* <View style={{flex:1, alignItems: 'flex-end', marginTop:7, marginRight:10}}>
               <MaterialIcons name="notifications" size={35} color="#E8F1FF" />
           </View> */}
@@ -87,7 +87,7 @@ import { background } from "native-base/lib/typescript/theme/styled-system";
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    paddingTop: 25,
+    paddingTop: 15,
     flex: 0.3,
     alignItems: "center"
   },

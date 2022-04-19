@@ -117,11 +117,10 @@ if(!fontsLoaded){
   return (
     <>
       <View style={{ flexDirection: 'row' }}>
-
         <View style={{flex:1}}>
           <TextInput style={styles.input} onChangeText={(text) => setInput(text)}
             onSubmitEditing={() => {
-              alert(`Your message is: ${input}`);
+              alert(`Your message is: ${input}`); 
               setInput("");
             }}
             value={input}
@@ -130,7 +129,7 @@ if(!fontsLoaded){
           />
         </View>
         <TouchableHighlight style={{ marginRight:10}} >
-          <View style={{ backgroundColor: '#0A326D', width: 54, height: 45, marginTop: 10, borderBottomRightRadius: 7, borderTopRightRadius: 7, }}>
+          <View style={{ backgroundColor: '#0A326D', width: 54, height: 45, borderBottomRightRadius: 7, borderTopRightRadius: 7, }}>
             <FontAwesome name="search" size={15} color="white" style={{ marginTop: 14, marginLeft: 17 }} />
           </View>
         </TouchableHighlight>
@@ -179,7 +178,7 @@ if(!fontsLoaded){
 
         {/* make into fliatlist when time to map or later */}
 
-        <ScrollView style={{}}>
+        <ScrollView>
       <View style={styles.card}>
         <View style={styles.cardContent}>
                 <Pressable onPress={EventHandler}>
@@ -285,9 +284,7 @@ if(!fontsLoaded){
 };
 
 const styles = StyleSheet.create({
-  container: {
-    minHeight: 128,
-  },
+  
   card: {
     borderRadius: 8,
     elevation: 3,
@@ -305,7 +302,6 @@ const styles = StyleSheet.create({
   },
   input: {
     marginLeft: 10,
-    marginTop: 10,
     height: 45,
     backgroundColor: 'white',
     borderColor: "white",

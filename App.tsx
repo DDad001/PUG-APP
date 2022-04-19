@@ -1,3 +1,5 @@
+import "intl";
+import "intl/locale-data/jsonp/en";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import * as eva from "@eva-design/eva";
@@ -35,6 +37,7 @@ import PassedEventsScreen from "./Screens/PassedEventsScreen";
 import LikedEventsScreen from "./Screens/LikedEventsScreen";
 import ProfileOfOther from "./Screens/ProfileOfOther";
 import FollowersScreen from "./Screens/FollowersScreen";
+import { Platform } from "react-native";
 
 type RootStackParamList ={
   login:undefined,
@@ -54,14 +57,20 @@ type RootStackParamList ={
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
 const App: FC =()=> {
-
+  if (Platform.OS === "android") {
+      // See https://github.com/expo/expo/issues/6536 for this issue.
+      if (typeof (Intl as any).__disableRegExpRestore === "function") {
+          (Intl as any).__disableRegExpRestore();
+      }
+  }
   const [allFriends, setAllFriends] = useState([]);
-
+  
   useEffect(() => {
     fetchFriend();
   }, [])
-
+  
   const fetchFriend = async () => {
     let results = await GetAllFriends();
     setAllFriends(results.value)
