@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   overlayContainer: {
     flex: 1,
-    marginTop: 104,
+    marginTop: 55,
     marginLeft: 27,
   },
 });
