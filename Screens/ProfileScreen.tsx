@@ -145,6 +145,7 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
                     </View>
 
 
+
           <View>
               <Text style={{marginTop: 30, color:'white', marginLeft:25, fontSize:30, fontFamily: "Lato_900Black",}}>Active Events</Text>
           </View>
@@ -188,6 +189,7 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
       </View>
           </Pressable>
    </ScrollView>
+     
 
 
 
