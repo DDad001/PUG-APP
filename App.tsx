@@ -37,6 +37,7 @@ import ProfileOfOther from "./Screens/ProfileOfOther";
 import FollowersScreen from "./Screens/FollowersScreen";
 
 type RootStackParamList ={
+  // CreateAccount: undefined,
   login:undefined,
   Nav: undefined,
   event:{name:string},
@@ -78,6 +79,9 @@ const App: FC =()=> {
           <Stack.Navigator>
           {/* <Stack.Screen name="login"
           component={LoginScreen}
+          options={{headerShown: false}} /> */}
+          {/* <Stack.Screen name="CreateAccount"
+          component={CreateAccountScreen}
           options={{headerShown: false}} /> */}
           <Stack.Screen name="Nav"
           component={NavigationComponent}
