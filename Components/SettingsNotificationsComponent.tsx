@@ -268,6 +268,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginTop: 30,
+    alignItems: 'center',
   },
   SwitchStyle: {
     borderColor: 'white',
