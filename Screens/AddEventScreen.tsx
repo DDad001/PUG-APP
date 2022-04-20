@@ -52,15 +52,19 @@ import { DatePickerModal } from 'react-native-paper-dates'
 import { TimePickerModal } from 'react-native-paper-dates'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
+import { AddEventItem, } from '../Services/DataService';
 
 const AddEventScreen: FC = () => {
   const [nameOfEvent, setNameOfEvent] = useState<string>("");
   const [eventDetails, setEventDetails] = useState<string>("");
   const [eventAddress, setEventAddress] = useState<string>("");
+  const [eventSport, setEventSport] = useState<string>("");
+  const [eventHours, setEventHour] = useState<any>("");
+  const [eventMinutes, setEventMinutes] = useState<any>("");
   
   //dummy usestates!
-  const [eventDate, setEventDate] = useState<string>("");
-  const [eventTime, setEventTime] = useState<string>("");
+  const [eventDate, setEventDate] = useState<any>("");
+  const [eventTime, setEventTime] = useState<any>("");
   const [eventState, setEventState] = useState<string>("");
   const [eventCity, setEventCity] = useState<string>("");
 
@@ -71,7 +75,7 @@ const AddEventScreen: FC = () => {
 
   const onChange = React.useCallback(({ date }) => {
     setVisible(false)
-    console.log({ date })
+    setEventDate({ date })
   }, [])
 
   const date = new Date()
@@ -84,13 +88,34 @@ const AddEventScreen: FC = () => {
   const onApproved= React.useCallback(
     ({ hours, minutes }) => {
       setShowTimePicker(false);
-      console.log({ hours, minutes });
+      let hour = ( hours );
+      let minute = ( minutes );
+      //console.log(hour)
+      //console.log( minute)
+      let time = (hour +":" + minute);
+      setEventTime(time);
     },
     [setShowTimePicker]
   );
 
   const HandleCreateEvent = () => {
-
+    let newEvent = {
+      Id: 0,
+      UserID: 2, 
+      SportOfEvent: eventSport,
+      NameOfEvent: nameOfEvent,
+      DateOfEvent: eventDate,
+      TimeOfEvent: eventTime,
+      DescriptionOfEvent: eventDetails,
+      ImageOfEvent: "Event Image",
+      AddressOfEvent: eventAddress,
+      CityOfEvent: eventCity,
+      StateOfEvent: eventState,
+      isActive: true,
+      IsDeleted: false
+    }
+    console.log(newEvent);
+    AddEventItem(newEvent);
   }
   
   const theme = { ...DefaultTheme,colors: {
@@ -211,12 +236,14 @@ const AddEventScreen: FC = () => {
                         fontFamily={"Roboto_500Medium"}
                         fontSize={15}
                         color={"#0A326D"}
+
+                        onValueChange = {(itemValue) => setEventSport(itemValue)}
                       >
-                        <Select.Item label="Basketball" value="ux" />
-                        <Select.Item label="Soccer" value="web" />
-                        <Select.Item label="Football" value="cross" />
-                        <Select.Item label="Tennis" value="ui" />
-                        <Select.Item label="Handball" value="backend" />
+                        <Select.Item label="Basketball" value="Basketball" />
+                        <Select.Item label="Soccer" value="Soccer" />
+                        <Select.Item label="Football" value="Football" />
+                        <Select.Item label="Tennis" value="Tennis" />
+                        <Select.Item label="Handball" value="Handball" />
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
@@ -375,12 +402,13 @@ const AddEventScreen: FC = () => {
                         fontFamily={"Roboto_400Regular"}
                         fontSize={15}
                         color={"#3B567C"}
+                        onValueChange = {(itemValue) => setEventState(itemValue)}
                       >
-                        <Select.Item label="CA" value="ux" />
-                        <Select.Item label="AL" value="web" />
-                        <Select.Item label="PA" value="cross" />
-                        <Select.Item label="WD" value="ui" />
-                        <Select.Item label="NY" value="backend" />
+                        <Select.Item label="CA" value="CA" />
+                        <Select.Item label="AL" value="AL" />
+                        <Select.Item label="PA" value="PA" />
+                        <Select.Item label="WD" value="WD" />
+                        <Select.Item label="NY" value="NY" />
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
