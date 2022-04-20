@@ -53,6 +53,20 @@ const CreateAccountScreen: FC = () => {
 
   const [visible, setVisible] = React.useState(false)
 
+
+  //checkboxes useStates!
+  const [isTermsOfServiceAccepted, setIsTermsOfServiceAccepted] = useState<boolean>(false);
+  const [isOverAgeOf18, setIsOverAgeOf18] = useState<boolean>(false);
+
+  const areTermsAccepted = (isTermsAccepted:boolean) => {
+   setIsTermsOfServiceAccepted(isTermsAccepted);
+  }
+
+  const isUser18orOrGreater = (isUser18OrOver:boolean) => {
+    setIsOverAgeOf18(isUser18OrOver);
+  }
+
+
   const onDismiss = React.useCallback(() => {
     setVisible(false)
   }, [setVisible])
@@ -259,7 +273,7 @@ const CreateAccountScreen: FC = () => {
             {/* one checkBox */}
             <View style={{flex: 0.2, marginBottom: 20,}}>     
               <HStack>
-                  <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="test" size="lg" accessibilityLabel="This is a dummy checkbox" />
+                  <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="true" size="lg" onChange={(Boolean) => areTermsAccepted(Boolean)} accessibilityLabel="I accept PUG's terms and services" />
                   <View style={{flex: 1, marginLeft: 10,alignItems: "center", flexDirection: "row"}}>
                     <Text style={styles.subTxtNoUnderline}>I accept PUG's</Text>
                     <Pressable onPress={() => setShowModal(true)}>
@@ -271,7 +285,7 @@ const CreateAccountScreen: FC = () => {
             {/* One checkbox */}
             <View style={{flex: 0.2}}>     
               <HStack>
-                  <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="test" size="lg" accessibilityLabel="This is a dummy checkbox" />
+                  <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="true" size="lg" onChange={(Boolean) => isUser18orOrGreater(Boolean)} accessibilityLabel="I am 18 years old or over to use the application!" />
                   <View style={{flex: 1, marginLeft: 10, justifyContent: "center"}}>
                     <Text style={styles.subTxtNoUnderline}>I am 18 years old or over</Text>
                   </View>
