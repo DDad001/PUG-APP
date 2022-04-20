@@ -88,6 +88,10 @@ const AddEventScreen: FC = () => {
     },
     [setShowTimePicker]
   );
+
+  const HandleCreateEvent = () => {
+
+  }
   
   const theme = { ...DefaultTheme,colors: {
     ...DefaultTheme.colors,
@@ -397,7 +401,7 @@ const AddEventScreen: FC = () => {
               {/* Add the create event button here */}
               <View style={{ flex: 1, alignItems: "center", marginTop: 30 }}>
                 <Pressable
-                  onPress={() => console.log("Create an Event!")}
+                  onPress={() => HandleCreateEvent()}
                   accessibilityLabel="Click this button to create an event"
                   style={{
                     backgroundColor: "rgba(10, 50, 109, 1)",
