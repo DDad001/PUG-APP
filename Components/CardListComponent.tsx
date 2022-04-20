@@ -149,8 +149,8 @@ if(!fontsLoaded){
                       }}
                     >
                       <Select
-                        minWidth="150"
-                        minHeight="35"
+                        width="150"
+                        height="10"
                         accessibilityLabel="Choose the sport type for this event"
                         placeholderTextColor={"#0A326D"}
                         placeholder="Filters"
