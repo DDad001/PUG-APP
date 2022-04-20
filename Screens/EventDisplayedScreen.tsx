@@ -65,7 +65,10 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
     //Report an event other reason
     const [radioEventValue, setRadioEventValue] = useState<string>("");
-    const [otherReasonTxt, setOtherReasonTxt] = useState<string>("");
+    const [otherReasonEventTxt, setOtherReasonEventTxt] = useState<string>("");
+
+    const [radioUserValue, setRadioUserValue] = useState<string>("");
+    const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
         let [fontsLoaded, error] = useFonts({
           Lato_100Thin,
@@ -97,7 +100,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
         }
 
         const reportUserOrEvent = (str: string) => {
-          console.log(str);
+          // console.log(str);
           if(str.length > 0){
             if(str === "reportUser"){
               // setSelectReportUser(true);
@@ -112,7 +115,14 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
         const RadioEvent = (value: string) => {
           setRadioEventValue(value);
           if(value != "seven"){
-            setOtherReasonTxt("");
+            setOtherReasonEventTxt("");
+          }
+        }
+
+        const RadioUser = (value: string) => {
+          setRadioUserValue(value);
+          if(value != "OtherUser"){
+            setOtherReasonUserTxt("");
           }
         }
 
@@ -189,7 +199,6 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
                       >
                           <Select.Item label="Report User" value="reportUser" />
                           <Select.Item label="Report Event" value="reportEvent" />
-                        {/* <Select.Item label="Cancel" value="cancel" /> */}
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
@@ -201,24 +210,50 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
                 
                   <Pressable onPress={() => navigation.navigate('profile', {name:'profile'})}>
                   <Center>
-                    <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+                    <Modal isOpen={showModal} size="full" onClose={() => setShowModal(false)}>
                     <Modal.Content maxWidth="400px">
                     <Modal.CloseButton />
                     <Modal.Header>Report this user</Modal.Header>
                     <Modal.Body>
-                      <Box>
-                        <Text>
-                          Why would you like to report this user?
-                        </Text>
-                      </Box>
+                    <Text style={{fontSize: 18, fontFamily: "Roboto_400Regular", color: "black", alignItems: "center"}}>Why are you reporting this user?</Text>
+                    <View style={{marginTop: 10}}>
+                      <Radio.Group name="Report User" accessibilityLabel="Choose a reason to report this user" onChange={(value) => RadioUser(value)}>
+                      <Radio value="UserSpam" my={1}>
+                        <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}} accessibilityLabel="Radio box, user posts content not suitable to PUG">User posts content not suitable to PUG</Text>
+                      </Radio>
+                      <Radio value="UserPretending" my={1}>
+                        <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}} accessibilityLabel="Radio box, account is pretending to be someone else">Account is pretending to be someone else</Text>
+                      </Radio>
+                      <Radio value="userAge" my={1}>
+                        <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}} accessibilityLabel="Radio box, user may be under the age of 18">User may be under the age of 18</Text>
+                      </Radio>
+                      <Radio value="OtherUser" my={1}>
+                        <Text style={{fontSize: 16, fontFamily: "Roboto_400Regular", color: "black"}}>Other</Text>
+                      </Radio>
+                      </Radio.Group>
+                    </View>
+                    <View style={{flex: 1, backgroundColor: "red",}}>
+                      {
+                        radioUserValue === "OtherUser" ?
+                        <View>
+                          <TextInput style={{backgroundColor: "orange"}} onChangeText={(text) => setOtherReasonUserTxt(text)} value={otherReasonUserTxt} multiline={true} accessibilityLabel=""/>
+                        </View>
+                        : null
+                      } 
+                    </View>
                     </Modal.Body>
                     <Modal.Footer>
                   <Button.Group space={2}>
-                    <Button onPress={() => {
+                    <Button backgroundColor={"#0A326D"} onPress={() => {
                     setShowModal(false)
                   }}>
                       Close
                     </Button>
+                    <Button backgroundColor={"#0A326D"} onPress={() => {
+                    console.log("report user")
+                  }}>
+                      Report User
+                  </Button>
                   </Button.Group>
                 </Modal.Footer>
               </Modal.Content>
@@ -263,7 +298,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
                    {
                      radioEventValue === "seven" ?
                     <View>
-                      <TextInput onChangeText={(text) => setOtherReasonTxt(text)} value={otherReasonTxt} multiline={true}/>
+                      <TextInput onChangeText={(text) => setOtherReasonEventTxt(text)} value={otherReasonEventTxt} multiline={true}/>
                     </View>
                      : null
                    } 
