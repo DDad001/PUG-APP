@@ -420,6 +420,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
+    elevation: 10
   },
   stateInput: {
     fontFamily: "Roboto_400Regular",
@@ -440,6 +441,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
+    elevation: 10
   },
   cityInput: {
     fontFamily: "Roboto_400Regular",
@@ -459,6 +461,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
+    elevation: 10
   },
   createAccountBtnTxt: {
     color: "white",
