@@ -27,7 +27,6 @@ import useUser from './Hooks/use-user';
 import UserContext from './Context/UserContext';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { GetAllFriends } from './Services/DataService';
 import { useEffect, useState } from 'react';
 import FAQScreen from "./Screens/FAQScreen";
 import FollowingComponent from "./Components/FollowingComponent";
@@ -66,17 +65,21 @@ const App: FC =()=> {
           (Intl as any).__disableRegExpRestore();
       }
   }
-  const [allFriends, setAllFriends] = useState([]);
+
   
-  useEffect(() => {
-    fetchFriend();
-  }, [])
+  // --------EXAMPLE FOR HOW TO FETCH SOMETHING----------
+  // const [allFriends, setAllFriends] = useState([]);
   
-  const fetchFriend = async () => {
-    let results = await GetAllFriends();
-    setAllFriends(results.value)
-    console.log(results);
-  }
+  // useEffect(() => {
+  //   fetchFriend();
+  // }, [])
+  
+  // const fetchFriend = async () => {
+  //   let results = await GetAllFriends();
+  //   setAllFriends(results.value)
+  //   console.log(results);
+  // }
+  // --------EXAMPLE FOR HOW TO FETCH SOMETHING----------
 
 
   return (
