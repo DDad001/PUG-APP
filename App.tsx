@@ -39,7 +39,7 @@ import FollowersScreen from "./Screens/FollowersScreen";
 import { Platform } from "react-native";
 
 type RootStackParamList ={
-  // CreateAccount: undefined,
+  CreateAccount: undefined,
   login:undefined,
   Nav: undefined,
   event:{name:string},
@@ -66,7 +66,7 @@ const App: FC =()=> {
       }
   }
 
-  
+
   // --------EXAMPLE FOR HOW TO FETCH SOMETHING----------
   // const [allFriends, setAllFriends] = useState([]);
   

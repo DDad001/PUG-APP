@@ -304,14 +304,15 @@ const styles = StyleSheet.create({
   
   card: {
     borderRadius: 8,
-    elevation: 3,
+    elevation: 10,
     backgroundColor: '#fff',
     shadowOffset: { width: 1, height: 1 },
     shadowColor: '#333',
     shadowOpacity: 0.3,
     shadowRadius: 2,
     marginHorizontal: 8,
-    marginTop:17
+    marginTop:17,
+
   },
   cardContent: {
     marginHorizontal: 8,

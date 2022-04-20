@@ -34,6 +34,8 @@ import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, B
 import { Entypo } from "@expo/vector-icons";
 import { DatePickerModal } from 'react-native-paper-dates';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { createAccount } from "../Services/DataService";
+
 
 const CreateAccountScreen: FC = () => {
   const [newFirstName, setNewFirstName] = useState<string>("");
@@ -50,8 +52,56 @@ const CreateAccountScreen: FC = () => {
   const [DOB, setDOB] = useState<string>("");
   const [state, setState] = useState<string>("");
   const [city, setCity] = useState<string>("");
+  const [visible, setVisible] = React.useState<boolean>(false)
+  const [termsOfService, setTermsOfService] = useState<boolean>(false);
 
-  const [visible, setVisible] = React.useState(false)
+
+  const handleTermsOfService = () => {
+    setTermsOfService(!termsOfService);
+    console.log(termsOfService)
+  }
+
+
+
+  const handleCreateAccount = async () => {
+    let userData = {
+      Id: 0,
+      FullName: newFirstName,
+      LastName: newLastName,
+      Username: newUsername,
+      Password: newPassword,
+      DateOfBirth:DOB,
+      City:city,
+      State:state,
+      isTermsAccepted:'',
+      isEighteen:'',
+    };
+    let result = await createAccount(userData);
+    // result ? navigate("/projectDashboard") : toggleShowA();
+  };
+
+
+
+
+
+
+
+
+
+
+
+  //checkboxes useStates!
+  const [isTermsOfServiceAccepted, setIsTermsOfServiceAccepted] = useState<boolean>(false);
+  const [isOverAgeOf18, setIsOverAgeOf18] = useState<boolean>(false);
+
+  const areTermsAccepted = (isTermsAccepted:boolean) => {
+   setIsTermsOfServiceAccepted(isTermsAccepted);
+  }
+
+  const isUser18orOrGreater = (isUser18OrOver:boolean) => {
+    setIsOverAgeOf18(isUser18OrOver);
+  }
+
 
   const onDismiss = React.useCallback(() => {
     setVisible(false)
@@ -59,7 +109,7 @@ const CreateAccountScreen: FC = () => {
 
   const onChange = React.useCallback(({ date }) => {
     setVisible(false)
-    console.log({ date })
+    setDOB(date)
   }, [])
 
   const newDate = new Date()
@@ -220,6 +270,7 @@ const CreateAccountScreen: FC = () => {
                       <Select
                         minWidth="150"
                         minHeight="53"
+                        onValueChange={(text) => setState(text)}
                         accessibilityLabel="Choose Service"
                         placeholderTextColor={"#3B567C"}
                         placeholder="Select State"
@@ -232,11 +283,11 @@ const CreateAccountScreen: FC = () => {
                         fontSize={15}
                         color={"#3B567C"}
                       >
-                        <Select.Item label="CA" value="ux" />
-                        <Select.Item label="AL" value="web" />
-                        <Select.Item label="PA" value="cross" />
-                        <Select.Item label="WD" value="ui" />
-                        <Select.Item label="NY" value="backend" />
+                        <Select.Item label="CA" value="CA" />
+                        <Select.Item label="AL" value="AL" />
+                        <Select.Item label="PA" value="PA" />
+                        <Select.Item label="WD" value="WD" />
+                        <Select.Item label="NY" value="NY" />
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
@@ -259,7 +310,7 @@ const CreateAccountScreen: FC = () => {
             {/* one checkBox */}
             <View style={{flex: 0.2, marginBottom: 20,}}>     
               <HStack>
-                  <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="test" size="lg" accessibilityLabel="This is a dummy checkbox" />
+                  <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="true" size="lg" onChange={(Boolean) => areTermsAccepted(Boolean)} accessibilityLabel="I accept PUG's terms and services" />
                   <View style={{flex: 1, marginLeft: 10,alignItems: "center", flexDirection: "row"}}>
                     <Text style={styles.subTxtNoUnderline}>I accept PUG's</Text>
                     <Pressable onPress={() => setShowModal(true)}>
@@ -271,7 +322,7 @@ const CreateAccountScreen: FC = () => {
             {/* One checkbox */}
             <View style={{flex: 0.2}}>     
               <HStack>
-                  <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="test" size="lg" accessibilityLabel="This is a dummy checkbox" />
+                  <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="true" size="lg" onChange={(Boolean) => isUser18orOrGreater(Boolean)} accessibilityLabel="I am 18 years old or over to use the application!" />
                   <View style={{flex: 1, marginLeft: 10, justifyContent: "center"}}>
                     <Text style={styles.subTxtNoUnderline}>I am 18 years old or over</Text>
                   </View>
@@ -311,7 +362,7 @@ const CreateAccountScreen: FC = () => {
                   paddingLeft: 60,
                   paddingRight: 60,
                 }}
-                onPress={() => console.log("Create account")}
+                onPress={handleCreateAccount}
               >
                 <Text style={styles.createAccountBtnTxt}>Create Account</Text>
               </Pressable>
