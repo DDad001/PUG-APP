@@ -49,7 +49,7 @@ const CreateAccountScreen: FC = () => {
   const [date, setDate] = useState<Date>(new Date());
 
   //place holders Not actually being used!
-  const [DOB, setDOB] = useState<string>("");
+  const [DOB, setDOB] = useState<string>("MM/DD/YYYY");
   const [state, setState] = useState<string>("");
   const [city, setCity] = useState<string>("");
   const [visible, setVisible] = React.useState<boolean>(false)
@@ -78,8 +78,8 @@ const CreateAccountScreen: FC = () => {
       isTermsAccepted:isTermsOfServiceAccepted,
       isEighteen:isOverAgeOf18,
     };
+    let result = await createAccount(userData);
     console.log(userData);
-    // let result = await createAccount(userData);
     // result ? navigate("/projectDashboard") : toggleShowA();
   };
 
@@ -88,8 +88,16 @@ const CreateAccountScreen: FC = () => {
   }, [setVisible])
 
   const onChange = React.useCallback(({ date }) => {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      
     setVisible(false)
-    setDOB(date)
+    let d = date.toString();
+    let splArr = d.split(" ")
+    let month = splArr.slice(1, 2).join(" ")
+    let day = splArr.slice(2, 3).join(" ")
+    let year = splArr.slice(3, 4).join(" ")
+    month = months.indexOf(month);
+    setDOB( month+1+'/'+day +'/'+year );
   }, [])
 
   const newDate = new Date()
@@ -225,7 +233,7 @@ const CreateAccountScreen: FC = () => {
                 <Pressable style={{backgroundColor:'white', flex:0.95, height:55, borderRadius:20, marginLeft:16, marginBottom:20, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
                   <View style={{flexDirection:'row', shadowColor: "black",}}>
                   <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>Date of birth</Text>
-                 <Text style={{color:'#3B567C',  marginLeft:130, marginTop:19, fontSize:15}}>MM/DD/YYYY</Text>
+                 <Text style={{color:'#3B567C',  marginLeft:130, marginTop:19, fontSize:15}}>{DOB}</Text>
                   </View>
                 </Pressable>
                   </View>
