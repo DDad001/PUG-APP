@@ -53,55 +53,35 @@ const CreateAccountScreen: FC = () => {
   const [state, setState] = useState<string>("");
   const [city, setCity] = useState<string>("");
   const [visible, setVisible] = React.useState<boolean>(false)
-  const [termsOfService, setTermsOfService] = useState<boolean>(false);
 
-
-  const handleTermsOfService = () => {
-    setTermsOfService(!termsOfService);
-    console.log(termsOfService)
-  }
-
-
-
-  const handleCreateAccount = async () => {
-    let userData = {
-      Id: 0,
-      FullName: newFirstName,
-      LastName: newLastName,
-      Username: newUsername,
-      Password: newPassword,
-      DateOfBirth:DOB,
-      City:city,
-      State:state,
-      isTermsAccepted:'',
-      isEighteen:'',
-    };
-    let result = await createAccount(userData);
-    // result ? navigate("/projectDashboard") : toggleShowA();
-  };
-
-
-
-
-
-
-
-
-
-
-
-  //checkboxes useStates!
   const [isTermsOfServiceAccepted, setIsTermsOfServiceAccepted] = useState<boolean>(false);
   const [isOverAgeOf18, setIsOverAgeOf18] = useState<boolean>(false);
 
   const areTermsAccepted = (isTermsAccepted:boolean) => {
-   setIsTermsOfServiceAccepted(isTermsAccepted);
+    setIsTermsOfServiceAccepted(isTermsAccepted);
   }
 
   const isUser18orOrGreater = (isUser18OrOver:boolean) => {
     setIsOverAgeOf18(isUser18OrOver);
   }
 
+  const handleCreateAccount = async () => {
+    let userData = {
+      Id: 0,
+      FirstName: newFirstName,
+      LastName: newLastName,
+      Username: newUsername,
+      Password: newPassword,
+      DateOfBirth:DOB,
+      City:city,
+      State:state,
+      isTermsAccepted:isTermsOfServiceAccepted,
+      isEighteen:isOverAgeOf18,
+    };
+    console.log(userData);
+    // let result = await createAccount(userData);
+    // result ? navigate("/projectDashboard") : toggleShowA();
+  };
 
   const onDismiss = React.useCallback(() => {
     setVisible(false)

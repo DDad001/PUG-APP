@@ -57,6 +57,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 
 import { AddEventItem, } from '../Services/DataService';
+import { compareSpecificity } from "native-base/lib/typescript/hooks/useThemeProps/propsFlattener";
 
 const AddEventScreen: FC = () => {
   const [pickedImagePath, setPickedImagePath] = useState('');
@@ -110,9 +111,19 @@ const AddEventScreen: FC = () => {
   }, [setVisible])
 
   const onChange = React.useCallback(({ date }) => {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      
     setVisible(false)
-    setEventDate({ date })
+    let d = date.toString();
+    let splArr = d.split(" ")
+    let month = splArr.slice(1, 2).join(" ")
+    let day = splArr.slice(2, 3).join(" ")
+    let year = splArr.slice(3, 4).join(" ")
+    month = months.indexOf(month);
+    setEventDate( month+1+'/'+day +'/'+year );
   }, [])
+
+  
 
   const date = new Date()
 
@@ -126,9 +137,24 @@ const AddEventScreen: FC = () => {
       setShowTimePicker(false);
       let hour = ( hours );
       let minute = ( minutes );
+      let morningOrEvening = "";
       //console.log(hour)
       //console.log( minute)
-      let time = (hour +":" + minute);
+      if(hour > 12){
+        hour = hour - 12
+        morningOrEvening = "pm";
+      }
+      else{
+        morningOrEvening = "am";
+      }
+      if(minute < 10){
+        minute = '0'+minute
+      }
+      if(hour == 0){
+        hour = 12
+      }
+      let time = (hour +":" + minute + ' '+morningOrEvening);
+      
       setEventTime(time);
     },
     [setShowTimePicker]
@@ -150,7 +176,7 @@ const AddEventScreen: FC = () => {
       isActive: true,
       IsDeleted: false
     }
-    console.log(newEvent);
+    //console.log(newEvent);
     AddEventItem(newEvent);
   }
   
