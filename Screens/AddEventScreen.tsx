@@ -9,8 +9,9 @@ import {
   Pressable,
   ScrollView,
   KeyboardAvoidingView,
+  Image,
 } from "react-native";
-import { Box, CheckIcon, FormControl, Input, Select } from "native-base";
+import { Box, Button, CheckIcon, FormControl, Input, Select } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -52,8 +53,43 @@ import { DatePickerModal } from 'react-native-paper-dates'
 import { TimePickerModal } from 'react-native-paper-dates'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
+import * as ImagePicker from 'expo-image-picker';
+
+
 
 const AddEventScreen: FC = () => {
+  const [pickedImagePath, setPickedImagePath] = useState('');
+  
+  const showImagePicker = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this app to access your photos!");
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync();
+    console.log(result);
+    if (!result.cancelled) {
+      setPickedImagePath(result.uri);
+      console.log(result.uri);
+    }
+  }
+
+  const openCamera = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!");
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync();
+    console.log(result);
+  
+    if (!result.cancelled) {
+      setPickedImagePath(result.uri);
+      console.log(result.uri);
+    }
+  }
+
+
   const [nameOfEvent, setNameOfEvent] = useState<string>("");
   const [eventDetails, setEventDetails] = useState<string>("");
   const [eventAddress, setEventAddress] = useState<string>("");
@@ -304,11 +340,28 @@ const AddEventScreen: FC = () => {
                 </Text>
         
 
-              <View style={{ flex: 1, marginTop:20}}>
+              <View style={{marginTop:20,flexDirection:'row'}}>
+                <Pressable onPress={showImagePicker}>
               <View style={{backgroundColor:'#7E90AB', width:120, height: 90, marginLeft:18, borderRadius: 8}}>
-              <MaterialCommunityIcons name="image-plus" size={40} color="white" style={{marginLeft:38, marginTop:25}}/>
+                {
+                  pickedImagePath !== '' ? <Image
+                  source={{ uri: pickedImagePath }}
+                  style={styles.image}
+                  />
+                  :
+                  <View>
+                  <MaterialCommunityIcons name="image-plus" size={40} color="white" style={{marginLeft:38, marginTop:25}}/>
+                  </View>
+                }
               </View>
+                </Pressable>
               </View>
+
+              
+              {/* <Button onPress={showImagePicker} title="Select an image" />
+              <Button onPress={openCamera} title="Open camera" /> */}
+
+
 
 
 
@@ -560,7 +613,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.5,
 
-  },
+  }, 
+  image: {
+    width: 120,
+    height: 90,
+    borderRadius: 8,
+    resizeMode: 'cover'
+  }
 });
 
 export default AddEventScreen;
