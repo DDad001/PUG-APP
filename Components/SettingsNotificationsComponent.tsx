@@ -1,7 +1,9 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import {  ScrollView, StyleSheet, Image, View, Pressable} from "react-native";
 import { Switch } from "react-native-paper";
 import AppLoading from "expo-app-loading";
+import { DatePickerModal } from 'react-native-paper-dates';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import {
   useFonts,
   Lato_100Thin,
@@ -100,17 +102,19 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
   const [lastName, setLastName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [dob, setDob] = useState<string>("");
+  const [dob, setDob] = useState<string>("MM/DD/YYYY");
   const [city, setCity] = useState<string>("");
+
+  const [visible, setVisible] = React.useState<boolean>(false)
   
   const handleEditProfile = () => {
     let edittedProfile = {
-      Id: 2, //userId
+      Id: 2, //userId useContext
       FirstName: firstName,
       LastName: lastName,
       Username: username,
-      Salt: "", //?
-      Hash: "",//?
+      Salt: "", //useContext
+      Hash: "",//useContext
       DateOfBirth: dob,
       City: city,
       State: updatedState,
@@ -127,7 +131,33 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     //need to use useContext for this to get user's username
     //DeleteUser(useContext.username);
     console.log('Deleted');
+
   }
+
+  const onDismiss = React.useCallback(() => {
+    setVisible(false)
+  }, [setVisible])
+
+  const onChange = React.useCallback(({ date }) => {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      
+    setVisible(false)
+    let d = date.toString();
+    let splArr = d.split(" ")
+    let month = splArr.slice(1, 2).join(" ")
+    let day = splArr.slice(2, 3).join(" ")
+    let year = splArr.slice(3, 4).join(" ")
+    month = months.indexOf(month);
+    setDob( month+1+'/'+day +'/'+year );
+  }, [])
+
+  const newDate = new Date()
+
+  const theme = { ...DefaultTheme,colors: {
+    ...DefaultTheme.colors,
+    primary: '#3498db',
+    accent: '#f1c40f',
+  }, }
 
   return (
     <View style={styles.ScrollStyle}>
@@ -167,36 +197,63 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
           <Modal.Body>
             <Box>
               <FormControl.Label> First Name</FormControl.Label>
-              <Input placeholder="Enter First Name"
+              <Input fontFamily="Roboto_400Regular" placeholder="Enter First Name"
               onChangeText={(text) => setFirstName(text)}
               />
             </Box>
             <Box mt="3">
               <FormControl.Label>Last Name</FormControl.Label>
-              <Input placeholder="Enter Last Name" 
+              <Input fontFamily="Roboto_400Regular" placeholder="Enter Last Name" 
               onChangeText={(text) => setLastName(text)}
               />
             </Box>
             <Box mt="3">
               <FormControl.Label>Username</FormControl.Label>
-              <Input placeholder="Enter Username" 
+              <Input fontFamily="Roboto_400Regular" placeholder="Enter Username" 
               onChangeText={(text) => setUsername(text)}
               />
             </Box>
             <Box mt="3">
               <FormControl.Label>Password</FormControl.Label>
-              <Input placeholder="Enter Password" type="password"
+              <Input fontFamily="Roboto_400Regular" placeholder="Enter Password" type="password"
               onChangeText={(text) => setPassword(text)}
               />
             </Box>
-            <Box mt="3">
-              <FormControl.Label>Date of Birth</FormControl.Label>
-              <Input placeholder="MM/DD/YYYY" />
-            </Box>
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', marginTop: 13}}>
+
+            <Box mt='3'>
+            <FormControl.Label>Date of Birth</FormControl.Label>
+            <PaperProvider theme={theme}>
+                  <View style={{flexDirection:'row',flex: 1,}}>
+                <DatePickerModal 
+                  mode="single"
+                  visible={visible}
+                  onDismiss={onDismiss}
+                  date={newDate}
+                  // validRange={{
+                  //   startDate: new Date(2005, 15, 2),  // optional
+                  //    endDate: new Date(2005, 3, 2), // optional
+                  //  }}
+                  onConfirm={onChange}
+                  saveLabel="Save" // optional
+                  label="Select date" // optional
+                  animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
+                  locale={'en'}// optional, default is automically detected by your system  
+                  /> 
+                <Pressable style={{backgroundColor: '#FAFAFA', borderWidth: 1, borderColor:'lightgray', borderRadius: 5,}} onPress={()=> setVisible(true)}>
+                  <View style={{flexDirection:'row',  }}>
+                  <Text style={{ fontSize:12, marginRight: 199, paddingTop: 5, paddingBottom: 5, paddingLeft: 11, color:"gray", fontFamily: 'Roboto_400Regular', opacity: 0.6}}>{dob}</Text>
+                  </View>
+                </Pressable>
+                  </View>
+                  </PaperProvider>
+              </Box>
+
+
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 13}}>
             <Box>
               <FormControl.Label>State</FormControl.Label>
               <Select
+                fontFamily="Roboto_400Regular"
                 selectedValue={updatedState}
                 minWidth="130"
                 accessibilityLabel="Choose Service"
@@ -216,7 +273,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
             </Box>
             <Box>
               <FormControl.Label >City</FormControl.Label>
-              <Input placeholder="Enter City" minWidth="150" 
+              <Input fontFamily="Roboto_400Regular" placeholder="Enter City" minWidth="150" 
               onChangeText={(text) => setCity(text)}
               />
             </Box>
