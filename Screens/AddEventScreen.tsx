@@ -186,16 +186,20 @@ const AddEventScreen: FC = () => {
     //address
     //state
     //city
-    if(nameOfEvent === "" || eventDate === "" || eventTime === "" || eventDetails === "" || eventAddress === "" || eventState === "" || eventState === ""){
 
+    var regex = /^[A-Za-z]+$/
+    console.log(regex.test(eventCity));
+    //Don't forget validating the image
+    if(nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == "" || eventState == ""){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
+    }else if(regex.test(eventCity) == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: event city must include characters only!</Box>;}});
     }else{
-      console.log("keep going");
+      console.log("event made");
+      // AddEventItem(newEvent);
     }
 
-    // var regex = /^[A-Za-z]+$/
-    // console.log(regex.test(eventCity));
-
-    AddEventItem(newEvent);
+   
   }
   
   const theme = { ...DefaultTheme,colors: {
