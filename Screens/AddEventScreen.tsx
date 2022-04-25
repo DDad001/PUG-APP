@@ -56,7 +56,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 
 
-import { AddEventItem, } from '../Services/DataService';
+import { AddEventItem, GetAddress } from '../Services/DataService';
 import { compareSpecificity } from "native-base/lib/typescript/hooks/useThemeProps/propsFlattener";
 
 const AddEventScreen: FC = () => {
@@ -161,7 +161,7 @@ const AddEventScreen: FC = () => {
     [setShowTimePicker]
   );
 
-  const HandleCreateEvent = () => {
+  const HandleCreateEvent = async() => {
     let newEvent = {
       Id: 0,
       UserID: 2, 
@@ -178,7 +178,7 @@ const AddEventScreen: FC = () => {
       IsDeleted: false
     }
 
-            //order of forms
+    //order of forms
     //name
     //date
     //time
@@ -187,16 +187,27 @@ const AddEventScreen: FC = () => {
     //state
     //city
 
+
     var regex = /^[A-Za-z]+$/
     console.log(regex.test(eventCity));
     //Don't forget validating the image
+
+
+    let addressArr: string[] = eventAddress.split(" "); //split the string array
+    let formatedAddress: string = addressArr.join("+") //put it in the correct format
+    let obtainedAddress:any = await GetAddress(formatedAddress); 
+    console.log(obtainedAddress);
+
+
     if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == "" || eventState == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
     }else if(regex.test(eventCity) == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: event city must include characters only!</Box>;}});
+    }else if(obtainedAddress.length < 1){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event!</Box>;}});
     }else{
-      console.log("event made");
       // AddEventItem(newEvent);
+      console.log("All good G!")
     }
 
    
