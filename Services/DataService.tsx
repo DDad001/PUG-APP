@@ -15,7 +15,7 @@ async function createAccount(createdUser:object){
         throw new Error(message)
     }
     let data = await res.json();
-    console.log(data)
+    return data;
 }
 
 async function LoginUser(userData:object){

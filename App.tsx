@@ -89,9 +89,9 @@ const App: FC =()=> {
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeBaseProvider>
           <Stack.Navigator>
-          {/* <Stack.Screen name="login"
+          <Stack.Screen name="login"
           component={LoginScreen}
-          options={{headerShown: false}} /> */}
+          options={{headerShown: false}} />
           <Stack.Screen name="CreateAccount"
           component={CreateAccountScreen}
           options={{headerShown: false}} />
