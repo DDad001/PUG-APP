@@ -8,8 +8,9 @@ import {
   ScrollView,
   Pressable,
   KeyboardAvoidingView,
+  SafeAreaView,
 } from "react-native";
-import { Datepicker, Icon, Layout } from "@ui-kitten/components";
+// import { Datepicker, Icon, Layout } from "@ui-kitten/components";
 import PUGbutton from "../Components/PUGButton";
 import CourtPicture from "../assets/Court.png";
 import AppLoading from "expo-app-loading";
@@ -30,14 +31,41 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
-import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input } from "native-base";
+import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Stack, useToast } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 import { DatePickerModal } from 'react-native-paper-dates';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { createAccount } from "../Services/DataService";
 
+import { Icon } from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
+import { blueGrey100 } from "react-native-paper/lib/typescript/styles/colors";
+import { Item } from "react-native-paper/lib/typescript/components/List/List";
+import { FontAwesome5 } from '@expo/vector-icons';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const CreateAccountScreen: FC = () => {
+type RootStackParamList ={
+  CreateAccount: undefined,
+  login:undefined,
+  Nav: undefined,
+  event:{name:string},
+  profile:{name:string},
+  PastEvents:undefined,
+  LikedEvents:undefined,
+  settings:undefined,
+  following:undefined,
+  LookAtEvent:undefined,
+  OtherPersonsFollowers:undefined,
+  OtherPersonsFollowings:undefined,
+  YourActiveEvents:undefined,
+  followers:undefined,
+  FAQ:undefined,
+}
+
+type Props = NativeStackScreenProps<RootStackParamList, "CreateAccount">;
+
+
+const CreateAccountScreen: FC<Props> = ({navigation}) => {
   const [newFirstName, setNewFirstName] = useState<string>("");
   const [newLastName, setNewLastName] = useState<string>("");
   const [newUsername, setNewUsername] = useState<string>("");
@@ -47,13 +75,14 @@ const CreateAccountScreen: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const [date, setDate] = useState<Date>(new Date());
-
+  const Errortoast = useToast();
+  const Successtoast = useToast();
   //place holders Not actually being used!
   const [DOB, setDOB] = useState<string>("MM/DD/YYYY");
   const [state, setState] = useState<string>("");
   const [city, setCity] = useState<string>("");
   const [visible, setVisible] = React.useState<boolean>(false)
-
+  const [show, setShow] = React.useState(false);
   const [isTermsOfServiceAccepted, setIsTermsOfServiceAccepted] = useState<boolean>(false);
   const [isOverAgeOf18, setIsOverAgeOf18] = useState<boolean>(false);
 
@@ -78,10 +107,60 @@ const CreateAccountScreen: FC = () => {
       isTermsAccepted:isTermsOfServiceAccepted,
       isEighteen:isOverAgeOf18,
     };
-    let result = await createAccount(userData);
+
+    let today = new Date();
+    let birthDate = new Date(DOB);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    var regex = /^[A-Za-z]+$/
+    let FirstNameInput = regex.test(newFirstName);
+    let LastNameInput = regex.test(newLastName);
+    let CityInput = regex.test(city);
+
+    console.log(FirstNameInput);
+    console.log(age);
     console.log(userData);
-    // result ? navigate("/projectDashboard") : toggleShowA();
-  };
+
+    let result:any;
+    if(newFirstName == "" || newLastName == "" || newUsername == "" || newPassword == "" || DOB == "" || city == "" || state == "" || isTermsOfServiceAccepted == false || isOverAgeOf18 == false)
+    {
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
+    }
+    else if(FirstNameInput == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: first name must include characters only</Box>;}});
+    }
+    else if(LastNameInput == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: last name must include characters only</Box>;}});
+    }
+    else if(newUsername.length < 8 ){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username length is too small</Box>;}});
+    }
+    else if(newPassword.length < 8){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: password length is too small</Box>;}});
+    }
+    else if(age < 18){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: you must be 18 years or older to create an account</Box>;}});
+    }
+    else if(CityInput == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: city must include characters only</Box>;}});
+    }
+    else{
+      result = await createAccount(userData);
+      console.log(result);
+      if(!result){
+        Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username has already been taken</Box>;}});
+      }else{
+      Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully created!</Box>}});
+      navigation.navigate('Nav');
+      }
+    }
+
+    }
+
 
   const onDismiss = React.useCallback(() => {
     setVisible(false)
@@ -134,39 +213,20 @@ const CreateAccountScreen: FC = () => {
         resizeMode="cover"
         style={{ height: "100%", width: "100%" }}
       >
-        <View
-          style={{
-            flex: 0.14,
-            justifyContent: "flex-end",
-          }}
-        >
-          <Ionicons
-            name="chevron-back"
-            size={35}
-            color="white"
-            style={{ marginTop: 7, marginLeft: 15, alignSelf: "flex-start" }}
-          />
-        </View>
-        <View
-          style={{
-            flex: 0.1,
-            alignItems: "center",
-            justifyContent: "center",
-            marginBottom: 5,
-          }}
-        >
-          <Text style={styles.headingTxt}>
-            Want to upload your first event?
+       <SafeAreaView>
+          <Pressable onPress={() => navigation.navigate('login')}  style={{marginTop:20, marginLeft:30}}>
+          <FontAwesome5 name="chevron-left" size={24} color="white" />
+          </Pressable>
+       </SafeAreaView>
+
+          <Text style={{marginTop:20, marginLeft:25, fontFamily:"Roboto_400Regular", fontSize:20, color:"white"}}>
+             Join the PUG family and create your account. 
           </Text>
-        </View>
-        <View style={{ flex: 0.08, alignItems: "center" }}>
-          <Text style={styles.subheadingTxt}>
-            Join the PUG family to create your account.
-          </Text>
-        </View>
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
-          <ScrollView style={[styles.overlayContainer, {}]}>
-            <View style={{ flex: 0.7 }}>
+
+
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
+          <ScrollView style={{}}>
+            <View style={{ flex: 0.7, marginTop:20}}>
               <TextInput
                 style={[styles.input, { marginTop: 0 }]}
                 onChangeText={(text) => setNewFirstName(text)}
@@ -194,7 +254,7 @@ const CreateAccountScreen: FC = () => {
                 placeholderTextColor={"rgba(59, 86, 124, 1)"}
                 accessibilityLabel="Enter username"
               />
-              <TextInput
+              {/* <TextInput
                 style={styles.input}
                 onChangeText={(text) => setNewPassword(text)}
                 value={newPassword}
@@ -202,7 +262,25 @@ const CreateAccountScreen: FC = () => {
                 keyboardType="default"
                 placeholderTextColor={"rgba(59, 86, 124, 1)"}
                 accessibilityLabel="Enter password"
-              />
+
+              /> */}
+
+
+
+              <Input
+              backgroundColor={'white'} borderWidth={0} w={"91%"} marginLeft={4} bg={'white'} shadowColor={"black"} shadow={9} marginBottom={5} borderRadius={20} fontSize="15" fontFamily={"Roboto_400Regular"} h={{base:"13%"}}  type={show ? "text" : "password"} 
+              InputRightElement={<Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={7} mr="5" color="rgba(59, 86, 124, 1)" onPress={() => setShow(!show)} />} placeholder="Password" 
+              placeholderTextColor={"rgba(59, 86, 124, 1)"}  onChangeText={(text) => setNewPassword(text)} value={newPassword} accessibilityLabel="Enter password" keyboardType="default"/>
+
+              <View style={{ shadowOffset: { width: -2, height: 4 },shadowColor:"black",shadowRadius: 3,shadowOpacity: 0.5,}}></View>
+
+
+         
+        {/* shadowColor: "black",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3, */}
+
               {/* <Datepicker
                 style={[styles.input, {}]}
                 // date={new Date(2000, 0, 1)}
@@ -232,7 +310,7 @@ const CreateAccountScreen: FC = () => {
                   /> 
                 <Pressable style={{backgroundColor:'white', flex:0.95, height:55, borderRadius:20, marginLeft:16, marginBottom:20, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
                   <View style={{flexDirection:'row', shadowColor: "black",}}>
-                  <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>Date of birth</Text>
+                  <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15, flex:0.9}}>Date of birth</Text>
                  <Text style={{color:'#3B567C',  marginLeft:130, marginTop:19, fontSize:15}}>{DOB}</Text>
                   </View>
                 </Pressable>
@@ -296,7 +374,7 @@ const CreateAccountScreen: FC = () => {
             </View>
 
             {/* one checkBox */}
-            <View style={{flex: 0.2, marginBottom: 20,}}>     
+            <View style={{flex: 0.2, marginBottom: 20,marginTop:20}}>     
               <HStack>
                   <Checkbox style={{height: 40, width: 40, marginLeft: 20}} value="true" size="lg" onChange={(Boolean) => areTermsAccepted(Boolean)} accessibilityLabel="I accept PUG's terms and services" />
                   <View style={{flex: 1, marginLeft: 10,alignItems: "center", flexDirection: "row"}}>
@@ -367,7 +445,7 @@ const CreateAccountScreen: FC = () => {
                 Already have an account?
               </Text>
               <Pressable
-                onPress={() => console.log("Send the user to Login Screen!")}
+                onPress={() => navigation.navigate('login')}
                 accessibilityLabel="Go to login screen"
               >
                 <Text style={styles.subTxt}>Login here!</Text>
@@ -389,18 +467,18 @@ const styles = StyleSheet.create({
   overlayContainer: {
     flex: 1,
   },
-  headingTxt: {
-    color: "white",
-    fontWeight: "600",
-    fontFamily: "Roboto_700Bold",
-    fontSize: 24,
-    // marginTop: 30,
-  },
-  subheadingTxt: {
-    fontSize: 16,
-    paddingLeft: 15,
-    color: "white",
-  },
+  // headingTxt: {
+  //   color: "white",
+  //   fontWeight: "600",
+  //   fontFamily: "Roboto_700Bold",
+  //   fontSize: 24,
+  //   // marginTop: 30,
+  // },
+  // subheadingTxt: {
+  //   fontSize: 16,
+  //   paddingLeft: 15,
+  //   color: "white",
+  // },
   input: {
     //Text styling for the input fields!
     fontFamily: "Roboto_400Regular",

@@ -45,6 +45,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type RootStackParamList ={
+  CreateAccount: undefined,
   login:undefined,
   Nav: undefined,
   event:{name:string},
@@ -150,10 +151,10 @@ const LoginScreen: FC<Props> = ({navigation}) => {
             style={styles.input}
             onChangeText={(text) => setUsername(text)}
             value={Username}
-            placeholder="Email"
+            placeholder="Username"
             keyboardType="default"
             placeholderTextColor={"rgba(59, 86, 124, 1)"}
-            accessibilityLabel="Enter your email"
+            accessibilityLabel="Enter your username"
           />
           <TextInput
             style={styles.input}
@@ -181,7 +182,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         </View>
         <View style={{flex: 0.1, flexDirection: "row", justifyContent: "center"}}>
             <Text style={styles.subTxtNoUnderline}>Don't have an account?</Text>
-            <Pressable onPress={() => console.log("Send the user to the create account screen")} accessibilityLabel="If you don">
+            <Pressable onPress={() => navigation.navigate('CreateAccount')} accessibilityLabel="Don't have an account sign up here">
                 <Text style={styles.subTxt}>Sign up here!</Text>
             </Pressable>
         </View>
