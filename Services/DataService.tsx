@@ -86,7 +86,7 @@ async function UpdateUsername(id:number, username:string){
 
 async function DeleteUser(userToDelete:string) {
 
-    let res = await fetch(`http://DeleteUser/User/DeleteUser/${userToDelete}`, {
+    let res = await fetch(`http://localhost:5216/User/DeleteUser/${userToDelete}`, {
         method: "POST",
         headers: {
             'Content-Type': "application/json"

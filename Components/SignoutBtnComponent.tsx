@@ -83,7 +83,7 @@ const SignoutBtnComponent: FC<SignOutProps> = (props) => {
   const [showSignoutModal, setShowSignoutModal] = useState(false);
 
   const handleSignOut = () => {
-    //AsyncStorage.removeItem('Token');
+    AsyncStorage.removeItem('Token');
     console.log('Signed Out');
     props.onSignOutPress();
   }

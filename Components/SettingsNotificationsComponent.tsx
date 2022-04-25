@@ -1,9 +1,10 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useContext } from "react";
 import {  ScrollView, StyleSheet, Image, View, Pressable} from "react-native";
 import { Switch } from "react-native-paper";
 import AppLoading from "expo-app-loading";
 import { DatePickerModal } from 'react-native-paper-dates';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import UserContext  from '../Context/UserContext';
 import {
   useFonts,
   Lato_100Thin,
@@ -46,7 +47,7 @@ import {
   Box
 } from "native-base";
 
-import { DeleteUser } from '../Services/DataService'
+import { DeleteUser, UpdateUser } from '../Services/DataService'
 
 
 interface SettingsProps{ 
@@ -55,6 +56,7 @@ interface SettingsProps{
 
 
 const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
+  const { userItems } = useContext<any>(UserContext);
 
    const HelpHandler = () => {
     props.onHelpPress();
@@ -109,27 +111,27 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
   
   const handleEditProfile = () => {
     let edittedProfile = {
-      Id: 2, //userId useContext
+      Id: userItems.id, //userId useContext
       FirstName: firstName,
       LastName: lastName,
       Username: username,
-      Salt: "", //useContext
-      Hash: "",//useContext
+      Salt: userItems.salt, //useContext
+      Hash: userItems.hash,//useContext
       DateOfBirth: dob,
       City: city,
       State: updatedState,
       isTermsAccepted: true,
       isEighteen: true,
-      Image: "",
+      Image: userItems.image,
       IsDeleted: false
     }
-    console.log(edittedProfile);
-    //AddEventItem(newEvent);
+    //console.log(edittedProfile);
+    UpdateUser(edittedProfile);
   }
 
   const handleDeleteProfile = () => {
     //need to use useContext for this to get user's username
-    //DeleteUser(useContext.username);
+    DeleteUser(userItems.username);
     console.log('Deleted');
 
   }
