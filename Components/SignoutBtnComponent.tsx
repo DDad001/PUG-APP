@@ -42,8 +42,15 @@ import {
   Box,
 } from "native-base";
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+interface SignOutProps{ 
+  onSignOutPress: Function
+}
+
 //You can't style a button have to use a pressable!
-const SignoutBtnComponent: FC = () => {
+const SignoutBtnComponent: FC<SignOutProps> = (props) => {
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -74,6 +81,12 @@ const SignoutBtnComponent: FC = () => {
   // }
 
   const [showSignoutModal, setShowSignoutModal] = useState(false);
+
+  const handleSignOut = () => {
+    //AsyncStorage.removeItem('Token');
+    console.log('Signed Out');
+    props.onSignOutPress();
+  }
 
   return (
     <View style={styles.NotificationView}>
@@ -141,6 +154,7 @@ const SignoutBtnComponent: FC = () => {
                 }}
                 onPress={() => {
                   setShowSignoutModal(false);
+                  handleSignOut();
                 }}
               >
                 <Text
