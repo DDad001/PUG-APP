@@ -95,6 +95,9 @@ const App: FC =()=> {
           <Stack.Screen name="CreateAccount"
           component={CreateAccountScreen}
           options={{headerShown: false}} />
+          {/* <Stack.Screen name="CreateAccount"
+          component={CreateAccountScreen}
+          options={{headerShown: false}} /> */}
           <Stack.Screen name="Nav"
           component={NavigationComponent}
           options={{headerShown: false}} />

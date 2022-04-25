@@ -44,6 +44,8 @@ import {
   Box
 } from "native-base";
 
+import { DeleteUser } from '../Services/DataService'
+
 
 interface SettingsProps{ 
   onHelpPress: Function,
@@ -90,11 +92,42 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   const [showModal, setShowModal] = useState(false);
-  let [service, setService] = useState("");
+  let [updatedState, setUpdatedState] = useState("");
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [dob, setDob] = useState<string>("");
+  const [city, setCity] = useState<string>("");
   
+  const handleEditProfile = () => {
+    let edittedProfile = {
+      Id: 2, //userId
+      FirstName: firstName,
+      LastName: lastName,
+      Username: username,
+      Salt: "", //?
+      Hash: "",//?
+      DateOfBirth: dob,
+      City: city,
+      State: updatedState,
+      isTermsAccepted: true,
+      isEighteen: true,
+      Image: "",
+      IsDeleted: false
+    }
+    console.log(edittedProfile);
+    //AddEventItem(newEvent);
+  }
+
+  const handleDeleteProfile = () => {
+    //need to use useContext for this to get user's username
+    //DeleteUser(useContext.username);
+    console.log('Deleted');
+  }
 
   return (
     <View style={styles.ScrollStyle}>
@@ -134,19 +167,27 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
           <Modal.Body>
             <Box>
               <FormControl.Label> First Name</FormControl.Label>
-              <Input placeholder="Enter First Name" />
+              <Input placeholder="Enter First Name"
+              onChangeText={(text) => setFirstName(text)}
+              />
             </Box>
             <Box mt="3">
               <FormControl.Label>Last Name</FormControl.Label>
-              <Input placeholder="Enter Last Name" />
+              <Input placeholder="Enter Last Name" 
+              onChangeText={(text) => setLastName(text)}
+              />
             </Box>
             <Box mt="3">
               <FormControl.Label>Username</FormControl.Label>
-              <Input placeholder="Enter Username" />
+              <Input placeholder="Enter Username" 
+              onChangeText={(text) => setUsername(text)}
+              />
             </Box>
             <Box mt="3">
               <FormControl.Label>Password</FormControl.Label>
-              <Input placeholder="Enter Password" type="password" />
+              <Input placeholder="Enter Password" type="password"
+              onChangeText={(text) => setPassword(text)}
+              />
             </Box>
             <Box mt="3">
               <FormControl.Label>Date of Birth</FormControl.Label>
@@ -156,7 +197,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
             <Box>
               <FormControl.Label>State</FormControl.Label>
               <Select
-                selectedValue={service}
+                selectedValue={updatedState}
                 minWidth="130"
                 accessibilityLabel="Choose Service"
                 placeholder="Choose State"
@@ -164,7 +205,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                   bg: "teal.600",
                   endIcon: <CheckIcon size="5" />,
                 }}
-                onValueChange={(itemValue) => setService(itemValue)}
+                onValueChange={(itemValue) => setUpdatedState(itemValue)}
               >
                 <Select.Item label="California" value="CA" />
                 <Select.Item label="Arizona" value="AZ" />
@@ -175,7 +216,9 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
             </Box>
             <Box>
               <FormControl.Label >City</FormControl.Label>
-              <Input placeholder="Enter City" minWidth="150" />
+              <Input placeholder="Enter City" minWidth="150" 
+              onChangeText={(text) => setCity(text)}
+              />
             </Box>
             </View>
             
@@ -194,6 +237,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
               <Button
                 onPress={() => {
                   setShowModal(false);
+                  handleEditProfile();
                 }}
                 style={{backgroundColor: '#0A326D'}}
               >
@@ -217,6 +261,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                 style={{backgroundColor: '#0A326D', paddingLeft: 30, paddingRight: 30, borderRadius: 10}}
                 onPress={() => {
                   setShowDeleteModal(false);
+                  handleDeleteProfile();
                 }}
               >
                 <Text style={{ fontFamily: 'Lato_700Bold', fontSize: 16, fontWeight: '800', color: 'white'}}>Yes</Text>

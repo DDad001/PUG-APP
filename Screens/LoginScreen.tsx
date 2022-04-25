@@ -160,6 +160,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
             style={styles.input}
             onChangeText={(text) => setPassword(text)}
             value={Password}
+            secureTextEntry={true}
             placeholder="Password"
             keyboardType="default"
             placeholderTextColor={"rgba(59, 86, 124, 1)"}

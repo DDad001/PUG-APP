@@ -41,6 +41,7 @@ type RootStackParamList ={
   YourActiveEvents:undefined,
   followers:undefined,
   FAQ:undefined,
+  login: undefined
 }
 type Props = NativeStackScreenProps<RootStackParamList, "FAQ">;
 
@@ -72,7 +73,7 @@ const SettingsScreen: FC<Props> = ({navigation}) => {
           <View style={styles.overlayContainer}>
             <SettingsProfileComponent />
             <SettingsNotificationsComponent onHelpPress={() =>  navigation.navigate('FAQ')}/>
-            <SignoutBtnComponent />
+            <SignoutBtnComponent onSignOutPress={() => navigation.navigate('login')} />
         </View>
       </ImageBackground>
     </View>
