@@ -11,7 +11,7 @@ import {
   KeyboardAvoidingView,
   Image,
 } from "react-native";
-import { Box, Button, CheckIcon, FormControl, Input, Select } from "native-base";
+import { Box, Button, CheckIcon, FormControl, Input, Select, useToast } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -91,7 +91,8 @@ const AddEventScreen: FC = () => {
     }
   }
 
-
+  const Errortoast = useToast();
+  const Successtoast = useToast();
   const [nameOfEvent, setNameOfEvent] = useState<string>("");
   const [eventDetails, setEventDetails] = useState<string>("");
   const [eventAddress, setEventAddress] = useState<string>("");
@@ -176,7 +177,24 @@ const AddEventScreen: FC = () => {
       isActive: true,
       IsDeleted: false
     }
-    //console.log(newEvent);
+
+            //order of forms
+    //name
+    //date
+    //time
+    //event details
+    //address
+    //state
+    //city
+    if(nameOfEvent === "" || eventDate === "" || eventTime === "" || eventDetails === "" || eventAddress === "" || eventState === "" || eventState === ""){
+
+    }else{
+      console.log("keep going");
+    }
+
+    // var regex = /^[A-Za-z]+$/
+    // console.log(regex.test(eventCity));
+
     AddEventItem(newEvent);
   }
   
@@ -317,13 +335,24 @@ const AddEventScreen: FC = () => {
             <ScrollView style={{ flex: 1 }}>
               <View style={{ flex: 1 }}>
                 <TextInput
-                  style={styles.input}
+                  style={[styles.input,{marginBottom: 5}]}
                   onChangeText={(text) => setNameOfEvent(text)}
                   value={nameOfEvent}
+                  maxLength={40}
                   placeholder="Name of the event"
                   accessibilityLabel="Enter the event's name"
                   placeholderTextColor={"rgba(59, 86, 124, 1)"}
                 />
+                 <Text
+                  style={{
+                    color: "white",
+                    fontFamily: "Roboto_400Regular",
+                    fontSize: 15,
+                    paddingLeft: 25,
+                  }}
+                >
+                  {nameOfEvent.length}/40 character limit
+                </Text>
               </View>
 
               <View style={{flex: 1, marginBottom: 20, flexDirection:'row', marginTop:10}}>
