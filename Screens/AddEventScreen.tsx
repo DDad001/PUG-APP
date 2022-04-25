@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useContext } from "react";
 import {
   Text,
   View,
@@ -18,6 +18,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import GreenCourt from "../assets/GreenCourt.png";
 import AppLoading from "expo-app-loading";
+import UserContext  from '../Context/UserContext';
 import {
   useFonts,
   Lato_100Thin,

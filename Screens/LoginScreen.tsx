@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -40,9 +40,10 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-import { LoginUser, GetUserByUsername } from '../Services/DataService';
+import { LoginUser, GetUserByUsername, UpdateUser } from '../Services/DataService';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import UserContext  from '../Context/UserContext';
 
 type RootStackParamList ={
   CreateAccount: undefined,
@@ -64,7 +65,10 @@ type RootStackParamList ={
 
 type Props = NativeStackScreenProps<RootStackParamList, "login">;
 
+
 const LoginScreen: FC<Props> = ({navigation}) => {
+  const { setUserItems } = useContext<any>(UserContext);
+
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
 
@@ -82,8 +86,9 @@ const LoginScreen: FC<Props> = ({navigation}) => {
     if(token.token != null){
       AsyncStorage.setItem("Token", token.token);
       navigation.navigate('Nav');
-      GetUserByUsername(Username);
-      console.log(token); 
+      let userItems1 = await GetUserByUsername(Username);
+      setUserItems(userItems1);
+      console.log(userItems1); 
   }
 }
 
