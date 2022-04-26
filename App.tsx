@@ -54,6 +54,7 @@ type RootStackParamList ={
   YourActiveEvents:undefined,
   followers:undefined,
   FAQ:undefined,
+  CardListScreen:undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -89,15 +90,15 @@ const App: FC =()=> {
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeBaseProvider>
           <Stack.Navigator>
-          <Stack.Screen name="login"
+          {/* <Stack.Screen name="login"
           component={LoginScreen}
-          options={{headerShown: false}} />
+          options={{headerShown: false}} /> */}
           {/* <Stack.Screen name="CreateAccount"
           component={CreateAccountScreen}
           options={{headerShown: false}} /> */}
-          <Stack.Screen name="CreateAccount"
+          {/* <Stack.Screen name="CreateAccount"
           component={CreateAccountScreen}
-          options={{headerShown: false}} />
+          options={{headerShown: false}} /> */}
           <Stack.Screen name="Nav"
           component={NavigationComponent}
           options={{headerShown: false}} />
@@ -137,6 +138,9 @@ const App: FC =()=> {
           <Stack.Screen name="FAQ"
            options={{ title: 'FAQ',}}
           component={FAQScreen}/>
+          <Stack.Screen name="CardListScreen"
+           options={{ title: 'CardListScreen', headerShown: false}}
+          component={ListViewEventsScreen}/>
 
             {/* <ListViewEventsScreen/>
             {/* <AddEventScreen /> */}

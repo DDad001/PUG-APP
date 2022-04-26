@@ -59,6 +59,8 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { AddEventItem, GetAddress, GetCitiesByState } from '../Services/DataService';
 import { compareSpecificity } from "native-base/lib/typescript/hooks/useThemeProps/propsFlattener";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
 
 const AddEventScreen: FC = () => {
   const [pickedImagePath, setPickedImagePath] = useState('');
@@ -199,7 +201,7 @@ const AddEventScreen: FC = () => {
     // console.log(obtainedAddress);
 
     let citiesArr:any = await GetCitiesByState(eventState);
-
+    let result;
     let cityNames: string[] = [];
 
     for(let i = 0; i <citiesArr.length; i++){
@@ -217,7 +219,8 @@ const AddEventScreen: FC = () => {
     }else{
       // AddEventItem(newEvent);
       console.log("All good G!")
-
+      result = await AddEventItem(newEvent);
+      Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully created!</Box>}});
     }
   }
   
