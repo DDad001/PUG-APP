@@ -44,10 +44,11 @@ import {
   Select,
   Text,
   CheckIcon,
-  Box
+  Box, 
+  useToast
 } from "native-base";
 
-import { DeleteUser, UpdateUser } from '../Services/DataService'
+import { DeleteUser, UpdateUser, UpdatePassword } from '../Services/DataService'
 
 
 interface SettingsProps{ 
@@ -96,20 +97,23 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   const [showModal, setShowModal] = useState(false);
-  let [updatedState, setUpdatedState] = useState("");
+  let [updatedState, setUpdatedState] = useState(userItems.state);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>(userItems.firstName);
+  const [lastName, setLastName] = useState<string>(userItems.lastName);
+  const [username, setUsername] = useState<string>(userItems.username);
   const [password, setPassword] = useState<string>("");
-  const [dob, setDob] = useState<string>("MM/DD/YYYY");
-  const [city, setCity] = useState<string>("");
+  const [dob, setDob] = useState<string>(userItems.dateOfBirth);
+  const [city, setCity] = useState<string>(userItems.city);
 
   const [visible, setVisible] = React.useState<boolean>(false)
+
+  const Errortoast = useToast();
+  const Successtoast = useToast();
   
-  const handleEditProfile = () => {
+  const handleEditProfile = async () => {
     let edittedProfile = {
       Id: userItems.id, //userId useContext
       FirstName: firstName,
@@ -120,19 +124,79 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
       DateOfBirth: dob,
       City: city,
       State: updatedState,
-      isTermsAccepted: true,
-      isEighteen: true,
+      isTermsAccepted: userItems.isTermsAccepted,
+      isEighteen: userItems.isEighteen,
       Image: userItems.image,
-      IsDeleted: false
+      IsDeleted: userItems.isDeleted
     }
-    //console.log(edittedProfile);
-    UpdateUser(edittedProfile);
+
+    let today = new Date();
+    let birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    var regex = /^[A-Za-z]+$/
+    let FirstNameInput = regex.test(firstName);
+    let LastNameInput = regex.test(lastName);
+    let CityInput = regex.test(city);
+
+    //console.log(FirstNameInput);
+    //console.log(age);
+    //console.log(userData);
+
+    let result:any;
+    if(FirstNameInput == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: first name must include characters only</Box>;}});
+      //setShowModal(true);
+    }
+    else if(LastNameInput == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: last name must include characters only</Box>;}});
+      //setShowModal(true);
+    }
+    else if(username.length < 8 ){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username length is too small</Box>;}});
+      //setShowModal(true);
+    }
+    else if(age < 18){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: you must be 18 years or older to create an account</Box>;}});
+      //setShowModal(true);
+    }
+    else if(CityInput == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: city must include characters only</Box>;}});
+      //setShowModal(true);
+    }
+    else{
+      result = await UpdateUser(edittedProfile);
+      //console.log(result);
+      if(!result){
+        Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username has already been taken</Box>;}});
+        //setShowModal(true);
+      }else{
+        Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully updated!</Box>}});
+        setShowModal(false);
+      }
+    }
+
+    if(password != ""){
+      if(password.length < 8){
+        Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: password length is too small</Box>;}});
+        setShowModal(true);
+      }else{
+        setTimeout(() => {
+          UpdatePassword(userItems.id, password);
+        }, 1000)
+        setShowModal(false);
+      }
+    }
   }
 
   const handleDeleteProfile = () => {
     //need to use useContext for this to get user's username
     DeleteUser(userItems.username);
-    console.log('Deleted');
+    //console.log('Deleted');
 
   }
 
@@ -199,25 +263,25 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
           <Modal.Body>
             <Box>
               <FormControl.Label> First Name</FormControl.Label>
-              <Input fontFamily="Roboto_400Regular" placeholder="Enter First Name"
+              <Input fontFamily="Roboto_400Regular" placeholder={firstName}
               onChangeText={(text) => setFirstName(text)}
               />
             </Box>
             <Box mt="3">
               <FormControl.Label>Last Name</FormControl.Label>
-              <Input fontFamily="Roboto_400Regular" placeholder="Enter Last Name" 
+              <Input fontFamily="Roboto_400Regular" placeholder={lastName} 
               onChangeText={(text) => setLastName(text)}
               />
             </Box>
             <Box mt="3">
               <FormControl.Label>Username</FormControl.Label>
-              <Input fontFamily="Roboto_400Regular" placeholder="Enter Username" 
+              <Input fontFamily="Roboto_400Regular" placeholder={username} 
               onChangeText={(text) => setUsername(text)}
               />
             </Box>
             <Box mt="3">
               <FormControl.Label>Password</FormControl.Label>
-              <Input fontFamily="Roboto_400Regular" placeholder="Enter Password" type="password"
+              <Input fontFamily="Roboto_400Regular" placeholder="Enter New Password" type="password"
               onChangeText={(text) => setPassword(text)}
               />
             </Box>
@@ -275,7 +339,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
             </Box>
             <Box>
               <FormControl.Label >City</FormControl.Label>
-              <Input fontFamily="Roboto_400Regular" placeholder="Enter City" minWidth="150" 
+              <Input fontFamily="Roboto_400Regular" placeholder={city} minWidth="150" 
               onChangeText={(text) => setCity(text)}
               />
             </Box>
@@ -295,7 +359,6 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
               </Button>
               <Button
                 onPress={() => {
-                  setShowModal(false);
                   handleEditProfile();
                 }}
                 style={{backgroundColor: '#0A326D'}}

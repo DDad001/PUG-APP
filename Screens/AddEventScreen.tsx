@@ -189,20 +189,22 @@ const AddEventScreen: FC = () => {
     //city
 
 
-    var regex = /^[A-Za-z]+$/
-    console.log(regex.test(eventCity));
     //Don't forget validating the image
+    var regex = /^[A-Za-z]+$/
 
 
     let addressArr: string[] = eventAddress.split(" "); //split the string array
     let formatedAddress: string = addressArr.join("+") //put it in the correct format
     let obtainedAddress:any = await GetAddress(formatedAddress); 
     // console.log(obtainedAddress);
-    console.log(eventState);
 
     let citiesArr:any = await GetCitiesByState(eventState);
-    console.log(citiesArr);
 
+    let cityNames: string[] = [];
+
+    for(let i = 0; i <citiesArr.length; i++){
+      cityNames.push(citiesArr[i].name);
+    }
 
     if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == "" || eventState == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
@@ -210,9 +212,12 @@ const AddEventScreen: FC = () => {
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: event city must include characters only!</Box>;}});
     }else if(obtainedAddress.length < 1){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event!</Box>;}});
+    }else if(!cityNames.includes(eventCity)){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
     }else{
       // AddEventItem(newEvent);
       console.log("All good G!")
+
     }
 
    
@@ -531,11 +536,56 @@ const AddEventScreen: FC = () => {
                         color={"#3B567C"}
                         onValueChange = {(itemValue) => setEventState(itemValue)}
                       >
-                        <Select.Item label="CA" value="CA" />
-                        <Select.Item label="AL" value="AL" />
-                        <Select.Item label="PA" value="PA" />
-                        <Select.Item label="WD" value="WD" />
-                        <Select.Item label="NY" value="NY" />
+                        <Select.Item label="AL" value="al" />
+                        <Select.Item label="AK" value="ak" />
+                        <Select.Item label="AZ" value="az" />
+                        <Select.Item label="AR" value="ar" />
+                        <Select.Item label="CA" value="ca" />
+                        <Select.Item label="CO" value="co" />
+                        <Select.Item label="CT" value="ct" />
+                        <Select.Item label="DE" value="de" />
+                        <Select.Item label="FL" value="fl" />
+                        <Select.Item label="GA" value="ga" />
+                        <Select.Item label="HI" value="hi" />
+                        <Select.Item label="ID" value="id" />
+                        <Select.Item label="IL" value="il" />
+                        <Select.Item label="IN" value="in" />
+                        <Select.Item label="IA" value="ia" />
+                        <Select.Item label="KS" value="ks" />
+                        <Select.Item label="KY" value="ky" />
+                        <Select.Item label="LA" value="la" />
+                        <Select.Item label="ME" value="me" />
+                        <Select.Item label="MD" value="md" />
+                        <Select.Item label="MA" value="ma" />
+                        <Select.Item label="MI" value="mi" />
+                        <Select.Item label="MN" value="mn" />
+                        <Select.Item label="MS" value="ms" />
+                        <Select.Item label="MO" value="mo" />
+                        <Select.Item label="MT" value="mt" />
+                        <Select.Item label="NE" value="ne" />
+                        <Select.Item label="NV" value="nv" />
+                        <Select.Item label="NH" value="nh" />
+                        <Select.Item label="NJ" value="nj" />
+                        <Select.Item label="NM" value="nm" />
+                        <Select.Item label="NY" value="ny" />
+                        <Select.Item label="NC" value="nc" />
+                        <Select.Item label="ND" value="nd" />
+                        <Select.Item label="OH" value="oh" />
+                        <Select.Item label="OK" value="ok" />
+                        <Select.Item label="OR" value="or" />
+                        <Select.Item label="PA" value="pa" />
+                        <Select.Item label="RI" value="ri" />
+                        <Select.Item label="SC" value="sc" />
+                        <Select.Item label="SD" value="sd" />
+                        <Select.Item label="TN" value="tn" />
+                        <Select.Item label="TX" value="tx" />
+                        <Select.Item label="UT" value="ut" />
+                        <Select.Item label="VT" value="vt" />
+                        <Select.Item label="VA" value="va" />
+                        <Select.Item label="WA" value="wa" />
+                        <Select.Item label="WV" value="wv" />
+                        <Select.Item label="WI" value="wi" />
+                        <Select.Item label="WY" value="wy" />
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!

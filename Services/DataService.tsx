@@ -104,6 +104,24 @@ async function DeleteUser(userToDelete:string) {
 
 }
 
+async function UpdatePassword(id: number, password: string){
+    let res = await fetch(`http://localhost:5216/User/UpdatePassword/${id}/${password}`, {
+       method:"POST",
+       headers:{
+           "Content-Type": "application/json"
+       },
+       body:JSON.stringify(password)
+   });
+   if(!res.ok)
+   {
+       const message =`An Error has Occured ${res.status}`
+       throw new Error(message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
 //-------------ALL FETCHES FOR USER CONTROLLER----------------- 
 
 
@@ -203,25 +221,20 @@ async function GetAddress(address:string){
 }
 
 async function GetCitiesByState(state:string) {
+    var headers = new Headers();
+    headers.append("X-CSCAPI-KEY", "dHEycHl0SEE5NHRHR3I5RktwTkZYYTBITldndzA0akJtRm9qVEo0Zg==");
+    
+    var requestOptions = {
+     method: 'GET',
+     headers: headers,
+    };
+    // fetch(`https://api.countrystatecity.in/v1/countries/us/states/${state}/cities`, requestOptions)
+    // .then(response => response.text())
+    // .then(result => console.log(result))
+    // .catch(error => console.log('error', error));
 
-    // var headers = new Headers();
-    // headers.append("X-CSCAPI-KEY", "dHEycHl0SEE5NHRHR3I5RktwTkZYYTBITldndzA0akJtRm9qVEo0Zg==");
-
-    let res = await fetch(`https://api.countrystatecity.in/v1/countries/us/states/${state}/cities`, {
-        method: "GET",
-        headers: {
-            'Content-Type': "application/json",
-            "X-CSCAPI-KEY": "dHEycHl0SEE5NHRHR3I5RktwTkZYYTBITldndzA0akJtRm9qVEo0Zg==",
-        },
-        body: JSON.stringify(state)
-    });
-    if(!res.ok)
-    {
-        const message = `An error has occured ${res.status}`;
-        throw new Error(message);
-    }
-    let data = await res.json();
-    console.log(data);
+    let res = await fetch(`https://api.countrystatecity.in/v1/countries/us/states/${state}/cities`, requestOptions)
+    let data = res.json();
     return data;
 
 }
@@ -358,6 +371,6 @@ export{
     GetItemsBySport,GetEventItemById,UpdateEventItem,DeleteEventItem,
     AddFollower,GetFollowersByUserId,GetFollowId,GetFollowingByUserId,
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
-    DeleteLikedEvent,GetAddress,GetCitiesByState
+    DeleteLikedEvent, GetAddress, UpdatePassword, GetCitiesByState
 
 }
