@@ -88,7 +88,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
       navigation.navigate('Nav');
       let userItems1 = await GetUserByUsername(Username);
       setUserItems(userItems1);
-      console.log(userItems1); 
+      console.log(userItems1);
   }
 }
 
