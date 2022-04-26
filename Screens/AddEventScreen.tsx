@@ -531,11 +531,11 @@ const AddEventScreen: FC = () => {
                         color={"#3B567C"}
                         onValueChange = {(itemValue) => setEventState(itemValue)}
                       >
-                        <Select.Item label="CA" value="CA" />
-                        <Select.Item label="AL" value="AL" />
-                        <Select.Item label="PA" value="PA" />
-                        <Select.Item label="WD" value="WD" />
-                        <Select.Item label="NY" value="NY" />
+                        <Select.Item label="CA" value="ca" />
+                        <Select.Item label="AL" value="al" />
+                        <Select.Item label="PA" value="pa" />
+                        <Select.Item label="WD" value="wd" />
+                        <Select.Item label="NY" value="ny" />
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
