@@ -189,6 +189,8 @@ interface CardProps{
     const closeMenu = () => setVisible(false);
     const [input, setInput] = useState("")
 
+    const [isLiked, setIsLiked] = useState(false);
+
   let [fontsLoaded, error]= useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -212,6 +214,8 @@ if(!fontsLoaded){
 }
 
   console.log(input)
+
+  
   return (
     <>
       <View style={{ flexDirection: 'row' }}>
@@ -299,8 +303,12 @@ if(!fontsLoaded){
                 <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 5, marginLeft: 8, padding:7  }} />
                 </Pressable>
 
-                <Pressable onPress={() => console.log('clicked')}>
-                <FontAwesome5 name="heart" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                <Pressable onPress={() => setIsLiked(!isLiked)}>
+                  {
+                    isLiked ?  <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                    : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                  }
+               
                 </Pressable>
 
               </View>
@@ -330,8 +338,56 @@ if(!fontsLoaded){
           </Pressable>
 
         </View>
-      </View>    
-      </ScrollView> */}
+      </View>
+      <View style={styles.card}>
+        <View style={styles.cardContent}>
+                <Pressable onPress={EventHandler}>
+          <View style={{ flexDirection: 'row',flex:1,}}>
+            <Image source={man} style={{ flex:1, height: 90, width: 120, borderRadius: 8 }} />
+            <View>
+              <View style={{ flex:1, flexDirection: 'row',  }}>
+
+                <Text style={{marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily:"Lato_700Bold" }}>Oak Park Basketball Game</Text>
+
+                <Pressable onPress={() => console.log('clicked')}>
+                <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 5, marginLeft: 8, padding:7  }} />
+                </Pressable>
+
+                <Pressable onPress={() => console.log('clicked')}>
+                <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                </Pressable>
+
+              </View>
+              <View style={{ flexDirection: 'column', }}>
+                <View style={{ flexDirection: 'row', }}>
+                  <Text style={{ fontSize: 10, marginLeft: 21, marginBottom:10, fontFamily:"Lato_400Regular" }}>4520 W Eight Mile Rd,{'\n'}Stockton, CA 95209</Text>
+                  <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10, marginLeft: 43 }} />
+                  <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily:"Roboto_400Regular" }}>Today</Text>
+                </View>
+
+                <View style={{ flexDirection: 'row' }}>
+
+                  <Pressable onPress={ProfileHandler}>
+                    <View  style={{ flexDirection: 'row' }}>
+                  <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
+                  <Text style={{ marginLeft: 10, marginTop:7, fontSize: 10, fontFamily:"Roboto_500Medium" }}>Matthew David</Text>
+                    </View>
+                  </Pressable>
+           
+                  <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 41, marginTop: 4, }} />
+                  <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily:"Roboto_400Regular"}}>9:30 am</Text>
+                </View>
+
+              </View>
+            </View>
+          </View>
+                </Pressable>
+
+
+        </View>
+      </View>
+    
+      </ScrollView>
   
       {/* <View
         style={{

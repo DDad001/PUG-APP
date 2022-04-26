@@ -222,8 +222,6 @@ const AddEventScreen: FC = () => {
       result = await AddEventItem(newEvent);
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully created!</Box>}});
     }
-
-   
   }
   
   const theme = { ...DefaultTheme,colors: {
@@ -346,11 +344,28 @@ const AddEventScreen: FC = () => {
 
                         onValueChange = {(itemValue) => setEventSport(itemValue)}
                       >
+                        <Select.Item label="Badminton" value="Badminton" />
+                        <Select.Item label="Baseball" value="Baseball" />
                         <Select.Item label="Basketball" value="Basketball" />
-                        <Select.Item label="Soccer" value="Soccer" />
+                        <Select.Item label="Biking" value="Biking" />
+                        <Select.Item label="Blitzball" value="Blitzball" />
+                        <Select.Item label="Disk Golf" value="Disk Golf" />
+                        <Select.Item label="Fishing" value="Fishing" />
                         <Select.Item label="Football" value="Football" />
-                        <Select.Item label="Tennis" value="Tennis" />
+                        <Select.Item label="Frisbee" value="Frisbee" />
+                        <Select.Item label="Golf" value="Golf" />
                         <Select.Item label="Handball" value="Handball" />
+                        <Select.Item label="Hiking" value="Handball" />
+                        <Select.Item label="Indoor Soccer" value="Indoor Soccer" />
+                        <Select.Item label="Mini Golf" value="Mini Golf" />
+                        <Select.Item label="Pickleball" value="Pickleball" />
+                        <Select.Item label="Running" value="Running" />
+                        <Select.Item label="Soccer" value="Soccer" />
+                        <Select.Item label="Softball" value="Softball" />
+                        <Select.Item label="Spikeball" value="Spikeball" />
+                        <Select.Item label="Tennis" value="Tennis" />
+                        <Select.Item label="Ultimate Frisbee" value="Ultimate Frisbee" />
+                        <Select.Item label="Volleyball" value="Volleyball" />
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
