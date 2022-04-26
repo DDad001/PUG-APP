@@ -43,6 +43,7 @@ import {
 import { LoginUser, GetUserByUsername, UpdateUser } from '../Services/DataService';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useToast, Box } from "native-base";
 import UserContext  from '../Context/UserContext';
 
 type RootStackParamList ={
@@ -69,6 +70,8 @@ type Props = NativeStackScreenProps<RootStackParamList, "login">;
 const LoginScreen: FC<Props> = ({navigation}) => {
   const { setUserItems } = useContext<any>(UserContext);
 
+  const Errortoast = useToast();
+  const Successtoast = useToast();
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
 
@@ -82,13 +85,22 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         Username: Username,
         Password: Password
     };
-    let token = await LoginUser(userData);
-    if(token.token != null){
-      AsyncStorage.setItem("Token", token.token);
-      navigation.navigate('Nav');
-      let userItems1 = await GetUserByUsername(Username);
-      setUserItems(userItems1);
-      console.log(userItems1);
+
+    if(Username == "" || Password == ""){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
+    }else{ 
+      //if the user cannot get a token, incorrect username or password toast appears, otherwise if credentials are correct give token!
+      let token = await LoginUser(userData);
+      if(token.token != null){
+        AsyncStorage.setItem("Token", token.token);
+        navigation.navigate('Nav');
+        let userItems1 = await GetUserByUsername(Username);
+        setUserItems(userItems1);
+        console.log(userItems1);
+      }else if(token.token == null){
+        console.log("incorrect credentials try")
+        Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: incorrect password or username inputed!</Box>;}});
+      }
   }
 }
 
