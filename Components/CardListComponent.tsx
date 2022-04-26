@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, Picker, ScrollView, Pressable } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, Picker, ScrollView, Pressable, SafeAreaView } from 'react-native';
 import { Box, CheckIcon, FormControl, Select } from "native-base";
 import { useState } from 'react';
 import man from '../assets/man.jpg';
@@ -112,7 +112,7 @@ interface CardProps{
               </View>
               <View style={{ flexDirection: 'column', }}>
                 <View style={{ flexDirection: 'row', }}>
-                  <Text style={{ fontSize: 10, marginLeft: 21, marginBottom:10, fontFamily:"Lato_400Regular" }}>{addressOfEvent}</Text>
+                  <Text style={{ fontSize: 11, marginLeft: 21, marginBottom:10, fontFamily:"Lato_400Regular" }}>{addressOfEvent}</Text>
                   <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10, marginLeft: 43 }} />
                   <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily:"Roboto_400Regular" }}>{dateOfEvent}</Text>
                 </View>
@@ -275,12 +275,13 @@ if(!fontsLoaded){
       </View>
 
         {/* make into fliatlist when time to map or later */}
-
+        <SafeAreaView style={styles.container}>
        <FlatList
         data={allEvents}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         />
+        </SafeAreaView>
         
       {/* <ScrollView>
         
@@ -357,7 +358,9 @@ if(!fontsLoaded){
 };
 
 const styles = StyleSheet.create({
-  
+  container: {
+    flex: 3,
+  },
   card: {
     borderRadius: 8,
     elevation: 10,
@@ -368,7 +371,6 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     marginHorizontal: 8,
     marginTop:17,
-
   },
   cardContent: {
     marginHorizontal: 8,

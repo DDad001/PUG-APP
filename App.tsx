@@ -54,6 +54,7 @@ type RootStackParamList ={
   YourActiveEvents:undefined,
   followers:undefined,
   FAQ:undefined,
+  CardListScreen:undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -137,6 +138,9 @@ const App: FC =()=> {
           <Stack.Screen name="FAQ"
            options={{ title: 'FAQ',}}
           component={FAQScreen}/>
+          <Stack.Screen name="CardListScreen"
+           options={{ title: 'CardListScreen', headerShown: false}}
+          component={ListViewEventsScreen}/>
 
             {/* <ListViewEventsScreen/>
             {/* <AddEventScreen /> */}
