@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useContext } from 'react';
 import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, Picker, ScrollView, Pressable, SafeAreaView } from 'react-native';
 import { Box, CheckIcon, FormControl, Select } from "native-base";
 import { useState } from 'react';
@@ -58,7 +58,8 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { createOpenLink } from 'react-native-open-maps';
-import {GetEventItems } from "../Services/DataService"
+import UserContext  from '../Context/UserContext';
+import {GetEventItems, AddLikedEvent, DeleteLikedEvent } from "../Services/DataService"
 
 interface CardProps{ 
   onProfilePress: Function,
@@ -75,7 +76,28 @@ interface CardProps{
   // type Props = NativeStackScreenProps<RootStackParamList, "cardList">;
   // const navigation = useNavigation();
 
-  const EventItem = ({nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent} :any) => (
+  const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent} :any) => {
+    const [isLiked, setIsLiked] = useState(false);
+    const { userItems } = useContext<any>(UserContext);
+
+    const handleLiked = () => {
+      setIsLiked(!isLiked)
+      let liked = isLiked;
+      if(!liked){
+        let addLike = {
+          Id: 0,
+          UserId: userItems.id,
+          EventId: id,
+          EventUnliked: false
+        }
+        AddLikedEvent(addLike)
+      }else{
+        DeleteLikedEvent(userItems.id, id)
+      }
+      
+    }
+
+    return (
     <View style={styles.card}>
         <View style={styles.cardContent}>
            <Pressable onPress={EventHandler}>
@@ -90,8 +112,12 @@ interface CardProps{
                 <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 5, marginLeft: 8, padding:7  }} />
                 </Pressable>
 
-                <Pressable onPress={() => console.log('clicked')}>
-                <FontAwesome5 name="heart" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                <Pressable onPress={handleLiked}>
+                  {
+                    isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                    : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                  }
+                
                 </Pressable>
 
               </View>
@@ -122,13 +148,14 @@ interface CardProps{
 
         </View>
       </View>    
-  );
+    )};
 
   const CardListComponent: FC<CardProps> = (props) => {
  
 
     const renderItem = ({item} :any) => (
-      <EventItem nameOfEvent={item.nameOfEvent}
+      <EventItem id ={item.id}
+       nameOfEvent={item.nameOfEvent}
       addressOfEvent={item.addressOfEvent}
       dateOfEvent={item.dateOfEvent}
       timeOfEvent={item.timeOfEvent}
@@ -174,7 +201,6 @@ interface CardProps{
     const closeMenu = () => setVisible(false);
     const [input, setInput] = useState("")
 
-    const [isLiked, setIsLiked] = useState(false);
 
   let [fontsLoaded, error]= useFonts({
     Lato_100Thin,
