@@ -107,6 +107,8 @@ interface CardProps{
     const closeMenu = () => setVisible(false);
     const [input, setInput] = useState("")
 
+    const [isLiked, setIsLiked] = useState(false);
+
   let [fontsLoaded, error]= useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -130,6 +132,8 @@ if(!fontsLoaded){
 }
 
   console.log(input)
+
+  
   return (
     <>
       <View style={{ flexDirection: 'row' }}>
@@ -209,8 +213,12 @@ if(!fontsLoaded){
                 <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 5, marginLeft: 8, padding:7  }} />
                 </Pressable>
 
-                <Pressable onPress={() => console.log('clicked')}>
-                <FontAwesome5 name="heart" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                <Pressable onPress={() => setIsLiked(!isLiked)}>
+                  {
+                    isLiked ?  <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                    : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                  }
+               
                 </Pressable>
 
               </View>
@@ -257,7 +265,7 @@ if(!fontsLoaded){
                 </Pressable>
 
                 <Pressable onPress={() => console.log('clicked')}>
-                <FontAwesome5 name="heart" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
+                <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
                 </Pressable>
 
               </View>
