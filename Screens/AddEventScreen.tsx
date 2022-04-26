@@ -189,20 +189,22 @@ const AddEventScreen: FC = () => {
     //city
 
 
-    var regex = /^[A-Za-z]+$/
-    console.log(regex.test(eventCity));
     //Don't forget validating the image
+    var regex = /^[A-Za-z]+$/
 
 
     let addressArr: string[] = eventAddress.split(" "); //split the string array
     let formatedAddress: string = addressArr.join("+") //put it in the correct format
     let obtainedAddress:any = await GetAddress(formatedAddress); 
     // console.log(obtainedAddress);
-    console.log(eventState);
 
     let citiesArr:any = await GetCitiesByState(eventState);
-    console.log(citiesArr);
 
+    let cityNames: string[] = [];
+
+    for(let i = 0; i <citiesArr.length; i++){
+      cityNames.push(citiesArr[i].name);
+    }
 
     if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == "" || eventState == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
@@ -210,9 +212,12 @@ const AddEventScreen: FC = () => {
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: event city must include characters only!</Box>;}});
     }else if(obtainedAddress.length < 1){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event!</Box>;}});
+    }else if(!cityNames.includes(eventCity)){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
     }else{
       // AddEventItem(newEvent);
       console.log("All good G!")
+
     }
 
    

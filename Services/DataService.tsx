@@ -235,7 +235,7 @@ async function GetCitiesByState(state:string) {
 
     let res = await fetch(`https://api.countrystatecity.in/v1/countries/us/states/${state}/cities`, requestOptions)
     let data = res.json();
-    return data
+    return data;
 
 }
 
