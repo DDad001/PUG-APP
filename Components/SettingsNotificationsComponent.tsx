@@ -47,7 +47,7 @@ import {
   Box
 } from "native-base";
 
-import { DeleteUser, UpdateUser } from '../Services/DataService'
+import { DeleteUser, UpdateUser, UpdatePassword } from '../Services/DataService'
 
 
 interface SettingsProps{ 
@@ -127,6 +127,10 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     }
     //console.log(edittedProfile);
     UpdateUser(edittedProfile);
+
+    if(password != ""){
+      UpdatePassword(userItems.id, password);
+    }
   }
 
   const handleDeleteProfile = () => {
