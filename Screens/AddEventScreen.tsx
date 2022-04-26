@@ -57,7 +57,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 
 
-import { AddEventItem, GetAddress } from '../Services/DataService';
+import { AddEventItem, GetAddress, GetCitiesByState } from '../Services/DataService';
 import { compareSpecificity } from "native-base/lib/typescript/hooks/useThemeProps/propsFlattener";
 
 const AddEventScreen: FC = () => {
@@ -197,7 +197,11 @@ const AddEventScreen: FC = () => {
     let addressArr: string[] = eventAddress.split(" "); //split the string array
     let formatedAddress: string = addressArr.join("+") //put it in the correct format
     let obtainedAddress:any = await GetAddress(formatedAddress); 
-    console.log(obtainedAddress);
+    // console.log(obtainedAddress);
+    console.log(eventState);
+
+    let citiesArr:any = await GetCitiesByState(eventState);
+    console.log(citiesArr);
 
 
     if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == "" || eventState == ""){
