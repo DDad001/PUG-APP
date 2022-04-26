@@ -194,6 +194,16 @@ async function DeleteEventItem(id:number) {
 //---------------ALL FETCHES FOR EVENT CONTROLLER-----------------
 
 
+//---------------FETCH FOR ADD EVENT ADDRESS VALIDATION-----------------
+async function GetAddress(address:string){
+    //1798+Diablo+Creek+Drive
+    let res = await fetch(`https://nominatim.openstreetmap.org/?addressdetails=1&q=${address}&format=json&limit=1`);
+    let data = res.json();
+    return data;
+}
+//---------------FETCH FOR ADD EVENT ADDRESS VALIDATION-----------------
+
+
 
 
 //---------------ALL FETCHES FOR FOLLOWERS CONTROLLER-----------------
@@ -321,6 +331,6 @@ export{
     GetItemsBySport,GetEventItemById,UpdateEventItem,DeleteEventItem,
     AddFollower,GetFollowersByUserId,GetFollowId,GetFollowingByUserId,
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
-    DeleteLikedEvent
+    DeleteLikedEvent, GetAddress
 
 }
