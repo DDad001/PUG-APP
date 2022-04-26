@@ -86,7 +86,7 @@ async function UpdateUsername(id:number, username:string){
 
 async function DeleteUser(userToDelete:string) {
 
-    let res = await fetch(`http://DeleteUser/User/DeleteUser/${userToDelete}`, {
+    let res = await fetch(`http://localhost:5216/User/DeleteUser/${userToDelete}`, {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
@@ -192,6 +192,43 @@ async function DeleteEventItem(id:number) {
 }
 
 //---------------ALL FETCHES FOR EVENT CONTROLLER-----------------
+
+
+//---------------FETCH FOR ADD EVENT ADDRESS VALIDATION-----------------
+async function GetAddress(address:string){
+    //1798+Diablo+Creek+Drive
+    let res = await fetch(`https://nominatim.openstreetmap.org/?addressdetails=1&q=${address}&format=json&limit=1`);
+    let data = res.json();
+    return data;
+}
+
+async function GetCitiesByState(state:string) {
+
+    // var headers = new Headers();
+    // headers.append("X-CSCAPI-KEY", "dHEycHl0SEE5NHRHR3I5RktwTkZYYTBITldndzA0akJtRm9qVEo0Zg==");
+
+    let res = await fetch(`https://api.countrystatecity.in/v1/countries/us/states/${state}/cities`, {
+        method: "GET",
+        headers: {
+            'Content-Type': "application/json",
+            "X-CSCAPI-KEY": "dHEycHl0SEE5NHRHR3I5RktwTkZYYTBITldndzA0akJtRm9qVEo0Zg==",
+        },
+        body: JSON.stringify(state)
+    });
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`;
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+
+}
+
+
+//get cities by state
+//---------------FETCH FOR ADD EVENT ADDRESS VALIDATION-----------------
 
 
 
@@ -321,6 +358,6 @@ export{
     GetItemsBySport,GetEventItemById,UpdateEventItem,DeleteEventItem,
     AddFollower,GetFollowersByUserId,GetFollowId,GetFollowingByUserId,
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
-    DeleteLikedEvent
+    DeleteLikedEvent,GetAddress,GetCitiesByState
 
 }

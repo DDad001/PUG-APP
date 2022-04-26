@@ -92,12 +92,12 @@ const App: FC =()=> {
           <Stack.Screen name="login"
           component={LoginScreen}
           options={{headerShown: false}} />
-          <Stack.Screen name="CreateAccount"
-          component={CreateAccountScreen}
-          options={{headerShown: false}} />
           {/* <Stack.Screen name="CreateAccount"
           component={CreateAccountScreen}
           options={{headerShown: false}} /> */}
+          <Stack.Screen name="CreateAccount"
+          component={CreateAccountScreen}
+          options={{headerShown: false}} />
           <Stack.Screen name="Nav"
           component={NavigationComponent}
           options={{headerShown: false}} />
@@ -138,7 +138,7 @@ const App: FC =()=> {
            options={{ title: 'FAQ',}}
           component={FAQScreen}/>
 
-            {/* <ListViewEventsScreen/> */}
+            {/* <ListViewEventsScreen/>
             {/* <AddEventScreen /> */}
             {/* <PassedLikedEventsScreen/> */}
             {/* <ProfileScreen/> */}

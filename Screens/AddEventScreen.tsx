@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useContext } from "react";
 import {
   Text,
   View,
@@ -18,6 +18,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import GreenCourt from "../assets/GreenCourt.png";
 import AppLoading from "expo-app-loading";
+import UserContext  from '../Context/UserContext';
 import {
   useFonts,
   Lato_100Thin,
@@ -56,7 +57,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 
 
-import { AddEventItem, } from '../Services/DataService';
+import { AddEventItem, GetAddress, GetCitiesByState } from '../Services/DataService';
 import { compareSpecificity } from "native-base/lib/typescript/hooks/useThemeProps/propsFlattener";
 
 const AddEventScreen: FC = () => {
@@ -161,7 +162,7 @@ const AddEventScreen: FC = () => {
     [setShowTimePicker]
   );
 
-  const HandleCreateEvent = () => {
+  const HandleCreateEvent = async() => {
     let newEvent = {
       Id: 0,
       UserID: 2, 
@@ -178,7 +179,7 @@ const AddEventScreen: FC = () => {
       IsDeleted: false
     }
 
-            //order of forms
+    //order of forms
     //name
     //date
     //time
@@ -186,16 +187,35 @@ const AddEventScreen: FC = () => {
     //address
     //state
     //city
-    if(nameOfEvent === "" || eventDate === "" || eventTime === "" || eventDetails === "" || eventAddress === "" || eventState === "" || eventState === ""){
 
+
+    var regex = /^[A-Za-z]+$/
+    console.log(regex.test(eventCity));
+    //Don't forget validating the image
+
+
+    let addressArr: string[] = eventAddress.split(" "); //split the string array
+    let formatedAddress: string = addressArr.join("+") //put it in the correct format
+    let obtainedAddress:any = await GetAddress(formatedAddress); 
+    // console.log(obtainedAddress);
+    console.log(eventState);
+
+    let citiesArr:any = await GetCitiesByState(eventState);
+    console.log(citiesArr);
+
+
+    if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == "" || eventState == ""){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
+    }else if(regex.test(eventCity) == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: event city must include characters only!</Box>;}});
+    }else if(obtainedAddress.length < 1){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event!</Box>;}});
     }else{
-      console.log("keep going");
+      // AddEventItem(newEvent);
+      console.log("All good G!")
     }
 
-    // var regex = /^[A-Za-z]+$/
-    // console.log(regex.test(eventCity));
-
-    AddEventItem(newEvent);
+   
   }
   
   const theme = { ...DefaultTheme,colors: {
