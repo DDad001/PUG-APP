@@ -536,11 +536,56 @@ const AddEventScreen: FC = () => {
                         color={"#3B567C"}
                         onValueChange = {(itemValue) => setEventState(itemValue)}
                       >
-                        <Select.Item label="CA" value="ca" />
                         <Select.Item label="AL" value="al" />
-                        <Select.Item label="PA" value="pa" />
-                        <Select.Item label="WD" value="wd" />
+                        <Select.Item label="AK" value="ak" />
+                        <Select.Item label="AZ" value="az" />
+                        <Select.Item label="AR" value="ar" />
+                        <Select.Item label="CA" value="ca" />
+                        <Select.Item label="CO" value="co" />
+                        <Select.Item label="CT" value="ct" />
+                        <Select.Item label="DE" value="de" />
+                        <Select.Item label="FL" value="fl" />
+                        <Select.Item label="GA" value="ga" />
+                        <Select.Item label="HI" value="hi" />
+                        <Select.Item label="ID" value="id" />
+                        <Select.Item label="IL" value="il" />
+                        <Select.Item label="IN" value="in" />
+                        <Select.Item label="IA" value="ia" />
+                        <Select.Item label="KS" value="ks" />
+                        <Select.Item label="KY" value="ky" />
+                        <Select.Item label="LA" value="la" />
+                        <Select.Item label="ME" value="me" />
+                        <Select.Item label="MD" value="md" />
+                        <Select.Item label="MA" value="ma" />
+                        <Select.Item label="MI" value="mi" />
+                        <Select.Item label="MN" value="mn" />
+                        <Select.Item label="MS" value="ms" />
+                        <Select.Item label="MO" value="mo" />
+                        <Select.Item label="MT" value="mt" />
+                        <Select.Item label="NE" value="ne" />
+                        <Select.Item label="NV" value="nv" />
+                        <Select.Item label="NH" value="nh" />
+                        <Select.Item label="NJ" value="nj" />
+                        <Select.Item label="NM" value="nm" />
                         <Select.Item label="NY" value="ny" />
+                        <Select.Item label="NC" value="nc" />
+                        <Select.Item label="ND" value="nd" />
+                        <Select.Item label="OH" value="oh" />
+                        <Select.Item label="OK" value="ok" />
+                        <Select.Item label="OR" value="or" />
+                        <Select.Item label="PA" value="pa" />
+                        <Select.Item label="RI" value="ri" />
+                        <Select.Item label="SC" value="sc" />
+                        <Select.Item label="SD" value="sd" />
+                        <Select.Item label="TN" value="tn" />
+                        <Select.Item label="TX" value="tx" />
+                        <Select.Item label="UT" value="ut" />
+                        <Select.Item label="VT" value="vt" />
+                        <Select.Item label="VA" value="va" />
+                        <Select.Item label="WA" value="wa" />
+                        <Select.Item label="WV" value="wv" />
+                        <Select.Item label="WI" value="wi" />
+                        <Select.Item label="WY" value="wy" />
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
