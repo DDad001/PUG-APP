@@ -420,7 +420,8 @@ const AddEventScreen: FC = () => {
                 <Pressable style={{backgroundColor:'white', width:150, height:55, borderRadius:20, marginLeft:16, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
                   <View style={{flexDirection:'row', shadowColor: "black",}}>
                 <MaterialCommunityIcons name="calendar-month" size={23} color="#0A326D" style={{ marginTop: 17, marginLeft: 20}} />
-                <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>Date</Text>
+                {/* If no date is chosen display Data, otherwise display the date chosen */}
+                <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>{eventDate === "" ? "Date" : eventDate}</Text>
                   </View>
                 </Pressable>
                   </View>
@@ -440,7 +441,7 @@ const AddEventScreen: FC = () => {
               <Pressable style={{backgroundColor:'white', width:150, height:55, borderRadius:20, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3,}} onPress={()=> setShowTimePicker(true)}>
                 <View style={{flexDirection:'row', shadowColor: "black"}}>
               <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="#0A326D" style={{ marginTop:17, marginLeft: 20 }} />
-              <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>Time</Text>
+              <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>{eventTime === "" ? "Time" : eventTime}</Text>
                 </View>
               </Pressable> 
                 </View>
