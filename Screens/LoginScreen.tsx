@@ -97,7 +97,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         let userItems1 = await GetUserByUsername(Username);
         setUserItems(userItems1);
         console.log(userItems1);
-      }else if(token.token == null){
+      }else{
         console.log("incorrect credentials try")
         Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: incorrect password or username inputed!</Box>;}});
       }

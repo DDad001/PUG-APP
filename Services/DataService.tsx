@@ -27,11 +27,11 @@ async function LoginUser(userData:object){
        body:JSON.stringify(userData)
      
    });
-   if(!res.ok)
-   {
-       const message =`An Error has Occured ${res.status}`
-       throw new Error(message)
-    }
+//    if(!res.ok)
+//    {
+//        const message =`An Error has Occured ${res.status}`
+//        throw new Error(message)
+//     }
     let data = await res.json();
     return data;
 }
