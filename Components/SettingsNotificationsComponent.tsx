@@ -104,7 +104,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
   const [lastName, setLastName] = useState<string>(userItems.lastName);
   const [username, setUsername] = useState<string>(userItems.username);
   const [password, setPassword] = useState<string>("");
-  const [dob, setDob] = useState<string>(userItems.dob);
+  const [dob, setDob] = useState<string>(userItems.dateOfBirth);
   const [city, setCity] = useState<string>(userItems.city);
 
   const [visible, setVisible] = React.useState<boolean>(false)
@@ -129,7 +129,10 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     UpdateUser(edittedProfile);
 
     if(password != ""){
-      UpdatePassword(userItems.id, password);
+      setTimeout(() => {
+        UpdatePassword(userItems.id, password);
+      }, 1000)
+      
     }
   }
 
