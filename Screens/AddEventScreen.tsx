@@ -405,6 +405,9 @@ const AddEventScreen: FC = () => {
                   <View style={{flexDirection:'row',flex: 0.93}}>
                 <DatePickerModal 
                   mode="single"
+                  validRange={{
+                   startDate: new Date()
+                   }}
                   visible={visible}
                   onDismiss={onDismiss}
                   date={date}
