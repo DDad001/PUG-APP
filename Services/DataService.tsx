@@ -104,13 +104,13 @@ async function DeleteUser(userToDelete:string) {
 
 }
 
-async function UpdatePassword(newPassword:object){
-    let res = await fetch(`http://localhost:5216/User/UpdatePassword`, {
+async function UpdatePassword(id: number, password: string){
+    let res = await fetch(`http://localhost:5216/User/UpdatePassword/${id}/${password}`, {
        method:"POST",
        headers:{
            "Content-Type": "application/json"
        },
-       body:JSON.stringify(newPassword)
+       body:JSON.stringify(password)
    });
    if(!res.ok)
    {
