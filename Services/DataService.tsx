@@ -104,6 +104,24 @@ async function DeleteUser(userToDelete:string) {
 
 }
 
+async function UpdatePassword(newPassword:object){
+    let res = await fetch(`http://localhost:5216/User/UpdatePassword`, {
+       method:"POST",
+       headers:{
+           "Content-Type": "application/json"
+       },
+       body:JSON.stringify(newPassword)
+   });
+   if(!res.ok)
+   {
+       const message =`An Error has Occured ${res.status}`
+       throw new Error(message)
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
 //-------------ALL FETCHES FOR USER CONTROLLER----------------- 
 
 
@@ -358,6 +376,6 @@ export{
     GetItemsBySport,GetEventItemById,UpdateEventItem,DeleteEventItem,
     AddFollower,GetFollowersByUserId,GetFollowId,GetFollowingByUserId,
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
-    DeleteLikedEvent,GetAddress,GetCitiesByState
+    DeleteLikedEvent, GetAddress, UpdatePassword, GetCitiesByState
 
 }

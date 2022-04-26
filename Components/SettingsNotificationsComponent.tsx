@@ -96,16 +96,16 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   const [showModal, setShowModal] = useState(false);
-  let [updatedState, setUpdatedState] = useState("");
+  let [updatedState, setUpdatedState] = useState(userItems.state);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>(userItems.firstName);
+  const [lastName, setLastName] = useState<string>(userItems.lastName);
+  const [username, setUsername] = useState<string>(userItems.username);
   const [password, setPassword] = useState<string>("");
-  const [dob, setDob] = useState<string>("MM/DD/YYYY");
-  const [city, setCity] = useState<string>("");
+  const [dob, setDob] = useState<string>(userItems.dob);
+  const [city, setCity] = useState<string>(userItems.city);
 
   const [visible, setVisible] = React.useState<boolean>(false)
   
@@ -120,10 +120,10 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
       DateOfBirth: dob,
       City: city,
       State: updatedState,
-      isTermsAccepted: true,
-      isEighteen: true,
+      isTermsAccepted: userItems.isTermsAccepted,
+      isEighteen: userItems.isEighteen,
       Image: userItems.image,
-      IsDeleted: false
+      IsDeleted: userItems.isDeleted
     }
     //console.log(edittedProfile);
     UpdateUser(edittedProfile);
@@ -243,7 +243,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                   /> 
                 <Pressable style={{backgroundColor: '#FAFAFA', borderWidth: 1, borderColor:'lightgray', borderRadius: 5,}} onPress={()=> setVisible(true)}>
                   <View style={{flexDirection:'row',  }}>
-                  <Text style={{ fontSize:12, marginRight: 199, paddingTop: 5, paddingBottom: 5, paddingLeft: 11, color:"gray", fontFamily: 'Roboto_400Regular', opacity: 0.6}}>{dob}</Text>
+                  <Text style={{ fontSize:12, marginRight: 199, paddingTop: 5, paddingBottom: 5, paddingLeft: 11, color:"gray", fontFamily: 'Roboto_400Regular', opacity: 0.6}}>MM/DD/YYYY</Text>
                   </View>
                 </Pressable>
                   </View>
