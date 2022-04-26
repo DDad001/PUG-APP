@@ -75,6 +75,7 @@ interface CardProps{
   // type Props = NativeStackScreenProps<RootStackParamList, "cardList">;
   // const navigation = useNavigation();
 
+  //if sport == name then display that specific image
   const EventItem = ({nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent} :any) => (
     <View style={styles.card}>
         <View style={styles.cardContent}>

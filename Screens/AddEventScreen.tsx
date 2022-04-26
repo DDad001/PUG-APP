@@ -349,7 +349,7 @@ const AddEventScreen: FC = () => {
                         <Select.Item label="Basketball" value="Basketball" />
                         <Select.Item label="Biking" value="Biking" />
                         <Select.Item label="Blitzball" value="Blitzball" />
-                        <Select.Item label="Disk Golf" value="Disk Golf" />
+                        <Select.Item label="Disc golf" value="Disc golf" />
                         <Select.Item label="Fishing" value="Fishing" />
                         <Select.Item label="Football" value="Football" />
                         <Select.Item label="Frisbee" value="Frisbee" />
@@ -472,7 +472,7 @@ const AddEventScreen: FC = () => {
                 </Text>
         
 
-              <View style={{marginTop:20,flexDirection:'row'}}>
+              {/* <View style={{marginTop:20,flexDirection:'row'}}>
                 <Pressable onPress={showImagePicker}>
               <View style={{backgroundColor:'#7E90AB', width:120, height: 90, marginLeft:18, borderRadius: 8}}>
                 {
@@ -487,7 +487,7 @@ const AddEventScreen: FC = () => {
                 }
               </View>
                 </Pressable>
-              </View>
+              </View> */}
 
               
               {/* <Button onPress={showImagePicker} title="Select an image" />
