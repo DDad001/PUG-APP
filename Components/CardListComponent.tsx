@@ -57,6 +57,8 @@ import {
   } from '@expo-google-fonts/roboto';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+import { createOpenLink } from 'react-native-open-maps';
+
 
 interface CardProps{ 
   onProfilePress: Function,
@@ -87,6 +89,20 @@ interface CardProps{
     const [visible, setVisible] = React.useState(false);
   
     const openMenu = () => setVisible(true);
+
+    
+    //opening up google maps and getting directions 
+    const getDirections = createOpenLink({ provider: 'google', end: 'New York City, NY'})
+
+    //THIS PART GOES IN THE RETURN STATEMENT
+    // <SafeAreaView>
+    // <Button
+    //   color='black'
+    //   onPress={openYosemite}
+    //   title="Click To Open Maps 🗺" />
+    //   </SafeAreaView>
+    //opening up google maps and getting directions 
+
   
     const closeMenu = () => setVisible(false);
     const [input, setInput] = useState("")
