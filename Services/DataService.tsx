@@ -207,22 +207,22 @@ async function GetCitiesByState(state:string) {
     // var headers = new Headers();
     // headers.append("X-CSCAPI-KEY", "dHEycHl0SEE5NHRHR3I5RktwTkZYYTBITldndzA0akJtRm9qVEo0Zg==");
 
-    let res = await fetch(`https://api.countrystatecity.in/v1/countries/us/states/${state}/cities`, {
-        method: "GET",
-        headers: {
-            'Content-Type': "application/json",
-            "X-CSCAPI-KEY": "dHEycHl0SEE5NHRHR3I5RktwTkZYYTBITldndzA0akJtRm9qVEo0Zg==",
-        },
-        body: JSON.stringify(state)
-    });
-    if(!res.ok)
-    {
-        const message = `An error has occured ${res.status}`;
-        throw new Error(message);
-    }
-    let data = await res.json();
-    console.log(data);
-    return data;
+    var headers = new Headers();
+    headers.append("X-CSCAPI-KEY", "dHEycHl0SEE5NHRHR3I5RktwTkZYYTBITldndzA0akJtRm9qVEo0Zg==");
+    
+    var requestOptions = {
+     method: 'GET',
+     headers: headers,
+    };
+    
+    // fetch(`https://api.countrystatecity.in/v1/countries/us/states/${state}/cities`, requestOptions)
+    // .then(response => response.text())
+    // .then(result => console.log(result))
+    // .catch(error => console.log('error', error));
+
+    let res = await fetch(`https://api.countrystatecity.in/v1/countries/us/states/${state}/cities`, requestOptions)
+    let data = res.json();
+    return data
 
 }
 
