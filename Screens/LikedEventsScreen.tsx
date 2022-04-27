@@ -70,31 +70,40 @@ type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
 const LikedEventsScreen: FC<Props> = ({navigation, route}) => {
   const { userItems } = useContext<any>(UserContext);
-  let likedEvents: any[] = [];
-  let likedEventsIds: number[] = [];
-  let eventsArr: any[] = [];
+  
   const [displayEvents, setDisplayEvents] = useState<any>([]);
   
 
   useEffect(() => {
     getLikedEventsByUser();
-    console.log(displayEvents)
+    
   }, []);
 
   const getLikedEventsByUser = async () => {
-    likedEvents = await GetLikedEventsByUserId(userItems.id);
+    let likedEvents: any[] = [];
+    let likedEventsIds: number[] = [];
+    let eventsArr: any[] = [];
     let result: any;
+
+    likedEvents = await GetLikedEventsByUserId(userItems.id);
+    
     likedEvents.map(eventObj =>{
       likedEventsIds.push(eventObj.eventId)
     }) 
 
-    likedEventsIds.map(async eventId => {
+     likedEventsIds.map(async eventId => {
       let event: object = await GetEventItemById(eventId);
       eventsArr.push(event);
+      
     })
 
-    result = eventsArr;
-    setDisplayEvents(result);
+    setTimeout(() => {
+      setDisplayEvents(eventsArr)
+    }, 1000)
+    
+    //setDisplayEvents(result);
+
+    
   }
   
 
