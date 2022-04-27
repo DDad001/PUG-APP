@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext } from "react";
 import {
   Text,
   View,
@@ -12,6 +12,9 @@ import {
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome } from "@expo/vector-icons";
+
+import UserContext  from '../Context/UserContext';
+import { DeleteFollower, GetUserByUsername } from '../Services/DataService'
 
 import AppLoading from "expo-app-loading";
 import {
@@ -77,8 +80,15 @@ const FollowingScreen: FC = () => {
 
   const [input, setInput] = useState("");
 
+  const { userItems } = useContext<any>(UserContext);
+
   if (!fontsLoaded) {
     return <AppLoading />;
+  }
+
+  const handleUnfollow = async () => {
+    //let userToUnfollow = await GetUserByUsername(username) Get user's id before we call DeleteFollower 
+    //DeleteFollower(userItems.id, userToUnfollow.id)
   }
 
   return (
@@ -140,7 +150,7 @@ const FollowingScreen: FC = () => {
 
           <Pressable
             style={styles.unfollowBtn}
-            onPress={() => console.log("Login")}
+            onPress={handleUnfollow}
             accessibilityLabel="Followers Button"
           >
             <Text style={styles.unfollowTxt}>Unfollow</Text>

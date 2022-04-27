@@ -1,4 +1,4 @@
-import React,{ FC, useState } from "react";
+import React,{ FC, useState, useContext } from "react";
 import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, TextInput } from "react-native";
 import PUGHeader from "../Components/PUGHeader";
 import { MaterialIcons } from '@expo/vector-icons';
@@ -9,6 +9,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio } from "native-base";
+import UserContext  from '../Context/UserContext';
+import { AddFollower } from '../Services/DataService'
 
 
 import {
@@ -70,6 +72,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
     const [radioUserValue, setRadioUserValue] = useState<string>("");
     const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
+    const { userItems } = useContext<any>(UserContext);
+
         let [fontsLoaded, error] = useFonts({
           Lato_100Thin,
           Lato_100Thin_Italic,
@@ -124,6 +128,16 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
           if(value != "OtherUser"){
             setOtherReasonUserTxt("");
           }
+        }
+
+        const handleFollow = () => {
+          let newFollower = {
+            Id: 0,
+            UserId: userItems.id, 
+            FollowerId: 0, //Get the follower Id
+            isUnfollowed: false
+          }
+          //AddFollower(newFollower);
         }
 
       return (
@@ -331,7 +345,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
                 <Text style={{flex:0.9, marginTop:30, marginLeft:17, fontSize:16,color:'white', fontFamily:"Roboto_700Bold"}}>Matthew David</Text>
 
 
-                <Pressable onPress={() => console.log('clicked')} style={{marginLeft:20, marginTop:17}}>
+                <Pressable onPress={handleFollow} style={{marginLeft:20, marginTop:17}}>
                 <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginTop: 10, marginLeft: 12, padding:5, width:90, height:27 }} >
                     <Text style={{marginLeft:16, color:'white', fontFamily:"Lato_400Regular"}}>Follow</Text>
                 </View>
