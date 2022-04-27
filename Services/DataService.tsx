@@ -165,8 +165,8 @@ async function GetItemsBySport(Sport:string){
     return data;
 }
 
-async function GetEventItemById(UserID:number){
-    let res = await fetch(`http://localhost:5216/Event/GetEventItemById/${UserID}`);
+async function GetEventItemById(eventID:number){
+    let res = await fetch(`http://localhost:5216/Event/GetEventItemById/${eventID}`);
     let data = res.json();
     return data;
 }
