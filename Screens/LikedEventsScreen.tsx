@@ -40,6 +40,7 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ScrollView } from "native-base";
 
 
 
@@ -72,7 +73,6 @@ const LikedEventsScreen: FC<Props> = ({navigation, route}) => {
   let likedEvents: any[] = [];
   let likedEventsIds: number[] = [];
   let eventsArr: any[] = [];
-  let anotherARR: any[] = [];
   const [displayEvents, setDisplayEvents] = useState<any>([]);
   
 
@@ -83,17 +83,18 @@ const LikedEventsScreen: FC<Props> = ({navigation, route}) => {
 
   const getLikedEventsByUser = async () => {
     likedEvents = await GetLikedEventsByUserId(userItems.id);
-    let result;
+    let result: any;
     likedEvents.map(eventObj =>{
       likedEventsIds.push(eventObj.eventId)
+    }) 
 
-      likedEventsIds.map(async eventId => {
-        let event: object = await GetEventItemById(eventId);
-        eventsArr.push(event);
-        result = eventsArr;
-        setDisplayEvents(result);
-      })
-    }) // get all the eventIds  
+    likedEventsIds.map(async eventId => {
+      let event: object = await GetEventItemById(eventId);
+      eventsArr.push(event);
+    })
+
+    result = eventsArr;
+    setDisplayEvents(result);
   }
   
 
@@ -157,10 +158,11 @@ const LikedEventsScreen: FC<Props> = ({navigation, route}) => {
              </View>
 
                  <Text style={{marginLeft:22, marginTop:50,color:'white', fontSize:35, fontFamily: "Lato_700Bold", fontWeight: "bold",}}>Liked Events</Text>
+                 <ScrollView>
                 {
                   displayEvents.map((likedEvent: any, idx: number) => {
                     return (
-                      <>
+                    
                                  <View style={styles.card} key={idx}>
                                   <View style={styles.cardContent}>
                                   <View style={{ flexDirection: 'row', }}>
@@ -194,10 +196,11 @@ const LikedEventsScreen: FC<Props> = ({navigation, route}) => {
 
                                   </View>
                                 </View>
-                      </>
+                    
                     )
                   })
                 }
+        </ScrollView>
       </ImageBackground>
     </View> 
     </>
