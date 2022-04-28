@@ -366,6 +366,7 @@ const AddEventScreen: FC = () => {
                         <Select.Item label="Tennis" value="Tennis" />
                         <Select.Item label="Lacrosse" value="Lacrosse" />
                         <Select.Item label="Volleyball" value="Volleyball" />
+                        <Select.Item label="Other" value="Other" />
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
@@ -381,7 +382,7 @@ const AddEventScreen: FC = () => {
                   style={[styles.input,{marginBottom: 5}]}
                   onChangeText={(text) => setNameOfEvent(text)}
                   value={nameOfEvent}
-                  maxLength={40}
+                  maxLength={25}
                   placeholder="Name of the event"
                   accessibilityLabel="Enter the event's name"
                   placeholderTextColor={"rgba(59, 86, 124, 1)"}
@@ -394,7 +395,7 @@ const AddEventScreen: FC = () => {
                     paddingLeft: 25,
                   }}
                 >
-                  {nameOfEvent.length}/40 character limit
+                  {nameOfEvent.length}/25 character limit
                 </Text>
               </View>
 
