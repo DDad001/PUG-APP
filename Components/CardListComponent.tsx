@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useContext } from 'react';
-import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, Picker, ScrollView, Pressable, SafeAreaView } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, Pressable, SafeAreaView } from 'react-native';
 import { Box, CheckIcon, FormControl, Select } from "native-base";
 import { useState } from 'react';
 import man from '../assets/man.jpg';
@@ -104,49 +104,19 @@ const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEve
   const [isLiked, setIsLiked] = useState(false);
   const { userItems } = useContext<any>(UserContext);
 
-  // let allNames: any [] = [];
 
-  // let result = allEvents.map((item: any) => item.userId)
-  // console.log(result);
-
-  // GetUserById(userId).then(data => allNames.push(data.firstName)) 
-  
-  
   useEffect(() => {
     getNames();
   }, []);
 
 
-    let allNames: any [] = []
-
     const [name, setName] = useState<string>("")
-
-      // allEvents.map(async (event:any, i:number ) =>{
-      //   // console.log(event.userId)
-      //   let userData = await GetUserById(userId);
-      //   allNames.push(`${userData.firstName},${userData.lastName}`)
-      // })
-
 
     const getNames = async () => {
       let userData = await GetUserById(userId);
       setName(`${userData.firstName} ${userData.lastName}`)
     }
     
-
-        
-         
-
- 
-
-    //  setTimeout(() => {
-    //   setNames(allNames);
-    //   console.log(Names)
-    //  },5000)
-
-
-  
-
   const handleLiked = () => {
     setIsLiked(!isLiked)
     let liked = isLiked;
@@ -312,20 +282,6 @@ const CardListComponent: FC<CardProps> = (props) => {
   const [visible, setVisible] = React.useState(false);
   const openMenu = () => setVisible(true);
 
-
-  //opening up google maps and getting directions 
-  // const getDirections = createOpenLink({ provider: 'google', end: 'New York City, NY'})
-
-  //THIS PART GOES IN THE RETURN STATEMENT
-  // <SafeAreaView>
-  // <Button
-  //   color='black'
-  //   onPress={openYosemite}
-  //   title="Click To Open Maps 🗺" />
-  //   </SafeAreaView>
-  //opening up google maps and getting directions 
-
-
   const closeMenu = () => setVisible(false);
   const [input, setInput] = useState("")
 
@@ -432,129 +388,6 @@ const CardListComponent: FC<CardProps> = (props) => {
           keyExtractor={item => item.id}
         />
       </SafeAreaView>
-
-      {/* <ScrollView>
-        
-      <View style={styles.card}>
-        <View style={styles.cardContent}>
-                <Pressable onPress={EventHandler}>
-          <View style={{ flexDirection: 'row',flex:1,}}>
-            <Image source={man} style={{ flex:1, height: 90, width: 120, borderRadius: 8 }} />
-            <View>
-              <View style={{ flex:1, flexDirection: 'row',  }}>
-
-                <Text style={{marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily:"Lato_700Bold" }}>Oak Park Basketball Game</Text>
-
-                <Pressable onPress={() => console.log('clicked')}>
-                <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 5, marginLeft: 8, padding:7  }} />
-                </Pressable>
-
-                <Pressable onPress={() => setIsLiked(!isLiked)}>
-                  {
-                    isLiked ?  <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
-                    : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
-                  }
-               
-                </Pressable>
-
-              </View>
-              <View style={{ flexDirection: 'column', }}>
-                <View style={{ flexDirection: 'row', }}>
-                  <Text style={{ fontSize: 10, marginLeft: 21, marginBottom:10, fontFamily:"Lato_400Regular" }}>4520 W Eight Mile Rd,{'\n'}Stockton, CA 95209</Text>
-                  <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10, marginLeft: 43 }} />
-                  <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily:"Roboto_400Regular" }}>Today</Text>
-                </View>
-
-                <View style={{ flexDirection: 'row' }}>
-
-                  <Pressable onPress={ProfileHandler}>
-                    <View  style={{ flexDirection: 'row' }}>
-                  <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
-                  <Text style={{ marginLeft: 10, marginTop:7, fontSize: 10, fontFamily:"Roboto_500Medium" }}>Matthew David</Text>
-                    </View>
-                  </Pressable>
-           
-                  <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 41, marginTop: 4, }} />
-                  <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily:"Roboto_400Regular"}}>9:30 am</Text>
-                </View>
-
-              </View>
-            </View>
-          </View>
-          </Pressable>
-
-        </View>
-      </View>
-      <View style={styles.card}>
-        <View style={styles.cardContent}>
-                <Pressable onPress={EventHandler}>
-          <View style={{ flexDirection: 'row',flex:1,}}>
-            <Image source={man} style={{ flex:1, height: 90, width: 120, borderRadius: 8 }} />
-            <View>
-              <View style={{ flex:1, flexDirection: 'row',  }}>
-
-                <Text style={{marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily:"Lato_700Bold" }}>Oak Park Basketball Game</Text>
-
-                <Pressable onPress={() => console.log('clicked')}>
-                <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 5, marginLeft: 8, padding:7  }} />
-                </Pressable>
-
-                <Pressable onPress={() => console.log('clicked')}>
-                <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:8,marginLeft:9, marginTop: 5, }} />
-                </Pressable>
-
-              </View>
-              <View style={{ flexDirection: 'column', }}>
-                <View style={{ flexDirection: 'row', }}>
-                  <Text style={{ fontSize: 10, marginLeft: 21, marginBottom:10, fontFamily:"Lato_400Regular" }}>4520 W Eight Mile Rd,{'\n'}Stockton, CA 95209</Text>
-                  <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10, marginLeft: 43 }} />
-                  <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily:"Roboto_400Regular" }}>Today</Text>
-                </View>
-
-                <View style={{ flexDirection: 'row' }}>
-
-                  <Pressable onPress={ProfileHandler}>
-                    <View  style={{ flexDirection: 'row' }}>
-                  <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
-                  <Text style={{ marginLeft: 10, marginTop:7, fontSize: 10, fontFamily:"Roboto_500Medium" }}>Matthew David</Text>
-                    </View>
-                  </Pressable>
-           
-                  <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 41, marginTop: 4, }} />
-                  <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily:"Roboto_400Regular"}}>9:30 am</Text>
-                </View>
-
-              </View>
-            </View>
-          </View>
-                </Pressable>
-
-
-        </View>
-      </View>
-    
-      </ScrollView>
-  
-      {/* <View
-        style={{
-          marginTop: 120,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          position:"absolute",
-          backgroundColor:'none',
-        }}>
-        <Provider>
-          <Menu
-            visible={visible}
-            onDismiss={closeMenu}
-            anchor={<Button onPress={openMenu}>Show menu</Button>}>
-            <Menu.Item onPress={() => { }} title="Item 1" />
-            <Menu.Item onPress={() => { }} title="Item 2" />
-            <Divider />
-            <Menu.Item onPress={() => { }} title="Item 3" />
-          </Menu>
-        </Provider>
-      </View> */}
     </>
   )
 };
