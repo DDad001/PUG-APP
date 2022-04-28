@@ -4,11 +4,11 @@ import SoccerField from '../assets/SoccerField.png';
 import man from '../assets/man.jpg';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { Ionicons } from '@expo/vector-icons';
 import UserContext  from '../Context/UserContext';
-import { GetEventItems, GetItemsByUserId } from "../Services/DataService"
+import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent } from "../Services/DataService"
 
 // Import fonts
 import {
@@ -61,7 +61,24 @@ type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
 const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation} :any) => {
   const { userItems } = useContext<any>(UserContext);
+  const [isLiked, setIsLiked] = useState(false);
 
+  const handleLiked = () => {
+    setIsLiked(!isLiked)
+    let liked = isLiked;
+    if(!liked){
+      let addLike = {
+        Id: 0,
+        UserId: userItems.id,
+        EventId: id,
+        EventUnliked: false
+      }
+      AddLikedEvent(addLike)
+    }else{
+      DeleteLikedEvent(userItems.id, id)
+    }
+    
+  }
  
 
   return (
@@ -89,7 +106,13 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
 
           <View style={{ flexDirection: 'row' }}>
           <MaterialIcons name="location-on" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:17, padding:3  }} />
-             <FontAwesome5 name="heart" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+            <Pressable onPress={handleLiked} >
+              {
+                isLiked ? <FontAwesome name="heart" size={16} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+                : <FontAwesome name="heart-o" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+              }
+              
+             </Pressable>
           </View>
 
 
@@ -100,9 +123,14 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
           <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>{nameOfEvent} </Text>
           <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>{addressOfEvent}</Text>
           <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
-          <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:105, height:27 }} >
-              <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
-          </View>
+            <Pressable onPress={() => {
+              console.log("Removed")
+              DeleteEventItem(id);
+            }} >
+              <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:105, height:27 }} >
+                <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
+              </View>
+            </Pressable>
           </View>
   </View>
   </Pressable>
