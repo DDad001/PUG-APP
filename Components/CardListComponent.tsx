@@ -111,21 +111,38 @@ const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEve
 
   // GetUserById(userId).then(data => allNames.push(data.firstName)) 
   
+  
+  useEffect(() => {
+    getNames();
+  }, []);
+
 
     let allNames: any [] = []
 
-    const [Names, setNames] = useState<any>([])
+    const [name, setName] = useState<string>("")
 
-      allEvents.map(async (event:any, i:number ) =>{
-        // console.log(event.userId)
-        let userData = await GetUserById(userId);
-        allNames.push(`${userData.firstName},${userData.lastName}`)
-      })
+      // allEvents.map(async (event:any, i:number ) =>{
+      //   // console.log(event.userId)
+      //   let userData = await GetUserById(userId);
+      //   allNames.push(`${userData.firstName},${userData.lastName}`)
+      // })
 
-     setTimeout(() => {
-      setNames(allNames);
-      console.log(Names)
-     },5000)
+
+    const getNames = async () => {
+      let userData = await GetUserById(userId);
+      setName(`${userData.firstName},${userData.lastName}`)
+    }
+    
+
+        
+         
+
+ 
+
+    //  setTimeout(() => {
+    //   setNames(allNames);
+    //   console.log(Names)
+    //  },5000)
 
 
   
@@ -240,9 +257,9 @@ const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEve
                          
         
                    
-                
+                          name
                           // displayNames()
-                           GetUserById(userId).then(data => data.firstName) 
+                          //  GetUserById(userId).then(data => data.firstName) 
                          }
                         
 
