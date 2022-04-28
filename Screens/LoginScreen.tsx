@@ -1,4 +1,4 @@
-import { FC, useState, useContext } from "react";
+import React, { FC, useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -43,7 +43,9 @@ import {
 import { LoginUser, GetUserByUsername, UpdateUser } from '../Services/DataService';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useToast, Box } from "native-base";
+import { useToast, Box, Input } from "native-base";
+import { MaterialIcons } from '@expo/vector-icons';
+import { Icon } from 'native-base';
 import UserContext  from '../Context/UserContext';
 
 type RootStackParamList ={
@@ -72,6 +74,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
 
   const Errortoast = useToast();
   const Successtoast = useToast();
+  const [show, setShow] = React.useState(false);
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
 
@@ -163,7 +166,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         >
           <Text style={styles.headingTxt}>PUG</Text>
         </View>
-        <View style={{ flex: 0.3}}>
+        <View style={{ flex: 0.25}}>
           <TextInput
             style={styles.input}
             onChangeText={(text) => setUsername(text)}
@@ -173,18 +176,14 @@ const LoginScreen: FC<Props> = ({navigation}) => {
             placeholderTextColor={"rgba(59, 86, 124, 1)"}
             accessibilityLabel="Enter your username"
           />
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => setPassword(text)}
-            value={Password}
-            secureTextEntry={true}
-            placeholder="Password"
-            keyboardType="default"
-            placeholderTextColor={"rgba(59, 86, 124, 1)"}
-            accessibilityLabel="Enter your password"
-          />
+          <View style={{height: 425, shadowColor: "black", shadowOffset: { width: -2, height: 4 }, shadowOpacity: 0.5, shadowRadius: 3}}>
+              <Input
+              backgroundColor={'white'} borderWidth={0} w={"91%"} marginLeft={4} bg={'white'} shadowColor={"black"} shadow={9} marginBottom={40} borderRadius={20} fontSize="15" fontFamily={"Roboto_400Regular"} h={{base:"13%"}}  type={show ? "text" : "password"} 
+              InputRightElement={<Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={7} mr="5" color="rgba(59, 86, 124, 1)" onPress={() => setShow(!show)} />} placeholder="Password" 
+              placeholderTextColor={"rgba(59, 86, 124, 1)"}  onChangeText={(text) => setPassword(text)} value={Password} accessibilityLabel="Enter password" keyboardType="default"/>
+          </View>
         </View>
-        <View style={{ flex: 0.15, alignItems: "center"}}>
+        <View style={{ flex: 0.15, alignItems: "center", marginTop: 45}}>
           <Pressable
             style={{
               backgroundColor: "rgba(10, 50, 109, 1)",
