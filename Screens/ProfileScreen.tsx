@@ -1,12 +1,14 @@
-import { FC, useState } from "react";
-import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { FC, useState, useContext, useEffect } from "react";
+import { Image, FlatList, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, SafeAreaView } from "react-native";
 import SoccerField from '../assets/SoccerField.png';
 import man from '../assets/man.jpg';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { Ionicons } from '@expo/vector-icons';
+import UserContext  from '../Context/UserContext';
+import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent } from "../Services/DataService"
 
 // Import fonts
 import {
@@ -57,7 +59,103 @@ type RootStackParamList ={
 }
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
+const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation} :any) => {
+  const { userItems } = useContext<any>(UserContext);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLiked = () => {
+    setIsLiked(!isLiked)
+    let liked = isLiked;
+    if(!liked){
+      let addLike = {
+        Id: 0,
+        UserId: userItems.id,
+        EventId: id,
+        EventUnliked: false
+      }
+      AddLikedEvent(addLike)
+    }else{
+      DeleteLikedEvent(userItems.id, id)
+    }
+    
+  }
+ 
+
+  return (
+    
+    
+      
+    <View style={styles.card}>
+      <Pressable onPress={() => {
+      console.log('pressed');
+      navigation.navigate('YourActiveEvents')
+    }}>
+  <View style={styles.cardContent}>
+      <View style={{ flexDirection: 'row', }}>
+      <Image source={man} style={{ height: 90, width: 120, borderRadius: 8 }} />
+      <View>
+        <View style={{ flexDirection: 'row' }}>
+          <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
+            <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13}}>{dateOfEvent}</Text>
+        </View>
+        <View style={{ flexDirection: 'column', }}>
+          <View style={{ flexDirection: 'row', }}>
+          <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop:5, marginLeft: 14 }} />
+            <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13 }}>{timeOfEvent}</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+          <MaterialIcons name="location-on" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:17, padding:3  }} />
+            <Pressable onPress={handleLiked} >
+              {
+                isLiked ? <FontAwesome name="heart" size={16} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+                : <FontAwesome name="heart-o" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+              }
+              
+             </Pressable>
+          </View>
+
+
+        </View>
+      </View>
+    </View>
+
+          <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>{nameOfEvent} </Text>
+          <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>{addressOfEvent}</Text>
+          <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+            <Pressable onPress={() => {
+              console.log("Removed")
+              DeleteEventItem(id);
+            }} >
+              <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:105, height:27 }} >
+                <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
+              </View>
+            </Pressable>
+          </View>
+  </View>
+  </Pressable>
+</View>
+   
+
+  )};
+
+
+
+
+
 const ProfileScreen: FC<Props> = ({navigation, route})  => {
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const [allEvents, setAllEvents] = useState<any>([]);
+  const { userItems } = useContext<any>(UserContext);
+
+  const fetchEvents = async () => {
+    let displayEvents = await GetItemsByUserId(userItems.id);
+    let activeEvents = displayEvents.filter((event: any) => event.isActive);
+    setAllEvents(activeEvents);
+  }
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -87,6 +185,13 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
+  const renderItem = ({item}: any) => (
+    <EventItem id={item.id} nameOfEvent={item.nameOfEvent}
+    addressOfEvent={item.addressOfEvent}
+    dateOfEvent={item.dateOfEvent}
+    timeOfEvent={item.timeOfEvent} />
+  );
 
  return (
      <>
@@ -150,46 +255,15 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
               <Text style={{marginTop: 30, color:'white', marginLeft:25, fontSize:30, fontFamily: "Lato_900Black",}}>Active Events</Text>
           </View>
 
-        <ScrollView horizontal>
-          <Pressable onPress={() => navigation.navigate('YourActiveEvents')}>
-            
-          <View style={styles.card}>
-        <View style={styles.cardContent}>
-            <View style={{ flexDirection: 'row', }}>
-            <Image source={man} style={{ height: 90, width: 120, borderRadius: 8 }} />
-            <View>
-              <View style={{ flexDirection: 'row' }}>
-                <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
-                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13}}>3/13/22</Text>
-              </View>
-              <View style={{ flexDirection: 'column', }}>
-                <View style={{ flexDirection: 'row', }}>
-                <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop:5, marginLeft: 14 }} />
-                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13 }}>9:30 am</Text>
-                </View>
-
-                <View style={{ flexDirection: 'row' }}>
-                <MaterialIcons name="location-on" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:17, padding:3  }} />
-                   <FontAwesome5 name="heart" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
-                </View>
-
-
-              </View>
-            </View>
-          </View>
-
-                <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>Hal Bartholomew Sports Park Football Game </Text>
-                <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>6300 Whitelock Pkwy,{'\n'}Elk Grove, CA 95757</Text>
-                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
-                <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:105, height:27 }} >
-                    <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
-                </View>
-                </View>
-        </View>
-      </View>
-          </Pressable>
-   </ScrollView>
-     
+        {/* Where FlatList goes */}
+        <SafeAreaView>
+        <FlatList horizontal
+        data={allEvents}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        />
+        </SafeAreaView>
+        
 
 
 
