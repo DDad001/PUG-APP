@@ -100,9 +100,9 @@ type RootStackParamList = {
 // type Props = NativeStackScreenProps<RootStackParamList, "cardList">;
 // const navigation = useNavigation();
 
-const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
+const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   const [isLiked, setIsLiked] = useState(false);
-  const { userItems } = useContext<any>(UserContext);
+  const { userItems, setEventItems, setNameContext } = useContext<any>(UserContext);
 
 
   useEffect(() => {
@@ -134,10 +134,18 @@ const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEve
 
   }
 
+  const handleSavedEvent = () => {
+    setEventItems(event);
+    setNameContext(name);
+  }
+
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
-        <Pressable onPress={EventHandler}>
+        <Pressable onPress={() => {
+          handleSavedEvent();
+          EventHandler();
+        }}>
           <View style={{ flexDirection: 'row', flex: 1, }}>
 
             {
@@ -264,7 +272,8 @@ const CardListComponent: FC<CardProps> = (props) => {
 
   const renderItem = ({ item }: any) => {
     return (
-    <EventItem id={item.id}
+    <EventItem event={item}
+      id={item.id}
       nameOfEvent={item.nameOfEvent}
       addressOfEvent={item.addressOfEvent}
       dateOfEvent={item.dateOfEvent}

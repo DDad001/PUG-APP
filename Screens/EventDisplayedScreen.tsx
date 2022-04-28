@@ -4,13 +4,13 @@ import PUGHeader from "../Components/PUGHeader";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import man from '../assets/man.jpg';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio } from "native-base";
 import UserContext  from '../Context/UserContext';
-import { AddFollower } from '../Services/DataService'
+import { AddFollower, AddLikedEvent, DeleteLikedEvent } from '../Services/DataService'
 
 
 import {
@@ -72,7 +72,9 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
     const [radioUserValue, setRadioUserValue] = useState<string>("");
     const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
-    const { userItems } = useContext<any>(UserContext);
+    const { userItems, eventItems, nameContext } = useContext<any>(UserContext);
+
+    const [isLiked, setIsLiked] = useState(false);
 
         let [fontsLoaded, error] = useFonts({
           Lato_100Thin,
@@ -134,10 +136,29 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
           let newFollower = {
             Id: 0,
             UserId: userItems.id, 
-            FollowerId: 0, //Get the follower Id
+            FollowerId: eventItems.userId, 
             isUnfollowed: false
           }
-          //AddFollower(newFollower);
+          AddFollower(newFollower);
+          //console.log('Followed')
+          
+        }
+
+        const handleLiked = () => {
+          setIsLiked(!isLiked)
+          let liked = isLiked;
+          if (!liked) {
+            let addLike = {
+              Id: 0,
+              UserId: userItems.id,
+              EventId: eventItems.id,
+              EventUnliked: false
+            }
+            AddLikedEvent(addLike)
+          } else {
+            DeleteLikedEvent(userItems.id, eventItems.id)
+          }
+      
         }
 
       return (
@@ -153,27 +174,33 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
             <MaterialIcons name="location-on" size={20} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 10, marginLeft: 12, padding:5  }} />
             </View>
             <View style={{marginTop:7, marginRight:10}}>
-            <FontAwesome5 name="heart" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 10, padding:6.5 }} />
+              <Pressable onPress={handleLiked} >
+                {
+                  isLiked ? <FontAwesome name="heart" size={17} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 10, padding:6.5 }} />
+                  : <FontAwesome name="heart-o" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 10, padding:6.5 }} />
+                }
+            
+            </Pressable>
             </View>
         </View>
         </ImageBackground>
         </View>
             <View style={{marginLeft:15}}>
-                <Text style={{fontFamily:"Lato_700Bold", fontSize:18, marginTop:17}}>Oak Park Basketball Game</Text>
-                <Text style={{marginTop:10,fontFamily:"Lato_400Regular", fontSize:13}}>4520 W Eight Mile Rd,{'\n'}Stockton, CA 95209</Text>
+                <Text style={{fontFamily:"Lato_700Bold", fontSize:18, marginTop:17}}>{eventItems.nameOfEvent}</Text>
+                <Text style={{marginTop:10,fontFamily:"Lato_400Regular", fontSize:13}}>{eventItems.addressOfEvent}</Text>
             </View>
                 <View style={{flexDirection:'row'}}>
                     <MaterialCommunityIcons name="calendar-month" size={22} color="black" style={{ marginTop: 10, marginLeft: 14}} />
-                    <Text style={{ marginTop: 12, marginLeft: 9, fontFamily:"Roboto_400Regular",fontSize:13}}>04/22/22</Text>
+                    <Text style={{ marginTop: 12, marginLeft: 9, fontFamily:"Roboto_400Regular",fontSize:13}}>{eventItems.dateOfEvent}</Text>
                     <MaterialCommunityIcons name="clock-time-three-outline" size={22} color="black" style={{ marginLeft:25, marginTop:10 }} />
-                    <Text style={{ marginLeft:9, marginTop:12, fontFamily:"Roboto_400Regular", fontSize:13 }} >9:30 am</Text>
+                    <Text style={{ marginLeft:9, marginTop:12, fontFamily:"Roboto_400Regular", fontSize:13 }} >{eventItems.timeOfEvent}</Text>
                 </View>
 
                 <View style={{flexDirection:'row', flex:1, marginTop:10}}>
 
                   <View style={{flexDirection:'column', flex:0.93}}>
                    <Text style={{marginLeft:15,fontFamily:"Lato_700Bold",}}>Sport being played:</Text>
-                   <Text  style={{marginLeft:15,fontFamily:"Lato_400Regular",}}>Basketball</Text>
+                   <Text  style={{marginLeft:15,fontFamily:"Lato_400Regular",}}>{eventItems.sportOfEvent}</Text>
                   </View>
                 
                 <Pressable onPress={() => console.log('clicked')} style={{marginLeft:9}}>
@@ -342,7 +369,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 
                 <Image source={man} style={{ height: 55, width: 55, borderRadius: 30, marginTop: 13, marginLeft: 22 }} />
-                <Text style={{flex:0.9, marginTop:30, marginLeft:17, fontSize:16,color:'white', fontFamily:"Roboto_700Bold"}}>Matthew David</Text>
+                <Text style={{flex:0.9, marginTop:30, marginLeft:17, fontSize:16,color:'white', fontFamily:"Roboto_700Bold"}}>{nameContext}</Text>
 
 
                 <Pressable onPress={handleFollow} style={{marginLeft:20, marginTop:17}}>
@@ -358,7 +385,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
                 <View style={{marginLeft:20, marginTop:15}} >
                     <Text style={{fontFamily:"Roboto_500Medium", fontSize:17}}>Details:</Text>
-                    <Text style={{marginTop:10, fontFamily:"Lato_400Regular", fontSize:15, marginBottom:20}}>We want to play at least 3 games. With at least 15 people on each team. If we have more players we will swap between new games. </Text>
+                    <Text style={{marginTop:10, fontFamily:"Lato_400Regular", fontSize:15, marginBottom:20}}>{eventItems.descriptionOfEvent}</Text>
                 </View>
            </ScrollView>
         </View>
