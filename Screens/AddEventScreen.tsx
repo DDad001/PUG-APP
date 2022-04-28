@@ -63,6 +63,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 
 const AddEventScreen: FC = () => {
+  const { userItems } = useContext<any>(UserContext);
   const [pickedImagePath, setPickedImagePath] = useState('');
   
   const showImagePicker = async () => {
@@ -167,7 +168,7 @@ const AddEventScreen: FC = () => {
   const HandleCreateEvent = async() => {
     let newEvent = {
       Id: 0,
-      UserID: 2, 
+      UserID: userItems.id, 
       SportOfEvent: eventSport,
       NameOfEvent: nameOfEvent,
       DateOfEvent: eventDate,

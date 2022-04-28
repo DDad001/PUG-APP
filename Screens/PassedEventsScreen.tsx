@@ -1,10 +1,12 @@
-import React, { FC, useState } from "react";
-import { View, Text, StyleSheet, ImageBackground, Pressable, Image } from "react-native";
+import React, { FC, useState, useContext, useEffect } from "react";
+import { View, Text, StyleSheet, ImageBackground, Pressable, Image, FlatList, SafeAreaView } from "react-native";
 import tennis from "../assets/TennisRacket.png";
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import man from '../assets/man.jpg';
+import UserContext  from '../Context/UserContext';
+import { GetItemsByUserId } from "../Services/DataService"
 
 import AppLoading from "expo-app-loading";
 
@@ -56,10 +58,87 @@ type RootStackParamList ={
 
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
+const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent} :any) => {
+
+    const { userItems } = useContext<any>(UserContext);
+
+    //set up deleting events
+
+    return (
+      <View style={styles.card}>
+            <View style={styles.cardContent}>
+            <View style={{ flexDirection: 'row', }}>
+            <Image source={man} style={{ height: 100, width: 145, borderRadius: 8 }} />
+             <View style={{marginLeft:35}}>
+              <View style={{ flexDirection: 'row' }}>
+                <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
+                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16 }}>{dateOfEvent}</Text>
+              </View>
+              <View style={{ flexDirection: 'column', }}>
+                <View style={{ flexDirection: 'row', }}>
+                <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop:5, marginLeft: 14 }} />
+                  <Text style={{ marginTop: 8, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16  }}>{timeOfEvent}</Text>
+                </View>
+
+                <View style={{ flexDirection: 'row' }}>
+                   <Text style={{fontSize:12, marginLeft:20, marginTop:8, fontFamily: "Lato_400Regular"}}>{addressOfEvent}</Text>
+                </View>
+
+
+                  </View>
+                </View>
+              </View>
+                <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:14}}>{nameOfEvent}</Text>
+
+                  {/* DO NOT DELETE THIS--- CODE FOR LIKED EVENTS PAGE */}
+
+                  {/* CODE FOR PAST EVENTS PAGE */}
+
+                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+                  <Pressable onPress={() => console.log("Delete the event")}>
+                    <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:110, height:27 }} >
+                      <Text style={{marginLeft:10, color:'white', fontFamily:"Lato_400Regular"}}>Delete Event</Text>
+                    </View>
+                  </Pressable>
+                </View>
+
+        </View>
+      </View>
+    )
+}
+
+
 const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
+  useEffect(() => {
+    getAllEvents();
+    // console.log(display)
+    console.log(userItems);
+  }, []);
+
+  
+  const renderItem = ({item} :any) => (
+    <EventItem id ={item.id}
+     nameOfEvent={item.nameOfEvent}
+    addressOfEvent={item.addressOfEvent}
+    dateOfEvent={item.dateOfEvent}
+    timeOfEvent={item.timeOfEvent}
+    />
+  );
+ 
+  const { userItems } = useContext<any>(UserContext);
 
   const [name, setName] = useState('')
   const [tabColor, setTabColor] = useState('');
+  const [display, setDisplay] = useState<any>([]);
+
+  const getAllEvents = async () => {
+    let userEvents: any[] = []; 
+    userEvents = await GetItemsByUserId(userItems.id);
+
+    setTimeout(() => {
+      setDisplay(userEvents)
+    }, 2000)
+  }
   
   const handlePastEvents = () => {
     setName('Past Events')
@@ -121,12 +200,16 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
                 </Pressable>
              </View>
 
- 
                  <Text style={{marginLeft:22, marginTop:50,color:'white', fontSize:35, fontFamily: "Lato_700Bold", fontWeight: "bold",}}>Past Events</Text>
-  
           <ScrollView>
-
-             <View style={styles.card}>
+            <SafeAreaView>
+            <FlatList
+                data={display}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+              /> 
+            </SafeAreaView>
+             {/* <View style={styles.card}>
             <View style={styles.cardContent}>
             <View style={{ flexDirection: 'row', }}>
             <Image source={man} style={{ height: 100, width: 145, borderRadius: 8 }} />
@@ -148,21 +231,21 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
 
                   </View>
                 </View>
-              </View>
-                <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:14}}>Hal Bartholomew Sports Park {'\n'}Football Game </Text>
+              </View> */}
+                {/* <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:14}}>Hal Bartholomew Sports Park {'\n'}Football Game </Text> */}
 
                   {/* DO NOT DELETE THIS--- CODE FOR LIKED EVENTS PAGE */}
 
                   {/* CODE FOR PAST EVENTS PAGE */}
 
-                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+                {/* <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
                 <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:110, height:27 }} >
                     <Text style={{marginLeft:10, color:'white', fontFamily:"Lato_400Regular"}}>Delete Event</Text>
                 </View>
                 </View>
 
         </View>
-      </View>
+      </View> */}
           </ScrollView>
 
       </ImageBackground>
