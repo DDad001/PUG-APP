@@ -248,22 +248,10 @@ const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEve
                   <Pressable onPress={ProfileHandler}>
                     <View style={{ flexDirection: 'row' }}>
                       <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
-                      <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>
-
-                    
-
-            
-                         {
-                         
-        
-                   
+                      <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
+                         {       
                           name
-                          // displayNames()
-                          //  GetUserById(userId).then(data => data.firstName) 
                          }
-                        
-
-
                       </Text>
                     </View>
                   </Pressable>
@@ -295,6 +283,13 @@ const CardListComponent: FC<CardProps> = (props) => {
     setAllEvents(displayEvents);
   }
 
+  const ProfileHandler = () => {
+    props.onProfilePress()
+  }
+  
+  const EventHandler = () => {
+    props.onEventDisplayPress()
+  }
   // console.log("allevent", typeof allEvents);
 
   const renderItem = ({ item }: any) => {
@@ -307,17 +302,12 @@ const CardListComponent: FC<CardProps> = (props) => {
       sportOfEvent={item.sportOfEvent}
       userId={item.userId}
       allEvents={allEvents}
+      ProfileHandler={ProfileHandler}
+      EventHandler={EventHandler}
     />
     )
 };
 
-  const ProfileHandler = () => {
-    props.onProfilePress()
-  }
-
-  const EventHandler = () => {
-    props.onEventDisplayPress()
-  }
 
   const [visible, setVisible] = React.useState(false);
   const openMenu = () => setVisible(true);
@@ -571,7 +561,8 @@ const CardListComponent: FC<CardProps> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 3,
+    flex: 1,
+    marginBottom:62
   },
   card: {
     borderRadius: 8,
