@@ -130,7 +130,7 @@ const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEve
 
     const getNames = async () => {
       let userData = await GetUserById(userId);
-      setName(`${userData.firstName},${userData.lastName}`)
+      setName(`${userData.firstName} ${userData.lastName}`)
     }
     
 
@@ -262,8 +262,6 @@ const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEve
                           //  GetUserById(userId).then(data => data.firstName) 
                          }
                         
-
-                        Matthew David
 
 
                       </Text>
