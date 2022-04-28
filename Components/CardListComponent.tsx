@@ -100,7 +100,7 @@ type RootStackParamList = {
 // type Props = NativeStackScreenProps<RootStackParamList, "cardList">;
 // const navigation = useNavigation();
 
-const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents,}: any) => {
+const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents, firstName, lastName}: any) => {
   const [isLiked, setIsLiked] = useState(false);
   const { userItems } = useContext<any>(UserContext);
 
@@ -111,23 +111,6 @@ const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEve
 
   // GetUserById(userId).then(data => allNames.push(data.firstName)) 
   
-
-    let allNames: any [] = []
-
-    const [Names, setNames] = useState<any>([])
-
-      allEvents.map(async (event:any, i:number ) =>{
-        // console.log(event.userId)
-        let userData = await GetUserById(userId);
-        allNames.push(`${userData.firstName},${userData.lastName}`)
-      })
-
-     setTimeout(() => {
-      setNames(allNames);
-      console.log(Names)
-     },5000)
-
-
   
 
   const handleLiked = () => {
@@ -233,21 +216,7 @@ const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEve
                       <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
                       <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>
 
-                    
-
-            
-                         {
-                         
-        
-                   
-                
-                          // displayNames()
-                           GetUserById(userId).then(data => data.firstName) 
-                         }
-                        
-
-                        Matthew David
-
+                        {firstName+ " " + lastName}
 
                       </Text>
                     </View>
@@ -269,19 +238,33 @@ const EventItem = ({ id, nameOfEvent, EventHandler, ProfileHandler, addressOfEve
 
 const CardListComponent: FC<CardProps> = (props) => {
   const [allEvents, setAllEvents] = useState<any>([]);
+  const [Names, setNames] = useState<any>([])
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    let displayEvents = await GetEventItems();
+    // console.log(displayEvents);
+    setAllEvents(displayEvents);
+
+    let allNames: any[] = []
+
+      displayEvents.map(async (event:any, i:number ) =>{
+        // console.log(event.userId)
+        let userData = await GetUserById(event.userId);
+        allNames.push(userData);
+      })
+
+     setTimeout(() => {
+      setNames(allNames);
+      console.log(Names)
+     },5000)
+  }
 
   // console.log("allevent", typeof allEvents);
 
-
-
   const renderItem = ({ item }: any) => {
-    // let allNames: any [] = []
-    //     const [userData, setUserData] = useState<string>("")
-    //     console.log(item.userId);
-    //     GetUserById(item.userId).then(data => setUserData(`${data.firstName},${data.lastName}`));
-        // console.log(userData);
-        // allNames.push(`${userData.firstName},${userData.lastName}`)
-    return (
     <EventItem id={item.id}
       nameOfEvent={item.nameOfEvent}
       addressOfEvent={item.addressOfEvent}
@@ -290,8 +273,10 @@ const CardListComponent: FC<CardProps> = (props) => {
       sportOfEvent={item.sportOfEvent}
       userId={item.userId}
       allEvents={allEvents}
+      firstName={Names.firstName}
+      lastname={Names.lastName}
     />
-  )
+  
 };
 
   const ProfileHandler = () => {
@@ -305,17 +290,6 @@ const CardListComponent: FC<CardProps> = (props) => {
   const [visible, setVisible] = React.useState(false);
   const openMenu = () => setVisible(true);
 
-
-
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
-  const fetchEvents = async () => {
-    let displayEvents = await GetEventItems();
-    // console.log(displayEvents);
-    setAllEvents(displayEvents);
-  }
 
   //opening up google maps and getting directions 
   // const getDirections = createOpenLink({ provider: 'google', end: 'New York City, NY'})
