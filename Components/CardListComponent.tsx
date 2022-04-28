@@ -376,11 +376,29 @@ const CardListComponent: FC<CardProps> = (props) => {
               fontSize={15}
               color={"#0A326D"}
             >
-              <Select.Item label="Basketball" value="ux" />
-              <Select.Item label="Soccer" value="web" />
-              <Select.Item label="Football" value="cross" />
-              <Select.Item label="Tennis" value="ui" />
-              <Select.Item label="Handball" value="backend" />
+              <Select.Item label="Badminton" value="Badminton" />
+                <Select.Item label="Baseball" value="Baseball" />
+                <Select.Item label="Basketball" value="Basketball" />
+                <Select.Item label="Cycling" value="Cycling" />
+                <Select.Item label="Hockey" value="Hockey" />
+                <Select.Item label="Disc golf" value="Disc golf" />
+                <Select.Item label="Fishing" value="Fishing" />
+                <Select.Item label="Football" value="Football" />
+                <Select.Item label="Frisbee" value="Frisbee" />
+                <Select.Item label="Golf" value="Golf" />
+                <Select.Item label="Handball" value="Handball" />
+                <Select.Item label="Hiking" value="Handball" />
+                <Select.Item label="Cricket" value="Cricket" />
+                <Select.Item label="Rugby" value="Rugby" />
+                <Select.Item label="Pickleball" value="Pickleball" />
+                <Select.Item label="Running" value="Running" />
+                <Select.Item label="Soccer" value="Soccer" />
+                <Select.Item label="Softball" value="Softball" />
+                <Select.Item label="Spikeball" value="Spikeball" />
+                <Select.Item label="Tennis" value="Tennis" />
+                <Select.Item label="Lacrosse" value="Lacrosse" />
+                <Select.Item label="Volleyball" value="Volleyball" />
+                <Select.Item label="Other" value="Other" />
             </Select>
             {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
