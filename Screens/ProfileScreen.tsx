@@ -148,17 +148,98 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
     fetchEvents();
     getFollowers();
     getFollowing();
+    getUserAge(userItems.dateOfBirth)
   }, []);
 
   const [allEvents, setAllEvents] = useState<any>([]);
   const [displayFollowers, setDisplayFollowers] = useState<any>([]);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
+  const [displayUserAge, setDisplayUserAge] = useState<any>();
   const { userItems } = useContext<any>(UserContext);
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(userItems.id);
     let activeEvents = displayEvents.filter((event: any) => event.isActive);
     setAllEvents(activeEvents);
+  }
+
+  const getUserAge = (dob: string) => {
+    //get today's year for age calculation
+    const currentYear = new Date().getFullYear();
+    //-----------------------------------------------------------
+    let calculatedAge: number;
+    let dobArr = dob.split("/");
+    let bdayMonth = dobArr[0];
+    let bdayYear = dobArr[2];
+    let bdayMonthNum: number = Number(bdayMonth);
+    let bdayYearNum: number = Number(bdayYear);
+
+
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    let monthNum: number = 0;
+
+    const d = new Date();
+    let monthName = months[d.getMonth()];
+
+    switch(monthName){
+      case "January":
+        monthNum = 1;
+        break;
+
+      case "February":
+        monthNum = 2;
+        break;
+
+      case "March":
+        monthNum = 3;
+        break;
+
+      case "April":
+        monthNum = 4;
+        break;
+
+      case "May":
+        monthNum = 5;
+        break;
+
+      case "June":
+        monthNum = 6;
+        break;
+
+      case "July":
+        monthNum = 7;
+        break;
+
+      case "August":
+        monthNum = 8;
+        break;
+
+      case "September":
+        monthNum = 9;
+        break;
+
+      case "October":
+        monthNum = 10;
+        break;
+
+      case "November":
+        monthNum = 11;
+        break;
+
+      case "December":
+        monthNum = 12;
+        break;
+    }
+    
+    //logic of calculating age
+    if(monthNum > bdayMonthNum){
+      calculatedAge = currentYear - bdayYearNum;
+    }else{
+      calculatedAge = currentYear - bdayYearNum - 1;
+    }
+
+    setDisplayUserAge(calculatedAge);
+    
   }
 
   const getFollowers = async () => {
@@ -263,13 +344,13 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
             </Pressable>
           </View>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
-                <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>Jack Smith, </Text>
-                <Text style={{marginTop: 20, color:'white', fontFamily: "Lato_700Bold", fontSize: 19, fontWeight: "bold"}}>26</Text>
+                <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{userItems.firstName + " "+ userItems.lastName}, </Text>
+                <Text style={{marginTop: 20, color:'white', fontFamily: "Lato_700Bold", fontSize: 19, fontWeight: "bold"}}>{displayUserAge}</Text>
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
           <MaterialIcons name="location-on" size={19} color="white" style={{ marginTop: 20,marginRight:2}} />
-                <Text style={{marginTop: 20, color:'white', fontFamily: "Roboto_400Regular", fontSize: 18 }}>Stockton, CA</Text>
+                <Text style={{marginTop: 20, color:'white', fontFamily: "Roboto_400Regular", fontSize: 18 }}>{userItems.city}, {userItems.state}</Text>
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
