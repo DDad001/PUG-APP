@@ -83,6 +83,7 @@ import baseball from "../assets/baseball.jpg";
 import badminton from "../assets/badminton.jpg";
 import tennis from "../assets/tennis.jpg";
 import pugEvent from "../assets/pugEvent.png";
+import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
 interface CardProps {
   onProfilePress: Function,
@@ -103,7 +104,6 @@ type RootStackParamList = {
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   const [isLiked, setIsLiked] = useState(false);
   const { userItems, setEventItems, setNameContext } = useContext<any>(UserContext);
-
 
   useEffect(() => {
     getNames();
@@ -257,17 +257,21 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 };
 
 const CardListComponent: FC<CardProps> = (props) => {
+
+  
   const [allEvents, setAllEvents] = useState<any>([]);
 
+  
   useEffect(() => {
     fetchEvents();
   }, []);
-
+  
   const fetchEvents = async () => {
     let displayEvents = await GetEventItems();
     // console.log(displayEvents);
     setAllEvents(displayEvents);
   }
+  // const [dataFromInput, setDataFromInput] = useState(allEvents);
 
   const ProfileHandler = () => {
     props.onProfilePress()
@@ -325,7 +329,7 @@ const CardListComponent: FC<CardProps> = (props) => {
     return <AppLoading />;
   }
 
-  console.log(input)
+  // console.log(input)
 
   // let allNames: any [] = []
   // allEvents.map(async (event:any, i:number ) =>{
@@ -334,17 +338,29 @@ const CardListComponent: FC<CardProps> = (props) => {
   //   allNames.push(`${userData.firstName}, ${userData.lastName}`)
   //   console.log(allNames)
   // })
+  // const searchCity = (input) => {
+  //   let data = data
+  //   let searchData = data.filter((item) =>{
+  //     return item.name.toLowerCase().includes(input.toLowerCase())
+  //   })
+  //   setNewSearch(searchData)
+  // }
+
+
+    // let data = dataFromInput;
+    // console.log(data);
+    let searchData = allEvents.filter((item:any) => {
+      return item.cityOfEvent.toLowerCase().includes(input.toLowerCase());
+    });
 
   return (
     <>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 1 }}>
-          <TextInput style={styles.input} onChangeText={(text) => setInput(text)}
+          <TextInput style={styles.input} onChangeText={(setInput)}
             onSubmitEditing={() => {
-              alert(`Your message is: ${input}`);
-              setInput("");
+              // alert(`Your message is: ${input}`);
             }}
-            value={input}
             placeholder="Search for an event..."
             placeholderTextColor={'#959494'}
           />
@@ -418,7 +434,7 @@ const CardListComponent: FC<CardProps> = (props) => {
       {/* make into fliatlist when time to map or later */}
       <SafeAreaView style={styles.container}>
         <FlatList
-          data={allEvents}
+          data={searchData}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
