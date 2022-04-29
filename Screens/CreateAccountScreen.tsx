@@ -35,7 +35,7 @@ import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, B
 import { Entypo } from "@expo/vector-icons";
 import { DatePickerModal } from 'react-native-paper-dates';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import { createAccount } from "../Services/DataService";
+import { createAccount, GetUserByUsername } from "../Services/DataService";
 
 import { Icon } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -159,8 +159,9 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
       }else{
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully created!</Box>}});
       navigation.navigate('Nav');
-      setUserItems(userData);
-      //console.log(userData);
+      let userItems1 = await GetUserByUsername(userData.Username);
+      setUserItems(userItems1);
+      //console.log(userItems1);
       }
     }
 
