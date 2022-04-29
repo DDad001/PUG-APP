@@ -10,7 +10,7 @@ import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio } from "native-base";
 import UserContext  from '../Context/UserContext';
-import { AddFollower, AddLikedEvent, DeleteLikedEvent } from '../Services/DataService'
+import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower } from '../Services/DataService'
 
 
 import {
@@ -75,6 +75,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
     const { userItems, eventItems, nameContext } = useContext<any>(UserContext);
 
     const [isLiked, setIsLiked] = useState(false);
+    const [isFollowed, setIsFollowed] = useState(false);
 
         let [fontsLoaded, error] = useFonts({
           Lato_100Thin,
@@ -133,14 +134,22 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
         }
 
         const handleFollow = () => {
-          let newFollower = {
-            Id: 0,
-            UserId: userItems.id, 
-            FollowerId: eventItems.userId, 
-            isUnfollowed: false
+          setIsFollowed(!isFollowed);
+          let followed = isFollowed;
+          if(!followed){
+            let newFollower = {
+              Id: 0,
+              UserId: userItems.id, 
+              FollowerId: eventItems.userId, 
+              isUnfollowed: false
+            }
+            AddFollower(newFollower);
+            //console.log('Followed')
+          }else{
+            DeleteFollower(userItems.id, eventItems.userId);
+            //console.log('Unfollowed')
           }
-          AddFollower(newFollower);
-          //console.log('Followed')
+          
           
         }
 
@@ -374,7 +383,11 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
                 <Pressable onPress={handleFollow} style={{marginLeft:20, marginTop:17}}>
                 <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginTop: 10, marginLeft: 12, padding:5, width:90, height:27 }} >
-                    <Text style={{marginLeft:16, color:'white', fontFamily:"Lato_400Regular"}}>Follow</Text>
+                  {
+                    isFollowed ? <Text style={{marginLeft:16, color:'white', fontFamily:"Lato_400Regular"}}>Unfollow</Text>
+                    : <Text style={{marginLeft:16, color:'white', fontFamily:"Lato_400Regular"}}>Follow</Text>
+                  }
+                    
                 </View>
                 </Pressable>
 
