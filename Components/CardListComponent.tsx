@@ -356,7 +356,7 @@ const CardListComponent: FC<CardProps> = (props) => {
         </TouchableHighlight>
       </View>
 
-      <View style={{ flex: 0, alignItems: "flex-end", justifyContent: "center", marginTop: 10, marginBottom: 5 }}>
+      <View style={{ flex: 0, alignItems: "flex-end", justifyContent: "center", marginTop: 20, marginBottom: 5 }}>
         <View style={{ marginRight: 10 }}>
           <Box
             maxW="155"
