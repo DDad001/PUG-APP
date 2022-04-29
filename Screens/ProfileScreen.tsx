@@ -231,6 +231,8 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
      <>
     <View style={styles.mainContainer}>
          <ImageBackground source={SoccerField} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
+
+
            <View style={{marginTop:40, flexDirection:'row', justifyContent:'flex-end', marginRight:20}}>
              <Pressable onPress={() => navigation.navigate('settings')}>
                   <Ionicons name="md-settings-outline" size={28} color="white" />
@@ -254,6 +256,7 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
                 </Pressable>
 
              </View>
+            <ScrollView style={{flex: 1, marginBottom: 70}}>
           <View style={{alignItems:'center'}}>
             <Pressable onPress={() => console.log('Change Photo')}>
                 <Image source={man} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}}/>
@@ -301,7 +304,7 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
 
 
 
-
+          </ScrollView>
           </ImageBackground>
     </View>
      </>
