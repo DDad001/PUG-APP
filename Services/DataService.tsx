@@ -268,6 +268,7 @@ async function AddFollower(newFollower:object){
 async function GetFollowersByUserId(userId:number){
     let res = await fetch(`http://localhost:5216/Followers/GetFollowersByUserId/${userId}`);
     let data = await res.json();
+    console.log(data)
     return data;
 }
 
@@ -280,6 +281,7 @@ async function GetFollowId(userId:number,followerId:number){
 async function GetFollowingByUserId(userId:number){
     let res = await fetch(`http://localhost:5216/Followers/GetFollowingByUserId/${userId}`);
     let data = res.json();
+    console.log(data);
     return data;
 }
 

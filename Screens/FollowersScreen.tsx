@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext, useEffect } from "react";
 import {
   Text,
   View,
@@ -46,9 +46,34 @@ import {
 
 import BaseballPicture from "../assets/BaseballGlove.png";
 import Skier from "../assets/Skier.png";
+import UserContext  from '../Context/UserContext';
+import { GetFollowersByUserId, GetUserById, GetFollowingByUserId } from '../Services/DataService'
 
 
 const FollowersScreen: FC = () => {
+  const { userItems } = useContext<any>(UserContext);
+  const [ displayFollowers, setDisplayFollowers ] = useState<any>([]);
+
+  useEffect(() => {
+    getFollowers();
+  }, [])
+
+  const getFollowers = async () => {
+    let followersArr: any[] = [];
+    let followers = await GetFollowersByUserId(userItems.id);
+    //console.log(followers);
+    followers.map(async (person: any) => {
+      let follower: object = await GetUserById(person.userId);
+      followersArr.push(follower);
+      //console.log(follower);
+    });
+
+    setTimeout(() => {
+      setDisplayFollowers(followersArr);
+      
+    }, 5000)
+  }
+
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -76,6 +101,8 @@ const FollowersScreen: FC = () => {
 
 
   const [input, setInput] = useState("");
+
+  
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -133,12 +160,21 @@ const FollowersScreen: FC = () => {
         <View style={styles.overlayContainer}>
           <Text style={styles.FollowingText}>Followers</Text>
           <ScrollView>
+
+          {
+        displayFollowers.map((follower: any, idx: number) => {
+          return(
             <View style={{flexDirection:'row', marginLeft:20, marginTop:20}}>
-          <Image source={Skier} style={styles.ImageStyle} />
-        <View style={{ flexDirection: "row", alignItems: "center", }}>
-          <Text style={styles.TextStyle}>Scott Morenzone </Text>
-        </View>
-            </View>
+            <Image source={Skier} style={styles.ImageStyle} />
+          <View style={{ flexDirection: "row", alignItems: "center", }}>
+            <Text style={styles.TextStyle}>{follower.username} </Text>
+          </View>
+              </View>
+          )
+        })
+      }
+
+           
 
           </ScrollView>
         </View>
