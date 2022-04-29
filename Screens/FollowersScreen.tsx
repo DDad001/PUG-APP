@@ -8,7 +8,7 @@ import {
   TouchableHighlight,
   Pressable,
   ScrollView,
-  Image
+  Image,
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome } from "@expo/vector-icons";
@@ -43,20 +43,22 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-
 import BaseballPicture from "../assets/BaseballGlove.png";
 import Skier from "../assets/Skier.png";
-import UserContext  from '../Context/UserContext';
-import { GetFollowersByUserId, GetUserById, GetFollowingByUserId } from '../Services/DataService'
-
+import UserContext from "../Context/UserContext";
+import {
+  GetFollowersByUserId,
+  GetUserById,
+  GetFollowingByUserId,
+} from "../Services/DataService";
 
 const FollowersScreen: FC = () => {
   const { userItems } = useContext<any>(UserContext);
-  const [ displayFollowers, setDisplayFollowers ] = useState<any>([]);
+  const [displayFollowers, setDisplayFollowers] = useState<any>([]);
 
   useEffect(() => {
     getFollowers();
-  }, [])
+  }, []);
 
   const getFollowers = async () => {
     let followersArr: any[] = [];
@@ -70,9 +72,8 @@ const FollowersScreen: FC = () => {
 
     setTimeout(() => {
       setDisplayFollowers(followersArr);
-      
-    }, 5000)
-  }
+    }, 1000);
+  };
 
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
@@ -99,10 +100,7 @@ const FollowersScreen: FC = () => {
     Roboto_900Black_Italic,
   });
 
-
   const [input, setInput] = useState("");
-
-  
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -120,7 +118,7 @@ const FollowersScreen: FC = () => {
             flexDirection: "row",
             justifyContent: "center",
             paddingBottom: 33,
-            marginTop:30
+            marginTop: 30,
           }}
         >
           <View>
@@ -160,22 +158,23 @@ const FollowersScreen: FC = () => {
         <View style={styles.overlayContainer}>
           <Text style={styles.FollowingText}>Followers</Text>
           <ScrollView>
-
-          {
-        displayFollowers.map((follower: any, idx: number) => {
-          return(
-            <View style={{flexDirection:'row', marginLeft:20, marginTop:20}}>
-            <Image source={Skier} style={styles.ImageStyle} />
-          <View style={{ flexDirection: "row", alignItems: "center", }}>
-            <Text style={styles.TextStyle}>{follower.username} </Text>
-          </View>
-              </View>
-          )
-        })
-      }
-
-           
-
+            {displayFollowers.map((follower: any, idx: number) => {
+              return (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginLeft: 20,
+                    marginTop: 20,
+                  }}
+                  key={idx}
+                >
+                  <Image source={Skier} style={styles.ImageStyle} />
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Text style={styles.TextStyle}>{follower.username} </Text>
+                  </View>
+                </View>
+              );
+            })}
           </ScrollView>
         </View>
       </ImageBackground>
@@ -232,7 +231,7 @@ const styles = StyleSheet.create({
   TextStyle: {
     color: "white",
     fontSize: 22,
-    marginLeft:30,
+    marginLeft: 30,
     fontFamily: "Roboto_500Medium",
     fontWeight: "500",
   },

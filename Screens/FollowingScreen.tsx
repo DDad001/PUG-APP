@@ -1,4 +1,4 @@
-import { FC, useState, useContext } from "react";
+import { FC, useState, useContext, useEffect } from "react";
 import {
   Text,
   View,
@@ -8,13 +8,18 @@ import {
   TouchableHighlight,
   Pressable,
   ScrollView,
-  Image
+  Image,
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome } from "@expo/vector-icons";
 
-import UserContext  from '../Context/UserContext';
-import { DeleteFollower, GetUserByUsername } from '../Services/DataService'
+import UserContext from "../Context/UserContext";
+import {
+  DeleteFollower,
+  GetUserByUsername,
+  GetUserById,
+  GetFollowingByUserId,
+} from "../Services/DataService";
 
 import AppLoading from "expo-app-loading";
 import {
@@ -46,12 +51,32 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-
 import BaseballPicture from "../assets/BaseballGlove.png";
 import Skier from "../assets/Skier.png";
 
-
 const FollowingScreen: FC = () => {
+  const { userItems } = useContext<any>(UserContext);
+  const [displayFollowing, setDisplayFollowing] = useState<any>([]);
+
+  useEffect(() => {
+    getFollowing();
+  }, []);
+
+  const getFollowing = async () => {
+    let followingArr: any[] = [];
+    let following = await GetFollowingByUserId(userItems.id);
+    //console.log(followers);
+    following.map(async (person: any) => {
+      let follower: object = await GetUserById(person.followerId);
+      followingArr.push(follower);
+      //console.log(follower);
+    });
+
+    setTimeout(() => {
+      setDisplayFollowing(followingArr);
+    }, 1000);
+  };
+
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -77,19 +102,20 @@ const FollowingScreen: FC = () => {
     Roboto_900Black_Italic,
   });
 
-
   const [input, setInput] = useState("");
-
-  const { userItems } = useContext<any>(UserContext);
 
   if (!fontsLoaded) {
     return <AppLoading />;
   }
 
-  const handleUnfollow = async () => {
-    //let userToUnfollow = await GetUserByUsername(username) Get user's id before we call DeleteFollower 
-    //DeleteFollower(userItems.id, userToUnfollow.id)
-  }
+  const handleUnfollow = async (unfollowId: number) => {
+    console.log("Deleted");
+    DeleteFollower(userItems.id, unfollowId);
+
+    setTimeout(() => {
+      getFollowing();
+    }, 1000);
+  };
 
   return (
     <View style={styles.container}>
@@ -103,7 +129,7 @@ const FollowingScreen: FC = () => {
             flexDirection: "row",
             justifyContent: "center",
             paddingBottom: 33,
-            marginTop:30
+            marginTop: 30,
           }}
         >
           <View>
@@ -143,20 +169,24 @@ const FollowingScreen: FC = () => {
         <View style={styles.overlayContainer}>
           <Text style={styles.FollowingText}>Following</Text>
           <ScrollView>
-          <View style={styles.NotificationView}>
-          <Image source={Skier} style={styles.ImageStyle} />
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.TextStyle}>Scott Morenzone </Text>
+            {displayFollowing.map((person: any, idx: number) => {
+              return (
+                <View style={styles.NotificationView} key={idx}>
+                  <Image source={Skier} style={styles.ImageStyle} />
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Text style={styles.TextStyle}>{person.username} </Text>
 
-          <Pressable
-            style={styles.unfollowBtn}
-            onPress={handleUnfollow}
-            accessibilityLabel="Followers Button"
-          >
-            <Text style={styles.unfollowTxt}>Unfollow</Text>
-          </Pressable>
-        </View>
-      </View>
+                    <Pressable
+                      style={styles.unfollowBtn}
+                      onPress={() => handleUnfollow(person.id)}
+                      accessibilityLabel="Followers Button"
+                    >
+                      <Text style={styles.unfollowTxt}>Unfollow</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              );
+            })}
           </ScrollView>
         </View>
       </ImageBackground>
