@@ -65,10 +65,9 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
     //set up deleting events
    const handleRemoveEvent = (id: any) => {
     DeleteEventItem(id);
-    
+
     setTimeout(() => {
       getAllEvents();
-      console.log("I deleted")
     }, 1000)
    }
    
