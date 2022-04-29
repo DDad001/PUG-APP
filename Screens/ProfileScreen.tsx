@@ -8,7 +8,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { Ionicons } from '@expo/vector-icons';
 import UserContext  from '../Context/UserContext';
-import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent } from "../Services/DataService"
+import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetFollowersByUserId, GetUserById, GetFollowingByUserId } from "../Services/DataService"
 
 // Import fonts
 import {
@@ -146,9 +146,13 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
 const ProfileScreen: FC<Props> = ({navigation, route})  => {
   useEffect(() => {
     fetchEvents();
+    getFollowers();
+    getFollowing();
   }, []);
 
   const [allEvents, setAllEvents] = useState<any>([]);
+  const [displayFollowers, setDisplayFollowers] = useState<any>([]);
+  const [displayFollowing, setDisplayFollowing] = useState<any>([]);
   const { userItems } = useContext<any>(UserContext);
 
   const fetchEvents = async () => {
@@ -156,6 +160,36 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
     let activeEvents = displayEvents.filter((event: any) => event.isActive);
     setAllEvents(activeEvents);
   }
+
+  const getFollowers = async () => {
+    let followersArr: any[] = [];
+    let followers = await GetFollowersByUserId(userItems.id);
+    //console.log(followers);
+    followers.map(async (person: any) => {
+      let follower: object = await GetUserById(person.userId);
+      followersArr.push(follower);
+      //console.log(follower);
+    });
+
+    setTimeout(() => {
+      setDisplayFollowers(followersArr.length);
+    }, 1000);
+  };
+
+  const getFollowing = async () => {
+    let followingArr: any[] = [];
+    let following = await GetFollowingByUserId(userItems.id);
+    //console.log(followers);
+    following.map(async (person: any) => {
+      let follower: object = await GetUserById(person.followerId);
+      followingArr.push(follower);
+      //console.log(follower);
+    });
+
+    setTimeout(() => {
+      setDisplayFollowing(followingArr.length);
+    }, 1000);
+  };
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -236,8 +270,8 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
-                <Text style={{marginTop: 20, color:'white',marginRight:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>26</Text>
-                <Text style={{marginTop: 20, color:'white', marginLeft:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>38</Text>
+                <Text style={{marginTop: 20, color:'white',marginRight:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>{displayFollowers}</Text>
+                <Text style={{marginTop: 20, color:'white', marginLeft:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>{displayFollowing}</Text>
           </View>
 
                     <View style={{justifyContent:'center', flexDirection:'row'}}>

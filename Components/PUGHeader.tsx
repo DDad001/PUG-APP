@@ -87,9 +87,9 @@ import { background } from "native-base/lib/typescript/theme/styled-system";
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    paddingTop: 15,
-    flex: 0.3,
-    alignItems: "center"
+    paddingBottom: 20,
+    flex: 0.15,
+    alignItems: "flex-end",
   },
   BtnBox: {
     color: "white",

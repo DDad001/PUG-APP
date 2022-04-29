@@ -198,9 +198,12 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
             }
             <View>
               <View style={{ flex: 1, flexDirection: 'row', }}>
+                <View style={{width: 155}}>
+                  <Text style={{ marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily: "Lato_700Bold"}}>{nameOfEvent}</Text>
+                </View>
 
-                <Text style={{ marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily: "Lato_700Bold" }}>{nameOfEvent}</Text>
-
+            <View style={{flex: 1, flexDirection: "row", justifyContent: "flex-end"}}>
+              
                 <Pressable onPress={createOpenLink({ provider: 'google', end: addressOfEvent })}>
                   <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', marginTop: 5, marginLeft: 8, padding: 7 }} />
                 </Pressable>
@@ -212,6 +215,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                   }
 
                 </Pressable>
+            </View>
 
               </View>
               <View style={{ flexDirection: 'column', }}>
@@ -222,20 +226,24 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                 </View>
 
                 <View style={{ flexDirection: 'row' }}>
+                  <View style={{flex: 1, flexDirection: "row", justifyContent: "flex-start"}}>
+                    <Pressable onPress={ProfileHandler}>
+                      <View style={{ flexDirection: 'row' }}>
+                        <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
+                        <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
+                          {       
+                            name
+                          }
+                        </Text>
+                      </View>
+                    </Pressable>
+                  </View>
+                    
+                  <View style={{flex:0.5,flexDirection: "row", justifyContent: "flex-end", paddingRight: 11}}>
+                    <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 48, marginTop: 4, }} />
+                    <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{timeOfEvent}</Text>
+                  </View>
 
-                  <Pressable onPress={ProfileHandler}>
-                    <View style={{ flexDirection: 'row' }}>
-                      <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
-                      <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
-                         {       
-                          name
-                         }
-                      </Text>
-                    </View>
-                  </Pressable>
-
-                  <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 48, marginTop: 4, }} />
-                  <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{timeOfEvent}</Text>
                 </View>
 
               </View>
@@ -358,7 +366,7 @@ const CardListComponent: FC<CardProps> = (props) => {
           />
         </View>
         <TouchableHighlight style={{ marginRight: 10 }} >
-          <View style={{ backgroundColor: '#0A326D', width: 54, height: 45, borderBottomRightRadius: 7, borderTopRightRadius: 7, }}>
+          <View style={{ backgroundColor: '#0A326D', width: 54, height: 45, borderBottomRightRadius: 7, borderTopRightRadius: 7 }}>
             <FontAwesome name="search" size={15} color="white" style={{ marginTop: 14, marginLeft: 17 }} />
           </View>
         </TouchableHighlight>
@@ -392,11 +400,29 @@ const CardListComponent: FC<CardProps> = (props) => {
               fontSize={15}
               color={"#0A326D"}
             >
-              <Select.Item label="Basketball" value="ux" />
-              <Select.Item label="Soccer" value="web" />
-              <Select.Item label="Football" value="cross" />
-              <Select.Item label="Tennis" value="ui" />
-              <Select.Item label="Handball" value="backend" />
+              <Select.Item label="Badminton" value="Badminton" />
+                <Select.Item label="Baseball" value="Baseball" />
+                <Select.Item label="Basketball" value="Basketball" />
+                <Select.Item label="Cycling" value="Cycling" />
+                <Select.Item label="Hockey" value="Hockey" />
+                <Select.Item label="Disc golf" value="Disc golf" />
+                <Select.Item label="Fishing" value="Fishing" />
+                <Select.Item label="Football" value="Football" />
+                <Select.Item label="Frisbee" value="Frisbee" />
+                <Select.Item label="Golf" value="Golf" />
+                <Select.Item label="Handball" value="Handball" />
+                <Select.Item label="Hiking" value="Handball" />
+                <Select.Item label="Cricket" value="Cricket" />
+                <Select.Item label="Rugby" value="Rugby" />
+                <Select.Item label="Pickleball" value="Pickleball" />
+                <Select.Item label="Running" value="Running" />
+                <Select.Item label="Soccer" value="Soccer" />
+                <Select.Item label="Softball" value="Softball" />
+                <Select.Item label="Spikeball" value="Spikeball" />
+                <Select.Item label="Tennis" value="Tennis" />
+                <Select.Item label="Lacrosse" value="Lacrosse" />
+                <Select.Item label="Volleyball" value="Volleyball" />
+                <Select.Item label="Other" value="Other" />
             </Select>
             {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
