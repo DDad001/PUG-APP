@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import man from '../assets/man.jpg';
 import UserContext  from '../Context/UserContext';
-import { GetItemsByUserId } from "../Services/DataService"
+import { GetItemsByUserId, DeleteEventItem } from "../Services/DataService"
 
 import AppLoading from "expo-app-loading";
 
@@ -112,7 +112,7 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
   useEffect(() => {
     getAllEvents();
     // console.log(display)
-    console.log(userItems);
+    // console.log(userItems);
   }, []);
 
   
@@ -133,11 +133,25 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
 
   const getAllEvents = async () => {
     let userEvents: any[] = []; 
+    let pastEvents: any[] = [];
+    
     userEvents = await GetItemsByUserId(userItems.id);
+    pastEvents = userEvents.filter(userEvent => isItAPastEvent(userEvent.dateOfEvent) == true);
 
-    setTimeout(() => {
-      setDisplay(userEvents)
-    }, 2000)
+    setDisplay(pastEvents)
+  }
+
+  //filter through the events based on whether they are active or not!
+  function isItAPastEvent(date: string){
+    let today: any = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; 
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return date < today;
   }
   
   const handlePastEvents = () => {
@@ -201,8 +215,7 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
              </View>
 
                  <Text style={{marginLeft:22, marginTop:50,color:'white', fontSize:35, fontFamily: "Lato_700Bold", fontWeight: "bold",}}>Past Events</Text>
-          <ScrollView>
-            <SafeAreaView>
+            <SafeAreaView style={{flex: 1, marginBottom: 30}}>
             <FlatList
                 data={display}
                 renderItem={renderItem}
@@ -246,7 +259,6 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
 
         </View>
       </View> */}
-          </ScrollView>
 
       </ImageBackground>
     </View> 
