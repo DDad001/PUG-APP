@@ -198,9 +198,12 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
             }
             <View>
               <View style={{ flex: 1, flexDirection: 'row', }}>
+                <View style={{width: 155}}>
+                  <Text style={{ marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily: "Lato_700Bold"}}>{nameOfEvent}</Text>
+                </View>
 
-                <Text style={{ marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily: "Lato_700Bold" }}>{nameOfEvent}</Text>
-
+            <View style={{flex: 1, flexDirection: "row", justifyContent: "flex-end"}}>
+              
                 <Pressable onPress={createOpenLink({ provider: 'google', end: addressOfEvent })}>
                   <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', marginTop: 5, marginLeft: 8, padding: 7 }} />
                 </Pressable>
@@ -212,6 +215,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                   }
 
                 </Pressable>
+            </View>
 
               </View>
               <View style={{ flexDirection: 'column', }}>
@@ -222,20 +226,24 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                 </View>
 
                 <View style={{ flexDirection: 'row' }}>
+                  <View style={{flex: 1, flexDirection: "row", justifyContent: "flex-start"}}>
+                    <Pressable onPress={ProfileHandler}>
+                      <View style={{ flexDirection: 'row' }}>
+                        <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
+                        <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
+                          {       
+                            name
+                          }
+                        </Text>
+                      </View>
+                    </Pressable>
+                  </View>
+                    
+                  <View style={{flex:0.5,flexDirection: "row", justifyContent: "flex-end", paddingRight: 11}}>
+                    <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 48, marginTop: 4, }} />
+                    <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{timeOfEvent}</Text>
+                  </View>
 
-                  <Pressable onPress={ProfileHandler}>
-                    <View style={{ flexDirection: 'row' }}>
-                      <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
-                      <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
-                         {       
-                          name
-                         }
-                      </Text>
-                    </View>
-                  </Pressable>
-
-                  <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 48, marginTop: 4, }} />
-                  <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{timeOfEvent}</Text>
                 </View>
 
               </View>
