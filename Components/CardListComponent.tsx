@@ -350,13 +350,13 @@ const CardListComponent: FC<CardProps> = (props) => {
           />
         </View>
         <TouchableHighlight style={{ marginRight: 10 }} >
-          <View style={{ backgroundColor: '#0A326D', width: 54, height: 45, borderBottomRightRadius: 7, borderTopRightRadius: 7, }}>
+          <View style={{ backgroundColor: '#0A326D', width: 54, height: 45, borderBottomRightRadius: 7, borderTopRightRadius: 7 }}>
             <FontAwesome name="search" size={15} color="white" style={{ marginTop: 14, marginLeft: 17 }} />
           </View>
         </TouchableHighlight>
       </View>
 
-      <View style={{ flex: 0, alignItems: "flex-end", justifyContent: "center", marginTop: 20, marginBottom: 5 }}>
+      <View style={{ flex: 0, alignItems: "flex-end", justifyContent: "center", marginTop: 10, marginBottom: 5 }}>
         <View style={{ marginRight: 10 }}>
           <Box
             maxW="155"
