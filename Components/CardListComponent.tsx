@@ -226,7 +226,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                 </View>
 
                 <View style={{ flexDirection: 'row' }}>
-                  <View style={{flex: 1, flexDirection: "row", justifyContent: "flex-end", backgroundColor: "orange"}}>
+                  <View style={{flex: 1, flexDirection: "row", justifyContent: "flex-start", backgroundColor: "orange"}}>
                     <Pressable onPress={ProfileHandler}>
                       <View style={{ flexDirection: 'row' }}>
                         <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
@@ -239,7 +239,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                     </Pressable>
                   </View>
                     
-                  <View style={{flex:1,flexDirection: "row", justifyContent: "flex-end",backgroundColor: "red"}}>
+                  <View style={{flex:0.5,flexDirection: "row", justifyContent: "flex-end",backgroundColor: "red", paddingRight: 11}}>
                     <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 48, marginTop: 4, }} />
                     <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{timeOfEvent}</Text>
                   </View>
