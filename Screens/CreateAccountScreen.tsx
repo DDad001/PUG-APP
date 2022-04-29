@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -43,6 +43,7 @@ import { blueGrey100 } from "react-native-paper/lib/typescript/styles/colors";
 import { Item } from "react-native-paper/lib/typescript/components/List/List";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import UserContext  from '../Context/UserContext';
 
 type RootStackParamList ={
   CreateAccount: undefined,
@@ -66,6 +67,8 @@ type Props = NativeStackScreenProps<RootStackParamList, "CreateAccount">;
 
 
 const CreateAccountScreen: FC<Props> = ({navigation}) => {
+  const { setUserItems } = useContext<any>(UserContext);
+
   const [newFirstName, setNewFirstName] = useState<string>("");
   const [newLastName, setNewLastName] = useState<string>("");
   const [newUsername, setNewUsername] = useState<string>("");
@@ -156,6 +159,8 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
       }else{
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully created!</Box>}});
       navigation.navigate('Nav');
+      setUserItems(userData);
+      //console.log(userData);
       }
     }
 
