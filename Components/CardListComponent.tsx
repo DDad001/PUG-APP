@@ -305,6 +305,7 @@ const CardListComponent: FC<CardProps> = (props) => {
 
   const closeMenu = () => setVisible(false);
   const [input, setInput] = useState("")
+  const [selectSport, setSelectSport] = useState("")
 
 
   let [fontsLoaded, error] = useFonts({
@@ -350,7 +351,9 @@ const CardListComponent: FC<CardProps> = (props) => {
     // let data = dataFromInput;
     // console.log(data);
     let searchData = allEvents.filter((item:any) => {
-      return item.cityOfEvent.toLowerCase().includes(input.toLowerCase());
+      return(
+        item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase())
+      )
     });
 
   return (
@@ -361,7 +364,7 @@ const CardListComponent: FC<CardProps> = (props) => {
             onSubmitEditing={() => {
               // alert(`Your message is: ${input}`);
             }}
-            placeholder="Search for an event..."
+            placeholder="Search by city..."
             placeholderTextColor={'#959494'}
           />
         </View>
@@ -391,6 +394,7 @@ const CardListComponent: FC<CardProps> = (props) => {
               accessibilityLabel="Choose the sport type for this event"
               placeholderTextColor={"#0A326D"}
               placeholder="Filters"
+              onValueChange={(text) => setSelectSport(text)}
               _selectedItem={{
                 bg: "black.300",
                 endIcon: <CheckIcon size={5} color="#3B567C" />,
