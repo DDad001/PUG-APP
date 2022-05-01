@@ -58,11 +58,19 @@ type RootStackParamList ={
 
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
-const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent} :any) => {
+const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, getAllEvents} :any) => {
 
     const { userItems } = useContext<any>(UserContext);
 
     //set up deleting events
+   const handleRemoveEvent = (id: any) => {
+    DeleteEventItem(id);
+
+    setTimeout(() => {
+      getAllEvents();
+    }, 1000)
+   }
+   
 
     return (
       <View style={styles.card}>
@@ -95,7 +103,7 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
                   {/* CODE FOR PAST EVENTS PAGE */}
 
                 <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
-                  <Pressable onPress={() => console.log("Delete the event")}>
+                  <Pressable onPress={() => handleRemoveEvent(id)}>
                     <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:110, height:27 }} >
                       <Text style={{marginLeft:10, color:'white', fontFamily:"Lato_400Regular"}}>Delete Event</Text>
                     </View>
@@ -111,8 +119,6 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
 const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
   useEffect(() => {
     getAllEvents();
-    // console.log(display)
-    // console.log(userItems);
   }, []);
 
   
@@ -122,6 +128,7 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
     addressOfEvent={item.addressOfEvent}
     dateOfEvent={item.dateOfEvent}
     timeOfEvent={item.timeOfEvent}
+    getAllEvents = {getAllEvents}
     />
   );
  
@@ -130,6 +137,7 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
   const [name, setName] = useState('')
   const [tabColor, setTabColor] = useState('');
   const [display, setDisplay] = useState<any>([]);
+  const [dummyEffect, setDummyEffect] = useState<boolean>(false);
 
   const getAllEvents = async () => {
     let userEvents: any[] = []; 
@@ -138,7 +146,7 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
     userEvents = await GetItemsByUserId(userItems.id);
     pastEvents = userEvents.filter(userEvent => isItAPastEvent(userEvent.dateOfEvent) == true);
 
-    setDisplay(pastEvents)
+    setDisplay(pastEvents);
   }
 
   //filter through the events based on whether they are active or not!

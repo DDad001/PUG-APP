@@ -59,7 +59,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { createOpenLink } from 'react-native-open-maps';
 import UserContext from '../Context/UserContext';
-import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById } from "../Services/DataService"
+import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetLikedId } from "../Services/DataService"
 import BasketballEvent from "../assets/BasketballEvent.jpg";
 import soccer from "../assets/soccer.jpg";
 import volleyballevent from "../assets/volleyballevent.jpg";
@@ -107,6 +107,8 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 
   useEffect(() => {
     getNames();
+    checkIfLiked();
+    
   }, []);
 
 
@@ -115,6 +117,14 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     const getNames = async () => {
       let userData = await GetUserById(userId);
       setName(`${userData.firstName} ${userData.lastName}`)
+    }
+
+    const checkIfLiked = async () => {
+      let liked = await GetLikedId(userItems.id, event.id);
+      if(checkIfLiked != null){
+        setIsLiked(true);
+      }
+      //console.log(liked);
     }
     
   const handleLiked = () => {
@@ -138,6 +148,8 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     setEventItems(event);
     setNameContext(name);
   }
+
+ 
 
   return (
     <View style={styles.card}>

@@ -333,9 +333,10 @@ async function GetLikedEventsByUserId(userId:number){
     return data;
 }
 
-async function GetLikedId(userId:number,eventId:number){
-    let res = await fetch(`http://localhost:5216/LikedEvents/GetFollowId/${userId}/${eventId}`);
-    let data = res.json();
+async function GetLikedId(userId:number, eventId:number){
+    let res = await fetch(`http://localhost:5216/LikedEvents/GetLikedId/${userId}/${eventId}`);
+    let data = await res.json();
+    console.log(data);
     return data;
 }
 
