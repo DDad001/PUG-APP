@@ -365,6 +365,52 @@ async function DeleteLikedEvent(userId:number, eventId:number) {
 
 
 
+//---------------ALL FETCHES FOR REPORTING-------------------------------
+
+async function ReportEvent(eventToReport:object) {
+
+    let res = await fetch(`http://localhost:5216/ReportEvent/AddEventReport`, {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(eventToReport)
+    });
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`;
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+
+}
+
+async function ReportUser(userToReport:object) {
+
+    let res = await fetch(`http://localhost:5216/ReportUser/AddUserReport`, {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(userToReport)
+    });
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`;
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+
+}
+
+
+//---------------ALL FETCHES FOR REPORTING-------------------------------
+
+
 
 
 export{ 
@@ -374,6 +420,7 @@ export{
     GetItemsBySport,GetEventItemById,UpdateEventItem,DeleteEventItem,
     AddFollower,GetFollowersByUserId,GetFollowId,GetFollowingByUserId,
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
-    DeleteLikedEvent, GetAddress, UpdatePassword, GetCitiesByState
+    DeleteLikedEvent,GetAddress,UpdatePassword,GetCitiesByState,
+    ReportEvent,ReportUser
 
 }
