@@ -59,7 +59,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { createOpenLink } from 'react-native-open-maps';
 import UserContext from '../Context/UserContext';
-import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetLikedId } from "../Services/DataService"
+import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetIsLiked } from "../Services/DataService"
 import BasketballEvent from "../assets/BasketballEvent.jpg";
 import soccer from "../assets/soccer.jpg";
 import volleyballevent from "../assets/volleyballevent.jpg";
@@ -120,10 +120,9 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     }
 
     const checkIfLiked = async () => {
-      let liked = await GetLikedId(userItems.id, event.id);
-      if(checkIfLiked != null){
-        setIsLiked(true);
-      }
+      let liked = await GetIsLiked(userItems.id, event.id);
+      
+      setIsLiked(liked);
       //console.log(liked);
     }
     

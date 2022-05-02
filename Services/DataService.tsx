@@ -363,7 +363,7 @@ async function DeleteLikedEvent(userId:number, eventId:number) {
 async function GetIsLiked(userId:number, eventId:number){
     let res = await fetch(`http://localhost:5216/LikedEvents/GetIsLiked/${userId}/${eventId}`);
     let data = await res.json();
-    console.log(data);
+    //console.log(data);
     return data;
 }
 
@@ -381,6 +381,7 @@ export{
     GetItemsBySport,GetEventItemById,UpdateEventItem,DeleteEventItem,
     AddFollower,GetFollowersByUserId,GetFollowId,GetFollowingByUserId,
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
-    DeleteLikedEvent, GetAddress, UpdatePassword, GetCitiesByState
+    DeleteLikedEvent, GetAddress, UpdatePassword, GetCitiesByState,
+    GetIsLiked
 
 }
