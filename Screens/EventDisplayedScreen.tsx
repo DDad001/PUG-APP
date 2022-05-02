@@ -444,11 +444,18 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                         </Radio>
                       </Radio.Group>
                     </View>
-                    <View style={{ flex: 1, backgroundColor: "red", }}>
+                    <View style={{ flex: 1 }}>
                       {
                         radioUserValue === "OtherUser" ?
                           <View>
-                            <TextInput style={{ backgroundColor: "orange" }} onChangeText={(text) => setOtherReasonUserTxt(text)} value={otherReasonUserTxt} multiline={true} accessibilityLabel="" />
+                            <TextInput style={[ styles.LargeTxtInput,{alignItems: "flex-start"}] } onChangeText={(text) => setOtherReasonUserTxt(text)} value={otherReasonUserTxt} accessibilityLabel="Enter the reason you are reporting this user in 200 characters or less."
+                            textAlignVertical="top"
+                            multiline={true}
+                            maxLength={200}
+                            placeholder="Enter the reason you are reporting this user..."
+                            placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                            numberOfLines={5} />
+                            <Text style={{color: "rgba(59, 86, 124, 1)", paddingLeft: 20}}>{otherReasonUserTxt.length}/200 character limit</Text>
                           </View>
                           : null
                       }
@@ -506,11 +513,19 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                           </Radio>
                         </Radio.Group>
                       </View>
-                      <View style={{ flex: 1, backgroundColor: "red", }}>
+                      <View style={{ flex: 1 }}>
                         {
                           radioEventValue === "seven" ?
                             <View>
-                              <TextInput onChangeText={(text) => setOtherReasonEventTxt(text)} value={otherReasonEventTxt} multiline={true} />
+                              <TextInput style={[styles.LargeTxtInput, {alignItems: "flex-start"}]} onChangeText={(text) => setOtherReasonEventTxt(text)} value={otherReasonEventTxt}
+                                textAlignVertical="top"
+                                multiline={true}
+                                maxLength={200}
+                                placeholder="Enter your reason for reporting this event..."
+                                accessibilityLabel="Enter the reason you are reporting this event in 200 characters or less."
+                                placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                                numberOfLines={5}/>
+                                <Text style={{color: "rgba(59, 86, 124, 1)", paddingLeft: 20}}>{otherReasonEventTxt.length}/200 character limit</Text>
                             </View>
                             : null
                         }
@@ -577,6 +592,26 @@ const styles = StyleSheet.create({
   containerInsideImage: {
     flexDirection: "row",
     paddingTop: 5,
+  },
+  LargeTxtInput: {
+    fontFamily: "Roboto_400Regular",
+    color: "rgba(59, 86, 124, 1)",
+    fontSize: 15,
+    height: 100,
+    marginTop: 10,
+    marginLeft: 18,
+    marginRight: 20,
+    marginBottom: 5,
+    borderWidth: 1,
+    padding: 10,
+    minWidth:200,
+    borderColor: "white",
+    backgroundColor: "white",
+    borderRadius: 20,
+    shadowColor: "black",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
   },
 });
 export default EventDisplayedScreen;
