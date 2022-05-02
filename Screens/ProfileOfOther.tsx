@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext, useEffect } from "react";
 import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import SoccerField from '../assets/SoccerField.png';
 import man from '../assets/man.jpg';
@@ -38,6 +38,8 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import UserContext  from '../Context/UserContext';
+import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId} from '../Services/DataService';
 
 type RootStackParamList ={
   Nav: undefined,
@@ -53,6 +55,19 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
 const ProfileOfOther: FC<Props> = ({navigation, route})  => {
+  const { userItems, nameContext } = useContext<any>(UserContext);
+  const [user, setUser] = useState<any>({})
+  const [displayFollowers, setDisplayFollowers] = useState<any>([]);
+  const [displayFollowing, setDisplayFollowing] = useState<any>([]);
+
+  useEffect(() => {
+    getUser();
+  }, [])
+
+  const getUser = async () => {
+    let userProfile = GetUserByUsername(nameContext);
+    setUser(userProfile);
+  }
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -83,6 +98,36 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
     return <AppLoading />;
   }
 
+  const getFollowers = async () => {
+    let followersArr: any[] = [];
+    let followers = await GetFollowersByUserId(userItems.id);
+    //console.log(followers);
+    followers.map(async (person: any) => {
+      let follower: object = await GetUserById(person.userId);
+      followersArr.push(follower);
+      //console.log(follower);
+    });
+
+    setTimeout(() => {
+      setDisplayFollowers(followersArr.length);
+    }, 1000);
+  };
+
+  const getFollowing = async () => {
+    let followingArr: any[] = [];
+    let following = await GetFollowingByUserId(userItems.id);
+    //console.log(followers);
+    following.map(async (person: any) => {
+      let follower: object = await GetUserById(person.followerId);
+      followingArr.push(follower);
+      //console.log(follower);
+    });
+
+    setTimeout(() => {
+      setDisplayFollowing(followingArr.length);
+    }, 1000);
+  };
+
  return (
      <>
     <View style={styles.mainContainer}>
@@ -93,13 +138,13 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
             </Pressable>
           </View>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
-                <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>Jack Smith, </Text>
+                <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{nameContext} </Text>
                 <Text style={{marginTop: 20, color:'white', fontFamily: "Lato_700Bold", fontSize: 19, fontWeight: "bold"}}>26</Text>
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
           <MaterialIcons name="location-on" size={19} color="white" style={{ marginTop: 20,marginRight:2}} />
-                <Text style={{marginTop: 20, color:'white', fontFamily: "Roboto_400Regular", fontSize: 18 }}>Stockton, CA</Text>
+                <Text style={{marginTop: 20, color:'white', fontFamily: "Roboto_400Regular", fontSize: 18 }}>{user.city}, {user.state}</Text>
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
