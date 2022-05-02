@@ -8,9 +8,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
-import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio } from "native-base";
+import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio, useToast } from "native-base";
 import UserContext from '../Context/UserContext';
-import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower } from '../Services/DataService'
+import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower, ReportUser, ReportEvent } from '../Services/DataService'
 
 
 import {
@@ -80,7 +80,8 @@ type Props = NativeStackScreenProps<RootStackParamList, "GoToProfile">;
 
 const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
 
-
+  const Errortoast = useToast();
+  const Successtoast = useToast();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showModal2, setShowModal2] = useState<boolean>(false);
 
@@ -139,6 +140,46 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
       } else {
         setShowModal2(true);
       }
+    }
+  }
+
+  const handleReportUser =  async() => {
+    let reportUser = {
+      Id : 0,
+      UserId : userItems.id, 
+      UserBeingReportedId: eventItems.userId, //get the id of the user you're reporting
+      ReportDetails: radioUserValue
+    }
+
+    // let bool = await ReportUser(reportUser);
+    // console.log(bool);
+  }
+
+  const handleReportEvent = async () => {
+    //data validation on reporting! I need toasts!
+    let reportEvent: object;
+    if(radioEventValue.length < 1){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a reason to report this event!</Box>;}});
+    }else{
+      if(radioEventValue == "seven"){
+        reportEvent = {
+          Id: 0,
+          UserId: userItems.id,
+          EventBeingReportedId: eventItems.id, //get the id of the user you're reporting
+          ReportDetails: otherReasonEventTxt
+        }
+      }else{
+        reportEvent = {
+          Id: 0,
+          UserId: userItems.id,
+          EventBeingReportedId: eventItems.id, //get the id of the user you're reporting
+          ReportDetails: radioEventValue
+        }
+      }
+      let bool = await ReportEvent(reportEvent);
+      console.log(bool);
+      setShowModal2(false);
+      Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully reported!</Box>}});
     }
   }
 
@@ -375,13 +416,13 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                     <Text style={{ fontSize: 18, fontFamily: "Roboto_400Regular", color: "black", alignItems: "center" }}>Why are you reporting this user?</Text>
                     <View style={{ marginTop: 10 }}>
                       <Radio.Group name="Report User" accessibilityLabel="Choose a reason to report this user" onChange={(value) => RadioUser(value)}>
-                        <Radio value="UserSpam" my={1}>
+                        <Radio value="User posts content not suitable to PUG" my={1}>
                           <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }} accessibilityLabel="Radio box, user posts content not suitable to PUG">User posts content not suitable to PUG</Text>
                         </Radio>
-                        <Radio value="UserPretending" my={1}>
+                        <Radio value="Account is pretending to be someone else" my={1}>
                           <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }} accessibilityLabel="Radio box, account is pretending to be someone else">Account is pretending to be someone else</Text>
                         </Radio>
-                        <Radio value="userAge" my={1}>
+                        <Radio value="User may be under the age of 18" my={1}>
                           <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }} accessibilityLabel="Radio box, user may be under the age of 18">User may be under the age of 18</Text>
                         </Radio>
                         <Radio value="OtherUser" my={1}>
@@ -428,22 +469,22 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                       </Text>
                       <View style={{ marginTop: 10 }}>
                         <Radio.Group name="Report Event" accessibilityLabel="Choose a reason to report this event" onChange={(value) => RadioEvent(value)}>
-                          <Radio value="one" my={1}>
+                          <Radio value="Malicious Content" my={1}>
                             <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }}>Malicious Content</Text>
                           </Radio>
-                          <Radio value="two" my={1}>
+                          <Radio value="Illegal Activity" my={1}>
                             <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }}>Illegal activity</Text>
                           </Radio>
-                          <Radio value="three" my={1}>
+                          <Radio value="Hate speech or symbols" my={1}>
                             <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }}>Hate speech or symbols</Text>
                           </Radio>
-                          <Radio value="four" my={1}>
+                          <Radio value="Bullying or harassment" my={1}>
                             <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }}>Bullying or harassment</Text>
                           </Radio>
-                          <Radio value="five" my={1}>
+                          <Radio value="Nudity or sexual activity" my={1}>
                             <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }}>Nudity or sexual activity</Text>
                           </Radio>
-                          <Radio value="six" my={1}>
+                          <Radio value="Spam" my={1}>
                             <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }}>Spam</Text>
                           </Radio>
                           <Radio value="seven" my={1}>
@@ -470,7 +511,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                         Close
                       </Button>
                       <Button backgroundColor={"#0A326D"} onPress={() => {
-                        console.log("send report")
+                        handleReportEvent()
                       }}>
                         Report Event
                       </Button>
