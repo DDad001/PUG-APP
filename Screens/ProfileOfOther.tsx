@@ -61,9 +61,13 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
 
   useEffect(() => {
+    getUser();
+  }, [])
+
+  const getUser = async () => {
     let userProfile = GetUserByUsername(nameContext);
     setUser(userProfile);
-  })
+  }
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
