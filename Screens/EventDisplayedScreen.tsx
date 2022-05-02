@@ -144,15 +144,30 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   }
 
   const handleReportUser =  async() => {
-    let reportUser = {
-      Id : 0,
-      UserId : userItems.id, 
-      UserBeingReportedId: eventItems.userId, //get the id of the user you're reporting
-      ReportDetails: radioUserValue
+    let reportUser: object;
+    if(radioUserValue.length < 1){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a reason to report this user!</Box>;}});
+    }else{
+      if(radioUserValue == "OtherUser"){
+        reportUser = {
+          Id : 0,
+          UserId : userItems.id, 
+          UserBeingReportedId: eventItems.userId,
+          ReportDetails: otherReasonUserTxt
+        }
+      }else{
+        reportUser = {
+          Id : 0,
+          UserId : userItems.id, 
+          UserBeingReportedId: eventItems.userId,
+          ReportDetails: radioUserValue
+        }
+      }
+      let bool = await ReportUser(reportUser);
+      setShowModal(false);
+      setRadioUserValue("");
+      Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>User successfully reported!</Box>}});
     }
-
-    // let bool = await ReportUser(reportUser);
-    // console.log(bool);
   }
 
   const handleReportEvent = async () => {
@@ -177,7 +192,6 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
         }
       }
       let bool = await ReportEvent(reportEvent);
-      console.log(bool);
       setShowModal2(false);
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully reported!</Box>}});
     }
@@ -448,7 +462,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                         Close
                       </Button>
                       <Button backgroundColor={"#0A326D"} onPress={() => {
-                        console.log("report user")
+                        handleReportUser()
                       }}>
                         Report User
                       </Button>
