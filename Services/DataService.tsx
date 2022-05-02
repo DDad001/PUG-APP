@@ -360,6 +360,13 @@ async function DeleteLikedEvent(userId:number, eventId:number) {
 
 }
 
+async function GetIsLiked(userId:number, eventId:number){
+    let res = await fetch(`http://localhost:5216/LikedEvents/GetIsLiked/${userId}/${eventId}`);
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
 
 //---------------ALL FETCHES FOR LIKED EVENTS CONTROLLER-----------------
 
