@@ -439,6 +439,9 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                         <Radio value="User may be under the age of 18" my={1}>
                           <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }} accessibilityLabel="Radio box, user may be under the age of 18">User may be under the age of 18</Text>
                         </Radio>
+                        <Radio value="User's profile image" my={1}>
+                          <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }} accessibilityLabel="Radio box, user's profile image is inappropriate">User's profile image is inappropriate</Text>
+                        </Radio>
                         <Radio value="OtherUser" my={1}>
                           <Text style={{ fontSize: 16, fontFamily: "Roboto_400Regular", color: "black" }}>Other</Text>
                         </Radio>
