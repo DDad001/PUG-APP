@@ -103,7 +103,7 @@ type RootStackParamList = {
 
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   const [isLiked, setIsLiked] = useState(false);
-  const { userItems, setEventItems, setNameContext } = useContext<any>(UserContext);
+  const { userItems, setEventItems, setNameContext, setViewUserProfile } = useContext<any>(UserContext);
 
   useEffect(() => {
     getNames();
@@ -117,6 +117,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     const getNames = async () => {
       let userData = await GetUserById(userId);
       setName(`${userData.firstName} ${userData.lastName}`)
+      setViewUserProfile(userData);
     }
 
     const checkIfLiked = async () => {
