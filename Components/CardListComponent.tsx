@@ -103,7 +103,7 @@ type RootStackParamList = {
 
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   const [isLiked, setIsLiked] = useState(false);
-  const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen} = useContext<any>(UserContext);
+  const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther} = useContext<any>(UserContext);
  
 
   useEffect(() => {
@@ -149,6 +149,14 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
   const handleSavedEvent = () => {
     setEventItems(event);
     setNameContext(name);
+  }
+
+  const handleSaveUser = async () => {
+    
+    let userData = await GetUserById(userId);
+    setViewUserProfile(userData);
+    setNameContext(name)
+    setUpdateProfileOther(true);
   }
 
  
@@ -241,7 +249,10 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 
                 <View style={{ flexDirection: 'row' }}>
                   <View style={{flex: 1, flexDirection: "row", justifyContent: "flex-start"}}>
-                    <Pressable onPress={ProfileHandler}>
+                    <Pressable onPress={() => {
+                      ProfileHandler();
+                      handleSaveUser();
+                      }}>
                       <View style={{ flexDirection: 'row' }}>
                         <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
                         <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            

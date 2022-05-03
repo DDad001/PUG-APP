@@ -6,6 +6,7 @@ export default function useUser() {
   const [eventItems, setEventItems] = useState<object>({});
   const [viewUserProfile, setViewUserProfile] = useState<object>({});
   const [updateScreen, setUpdateScreen] = useState<boolean>(false);
+  const [updateProfileOther, setUpdateProfileOther] = useState<boolean>(false);
   
-  return { nameContext, setNameContext, userItems, setUserItems, eventItems, setEventItems, viewUserProfile, setViewUserProfile, updateScreen, setUpdateScreen};
+  return { nameContext, setNameContext, userItems, setUserItems, eventItems, setEventItems, viewUserProfile, setViewUserProfile, updateScreen, setUpdateScreen, updateProfileOther, setUpdateProfileOther};
 }
