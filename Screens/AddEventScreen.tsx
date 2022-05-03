@@ -377,7 +377,7 @@ const AddEventScreen: FC = () => {
             </View>
           </View>
           <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1, marginBottom: 30 }}>
               <View style={{ flex: 1 }}>
                 <TextInput
                   style={[styles.input,{marginBottom: 5}]}

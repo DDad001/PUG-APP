@@ -137,7 +137,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
               console.log("Removed")
               DeleteEventItem(id);
             }} >
-              <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:105, height:27 }} >
+              <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
                 <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
               </View>
             </Pressable>
