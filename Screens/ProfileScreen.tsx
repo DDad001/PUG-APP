@@ -133,7 +133,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
 
           <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>{nameOfEvent} </Text>
           <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>{addressOfEvent}</Text>
-          <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+          <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop:30, marginLeft: 10}}>
             <Pressable onPress={() => {
               console.log("Removed")
               DeleteEventItem(id);
