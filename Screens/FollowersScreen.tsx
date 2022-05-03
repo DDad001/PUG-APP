@@ -9,6 +9,8 @@ import {
   Pressable,
   ScrollView,
   Image,
+  SafeAreaView,
+  FlatList,
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome } from "@expo/vector-icons";
@@ -52,8 +54,27 @@ import {
   GetFollowingByUserId,
 } from "../Services/DataService";
 
+
+const FollowerItem = ({ handleUnfollow, username, id, displayFollowing}: any) => {
+
+  return(
+      <View >
+
+              <View style={styles.NotificationView}>
+                <Image source={Skier} style={styles.ImageStyle} />
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Text style={styles.TextStyle}>{username} </Text>
+                </View>
+              </View>
+
+      </View> 
+
+  )
+ };
+
+
 const FollowersScreen: FC = () => {
-  const { userItems } = useContext<any>(UserContext);
+   const { userItems } = useContext<any>(UserContext);
   const [displayFollowers, setDisplayFollowers] = useState<any>([]);
 
   useEffect(() => {
@@ -74,6 +95,21 @@ const FollowersScreen: FC = () => {
       setDisplayFollowers(followersArr);
     }, 1000);
   };
+
+
+  const renderItem = ({ item }: any) => {
+    return (
+    <FollowerItem 
+      id={item.id}
+      firstName={item.firstName}
+      username={item.username}
+      displayFollowers={displayFollowers}
+    />
+    )
+};
+
+  const [input, setInput] = useState("")
+
 
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
@@ -100,19 +136,25 @@ const FollowersScreen: FC = () => {
     Roboto_900Black_Italic,
   });
 
-  const [input, setInput] = useState("");
-
+  
   if (!fontsLoaded) {
     return <AppLoading />;
   }
 
+    let searchData = displayFollowers.filter((item:any) => {
+      return(
+        item.username.toLowerCase().includes(input.toLowerCase())
+      )
+    });
+
   return (
-    <View style={styles.container}>
+    <>
+      <View style={styles.container}>
       <ImageBackground
         source={BaseballPicture}
         resizeMode="cover"
         style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}
-      >
+        >
         <View
           style={{
             flexDirection: "row",
@@ -120,19 +162,18 @@ const FollowersScreen: FC = () => {
             paddingBottom: 33,
             marginTop: 30,
           }}
-        >
+          >
           <View>
             <TextInput
               style={styles.input}
-              onChangeText={(text) => setInput(text)}
+              onChangeText={(setInput)}
               onSubmitEditing={() => {
-                alert(`Your message is: ${input}`);
-                setInput("");
+                // alert(`Your message is: ${input}`);
+                // setInput("");
               }}
-              value={input}
               placeholder="Search following"
               placeholderTextColor={"#959494"}
-            />
+              />
           </View>
           <TouchableHighlight>
             <View
@@ -144,42 +185,30 @@ const FollowersScreen: FC = () => {
                 borderBottomRightRadius: 7,
                 borderTopRightRadius: 7,
               }}
-            >
+              >
               <FontAwesome
                 name="search"
                 size={15}
                 color="white"
                 style={{ marginTop: 14, marginLeft: 17 }}
-              />
+                />
             </View>
           </TouchableHighlight>
         </View>
+        
+        <Text style={styles.FollowingText}>Following</Text>
 
-        <View style={styles.overlayContainer}>
-          <Text style={styles.FollowingText}>Followers</Text>
-          <ScrollView>
-            {displayFollowers.map((follower: any, idx: number) => {
-              return (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginLeft: 20,
-                    marginTop: 20,
-                  }}
-                  key={idx}
-                >
-                  <Image source={Skier} style={styles.ImageStyle} />
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={styles.TextStyle}>{follower.username} </Text>
-                  </View>
-                </View>
-              );
-            })}
-          </ScrollView>
-        </View>
+        <SafeAreaView style={styles.containerFlat}>
+        <FlatList
+        data={searchData}
+        renderItem={renderItem}
+        keyExtractor={(item: any) => item.id}
+        />
+        </SafeAreaView>
       </ImageBackground>
     </View>
-  );
+    </>
+  )
 };
 
 const styles = StyleSheet.create({
@@ -188,19 +217,27 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  overlayContainer: {
-    flex: 6,
+  containerFlat: {
+    flex: 1,
+    marginBottom:62
   },
-  FollowingText: {
-    fontFamily: "Lato_400Regular",
-    fontStyle: "normal",
-    fontWeight: "800",
-    color: "white",
-    fontSize: 32,
-    marginBottom: 5,
-    marginLeft: 25,
+
+  card: {
+    borderRadius: 8,
+    elevation: 10,
+    backgroundColor: '#fff',
+    shadowOffset: { width: 1, height: 1 },
+    shadowColor: '#333',
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    marginHorizontal: 8,
+    marginTop: 17,
   },
-  input: {
+  cardContent: {
+    marginHorizontal: 8,
+    marginVertical: 8,
+  },
+    input: {
     marginLeft: 10,
     marginTop: 18,
     width: 300,
@@ -212,46 +249,52 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 7,
     padding: 10,
   },
-  loginBtnTxt: {
-    color: "#0A326D",
+    FollowingText: {
     fontFamily: "Lato_400Regular",
-    fontSize: 14,
-    fontWeight: "600",
-    justifyContent: "center",
-    paddingLeft: 28,
-    paddingRight: 28,
-    paddingTop: "10%",
-    paddingBottom: "10%",
+    fontStyle: "normal",
+    fontWeight: "800",
+    color: "white",
+    fontSize: 32,
+    marginBottom: 5,
+    marginLeft: 25,
   },
-  ImageStyle: {
+    unfollowBtn: {
+    backgroundColor: "#0A326D",
+    borderRadius: 10,
+    marginLeft: 15,
+    //marginRight: 55,
+  },
+  unfollowTxt: {
+    color: "white",
+    fontFamily: "Lato_700Bold",
+    fontSize: 15,
+    fontWeight: "800",
+    justifyContent: "center",
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
+    ImageStyle: {
     height: 70,
     width: 70,
     borderRadius: 50,
+    marginRight: 15,
   },
-  TextStyle: {
-    color: "white",
-    fontSize: 22,
-    marginLeft: 30,
-    fontFamily: "Roboto_500Medium",
-    fontWeight: "500",
-  },
-  TimeText: {
-    color: "#DFE6F5",
-    fontSize: 13,
-    paddingTop: 5,
-    fontFamily: "Roboto_500Medium",
-  },
-  NotificationView: {
+    NotificationView: {
     flex: 1,
     justifyContent: "center",
     flexDirection: "row",
     paddingTop: 5,
     paddingBottom: 34,
   },
-  MiddleTextStyle: {
+  TextStyle: {
     color: "white",
-    fontSize: 16,
-    fontFamily: "Lato_300Light",
+    fontSize: 22,
+    fontFamily: "Roboto_500Medium",
+    fontWeight: "500",
   },
+
 });
+
 export default FollowersScreen;
