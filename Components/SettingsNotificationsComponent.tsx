@@ -422,6 +422,7 @@ const styles = StyleSheet.create({
   },
   ScrollStyle: {
     flex: 1,
+    marginBottom: 50
   },
   TextStyle: {
     color: "white",
