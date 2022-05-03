@@ -218,7 +218,7 @@ type RootStackParamList ={
 
 
 const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEvent, getLikedEventsByUser, navigation }: any) => {
-  const { userItems } = useContext<any>(UserContext);
+  const { userItems, setUpdateScreen } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState<boolean>(true);
 
   const handleLiked = async () => {
@@ -226,7 +226,7 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
     setIsLiked(!isLiked);
     
     await getLikedEventsByUser();
-    
+    setUpdateScreen(true);
     
   }
 
