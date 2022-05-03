@@ -39,7 +39,7 @@ import {
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import UserContext  from '../Context/UserContext';
-import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId} from '../Services/DataService';
+import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetItemsByUserId} from '../Services/DataService';
 
 type RootStackParamList ={
   Nav: undefined,
@@ -55,19 +55,121 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
 const ProfileOfOther: FC<Props> = ({navigation, route})  => {
-  const { userItems, nameContext } = useContext<any>(UserContext);
-  const [user, setUser] = useState<any>({})
+  const { userItems, nameContext, viewUserProfile } = useContext<any>(UserContext);
+  
   const [displayFollowers, setDisplayFollowers] = useState<any>([]);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
+  const [displayUserAge, setDisplayUserAge] = useState<any>();
+  const [allEvents, setAllEvents] = useState<any>([]);
 
   useEffect(() => {
-    getUser();
+    getFollowers();
+    getFollowing();
+    getUserAge(viewUserProfile.dateOfBirth);
+    fetchEvents();
   }, [])
 
-  const getUser = async () => {
-    let userProfile = GetUserByUsername(nameContext);
-    setUser(userProfile);
+  const getFollowers = async () => {
+    
+    let followers = await GetFollowersByUserId(viewUserProfile.id);
+    
+    setDisplayFollowers(followers.length);
+    
+  };
+
+  const getFollowing = async () => {
+   
+    let following = await GetFollowingByUserId(viewUserProfile.id);
+    
+    setDisplayFollowing(following.length);
+ 
+  };
+
+  const getUserAge = (dob: string) => {
+    //get today's year for age calculation
+    const currentYear = new Date().getFullYear();
+    //-----------------------------------------------------------
+    let calculatedAge: number;
+    let dobArr = dob.split("/");
+    let bdayMonth = dobArr[0];
+    let bdayYear = dobArr[2];
+    let bdayMonthNum: number = Number(bdayMonth);
+    let bdayYearNum: number = Number(bdayYear);
+
+
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    let monthNum: number = 0;
+
+    const d = new Date();
+    let monthName = months[d.getMonth()];
+
+    switch(monthName){
+      case "January":
+        monthNum = 1;
+        break;
+
+      case "February":
+        monthNum = 2;
+        break;
+
+      case "March":
+        monthNum = 3;
+        break;
+
+      case "April":
+        monthNum = 4;
+        break;
+
+      case "May":
+        monthNum = 5;
+        break;
+
+      case "June":
+        monthNum = 6;
+        break;
+
+      case "July":
+        monthNum = 7;
+        break;
+
+      case "August":
+        monthNum = 8;
+        break;
+
+      case "September":
+        monthNum = 9;
+        break;
+
+      case "October":
+        monthNum = 10;
+        break;
+
+      case "November":
+        monthNum = 11;
+        break;
+
+      case "December":
+        monthNum = 12;
+        break;
+    }
+    
+    //logic of calculating age
+    if(monthNum > bdayMonthNum){
+      calculatedAge = currentYear - bdayYearNum;
+    }else{
+      calculatedAge = currentYear - bdayYearNum - 1;
+    }
+
+    setDisplayUserAge(calculatedAge);
+    
   }
+
+  const fetchEvents = async () => {
+    let displayEvents = await GetItemsByUserId(viewUserProfile.id);
+    let activeEvents = displayEvents.filter((event: any) => event.isActive);
+    setAllEvents(activeEvents);
+  }
+
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -98,35 +200,7 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
     return <AppLoading />;
   }
 
-  const getFollowers = async () => {
-    let followersArr: any[] = [];
-    let followers = await GetFollowersByUserId(userItems.id);
-    //console.log(followers);
-    followers.map(async (person: any) => {
-      let follower: object = await GetUserById(person.userId);
-      followersArr.push(follower);
-      //console.log(follower);
-    });
-
-    setTimeout(() => {
-      setDisplayFollowers(followersArr.length);
-    }, 1000);
-  };
-
-  const getFollowing = async () => {
-    let followingArr: any[] = [];
-    let following = await GetFollowingByUserId(userItems.id);
-    //console.log(followers);
-    following.map(async (person: any) => {
-      let follower: object = await GetUserById(person.followerId);
-      followingArr.push(follower);
-      //console.log(follower);
-    });
-
-    setTimeout(() => {
-      setDisplayFollowing(followingArr.length);
-    }, 1000);
-  };
+ 
 
  return (
      <>
@@ -138,18 +212,18 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
             </Pressable>
           </View>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
-                <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{nameContext} </Text>
-                <Text style={{marginTop: 20, color:'white', fontFamily: "Lato_700Bold", fontSize: 19, fontWeight: "bold"}}>26</Text>
+                <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{nameContext}, </Text>
+                <Text style={{marginTop: 20, color:'white', fontFamily: "Lato_700Bold", fontSize: 19, fontWeight: "bold"}}>{displayUserAge}</Text>
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
           <MaterialIcons name="location-on" size={19} color="white" style={{ marginTop: 20,marginRight:2}} />
-                <Text style={{marginTop: 20, color:'white', fontFamily: "Roboto_400Regular", fontSize: 18 }}>{user.city}, {user.state}</Text>
+                <Text style={{marginTop: 20, color:'white', fontFamily: "Roboto_400Regular", fontSize: 18 }}>{viewUserProfile.city}, {viewUserProfile.state}</Text>
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
-                <Text style={{marginTop: 20, color:'white',marginRight:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>26</Text>
-                <Text style={{marginTop: 20, color:'white', marginLeft:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>38</Text>
+                <Text style={{marginTop: 20, color:'white',marginRight:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>{displayFollowers}</Text>
+                <Text style={{marginTop: 20, color:'white', marginLeft:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>{displayFollowing}</Text>
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
@@ -167,7 +241,11 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
           </View>
 
         <ScrollView horizontal>
-            <Pressable onPress={() => navigation.navigate('LookAtEvent')}>
+          {
+
+          allEvents.map((event: any, idx: number) => {
+            return(
+              <Pressable onPress={() => navigation.navigate('LookAtEvent')} key={idx}>
           <View style={styles.card}>
         <View style={styles.cardContent}>
             <View style={{ flexDirection: 'row', }}>
@@ -175,12 +253,12 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
             <View>
               <View style={{ flexDirection: 'row' }}>
                 <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
-                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13}}>3/13/22</Text>
+                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13}}>{event.dateOfEvent}</Text>
               </View>
               <View style={{ flexDirection: 'column', }}>
                 <View style={{ flexDirection: 'row', }}>
                 <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop:5, marginLeft: 14 }} />
-                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13 }}>9:30 am</Text>
+                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13 }}>{event.timeOfEvent}</Text>
                 </View>
 
                 <View style={{ flexDirection: 'row' }}>
@@ -193,13 +271,17 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
             </View>
           </View>
 
-                <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>Hal Bartholomew Sports Park Football Game </Text>
-                <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>6300 Whitelock Pkwy,{'\n'}Elk Grove, CA 95757</Text>
+                <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>{event.nameOfEvent} </Text>
+                <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>{event.addressOfEvent},{'\n'}{event.cityOfEvent}, {event.stateOfEvent}</Text>
                 <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
                 </View>
         </View>
       </View>
      </Pressable>
+            )
+          })
+        }
+            
 
    </ScrollView>
           </ImageBackground>
