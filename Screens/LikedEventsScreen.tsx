@@ -217,7 +217,18 @@ type RootStackParamList ={
 // };
 
 
-const LikedEventItems = ({ dateOfEvent,timeOfEvent,addressOfEvent,nameOfEvent, navigation }: any) => {
+const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEvent, getLikedEventsByUser, navigation }: any) => {
+  const { userItems } = useContext<any>(UserContext);
+  const [isLiked, setIsLiked] = useState<boolean>(true);
+
+  const handleLiked = async () => {
+    await DeleteLikedEvent(userItems.id, id)
+    setIsLiked(!isLiked);
+    
+    await getLikedEventsByUser();
+    
+    
+  }
 
   return(
         <>
@@ -250,7 +261,13 @@ const LikedEventItems = ({ dateOfEvent,timeOfEvent,addressOfEvent,nameOfEvent, n
 
                                       <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
                                       <MaterialIcons name="location-on" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginLeft: 12, padding:5  }} />
-                                      <FontAwesome name="heart" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
+                                      <Pressable onPress={handleLiked} >
+                                        {
+                                          isLiked ?  <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
+                                          :  <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
+                                        }
+                                       
+                                      </Pressable>
                                       </View>
 
                                   </View>
@@ -332,6 +349,7 @@ const LikedEventItems = ({ dateOfEvent,timeOfEvent,addressOfEvent,nameOfEvent, n
       nameOfEvent={item.nameOfEvent}
       displayEvents={displayEvents}
       navigation={navigation}
+      getLikedEventsByUser={getLikedEventsByUser}
     />
     )
 };
