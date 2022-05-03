@@ -55,7 +55,7 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
 const ProfileOfOther: FC<Props> = ({navigation, route})  => {
-  const { userItems, nameContext, viewUserProfile } = useContext<any>(UserContext);
+  const { userItems, nameContext, viewUserProfile, updateProfileOther, setUpdateProfileOther } = useContext<any>(UserContext);
   
   const [displayFollowers, setDisplayFollowers] = useState<any>([]);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
@@ -67,7 +67,9 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
     getFollowing();
     getUserAge(viewUserProfile.dateOfBirth);
     fetchEvents();
-  }, [])
+    setUpdateProfileOther(false);
+    
+  }, [updateProfileOther])
 
   const getFollowers = async () => {
     

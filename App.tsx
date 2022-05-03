@@ -37,6 +37,7 @@ import LikedEventsScreen from "./Screens/LikedEventsScreen";
 import ProfileOfOther from "./Screens/ProfileOfOther";
 import FollowersScreen from "./Screens/FollowersScreen";
 import { Platform } from "react-native";
+import YourEventScreen from "./Screens/YourEventScreen";
 
 type RootStackParamList ={
   CreateAccount: undefined,
@@ -51,7 +52,7 @@ type RootStackParamList ={
   LookAtEvent:undefined,
   OtherPersonsFollowers:undefined,
   OtherPersonsFollowings:undefined,
-  YourActiveEvents:undefined,
+  YourActiveEvent:undefined,
   followers:undefined,
   FAQ:undefined,
   CardListScreen:undefined
@@ -132,9 +133,9 @@ const App: FC =()=> {
           <Stack.Screen name="OtherPersonsFollowings"
            options={{ title: 'OtherPersonsFollowings',}}
           component={FollowingScreen}/>
-          <Stack.Screen name="YourActiveEvents"
-           options={{ title: 'Your Active Events',}}
-          component={EventDisplayedScreen}/>
+          <Stack.Screen name="YourActiveEvent"
+           options={{ title: 'Your Event',}}
+          component={YourEventScreen}/>
           <Stack.Screen name="FAQ"
            options={{ title: 'FAQ',}}
           component={FAQScreen}/>

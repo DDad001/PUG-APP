@@ -91,7 +91,7 @@ const [BorderColor, setBorderColor] = useState('black')
             }}
             />
       <Tab.Screen
-        name="Following"
+        name="PUGLogo"
         component={FollowingScreen}
         options={{
             tabBarStyle: {

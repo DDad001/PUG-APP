@@ -4,11 +4,11 @@ import SoccerField from '../assets/SoccerField.png';
 import man from '../assets/man.jpg';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome,Entypo } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { Ionicons } from '@expo/vector-icons';
 import UserContext  from '../Context/UserContext';
-import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetIsLiked } from "../Services/DataService"
+import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetFollowersByUserId, GetUserById, GetFollowingByUserId, UpdateUser, GetIsLiked } from "../Services/DataService"
 
 // Import fonts
 import {
@@ -40,6 +40,7 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import * as ImagePicker from 'expo-image-picker';
 
 interface EventsProps{ 
   handlePastEvents: Function,
@@ -54,7 +55,7 @@ type RootStackParamList ={
   LikedEvents:undefined,
   settings:undefined,
   following:undefined,
-  YourActiveEvents:undefined,
+  YourActiveEvent:undefined,
   followers:undefined,
 }
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
@@ -94,12 +95,10 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
 
   return (
     
-    
-      
     <View style={styles.card}>
       <Pressable onPress={() => {
       console.log('pressed');
-      navigation.navigate('YourActiveEvents')
+      navigation.navigate('YourActiveEvent')
     }}>
   <View style={styles.cardContent}>
       <View style={{ flexDirection: 'row', }}>
@@ -154,25 +153,27 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
 
 
 
-const ProfileScreen: FC<Props> = ({navigation, route})  => {
-  useEffect(() => {
-    fetchEvents();
-    getFollowers();
-    getFollowing();
-    getUserAge(userItems.dateOfBirth)
-  }, []);
-
-  const [allEvents, setAllEvents] = useState<any>([]);
-  const [displayFollowers, setDisplayFollowers] = useState<any>([]);
-  const [displayFollowing, setDisplayFollowing] = useState<any>([]);
-  const [displayUserAge, setDisplayUserAge] = useState<any>();
-  const { userItems } = useContext<any>(UserContext);
+  const ProfileScreen: FC<Props> = ({navigation, route})  => {
+    useEffect(() => {
+      fetchEvents();
+      getFollowers();
+      getFollowing();
+      getUserAge(userItems.dateOfBirth)
+    }, []);
+    
+    const [allEvents, setAllEvents] = useState<any>([]);
+    const [displayFollowers, setDisplayFollowers] = useState<any>([]);
+    const [displayFollowing, setDisplayFollowing] = useState<any>([]);
+    const [displayUserAge, setDisplayUserAge] = useState<any>();
+    const [pickedImagePath, setPickedImagePath] = useState('');
+    const { userItems } = useContext<any>(UserContext);
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(userItems.id);
     let activeEvents = displayEvents.filter((event: any) => event.isActive);
     setAllEvents(activeEvents);
   }
+
 
   const getUserAge = (dob: string) => {
     //get today's year for age calculation
@@ -282,6 +283,60 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
       setDisplayFollowing(followingArr.length);
     }, 1000);
   };
+
+
+
+
+
+
+  const showImagePicker = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this app to access your photos!");
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync();
+    console.log(result);
+    if (!result.cancelled) {
+      setPickedImagePath(result.uri);
+      console.log(result.uri);
+    }
+    let userData = {
+      Id: userItems.id,
+      FirstName: userItems.firstName,
+      LastName: userItems.lastName,
+      Username: userItems.username,
+      Salt: userItems.salt,
+      Hash: userItems.hash,
+      DateOfBirth:userItems.dateOfBirth,
+      City:userItems.city,
+      State:userItems.state,
+      isTermsAccepted:userItems.isTermsAccepted,
+      isEighteen:userItems.isEighteen,
+      Image:pickedImagePath,
+      IsDeleted:false
+    };
+    console.log("test")
+    console.log(userData)
+    let updateUserImage = await UpdateUser(userData);
+    console.log(updateUserImage);
+  }
+
+  const openCamera = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!");
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync();
+    console.log(result);
+  
+    if (!result.cancelled) {
+      setPickedImagePath(result.uri);
+      console.log(result.uri);
+    }
+  }
+
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -316,7 +371,8 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
     <EventItem id={item.id} nameOfEvent={item.nameOfEvent}
     addressOfEvent={item.addressOfEvent}
     dateOfEvent={item.dateOfEvent}
-    timeOfEvent={item.timeOfEvent} />
+    timeOfEvent={item.timeOfEvent} 
+    navigation={navigation}/>
   );
 
  return (
@@ -351,8 +407,36 @@ const ProfileScreen: FC<Props> = ({navigation, route})  => {
             <ScrollView style={{flex: 1, marginBottom: 70}}>
           <View style={{alignItems:'center'}}>
             <Pressable onPress={() => console.log('Change Photo')}>
-                <Image source={man} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}}/>
+                   <View style={{marginTop:20,flexDirection:'row'}}>
+                <Pressable onPress={showImagePicker}>
+              <View style={{backgroundColor:'#7E90AB', height:100, width:100, borderRadius:50, marginTop: 8}}>
+                {
+                  pickedImagePath !== '' ? <Image
+                  source={{ uri: pickedImagePath }}
+                  style={{ height: 100, width: 100, borderRadius: 50,}}
+                  />
+                  :
+                  <View>
+                  <MaterialCommunityIcons name="image-plus" size={40} color="white" style={{marginLeft:30, marginTop:30}}/>
+                  </View>
+                }
+              </View>
+                </Pressable>
+              </View>
+              {/* <View style={{backgroundColor:'gray', height:100, width:100, borderRadius:50, marginTop: 25}}>
+              <Entypo name="camera" size={40} color="white" style={{marginLeft:30, marginTop:30}}/>
+              {
+                  
+                    pickedImagePath !== '' && <Image
+                    source={{ uri:pickedImagePath}} style={{ height: 100, width: 100, borderRadius: 50,}}/>
+                  
+              }
+                </View> */}
             </Pressable>
+            <Pressable onPress={showImagePicker}>
+                <Text style={{color:'white',fontSize:15, fontFamily: "Lato_900Black",textDecorationLine:'underline', marginTop:5 }}>{ pickedImagePath == '' ? "Upload Profile Photo" : "Change Profile Photo"}</Text>
+            </Pressable>
+
           </View>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
                 <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{userItems.firstName + " "+ userItems.lastName}, </Text>
@@ -424,6 +508,9 @@ const styles = StyleSheet.create({
       cardContent: {
         marginHorizontal: 8,
         marginVertical: 8,
+      },
+      imageContainer: {
+        padding: 30
       },
 })
 export default ProfileScreen;
