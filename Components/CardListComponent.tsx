@@ -59,7 +59,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { createOpenLink } from 'react-native-open-maps';
 import UserContext from '../Context/UserContext';
-import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetLikedId } from "../Services/DataService"
+import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetIsLiked } from "../Services/DataService"
 import BasketballEvent from "../assets/BasketballEvent.jpg";
 import soccer from "../assets/soccer.jpg";
 import volleyballevent from "../assets/volleyballevent.jpg";
@@ -103,7 +103,7 @@ type RootStackParamList = {
 
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   const [isLiked, setIsLiked] = useState(false);
-  const { userItems, setEventItems, setNameContext } = useContext<any>(UserContext);
+  const { userItems, setEventItems, setNameContext, setViewUserProfile } = useContext<any>(UserContext);
 
   useEffect(() => {
     getNames();
@@ -117,13 +117,13 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     const getNames = async () => {
       let userData = await GetUserById(userId);
       setName(`${userData.firstName} ${userData.lastName}`)
+      setViewUserProfile(userData);
     }
 
     const checkIfLiked = async () => {
-      let liked = await GetLikedId(userItems.id, event.id);
-      if(checkIfLiked != null){
-        setIsLiked(true);
-      }
+      let liked = await GetIsLiked(userItems.id, event.id);
+      
+      setIsLiked(liked);
       //console.log(liked);
     }
     

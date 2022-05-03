@@ -1,7 +1,7 @@
 import { Pressable, View } from "react-native"
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
-import { FC, useContext, useState } from "react";
-import {AddLikedEvent, DeleteLikedEvent} from '../Services/DataService'
+import { FC, useContext, useState, useEffect } from "react";
+import {AddLikedEvent, DeleteLikedEvent, GetIsLiked} from '../Services/DataService'
 import UserContext from "../Context/UserContext";
 
 const EventDisplayedImageComponent:FC = () => {
@@ -9,6 +9,11 @@ const EventDisplayedImageComponent:FC = () => {
     const { userItems, eventItems, nameContext } = useContext<any>(UserContext);
 
     const [isLiked, setIsLiked] = useState(false);
+
+    useEffect(() => {
+      checkIfLiked();
+    })
+
     const handleLiked = () => {
         setIsLiked(!isLiked)
         let liked = isLiked;
@@ -24,6 +29,13 @@ const EventDisplayedImageComponent:FC = () => {
           DeleteLikedEvent(userItems.id, eventItems.id)
         }
     
+      }
+
+      const checkIfLiked = async () => {
+        let liked = await GetIsLiked(userItems.id, eventItems.id);
+        
+        setIsLiked(liked);
+        //console.log(liked);
       }
     return (
        <View style={{flexDirection: "row", paddingTop: 5,}}> 

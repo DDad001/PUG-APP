@@ -8,7 +8,7 @@ import { FontAwesome,Entypo } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { Ionicons } from '@expo/vector-icons';
 import UserContext  from '../Context/UserContext';
-import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetFollowersByUserId, GetUserById, GetFollowingByUserId, UpdateUser } from "../Services/DataService"
+import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetFollowersByUserId, GetUserById, GetFollowingByUserId, UpdateUser, GetIsLiked } from "../Services/DataService"
 
 // Import fonts
 import {
@@ -64,6 +64,10 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
   const { userItems } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
+  useEffect(() => {
+    checkIfLiked();
+  })
+
   const handleLiked = () => {
     setIsLiked(!isLiked)
     let liked = isLiked;
@@ -79,6 +83,13 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
       DeleteLikedEvent(userItems.id, id)
     }
     
+  }
+
+  const checkIfLiked = async () => {
+    let liked = await GetIsLiked(userItems.id, id);
+    
+    setIsLiked(liked);
+    //console.log(liked);
   }
  
 
@@ -121,7 +132,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
 
           <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>{nameOfEvent} </Text>
           <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>{addressOfEvent}</Text>
-          <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+          <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop:30, marginLeft: 10}}>
             <Pressable onPress={() => {
               console.log("Removed")
               DeleteEventItem(id);

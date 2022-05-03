@@ -3,11 +3,11 @@ import { View, Text, StyleSheet, ImageBackground, Pressable, Image, SafeAreaView
 import tennis from "../assets/TennisRacket.png";
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import man from '../assets/man.jpg';
 
 import AppLoading from "expo-app-loading";
-import { GetLikedEventsByUserId, GetEventItemById } from "../Services/DataService";
+import { GetLikedEventsByUserId, GetEventItemById, GetIsLiked, AddLikedEvent, DeleteLikedEvent } from "../Services/DataService";
 import UserContext  from '../Context/UserContext';
 
 // Import fonts
@@ -250,7 +250,7 @@ const LikedEventItems = ({ dateOfEvent,timeOfEvent,addressOfEvent,nameOfEvent, n
 
                                       <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
                                       <MaterialIcons name="location-on" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginLeft: 12, padding:5  }} />
-                                      <FontAwesome5 name="heart" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
+                                      <FontAwesome name="heart" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
                                       </View>
 
                                   </View>
@@ -262,10 +262,11 @@ const LikedEventItems = ({ dateOfEvent,timeOfEvent,addressOfEvent,nameOfEvent, n
 
 
  type Props = NativeStackScreenProps<RootStackParamList, "profile">;
-
-const LikedEventsScreen: FC<Props>= ({navigation,route}) => {
-    const { userItems } = useContext<any>(UserContext);
+ 
+ const LikedEventsScreen: FC<Props>= ({navigation,route}) => {
+   const { userItems } = useContext<any>(UserContext);
    const [displayEvents, setDisplayEvents] = useState<any>([]);
+   const [isLiked, setIsLiked] = useState(true);
   
 
   useEffect(() => {
@@ -299,6 +300,26 @@ const LikedEventsScreen: FC<Props>= ({navigation,route}) => {
 
     
   }
+
+
+  const handleLiked = (eventId: number) => {
+    setIsLiked(!isLiked)
+
+    
+     DeleteLikedEvent(userItems.id, eventId)
+ 
+    setTimeout(() => {
+      getLikedEventsByUser();
+    }, 1000)
+    
+  }
+
+  // const checkIfLiked = async (eventId: number) => {
+  //   let liked = await GetIsLiked(userItems.id, eventId);
+    
+  //   setIsLiked(liked);
+  //   //console.log(liked);
+  // }
   
   
   const renderItem = ({ item }: any) => {
