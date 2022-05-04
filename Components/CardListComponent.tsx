@@ -169,7 +169,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
           EventHandler();
         }}>
           <View style={{ flexDirection: 'row', flex: 1, }}>
-
+            <View style={{ backgroundColor: "pink" }}>
             {
               sportOfEvent === "Basketball" ?
                 <Image source={BasketballEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
@@ -218,43 +218,52 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                                                           :
                                                           <Image source={pugEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
             }
-            <View>
-              <View style={{ flex: 1, flexDirection: 'row', }}>
-                <View style={{width: 155}}>
-                  <Text style={{ marginLeft: 20, fontSize: 12, marginTop: 10, fontFamily: "Lato_700Bold"}}>{nameOfEvent}</Text>
+            </View>
+            <View style={{ flex:1 }}>
+              <View style={{flex:0.4, flexDirection: 'row' }}>
+                {/* Name of the event section below! */}
+                <View style={{flex:1, width: 155, marginLeft: 25, justifyContent:'center'}}>
+                  <Text style={{ marginLeft: 0, fontSize: 12, fontFamily: "Lato_700Bold"}}>{nameOfEvent}</Text>
                 </View>
 
-            <View style={{flex: 1, flexDirection: "row", justifyContent: "flex-end"}}>
-              
+            {/* Icon section here below!  */}
+            <View style={{flex:0.6, flexDirection: "row", alignItems: 'center', justifyContent: 'space-around' }}>
                 <Pressable onPress={createOpenLink({ provider: 'google', end: addressOfEvent })}>
-                  <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', marginTop: 5, marginLeft: 8, padding: 7 }} />
+                  <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 7 }} />
                 </Pressable>
 
                 <Pressable onPress={handleLiked}>
                   {
-                    isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8, marginLeft: 9, marginTop: 5, }} />
-                      : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8, marginLeft: 9, marginTop: 5, }} />
+                    isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8, marginLeft: 9, }} />
+                      : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />
                   }
 
                 </Pressable>
             </View>
 
               </View>
-              <View style={{ flexDirection: 'column', }}>
-                <View style={{ flexDirection: 'row', }}>
-                  <Text style={{ fontSize: 11, marginLeft: 21, marginBottom: 10, fontFamily: "Lato_400Regular" }}>{addressOfEvent}</Text>
-                  <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10, marginLeft: 43 }} />
-                  <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{dateOfEvent}</Text>
+              {/* Fix the like and address icons */}
+              <View style={{flex:1, flexDirection: 'column', }}>
+                <View style={{flex:1, flexDirection: 'row' }}>
+                  {/* Address of the event is below! */}
+                  <View style={{flex: 1, justifyContent: 'center'}}>
+                    <Text style={{ flexWrap: 'wrap', flexShrink: 1, fontSize: 11, marginLeft: 25, fontFamily: "Lato_400Regular", borderColor: "white", justifyContent: "center" }}>{addressOfEvent}</Text>
+                  </View>
+                  {/* Calendar Icon and date is below! */}
+                  <View style={{flex:0.5, flexDirection: "row", justifyContent: 'center'}}>
+                    <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10}} />
+                    <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{dateOfEvent}</Text>
+                  </View>
                 </View>
 
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{flex: 1, flexDirection: "row", justifyContent: "flex-start"}}>
+                <View style={{ flex:1, flexDirection: 'row' }}>
+                  <View style={{flex: 0.7, flexDirection: "row", justifyContent: "flex-start" }}>
                     <Pressable onPress={() => {
                       ProfileHandler();
                       handleSaveUser();
                       }}>
                       <View style={{ flexDirection: 'row' }}>
-                        <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 22 }} />
+                        <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 25 }} />
                         <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
                           {       
                             name
@@ -264,8 +273,8 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                     </Pressable>
                   </View>
                     
-                  <View style={{flex:0.5,flexDirection: "row", justifyContent: "flex-end", paddingRight: 11}}>
-                    <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 48, marginTop: 4, }} />
+                  <View style={{flex:0.3,flexDirection: "row", paddingRight: 11  }}>
+                    <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 5, marginTop: 4, }} />
                     <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{timeOfEvent}</Text>
                   </View>
 
