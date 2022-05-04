@@ -61,12 +61,12 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
 const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation} :any) => {
-  const { userItems } = useContext<any>(UserContext);
+  const { userItems, setUpdateScreen, updateScreen } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     checkIfLiked();
-  })
+  }, [])
 
   const handleLiked = () => {
     setIsLiked(!isLiked)
@@ -82,7 +82,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     }else{
       DeleteLikedEvent(userItems.id, id)
     }
-    
+    setUpdateScreen(true);
   }
 
   const checkIfLiked = async () => {

@@ -1,10 +1,10 @@
 import { FC, useState, useContext, useEffect } from "react";
-import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, FlatList, SafeAreaView } from "react-native";
 import SoccerField from '../assets/SoccerField.png';
 import man from '../assets/man.jpg';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -39,7 +39,7 @@ import {
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import UserContext  from '../Context/UserContext';
-import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetItemsByUserId} from '../Services/DataService';
+import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetIsLiked} from '../Services/DataService';
 
 type RootStackParamList ={
   Nav: undefined,
@@ -54,8 +54,92 @@ type RootStackParamList ={
 }
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
+const EventItem = ({event, navigation} :any) => {
+  const { userItems, setUpdateScreen } = useContext<any>(UserContext);
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    checkIfLiked();
+  }, [])
+
+  const handleLiked = () => {
+    setIsLiked(!isLiked)
+    let liked = isLiked;
+    if(!liked){
+      let addLike = {
+        Id: 0,
+        UserId: userItems.id,
+        EventId: event.id,
+        EventUnliked: false
+      }
+      AddLikedEvent(addLike)
+    }else{
+      DeleteLikedEvent(userItems.id, event.id)
+    }
+    setUpdateScreen(true);
+  }
+
+  const checkIfLiked = async () => {
+    let liked = await GetIsLiked(userItems.id, event.id);
+    
+    setIsLiked(liked);
+    //console.log(liked);
+  }
+ 
+
+  return (
+    
+    <Pressable onPress={() => navigation.navigate('LookAtEvent')}>
+          <View style={styles.card}>
+        <View style={styles.cardContent}>
+            <View style={{ flexDirection: 'row', }}>
+            <Image source={man} style={{ height: 90, width: 120, borderRadius: 8 }} />
+            <View>
+              <View style={{ flexDirection: 'row' }}>
+                <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
+                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13}}>{event.dateOfEvent}</Text>
+              </View>
+              <View style={{ flexDirection: 'column', }}>
+                <View style={{ flexDirection: 'row', }}>
+                <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop:5, marginLeft: 14 }} />
+                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13 }}>{event.timeOfEvent}</Text>
+                </View>
+
+                <View style={{ flexDirection: 'row' }}>
+                <MaterialIcons name="location-on" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:17, padding:3  }} />
+                <Pressable onPress={handleLiked} >
+                  {
+                    isLiked ? <FontAwesome name="heart" size={16} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+                    : <FontAwesome name="heart-o" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+                  }
+                   
+                  </Pressable>
+                </View>
+
+
+              </View>
+            </View>
+          </View>
+
+                <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>{event.nameOfEvent} </Text>
+                <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>{event.addressOfEvent},{'\n'}{event.cityOfEvent}, {event.stateOfEvent}</Text>
+                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+                </View>
+        </View>
+      </View>
+     </Pressable>
+   
+
+  )};
+
+
+
+
+
+
+
 const ProfileOfOther: FC<Props> = ({navigation, route})  => {
-  const { userItems, nameContext, viewUserProfile, updateProfileOther, setUpdateProfileOther } = useContext<any>(UserContext);
+  const { userItems, nameContext, viewUserProfile, updateProfileOther, setUpdateProfileOther, } = useContext<any>(UserContext);
   
   const [displayFollowers, setDisplayFollowers] = useState<any>([]);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
@@ -202,7 +286,9 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
     return <AppLoading />;
   }
 
- 
+  const renderItem = ({item}: any) => (
+    <EventItem event={item} />
+  );
 
  return (
      <>
@@ -242,50 +328,17 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
               <Text style={{marginTop: 30, color:'white', marginLeft:25, fontSize:30, fontFamily: "Lato_900Black",}}>Active Events</Text>
           </View>
 
-        <ScrollView horizontal>
-          {
-
-          allEvents.map((event: any, idx: number) => {
-            return(
-              <Pressable onPress={() => navigation.navigate('LookAtEvent')} key={idx}>
-          <View style={styles.card}>
-        <View style={styles.cardContent}>
-            <View style={{ flexDirection: 'row', }}>
-            <Image source={man} style={{ height: 90, width: 120, borderRadius: 8 }} />
-            <View>
-              <View style={{ flexDirection: 'row' }}>
-                <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
-                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13}}>{event.dateOfEvent}</Text>
-              </View>
-              <View style={{ flexDirection: 'column', }}>
-                <View style={{ flexDirection: 'row', }}>
-                <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop:5, marginLeft: 14 }} />
-                  <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 13 }}>{event.timeOfEvent}</Text>
-                </View>
-
-                <View style={{ flexDirection: 'row' }}>
-                <MaterialIcons name="location-on" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:17, padding:3  }} />
-                   <FontAwesome5 name="heart" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
-                </View>
-
-
-              </View>
-            </View>
-          </View>
-
-                <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>{event.nameOfEvent} </Text>
-                <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>{event.addressOfEvent},{'\n'}{event.cityOfEvent}, {event.stateOfEvent}</Text>
-                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
-                </View>
-        </View>
-      </View>
-     </Pressable>
-            )
-          })
-        }
+        <SafeAreaView>
+         
+        {/* This is where FlatList Goes */}
+        <FlatList horizontal
+        data={allEvents}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        />
             
 
-   </ScrollView>
+   </SafeAreaView>
           </ImageBackground>
     </View>
      </>
