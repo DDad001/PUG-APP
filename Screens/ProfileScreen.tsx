@@ -60,13 +60,13 @@ type RootStackParamList ={
 }
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
-const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation} :any) => {
-  const { userItems } = useContext<any>(UserContext);
+const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation} :any) => {
+  const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext} = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     checkIfLiked();
-  })
+  }, [])
 
   const handleLiked = () => {
     setIsLiked(!isLiked)
@@ -82,7 +82,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     }else{
       DeleteLikedEvent(userItems.id, id)
     }
-    
+    setUpdateScreen(true);
   }
 
   const checkIfLiked = async () => {
@@ -91,6 +91,11 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     setIsLiked(liked);
     //console.log(liked);
   }
+
+  const handleSavedEvent = () => {
+    setEventItems(event);
+    setNameContext(`${userItems.firstName} ${userItems.lastName}`);
+  }
  
 
   return (
@@ -98,6 +103,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     <View style={styles.card}>
       <Pressable onPress={() => {
       console.log('pressed');
+      handleSavedEvent();
       navigation.navigate('YourActiveEvent')
     }}>
   <View style={styles.cardContent}>
@@ -372,7 +378,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     addressOfEvent={item.addressOfEvent}
     dateOfEvent={item.dateOfEvent}
     timeOfEvent={item.timeOfEvent} 
-    navigation={navigation}/>
+    navigation={navigation} event={item}/>
   );
 
  return (
