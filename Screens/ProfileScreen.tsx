@@ -61,12 +61,13 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
 const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation} :any) => {
-  const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext} = useContext<any>(UserContext);
+  const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext, setUpdateProfileScreen, updateProfileScreen} = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     checkIfLiked();
-  }, [])
+    setUpdateProfileScreen(false);
+  }, [updateProfileScreen])
 
   const handleLiked = () => {
     setIsLiked(!isLiked)
@@ -160,6 +161,8 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
 
 
   const ProfileScreen: FC<Props> = ({navigation, route})  => {
+    const { userItems, updateProfileScreen, setUpdateProfileScreen } = useContext<any>(UserContext);
+
     useEffect(() => {
       fetchEvents();
       getFollowers();
@@ -172,7 +175,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     const [displayFollowing, setDisplayFollowing] = useState<any>([]);
     const [displayUserAge, setDisplayUserAge] = useState<any>();
     const [pickedImagePath, setPickedImagePath] = useState('');
-    const { userItems } = useContext<any>(UserContext);
+    
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(userItems.id);
