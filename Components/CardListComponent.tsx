@@ -291,14 +291,15 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 };
 
 const CardListComponent: FC<CardProps> = (props) => {
-
+  const { updateScreen, setUpdateScreen } = useContext<any>(UserContext);
   
   const [allEvents, setAllEvents] = useState<any>([]);
 
   
   useEffect(() => {
     fetchEvents();
-  }, []);
+    setUpdateScreen(false);
+  }, [updateScreen]);
   
   const fetchEvents = async () => {
     let displayEvents = await GetEventItems();
