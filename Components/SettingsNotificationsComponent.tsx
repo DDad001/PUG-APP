@@ -330,11 +330,56 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                 }}
                 onValueChange={(itemValue) => setUpdatedState(itemValue)}
               >
-                <Select.Item label="California" value="CA" />
-                <Select.Item label="Arizona" value="AZ" />
-                <Select.Item label="Nevada" value="NV" />
-                <Select.Item label="Oregon" value="OR" />
-                <Select.Item label="Washington" value="WA" />
+                <Select.Item label="AL" value="AL" />
+                  <Select.Item label="AK" value="AK" />
+                  <Select.Item label="AZ" value="AZ" />
+                  <Select.Item label="AR" value="AR" />
+                  <Select.Item label="CA" value="CA" />
+                  <Select.Item label="CO" value="CO" />
+                  <Select.Item label="CT" value="CT" />
+                  <Select.Item label="DE" value="DE" />
+                  <Select.Item label="FL" value="FL" />
+                  <Select.Item label="GA" value="GA" />
+                  <Select.Item label="HI" value="HI" />
+                  <Select.Item label="ID" value="ID" />
+                  <Select.Item label="IL" value="IL" />
+                  <Select.Item label="IN" value="IN" />
+                  <Select.Item label="IA" value="IA" />
+                  <Select.Item label="KS" value="KS" />
+                  <Select.Item label="KY" value="KY" />
+                  <Select.Item label="LA" value="LA" />
+                  <Select.Item label="ME" value="ME" />
+                  <Select.Item label="MD" value="MD" />
+                  <Select.Item label="MA" value="MA" />
+                  <Select.Item label="MI" value="MI" />
+                  <Select.Item label="MN" value="MN" />
+                  <Select.Item label="MS" value="MS" />
+                  <Select.Item label="MO" value="MO" />
+                  <Select.Item label="MT" value="MT" />
+                  <Select.Item label="NE" value="NE" />
+                  <Select.Item label="NV" value="NV" />
+                  <Select.Item label="NH" value="NH" />
+                  <Select.Item label="NJ" value="NJ" />
+                  <Select.Item label="NM" value="NM" />
+                  <Select.Item label="NY" value="NY" />
+                  <Select.Item label="NC" value="NC" />
+                  <Select.Item label="ND" value="ND" />
+                  <Select.Item label="OH" value="OH" />
+                  <Select.Item label="OK" value="OK" />
+                  <Select.Item label="OR" value="OR" />
+                  <Select.Item label="PA" value="PA" />
+                  <Select.Item label="RI" value="RI" />
+                  <Select.Item label="SC" value="SC" />
+                  <Select.Item label="SD" value="SD" />
+                  <Select.Item label="TN" value="TN" />
+                  <Select.Item label="TX" value="TX" />
+                  <Select.Item label="UT" value="UT" />
+                  <Select.Item label="VT" value="VT" />
+                  <Select.Item label="VA" value="VA" />
+                  <Select.Item label="WA" value="WA" />
+                  <Select.Item label="WV" value="WV" />
+                  <Select.Item label="WI" value="WI" />
+                  <Select.Item label="WY" value="WY" />
               </Select>
             </Box>
             <Box>
