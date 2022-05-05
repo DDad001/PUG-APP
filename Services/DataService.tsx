@@ -304,6 +304,13 @@ async function DeleteFollower(userId:number, followerId:number) {
     return data;
 
 }
+
+async function GetIsFollowed(userId:number, followerId:number){
+    let res = await fetch(`http://localhost:5216/Followers/GetIsFollowed/${userId}/${followerId}`);
+    let data = await res.json();
+    //console.log(data);
+    return data;
+}
 //---------------ALL FETCHES FOR FOLLOWERS CONTROLLER-----------------
 
 
@@ -428,6 +435,6 @@ export{
     AddFollower,GetFollowersByUserId,GetFollowId,GetFollowingByUserId,
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
     DeleteLikedEvent,GetAddress,UpdatePassword,GetCitiesByState,
-    ReportEvent,ReportUser, GetIsLiked
+    ReportEvent,ReportUser, GetIsLiked, GetIsFollowed
 
 }
