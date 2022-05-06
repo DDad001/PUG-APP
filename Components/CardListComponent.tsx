@@ -169,7 +169,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
           EventHandler();
         }}>
           <View style={{ flexDirection: 'row', flex: 1, }}>
-            <View style={{ backgroundColor: "pink" }}>
+            <View>
             {
               sportOfEvent === "Basketball" ?
                 <Image source={BasketballEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
