@@ -151,7 +151,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     //check if all the fields are empty!
     if(firstName.length < 1 || lastName.length < 1 || username.length < 1 || city.length < 1 || updatedState.length < 1 || password.length < 1){
       // Use zIndex on all of them go get the toast to appear in the front!
-      Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="5" py="1" rounded="sm" mb={5}>Error: all fields must be filled out!</Box>;}});
+      Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex:1}} bg="danger.500" px="5" py="1" rounded="sm" mb={5}>Error: all fields must be filled out!</Box>;}});
     }
     else if(FirstNameInput == false){
       Errortoast.show({ placement:  "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: first name must include characters only</Box>;}});
