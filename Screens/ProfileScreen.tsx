@@ -60,13 +60,14 @@ type RootStackParamList ={
 }
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
-const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation} :any) => {
-  const { userItems } = useContext<any>(UserContext);
+const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation} :any) => {
+  const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext, setUpdateProfileScreen, updateProfileScreen} = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     checkIfLiked();
-  })
+    setUpdateProfileScreen(false);
+  }, [updateProfileScreen])
 
   const handleLiked = () => {
     setIsLiked(!isLiked)
@@ -82,7 +83,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     }else{
       DeleteLikedEvent(userItems.id, id)
     }
-    
+    setUpdateScreen(true);
   }
 
   const checkIfLiked = async () => {
@@ -91,6 +92,11 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     setIsLiked(liked);
     //console.log(liked);
   }
+
+  const handleSavedEvent = () => {
+    setEventItems(event);
+    setNameContext(`${userItems.firstName} ${userItems.lastName}`);
+  }
  
 
   return (
@@ -98,6 +104,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     <View style={styles.card}>
       <Pressable onPress={() => {
       console.log('pressed');
+      handleSavedEvent();
       navigation.navigate('YourActiveEvent')
     }}>
   <View style={styles.cardContent}>
@@ -131,8 +138,8 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     </View>
 
           <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>{nameOfEvent} </Text>
-          <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: "Lato_400Regular"}}>{addressOfEvent}</Text>
-          <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop:30, marginLeft: 10}}>
+          <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: 'Lato_400Regular'}}>{addressOfEvent}</Text>
+          <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop:25, marginLeft: 10 }}>
             <Pressable onPress={() => {
               console.log("Removed")
               DeleteEventItem(id);
@@ -154,6 +161,8 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
 
 
   const ProfileScreen: FC<Props> = ({navigation, route})  => {
+    const { userItems, updateProfileScreen, setUpdateProfileScreen } = useContext<any>(UserContext);
+
     useEffect(() => {
       fetchEvents();
       getFollowers();
@@ -166,7 +175,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     const [displayFollowing, setDisplayFollowing] = useState<any>([]);
     const [displayUserAge, setDisplayUserAge] = useState<any>();
     const [pickedImagePath, setPickedImagePath] = useState('');
-    const { userItems } = useContext<any>(UserContext);
+    
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(userItems.id);
@@ -372,7 +381,7 @@ const EventItem = ({id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, n
     addressOfEvent={item.addressOfEvent}
     dateOfEvent={item.dateOfEvent}
     timeOfEvent={item.timeOfEvent} 
-    navigation={navigation}/>
+    navigation={navigation} event={item}/>
   );
 
  return (

@@ -10,7 +10,7 @@ import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio, useToast } from "native-base";
 import UserContext from '../Context/UserContext';
-import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower, ReportUser, ReportEvent } from '../Services/DataService'
+import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower, ReportUser, ReportEvent, GetUserById } from '../Services/DataService'
 
 
 import {
@@ -96,7 +96,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   const [radioUserValue, setRadioUserValue] = useState<string>("");
   const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
-  const { userItems, eventItems, nameContext } = useContext<any>(UserContext);
+  const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile } = useContext<any>(UserContext);
 
   // const [isLiked, setIsLiked] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
@@ -229,6 +229,14 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
     }
 
 
+  }
+
+  const handleSaveUser = async () => {
+    
+    let userData = await GetUserById(eventItems.userId);
+    setViewUserProfile(userData);
+    setNameContext(`${userData.firstName} ${userData.lastName}`)
+    setUpdateProfileOther(true);
   }
 
   // const handleLiked = () => {
@@ -420,7 +428,10 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
             </Pressable>
           </View>
 
-          <Pressable onPress={() => navigation.navigate('profile', { name: 'profile' })}>
+          <Pressable onPress={() => {
+            handleSaveUser();
+            navigation.navigate('profile', { name: 'profile' }
+            )}}>
             <Center>
               <Modal isOpen={showModal} size="full" onClose={() => setShowModal(false)}>
                 <Modal.Content maxWidth="400px">

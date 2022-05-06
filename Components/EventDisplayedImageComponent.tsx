@@ -6,13 +6,13 @@ import UserContext from "../Context/UserContext";
 
 const EventDisplayedImageComponent:FC = () => {
 
-    const { userItems, eventItems, nameContext } = useContext<any>(UserContext);
+    const { userItems, eventItems, nameContext, setUpdateScreen, setEventItems, setNameContext } = useContext<any>(UserContext);
 
     const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
       checkIfLiked();
-    })
+    }, [])
 
     const handleLiked = () => {
         setIsLiked(!isLiked)
@@ -28,7 +28,7 @@ const EventDisplayedImageComponent:FC = () => {
         } else {
           DeleteLikedEvent(userItems.id, eventItems.id)
         }
-    
+        setUpdateScreen(true);
       }
 
       const checkIfLiked = async () => {

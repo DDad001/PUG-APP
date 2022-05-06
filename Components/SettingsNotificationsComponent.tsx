@@ -1,5 +1,5 @@
 import React, { FC, useState, useContext } from "react";
-import {  ScrollView, StyleSheet, Image, View, Pressable} from "react-native";
+import {  ScrollView, StyleSheet, Image, View, Pressable, TextInput } from "react-native";
 import { Switch } from "react-native-paper";
 import AppLoading from "expo-app-loading";
 import { DatePickerModal } from 'react-native-paper-dates';
@@ -148,49 +148,59 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     //console.log(userData);
 
     let result:any;
-    if(FirstNameInput == false){
-      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: first name must include characters only</Box>;}});
+    //check if all the fields are empty!
+    if(firstName.length < 1 || lastName.length < 1 || username.length < 1 || city.length < 1 || updatedState.length < 1 || password.length < 1){
+      // Use zIndex on all of them go get the toast to appear in the front!
+      Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex:1}} bg="danger.500" px="5" py="1" rounded="sm" mb={5}>Error: all fields must be filled out!</Box>;}});
+    }
+    else if(FirstNameInput == false){
+      Errortoast.show({ placement:  "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: first name must include characters only</Box>;}});
       //setShowModal(true);
     }
     else if(LastNameInput == false){
-      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: last name must include characters only</Box>;}});
+      Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: last name must include characters only</Box>;}});
       //setShowModal(true);
     }
     else if(username.length < 8 ){
-      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username length is too small</Box>;}});
+      Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username length is too small</Box>;}});
       //setShowModal(true);
     }
     else if(age < 18){
-      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: you must be 18 years or older to create an account</Box>;}});
+      Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: you must be 18 years or older to create an account</Box>;}});
       //setShowModal(true);
     }
     else if(CityInput == false){
-      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: city must include characters only</Box>;}});
+      Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: city must include characters only</Box>;}});
       //setShowModal(true);
+    }else if(password.length < 8){
+      Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: password length is too small</Box>;}});
     }
     else{
       result = await UpdateUser(edittedProfile);
       //console.log(result);
       if(!result){
-        Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username has already been taken</Box>;}});
+        Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username has already been taken</Box>;}});
         //setShowModal(true);
       }else{
-        Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully updated!</Box>}});
+        Successtoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully updated!</Box>}});
         setShowModal(false);
-      }
-    }
-
-    if(password != ""){
-      if(password.length < 8){
-        Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: password length is too small</Box>;}});
-        setShowModal(true);
-      }else{
         setTimeout(() => {
           UpdatePassword(userItems.id, password);
         }, 1000)
-        setShowModal(false);
       }
     }
+
+    // if(password != ""){
+    //   if(password.length < 8){
+    //     Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: password length is too small</Box>;}});
+    //     // setShowModal(true);
+    //   }else{
+        // setTimeout(() => {
+        //   UpdatePassword(userItems.id, password);
+        // }, 1000)
+    //     // setShowModal(false);
+    //   }
+    // }
   }
 
   const handleDeleteProfile = () => {
@@ -256,41 +266,72 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
       </View>
 
       <Center style={{ marginTop: 50, flexDirection: 'row' }}>
-      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)} size={"full"}>
         <Modal.Content maxWidth="400px">
           <Modal.CloseButton />
           <Modal.Header><Text style={{color: '#0A326D', fontSize: 20,}}>Edit Profile</Text></Modal.Header>
           <Modal.Body>
             <Box>
-              <FormControl.Label> First Name</FormControl.Label>
-              <Input fontFamily="Roboto_400Regular" placeholder={firstName}
-              onChangeText={(text) => setFirstName(text)}
-              />
+              <FormControl.Label>
+                <Text style={[styles.LabelTxt, {marginLeft: 20}]}>First Name</Text>
+              </FormControl.Label>
+              <TextInput
+                  style={styles.Input}
+                  onChangeText={(text) => setFirstName(text)}
+                  value={firstName}
+                  placeholder={firstName}
+                  accessibilityLabel="Enter your first name"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                />
             </Box>
             <Box mt="3">
-              <FormControl.Label>Last Name</FormControl.Label>
-              <Input fontFamily="Roboto_400Regular" placeholder={lastName} 
-              onChangeText={(text) => setLastName(text)}
-              />
+              <FormControl.Label>
+                <Text style={[styles.LabelTxt, {marginLeft: 20}]}>Last Name</Text>
+              </FormControl.Label>
+              <TextInput
+                  style={styles.Input}
+                  onChangeText={(text) => setLastName(text)}
+                  value={lastName}
+                  placeholder={lastName}
+                  accessibilityLabel="Enter your last name"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                />
             </Box>
             <Box mt="3">
-              <FormControl.Label>Username</FormControl.Label>
-              <Input fontFamily="Roboto_400Regular" placeholder={username} 
-              onChangeText={(text) => setUsername(text)}
-              />
+              <FormControl.Label>
+                <Text style={[styles.LabelTxt, {marginLeft: 20}]}>Username</Text>
+              </FormControl.Label>
+              <TextInput
+                  style={styles.Input}
+                  onChangeText={(text) => setUsername(text)}
+                  value={username}
+                  placeholder={username}
+                  accessibilityLabel="Enter your username"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                />
             </Box>
             <Box mt="3">
-              <FormControl.Label>Password</FormControl.Label>
-              <Input fontFamily="Roboto_400Regular" placeholder="Enter New Password" type="password"
-              onChangeText={(text) => setPassword(text)}
-              />
+              <FormControl.Label>
+                <Text style={[styles.LabelTxt, {marginLeft: 20}]}>Password</Text>
+              </FormControl.Label>
+              <TextInput
+                  style={styles.Input}
+                  onChangeText={(text) => setPassword(text)}
+                  value={password}
+                  placeholder="Enter new password"
+                  accessibilityLabel="Enter your password"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                />
             </Box>
 
             <Box mt='3'>
-            <FormControl.Label>Date of Birth</FormControl.Label>
+            <FormControl.Label>
+              <Text style={[styles.LabelTxt, {marginLeft: 20}]}>Date of Birth</Text>
+            </FormControl.Label>
             <PaperProvider theme={theme}>
                   <View style={{flexDirection:'row',flex: 1,}}>
                 <DatePickerModal 
+                  
                   mode="single"
                   visible={visible}
                   onDismiss={onDismiss}
@@ -305,9 +346,15 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                   animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
                   locale={'en'}// optional, default is automically detected by your system  
                   /> 
-                <Pressable style={{backgroundColor: '#FAFAFA', borderWidth: 1, borderColor:'lightgray', borderRadius: 5,}} onPress={()=> setVisible(true)}>
+                {/* <Pressable style={{backgroundColor: '#FAFAFA', borderWidth: 1, borderColor:'lightgray', borderRadius: 5,}} onPress={()=> setVisible(true)}>
                   <View style={{flexDirection:'row',  }}>
                   <Text style={{ fontSize:12, marginRight: 199, paddingTop: 5, paddingBottom: 5, paddingLeft: 11, color:"gray", fontFamily: 'Roboto_400Regular', opacity: 0.6}}>{dob}</Text>
+                  </View>
+                </Pressable> */}
+                <Pressable style={{backgroundColor:'white', flex:0.95, height:55, borderRadius:20, marginLeft:16, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
+                  <View style={{flexDirection:'row', shadowColor: "black",}}>
+                  <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15, flex:0.9}}>Date of birth</Text>
+                 <Text style={{color:'#3B567C',  marginLeft:130, marginTop:19, fontSize:15}}>{dob}</Text>
                   </View>
                 </Pressable>
                   </View>
@@ -317,31 +364,104 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
 
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 13}}>
             <Box>
-              <FormControl.Label>State</FormControl.Label>
-              <Select
-                fontFamily="Roboto_400Regular"
-                selectedValue={updatedState}
-                minWidth="130"
-                accessibilityLabel="Choose Service"
-                placeholder="Choose State"
-                _selectedItem={{
-                  bg: "teal.600",
-                  endIcon: <CheckIcon size="5" />,
-                }}
-                onValueChange={(itemValue) => setUpdatedState(itemValue)}
-              >
-                <Select.Item label="California" value="CA" />
-                <Select.Item label="Arizona" value="AZ" />
-                <Select.Item label="Nevada" value="NV" />
-                <Select.Item label="Oregon" value="OR" />
-                <Select.Item label="Washington" value="WA" />
-              </Select>
+              <FormControl.Label>
+                  <Text style={[styles.LabelTxt, {marginLeft: 20}]}>State</Text>
+              </FormControl.Label>
+              <Box
+                      maxW="155"
+                      borderRadius={15}
+                      style={{
+                        backgroundColor: "white",
+                        shadowColor: "black",
+                        shadowOffset: { width: -2, height: 4 },
+                        shadowOpacity: 0.5,
+                        shadowRadius: 3,
+                        marginLeft: 20
+                      }}
+                    >
+                      <Select
+                        minWidth="150"
+                        minHeight="53"
+                        accessibilityLabel="Choose Service"
+                        placeholderTextColor={"#3B567C"}
+                        placeholder={updatedState}
+                        _selectedItem={{
+                          bg: "black.300",
+                          endIcon: <CheckIcon size={5} color="#3B567C" />,
+                        }}
+                        borderWidth="0"
+                        fontFamily={"Roboto_400Regular"}
+                        fontSize={15}
+                        color={"#3B567C"}
+                        onValueChange = {(itemValue) => setUpdatedState(itemValue)}
+                      >
+                        <Select.Item label="AL" value="AL" />
+                        <Select.Item label="AK" value="AK" />
+                        <Select.Item label="AZ" value="AZ" />
+                        <Select.Item label="AR" value="AR" />
+                        <Select.Item label="CA" value="CA" />
+                        <Select.Item label="CO" value="CO" />
+                        <Select.Item label="CT" value="CT" />
+                        <Select.Item label="DE" value="DE" />
+                        <Select.Item label="FL" value="FL" />
+                        <Select.Item label="GA" value="GA" />
+                        <Select.Item label="HI" value="HI" />
+                        <Select.Item label="ID" value="ID" />
+                        <Select.Item label="IL" value="IL" />
+                        <Select.Item label="IN" value="IN" />
+                        <Select.Item label="IA" value="IA" />
+                        <Select.Item label="KS" value="KS" />
+                        <Select.Item label="KY" value="KY" />
+                        <Select.Item label="LA" value="LA" />
+                        <Select.Item label="ME" value="ME" />
+                        <Select.Item label="MD" value="MD" />
+                        <Select.Item label="MA" value="MA" />
+                        <Select.Item label="MI" value="MI" />
+                        <Select.Item label="MN" value="MN" />
+                        <Select.Item label="MS" value="MS" />
+                        <Select.Item label="MO" value="MO" />
+                        <Select.Item label="MT" value="MT" />
+                        <Select.Item label="NE" value="NE" />
+                        <Select.Item label="NV" value="NV" />
+                        <Select.Item label="NH" value="NH" />
+                        <Select.Item label="NJ" value="NJ" />
+                        <Select.Item label="NM" value="NM" />
+                        <Select.Item label="NY" value="NY" />
+                        <Select.Item label="NC" value="NC" />
+                        <Select.Item label="ND" value="ND" />
+                        <Select.Item label="OH" value="OH" />
+                        <Select.Item label="OK" value="OK" />
+                        <Select.Item label="OR" value="OR" />
+                        <Select.Item label="PA" value="PA" />
+                        <Select.Item label="RI" value="RI" />
+                        <Select.Item label="SC" value="SC" />
+                        <Select.Item label="SD" value="SD" />
+                        <Select.Item label="TN" value="TN" />
+                        <Select.Item label="TX" value="TX" />
+                        <Select.Item label="UT" value="UT" />
+                        <Select.Item label="VT" value="VT" />
+                        <Select.Item label="VA" value="VA" />
+                        <Select.Item label="WA" value="WA" />
+                        <Select.Item label="WV" value="WV" />
+                        <Select.Item label="WI" value="WI" />
+                        <Select.Item label="WY" value="WY" />
+                      </Select>
+                    </Box>
             </Box>
             <Box>
-              <FormControl.Label >City</FormControl.Label>
-              <Input fontFamily="Roboto_400Regular" placeholder={city} minWidth="150" 
-              onChangeText={(text) => setCity(text)}
-              />
+              <FormControl.Label>
+                <Text style={[styles.LabelTxt, {marginLeft: 20}]}>
+                City
+                </Text></FormControl.Label>
+              <TextInput
+                  style={styles.cityInput}
+                  onChangeText={(text) => setCity(text)}
+                  value={city}
+                  placeholder="City"
+                  keyboardType="default"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                  accessibilityLabel="Enter the city you reside in"
+                />
             </Box>
             </View>
             
@@ -398,9 +518,6 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
               </Button>
               </View>
             
-             
-            
-          
         </Modal.Content>
       </Modal>
     </Center>
@@ -422,6 +539,7 @@ const styles = StyleSheet.create({
   },
   ScrollStyle: {
     flex: 1,
+    marginBottom: 50
   },
   TextStyle: {
     color: "white",
@@ -444,6 +562,52 @@ const styles = StyleSheet.create({
   },
   IconStyle: {
     marginRight: 35,
+  },Input:{
+    fontFamily: "Roboto_400Regular",
+    color: "rgba(59, 86, 124, 1)",
+    fontSize: 15,
+    height: 55,
+    // marginTop: 10,
+    marginLeft: 18,
+    marginRight: 20,
+    // marginBottom: 20,
+    borderWidth: 1,
+    padding: 10,
+    borderColor: "white",
+    backgroundColor: "white",
+    borderRadius: 20,
+    shadowColor: "black",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 10,
+  },
+  cityInput: {
+    fontFamily: "Roboto_400Regular",
+    color: "rgba(59, 86, 124, 1)",
+    fontSize: 15,
+    height: 55,
+    width: 150,
+    marginLeft: 20,
+    marginRight: 25,
+    borderWidth: 1,
+    padding: 10,
+    borderColor: "white",
+    backgroundColor: "white",
+    borderRadius: 20,
+    shadowColor: "black",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 10
+  },
+  LabelTxt: {
+    fontFamily: "Roboto_400Regular",
+    color: "rgba(59, 86, 124, 1)",
+    fontSize: 15,
+  },
+  ToastStyle:{
+    zIndex: 1 
   }
 });
 
