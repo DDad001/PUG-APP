@@ -103,7 +103,7 @@ type RootStackParamList = {
 
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   const [isLiked, setIsLiked] = useState(false);
-  const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther} = useContext<any>(UserContext);
+  const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen} = useContext<any>(UserContext);
  
 
   useEffect(() => {
@@ -143,7 +143,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     } else {
       DeleteLikedEvent(userItems.id, id)
     }
-
+    setUpdateProfileScreen(true);
   }
 
   const handleSavedEvent = () => {
@@ -291,14 +291,15 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 };
 
 const CardListComponent: FC<CardProps> = (props) => {
-
+  const { updateScreen, setUpdateScreen } = useContext<any>(UserContext);
   
   const [allEvents, setAllEvents] = useState<any>([]);
 
   
   useEffect(() => {
     fetchEvents();
-  }, []);
+    setUpdateScreen(false);
+  }, [updateScreen]);
   
   const fetchEvents = async () => {
     let displayEvents = await GetEventItems();

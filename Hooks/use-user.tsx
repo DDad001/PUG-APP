@@ -7,6 +7,22 @@ export default function useUser() {
   const [viewUserProfile, setViewUserProfile] = useState<object>({});
   const [updateScreen, setUpdateScreen] = useState<boolean>(false);
   const [updateProfileOther, setUpdateProfileOther] = useState<boolean>(false);
-  
-  return { nameContext, setNameContext, userItems, setUserItems, eventItems, setEventItems, viewUserProfile, setViewUserProfile, updateScreen, setUpdateScreen, updateProfileOther, setUpdateProfileOther};
+  const [updateProfileScreen, setUpdateProfileScreen] = useState<boolean>(false);
+
+  return {
+    nameContext,
+    setNameContext,
+    userItems,
+    setUserItems,
+    eventItems,
+    setEventItems,
+    viewUserProfile,
+    setViewUserProfile,
+    updateScreen,
+    setUpdateScreen,
+    updateProfileOther,
+    setUpdateProfileOther,
+    updateProfileScreen, 
+    setUpdateProfileScreen
+  };
 }
