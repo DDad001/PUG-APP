@@ -2,7 +2,7 @@
 //-------------ALL FETCHES FOR USERCONTROLLER----------------- 
 
 async function createAccount(createdUser:object){
-    let res = await fetch('http://localhost:5216/User/AddUsers', {
+    let res = await fetch('https://pugbackendwebapp.azurewebsites.net/User/AddUsers', {
         method:"POST",
         headers:{
             "Content-Type": "application/json"
@@ -19,7 +19,7 @@ async function createAccount(createdUser:object){
 }
 
 async function LoginUser(userData:object){
-   let res = await fetch('http://localhost:5216/User/login', {
+   let res = await fetch('https://pugbackendwebapp.azurewebsites.net/User/login', {
        method:"POST",
        headers:{
            "Content-Type": "application/json"
@@ -37,19 +37,19 @@ async function LoginUser(userData:object){
 }
 
 async function GetUserById(id:number){
-    let res = await fetch(`http://localhost:5216/User/GetUserById/${id}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/User/GetUserById/${id}`);
     let data = await res.json();
     return data;
 }
 
 async function GetUserByUsername(username:string){
-    let res = await fetch(`http://localhost:5216/User/GetUserByUsername/${username}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/User/GetUserByUsername/${username}`);
     let data = res.json();
     return data;
 }
 
 async function UpdateUser(User:object){
-   let res = await fetch('http://localhost:5216/User/UpdateUser', {
+   let res = await fetch('https://pugbackendwebapp.azurewebsites.net/User/UpdateUser', {
        method:"POST",
        headers:{
            "Content-Type": "application/json"
@@ -67,7 +67,7 @@ async function UpdateUser(User:object){
 }
 
 async function UpdateUsername(id:number, username:string){
-   let res = await fetch(`http://localhost:5216/User/UpdateUser/${id}/${username}`, {
+   let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/User/UpdateUser/${id}/${username}`, {
        method:"POST",
        headers:{
            "Content-Type": "application/json"
@@ -86,7 +86,7 @@ async function UpdateUsername(id:number, username:string){
 
 async function DeleteUser(userToDelete:string) {
 
-    let res = await fetch(`http://localhost:5216/User/DeleteUser/${userToDelete}`, {
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/User/DeleteUser/${userToDelete}`, {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
@@ -105,7 +105,7 @@ async function DeleteUser(userToDelete:string) {
 }
 
 async function UpdatePassword(id: number, password: string){
-    let res = await fetch(`http://localhost:5216/User/UpdatePassword/${id}/${password}`, {
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/User/UpdatePassword/${id}/${password}`, {
        method:"POST",
        headers:{
            "Content-Type": "application/json"
@@ -131,7 +131,7 @@ async function UpdatePassword(id: number, password: string){
 //---------------ALL FETCHES FOR EVENT CONTROLLER-----------------
 
 async function AddEventItem(newEventItem:object){
-    let res = await fetch('http://localhost:5216/Event/AddEventItem', {
+    let res = await fetch('https://pugbackendwebapp.azurewebsites.net/Event/AddEventItem', {
         method:"POST",
         headers:{
             "Content-Type": "application/json"
@@ -148,31 +148,31 @@ async function AddEventItem(newEventItem:object){
 }
 
 async function GetEventItems(){
-    let res = await fetch(`http://localhost:5216/Event/GetEventItems`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Event/GetEventItems`);
     let data = await res.json();
     return data;
 }
 
 async function GetItemsByUserId(UserID:number){
-    let res = await fetch(`http://localhost:5216/Event/GetItemsByUserId/${UserID}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Event/GetItemsByUserId/${UserID}`);
     let data = res.json();
     return data;
 }
 
 async function GetItemsBySport(Sport:string){
-    let res = await fetch(`http://localhost:5216/Event/GetItemsBySport/${Sport}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Event/GetItemsBySport/${Sport}`);
     let data = res.json();
     return data;
 }
 
 async function GetEventItemById(eventID:number){
-    let res = await fetch(`http://localhost:5216/Event/GetEventItemById/${eventID}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Event/GetEventItemById/${eventID}`);
     let data = res.json();
     return data;
 }
 
 async function UpdateEventItem(EventUpdate:object){
-   let res = await fetch('http://localhost:5216/Event/UpdateEventItem', {
+   let res = await fetch('https://pugbackendwebapp.azurewebsites.net/Event/UpdateEventItem', {
        method:"POST",
        headers:{
            "Content-Type": "application/json"
@@ -191,7 +191,7 @@ async function UpdateEventItem(EventUpdate:object){
 
 async function DeleteEventItem(id:number) {
 
-    let res = await fetch(`http://localhost:5216/Event/DeleteEventItem/${id}`, {
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Event/DeleteEventItem/${id}`, {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
@@ -249,7 +249,7 @@ async function GetCitiesByState(state:string) {
 //---------------ALL FETCHES FOR FOLLOWERS CONTROLLER-----------------
 
 async function AddFollower(newFollower:object){
-    let res = await fetch('http://localhost:5216/Followers/AddFollower', {
+    let res = await fetch('https://pugbackendwebapp.azurewebsites.net/Followers/AddFollower', {
         method:"POST",
         headers:{
             "Content-Type": "application/json"
@@ -266,20 +266,20 @@ async function AddFollower(newFollower:object){
 }
 
 async function GetFollowersByUserId(userId:number){
-    let res = await fetch(`http://localhost:5216/Followers/GetFollowersByUserId/${userId}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Followers/GetFollowersByUserId/${userId}`);
     let data = await res.json();
     // console.log(data)
     return data;
 }
 
 async function GetFollowId(userId:number,followerId:number){
-    let res = await fetch(`http://localhost:5216/Followers/GetFollowId/${userId}/${followerId}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Followers/GetFollowId/${userId}/${followerId}`);
     let data = res.json();
     return data;
 }
 
 async function GetFollowingByUserId(userId:number){
-    let res = await fetch(`http://localhost:5216/Followers/GetFollowingByUserId/${userId}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Followers/GetFollowingByUserId/${userId}`);
     let data = res.json();
     // console.log(data);
     return data;
@@ -287,7 +287,7 @@ async function GetFollowingByUserId(userId:number){
 
 async function DeleteFollower(userId:number, followerId:number) {
 
-    let res = await fetch(`http://localhost:5216/Followers/DeleteFollower/${userId}/${followerId}`, {
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Followers/DeleteFollower/${userId}/${followerId}`, {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
@@ -318,7 +318,7 @@ async function GetIsFollowed(userId:number, followerId:number){
 
 
 async function AddLikedEvent(newLikedEvent:object){
-    let res = await fetch('http://localhost:5216/LikedEvents/AddLikedEvent', {
+    let res = await fetch('https://pugbackendwebapp.azurewebsites.net/LikedEvents/AddLikedEvent', {
         method:"POST",
         headers:{
             "Content-Type": "application/json"
@@ -335,13 +335,13 @@ async function AddLikedEvent(newLikedEvent:object){
 }
 
 async function GetLikedEventsByUserId(userId:number){
-    let res = await fetch(`http://localhost:5216/LikedEvents/GetLikedEventsByUserId/${userId}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/LikedEvents/GetLikedEventsByUserId/${userId}`);
     let data = await res.json();
     return data;
 }
 
 async function GetLikedId(userId:number, eventId:number){
-    let res = await fetch(`http://localhost:5216/LikedEvents/GetLikedId/${userId}/${eventId}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/LikedEvents/GetLikedId/${userId}/${eventId}`);
     let data = await res.json();
     console.log(data);
     return data;
@@ -349,7 +349,7 @@ async function GetLikedId(userId:number, eventId:number){
 
 async function DeleteLikedEvent(userId:number, eventId:number) {
 
-    let res = await fetch(`http://localhost:5216/LikedEvents/DeleteLikedEvent/${userId}/${eventId}`, {
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/LikedEvents/DeleteLikedEvent/${userId}/${eventId}`, {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
@@ -368,7 +368,7 @@ async function DeleteLikedEvent(userId:number, eventId:number) {
 }
 
 async function GetIsLiked(userId:number, eventId:number){
-    let res = await fetch(`http://localhost:5216/LikedEvents/GetIsLiked/${userId}/${eventId}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/LikedEvents/GetIsLiked/${userId}/${eventId}`);
     let data = await res.json();
     //console.log(data);
     return data;
@@ -383,7 +383,7 @@ async function GetIsLiked(userId:number, eventId:number){
 
 async function ReportEvent(eventToReport:object) {
 
-    let res = await fetch(`http://localhost:5216/ReportEvent/AddEventReport`, {
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/ReportEvent/AddEventReport`, {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
@@ -403,7 +403,7 @@ async function ReportEvent(eventToReport:object) {
 
 async function ReportUser(userToReport:object) {
 
-    let res = await fetch(`http://localhost:5216/ReportUser/AddUserReport`, {
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/ReportUser/AddUserReport`, {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
