@@ -359,10 +359,9 @@ const AddEventScreen: FC = () => {
         >
           <View
             style={{
-              flex: 0.15,
+              flex: 0.1,
               flexDirection: "row",
               paddingLeft: 20,
-              marginBottom: 10,
               marginTop: 25,
             }}
           >
@@ -391,8 +390,13 @@ const AddEventScreen: FC = () => {
                 justifyContent: "center",
               }}
             >
-                    <View style={{ marginLeft: 18, marginRight: 30 }}>
-                    <Box
+            </View>
+          </View>
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+            <ScrollView style={{ flex: 1, marginBottom: 30 }}>
+              <View style={{ flex: 1 }}>
+                <View style={{ marginLeft: 18, marginRight: 30, marginBottom: 10 }}>
+                <Box
                       maxW="155"
                       borderRadius={14}
                       style={{
@@ -405,7 +409,7 @@ const AddEventScreen: FC = () => {
                     >
                       <Select
                         width="150"
-                        height="10"
+                        height="50"
                         accessibilityLabel="Choose the sport type for this event"
                         placeholderTextColor={"#0A326D"}
                         placeholder="Choose Sport"
@@ -444,16 +448,11 @@ const AddEventScreen: FC = () => {
                         <Select.Item label="Volleyball" value="Volleyball" />
                         <Select.Item label="Other" value="Other" />
                       </Select>
-                      {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
         </FormControl.ErrorMessage> */}
                     </Box>
-                  </View>            
-            </View>
-          </View>
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-            <ScrollView style={{ flex: 1, marginBottom: 30 }}>
-              <View style={{ flex: 1 }}>
+                </View>
                 <TextInput
                   style={[styles.input,{marginBottom: 5}]}
                   onChangeText={(text) => setNameOfEvent(text)}
