@@ -193,34 +193,108 @@ const AddEventScreen: FC = () => {
 
 
     //Don't forget validating the image
-    var regex = /^[A-Za-z]+$/
+    var regex = /^[A-Za-z ]+$/
 
 
+    //what if what the user enters is not a valid address?
     let addressArr: string[] = eventAddress.split(" "); //split the string array
     let formatedAddress: string = addressArr.join("+") //put it in the correct format
     let obtainedAddress:any = await GetAddress(formatedAddress); 
-    // console.log(obtainedAddress);
+    let countryCode: string = "";
+    let isAddressValid:boolean = false;
+    if(obtainedAddress.length >= 1){
+      countryCode = obtainedAddress[0]['address']['country_code'];
+      isAddressValid = true;
+    }
 
     let citiesArr:any = await GetCitiesByState(eventState);
-    let result;
     let cityNames: string[] = [];
 
     for(let i = 0; i <citiesArr.length; i++){
       cityNames.push(citiesArr[i].name);
     }
 
-    if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == "" || eventState == ""){
+
+    //save the state to a variable
+    let stateFound:any = [];
+    let statesArr: any[] = 
+    [{stateInitial: "al", stateName: "Alabama"},
+    {stateInitial: "ak", stateName: "Arkansas"},
+    {stateInitial: "az", stateName: "Arizona"},
+    {stateInitial: "ar", stateName: "Arkansas"},
+    {stateInitial: "ca", stateName: "California"},
+    {stateInitial: "co", stateName: "Colorado"},
+    {stateInitial: "ct", stateName: "Connecticut"},
+    {stateInitial: "de", stateName: "Delaware"},
+    {stateInitial: "fl", stateName: "Florida"},
+    {stateInitial: "ga", stateName: "Georgia"},
+    {stateInitial: "hi", stateName: "Hawaii"},
+    {stateInitial: "id", stateName: "Idaho"},
+    {stateInitial: "il", stateName: "Illinois"},
+    {stateInitial: "in", stateName: "Indiana"},
+    {stateInitial: "ia", stateName: "Iowa"},
+    {stateInitial: "ks", stateName: "Kansas"},
+    {stateInitial: "ky", stateName: "Kentucky"},
+    {stateInitial: "la", stateName: "Louisiana"},
+    {stateInitial: "me", stateName: "Maine"},
+    {stateInitial: "md", stateName: "Maryland"},
+    {stateInitial: "ma", stateName: "Massachusetts"},
+    {stateInitial: "mi", stateName: "Michigan"},
+    {stateInitial: "mn", stateName: "Minnesota"},
+    {stateInitial: "ms", stateName: "Mississippi"},
+    {stateInitial: "mo", stateName: "Missouri"},
+    {stateInitial: "mt", stateName: "Montana"},
+    {stateInitial: "ne", stateName: "Nebraska"},
+    {stateInitial: "nv", stateName: "Nevada"},
+    {stateInitial: "nh", stateName: "New Hampshire"},
+    {stateInitial: "nj", stateName: "New Jersey"},
+    {stateInitial: "nm", stateName: "New Mexico"},
+    {stateInitial: "ny", stateName: "New York"},
+    {stateInitial: "nc", stateName: "North Carolina"},
+    {stateInitial: "nd", stateName: "North Dakota"},
+    {stateInitial: "oh", stateName: "Ohio"},
+    {stateInitial: "ok", stateName: "Oklahoma"},
+    {stateInitial: "or", stateName: "Oregon"},
+    {stateInitial: "pa", stateName: "Pennsylvania"},
+    {stateInitial: "ri", stateName: "Rhode Island"},
+    {stateInitial: "sc", stateName: "South Carolina"},
+    {stateInitial: "sd", stateName: "South Dakota"},
+    {stateInitial: "tn", stateName: "Tennessee"},
+    {stateInitial: "tx", stateName: "Texas"},
+    {stateInitial: "ut", stateName: "Utah"},
+    {stateInitial: "vt", stateName: "Vermont"},
+    {stateInitial: "va", stateName: "Virginia"},
+    {stateInitial: "wa", stateName: "Washington"},
+    {stateInitial: "wv", stateName: "West Virginia"},
+    {stateInitial: "wi", stateName: "Wisconsin"},
+    {stateInitial: "wy", stateName: "Wyoming"},]
+
+    stateFound = statesArr.filter(element => element.stateInitial === eventState);
+
+    if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
     }else if(regex.test(eventCity) == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: event city must include characters only!</Box>;}});
     }else if(obtainedAddress.length < 1){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event!</Box>;}});
+    }
+    //Added validation to check if the address is inside the United States
+    else if(isAddressValid == false || countryCode != "us"){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the US!</Box>;}});
+    }
+    //Added validation to check if the address is inside the state the user themself specified
+    else if(eventState != stateFound[0]["stateInitial"]){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the state you specified</Box>;}});
+    }
+    //Added validation to check if the address is inside the city the user themself specified
+    else if(eventCity != obtainedAddress[0]["address"]["city"]){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the city you specified</Box>;}});
     }else if(!cityNames.includes(eventCity)){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
     }else{
       // AddEventItem(newEvent);
       console.log("All good G!")
-      result = await AddEventItem(newEvent);
+      // result = await AddEventItem(newEvent);
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully created!</Box>}});
       setUpdateScreen(true);
     }
