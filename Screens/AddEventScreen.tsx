@@ -395,7 +395,7 @@ const AddEventScreen: FC = () => {
           <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView style={{ flex: 1, marginBottom: 30 }}>
               <View style={{ flex: 1 }}>
-                <View style={{ marginLeft: 18, marginRight: 30, marginBottom: 10 }}>
+                <View style={{ marginLeft: 18, marginRight: 30, marginBottom: 20 }}>
                 <Box
                       maxW="155"
                       borderRadius={14}
@@ -468,6 +468,7 @@ const AddEventScreen: FC = () => {
                     fontFamily: "Roboto_400Regular",
                     fontSize: 15,
                     paddingLeft: 25,
+                    marginBottom: 15
                   }}
                 >
                   {nameOfEvent.length}/25 character limit
