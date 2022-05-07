@@ -292,7 +292,7 @@ const AddEventScreen: FC = () => {
     }else if(!cityNames.includes(eventCity)){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
     }else{
-      // AddEventItem(newEvent);
+      AddEventItem(newEvent);
       console.log("All good G!")
       // result = await AddEventItem(newEvent);
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully created!</Box>}});
