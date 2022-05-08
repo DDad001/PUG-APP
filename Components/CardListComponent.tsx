@@ -221,7 +221,6 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
             </View>
             <View style={{ flex:1 }}>
               <View style={{flex:0.4, flexDirection: 'row' }}>
-                {/* Name of the event section below! */}
                 <View style={{flex:1, width: 155, marginLeft: 25, justifyContent:'center'}}>
                   <Text style={{ marginLeft: 0, fontSize: 12, fontFamily: "Lato_700Bold"}}>{nameOfEvent}</Text>
                 </View>
@@ -242,14 +241,11 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
             </View>
 
               </View>
-              {/* Fix the like and address icons */}
               <View style={{flex:1, flexDirection: 'column', }}>
                 <View style={{flex:1, flexDirection: 'row' }}>
-                  {/* Address of the event is below! */}
                   <View style={{flex: 1, justifyContent: 'center'}}>
                     <Text style={{ flexWrap: 'wrap', flexShrink: 1, fontSize: 11, marginLeft: 25, fontFamily: "Lato_400Regular", borderColor: "white", justifyContent: "center" }}>{addressOfEvent}</Text>
                   </View>
-                  {/* Calendar Icon and date is below! */}
                   <View style={{flex:0.5, flexDirection: "row", justifyContent: 'center'}}>
                     <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10}} />
                     <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{dateOfEvent}</Text>
@@ -385,11 +381,22 @@ const CardListComponent: FC<CardProps> = (props) => {
 
     // let data = dataFromInput;
     // console.log(data);
-    let searchData = allEvents.filter((item:any) => {
-      return(
-        item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase())
-      )
-    });
+
+    //this query is done when
+    let searchData: any;
+    if(selectSport != "No Filters"){
+      searchData = allEvents.filter((item:any) => {
+        return(
+          item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase())
+        )
+      });
+    }else{
+      searchData = allEvents.filter((item:any) => {
+        return(
+          item.cityOfEvent.toLowerCase().includes(input.toLowerCase())
+        )
+      });
+    }
 
   return (
     <>
@@ -439,7 +446,9 @@ const CardListComponent: FC<CardProps> = (props) => {
               fontSize={15}
               color={"#0A326D"}
             >
-              <Select.Item label="Badminton" value="Badminton" />
+              
+                <Select.Item label="No Filters" value="No Filters" />
+                <Select.Item label="Badminton" value="Badminton" />
                 <Select.Item label="Baseball" value="Baseball" />
                 <Select.Item label="Basketball" value="Basketball" />
                 <Select.Item label="Cycling" value="Cycling" />
