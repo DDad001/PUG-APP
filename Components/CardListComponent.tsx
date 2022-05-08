@@ -447,12 +447,12 @@ const CardListComponent: FC<CardProps> = (props) => {
               color={"#0A326D"}
             >
               
-                <Select.Item label="No Filters" value="No Filters" />
+                <Select.Item label="All Events" value="No Filters" />
                 <Select.Item label="Badminton" value="Badminton" />
                 <Select.Item label="Baseball" value="Baseball" />
                 <Select.Item label="Basketball" value="Basketball" />
+                <Select.Item label="Cricket" value="Cricket" />
                 <Select.Item label="Cycling" value="Cycling" />
-                <Select.Item label="Hockey" value="Hockey" />
                 <Select.Item label="Disc golf" value="Disc golf" />
                 <Select.Item label="Fishing" value="Fishing" />
                 <Select.Item label="Football" value="Football" />
@@ -460,15 +460,15 @@ const CardListComponent: FC<CardProps> = (props) => {
                 <Select.Item label="Golf" value="Golf" />
                 <Select.Item label="Handball" value="Handball" />
                 <Select.Item label="Hiking" value="Handball" />
-                <Select.Item label="Cricket" value="Cricket" />
-                <Select.Item label="Rugby" value="Rugby" />
+                <Select.Item label="Hockey" value="Hockey" />
+                <Select.Item label="Lacrosse" value="Lacrosse" />
                 <Select.Item label="Pickleball" value="Pickleball" />
+                <Select.Item label="Rugby" value="Rugby" />
                 <Select.Item label="Running" value="Running" />
                 <Select.Item label="Soccer" value="Soccer" />
                 <Select.Item label="Softball" value="Softball" />
                 <Select.Item label="Spikeball" value="Spikeball" />
                 <Select.Item label="Tennis" value="Tennis" />
-                <Select.Item label="Lacrosse" value="Lacrosse" />
                 <Select.Item label="Volleyball" value="Volleyball" />
                 <Select.Item label="Other" value="Other" />
             </Select>
