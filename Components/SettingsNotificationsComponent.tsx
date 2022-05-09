@@ -48,7 +48,7 @@ import {
   useToast
 } from "native-base";
 
-import { DeleteUser, UpdateUser, UpdatePassword } from '../Services/DataService'
+import { DeleteUser, UpdateUser, UpdatePassword, GetUserById } from '../Services/DataService'
 
 
 interface SettingsProps{ 
@@ -57,7 +57,7 @@ interface SettingsProps{
 
 
 const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
-  const { userItems } = useContext<any>(UserContext);
+  const { userItems, setUserItems } = useContext<any>(UserContext);
 
    const HelpHandler = () => {
     props.onHelpPress();
@@ -187,6 +187,8 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
         setTimeout(() => {
           UpdatePassword(userItems.id, password);
         }, 1000)
+        let updatedUser = await GetUserById(userItems.id);
+        setUserItems(updatedUser);
       }
     }
 
