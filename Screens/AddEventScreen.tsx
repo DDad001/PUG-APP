@@ -362,7 +362,8 @@ const AddEventScreen: FC = () => {
               flex: 0.1,
               flexDirection: "row",
               paddingLeft: 20,
-              marginTop: 25,
+              marginTop: 35,
+              marginBottom: 3,
             }}
           >
             <View

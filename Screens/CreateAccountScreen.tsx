@@ -225,12 +225,12 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
           </Pressable>
        </SafeAreaView>
 
-          <Text style={{marginTop:20, marginLeft:25, fontFamily:"Roboto_400Regular", fontSize:20, color:"white"}}>
+          <Text style={{marginTop:20, marginLeft:25, fontFamily:"Roboto_400Regular", fontSize:20, color:"white", marginBottom: 5}}>
              Join the PUG family and create your account. 
           </Text>
 
 
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
           <ScrollView style={{}}>
             <View style={{ flex: 0.7, marginTop:20}}>
               <TextInput
