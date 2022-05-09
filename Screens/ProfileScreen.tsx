@@ -168,7 +168,8 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
       getFollowers();
       getFollowing();
       getUserAge(userItems.dateOfBirth)
-    }, []);
+      setUpdateProfileScreen(false);
+    }, [updateProfileScreen]);
     
     const [allEvents, setAllEvents] = useState<any>([]);
     const [displayFollowers, setDisplayFollowers] = useState<any>([]);
