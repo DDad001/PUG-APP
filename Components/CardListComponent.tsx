@@ -533,6 +533,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderTopStartRadius: 7,
     borderBottomStartRadius: 7,
+    borderTopLeftRadius: 7,
+    borderBottomLeftRadius: 7,
     padding: 10,
     fontFamily: "OpenSans_400Regular",
     fontSize: 12
