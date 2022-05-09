@@ -179,10 +179,21 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(userItems.id);
-    let activeEvents = displayEvents.filter((event: any) => event.isActive);
+    let activeEvents = displayEvents.filter((event: any) => isItAPresentDay(event['dateOfEvent']) == true);
     setAllEvents(activeEvents);
   }
 
+  function isItAPresentDay(date: string){
+    let today: any = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; 
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return date == today;
+  }
 
   const getUserAge = (dob: string) => {
     //get today's year for age calculation
