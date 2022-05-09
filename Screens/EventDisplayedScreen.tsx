@@ -586,7 +586,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                 <Pressable onPress={handleFollow} style={{ marginLeft: 20, marginTop: 17 }}>
                   <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow: 'hidden', marginTop: 10, marginLeft: 12, padding: 5, width: 90, height: 27 }} >
                     {
-                      isFollowed ? <Text style={{ marginLeft: 16, color: 'white', fontFamily: "Lato_400Regular" }}>Unfollow</Text>
+                      isFollowed ? <Text style={{ marginLeft: 14, color: 'white', fontFamily: "Lato_400Regular"}}>Unfollow</Text>
                         : <Text style={{ marginLeft: 16, color: 'white', fontFamily: "Lato_400Regular" }}>Follow</Text>
                     }
 

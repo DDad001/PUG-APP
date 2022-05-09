@@ -233,7 +233,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 
                 <Pressable onPress={handleLiked}>
                   {
-                    isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8, marginLeft: 9, }} />
+                    isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />
                       : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />
                   }
 
