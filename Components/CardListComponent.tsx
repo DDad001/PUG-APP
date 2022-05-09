@@ -159,7 +159,17 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     setUpdateProfileOther(true);
   }
 
- 
+ const longAddresses = (address: string) => {
+  let editedAddress: string = "";
+  let ditto: string = "...";
+  if(address.length > 40){
+    for(let i = 0; i<40; i++){
+      editedAddress += address[i];
+    }
+  }
+  editedAddress += ditto;
+  return editedAddress;
+ }
 
   return (
     <View style={styles.card}>
@@ -244,7 +254,11 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
               <View style={{flex:1, flexDirection: 'column', }}>
                 <View style={{flex:1, flexDirection: 'row' }}>
                   <View style={{flex: 1, justifyContent: 'center'}}>
-                    <Text style={{ flexWrap: 'wrap', flexShrink: 1, fontSize: 11, marginLeft: 15, paddingRight: 5, fontFamily: "Lato_400Regular", borderColor: "white", justifyContent: "center" }}>{addressOfEvent}</Text>
+                    <Text style={{ flexWrap: 'wrap', flexShrink: 1, fontSize: 11, marginLeft: 15, paddingRight: 5, fontFamily: "Lato_400Regular", borderColor: "white", justifyContent: "center" }}>
+                    { 
+                     addressOfEvent.length < 40 ? addressOfEvent : longAddresses(addressOfEvent)
+                    }
+                    </Text>
                   </View>
                   <View style={{flex:0.5, flexDirection: "row", justifyContent: 'flex-start'}}>
                     <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10}} />
