@@ -221,7 +221,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
             </View>
             <View style={{ flex:1 }}>
               <View style={{flex:0.4, flexDirection: 'row' }}>
-                <View style={{flex:1, width: 155, marginLeft: 25, justifyContent:'center'}}>
+                <View style={{flex:1, width: 155, marginLeft: 15, justifyContent:'center'}}>
                   <Text style={{ marginLeft: 0, fontSize: 12, fontFamily: "Lato_700Bold"}}>{nameOfEvent}</Text>
                 </View>
 
@@ -244,22 +244,23 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
               <View style={{flex:1, flexDirection: 'column', }}>
                 <View style={{flex:1, flexDirection: 'row' }}>
                   <View style={{flex: 1, justifyContent: 'center'}}>
-                    <Text style={{ flexWrap: 'wrap', flexShrink: 1, fontSize: 11, marginLeft: 25, fontFamily: "Lato_400Regular", borderColor: "white", justifyContent: "center" }}>{addressOfEvent}</Text>
+                    <Text style={{ flexWrap: 'wrap', flexShrink: 1, fontSize: 11, marginLeft: 15, paddingRight: 5, fontFamily: "Lato_400Regular", borderColor: "white", justifyContent: "center" }}>{addressOfEvent}</Text>
                   </View>
-                  <View style={{flex:0.5, flexDirection: "row", justifyContent: 'center'}}>
+                  <View style={{flex:0.5, flexDirection: "row", justifyContent: 'flex-start'}}>
                     <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10}} />
                     <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{dateOfEvent}</Text>
                   </View>
                 </View>
 
                 <View style={{ flex:1, flexDirection: 'row' }}>
-                  <View style={{flex: 0.7, flexDirection: "row", justifyContent: "flex-start" }}>
+                  {/* fiddle with the flex */}
+                  <View style={{flex: 0.9, flexDirection: "row", justifyContent: "flex-start"  }}>
                     <Pressable onPress={() => {
                       ProfileHandler();
                       handleSaveUser();
                       }}>
-                      <View style={{ flexDirection: 'row' }}>
-                        <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 25 }} />
+                      <View style={{flex: 1, flexDirection: 'row', }}>
+                        <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 15 }} />
                         <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
                           {       
                             name
@@ -268,9 +269,9 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                       </View>
                     </Pressable>
                   </View>
-                    
-                  <View style={{flex:0.3,flexDirection: "row", paddingRight: 11  }}>
-                    <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 5, marginTop: 4, }} />
+                    {/* Fiddle with the flex */}
+                  <View style={{flex:0.45,flexDirection: "row" }}>
+                    <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 0, marginTop: 4, }} />
                     <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{timeOfEvent}</Text>
                   </View>
 
