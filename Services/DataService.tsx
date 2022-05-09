@@ -306,7 +306,7 @@ async function DeleteFollower(userId:number, followerId:number) {
 }
 
 async function GetIsFollowed(userId:number, followerId:number){
-    let res = await fetch(`http://localhost:5216/Followers/GetIsFollowed/${userId}/${followerId}`);
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Followers/GetIsFollowed/${userId}/${followerId}`);
     let data = await res.json();
     //console.log(data);
     return data;
