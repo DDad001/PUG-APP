@@ -300,8 +300,21 @@ const CardListComponent: FC<CardProps> = (props) => {
   
   const fetchEvents = async () => {
     let displayEvents = await GetEventItems();
-    // console.log(displayEvents);
-    setAllEvents(displayEvents);
+    let presentEvents: any;
+    presentEvents = displayEvents.filter((event: any) => isItAPresentDay(event['dateOfEvent']) == true);
+    setAllEvents(presentEvents);
+  }
+
+  function isItAPresentDay(date: string){
+    let today: any = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; 
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return date == today;
   }
   // const [dataFromInput, setDataFromInput] = useState(allEvents);
 
