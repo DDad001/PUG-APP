@@ -10,6 +10,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Image,
+  Platform,
 } from "react-native";
 import { Box, Button, CheckIcon, FormControl, Input, Select, useToast } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -182,6 +183,7 @@ const AddEventScreen: FC = () => {
       IsDeleted: false
     }
 
+
     //order of forms
     //name
     //date
@@ -319,7 +321,8 @@ const AddEventScreen: FC = () => {
   //     console.log(allPeople);
 
   // }, []);
-  
+  const offset = (Platform.OS === 'android') ? -300 : 0;
+  const behavior = (Platform.OS === 'ios') ? 'height' : "posistion";
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -393,7 +396,7 @@ const AddEventScreen: FC = () => {
             >
             </View>
           </View>
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={offset} behavior={Platform.OS == "ios" ? "height" : "height"}>
             <ScrollView style={{ flex: 1, marginBottom: 30 }}>
               <View style={{ flex: 1 }}>
                 <View style={{ marginLeft: 18, marginRight: 30, marginBottom: 20 }}>
