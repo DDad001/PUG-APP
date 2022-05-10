@@ -74,7 +74,7 @@ const FollowerItem = ({ handleUnfollow, username, id, displayFollowing}: any) =>
 
 
 const FollowersScreen: FC = () => {
-   const { userItems } = useContext<any>(UserContext);
+   const { userItems, viewUserProfile } = useContext<any>(UserContext);
   const [displayFollowers, setDisplayFollowers] = useState<any>([]);
 
   useEffect(() => {
@@ -196,7 +196,7 @@ const FollowersScreen: FC = () => {
           </TouchableHighlight>
         </View>
         
-        <Text style={styles.FollowingText}>Following</Text>
+        <Text style={styles.FollowingText}>Followers</Text>
 
         <SafeAreaView style={styles.containerFlat}>
         <FlatList

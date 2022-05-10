@@ -223,7 +223,7 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
 
   const handleLiked = async () => {
     await DeleteLikedEvent(userItems.id, id)
-    setIsLiked(!isLiked);
+    setIsLiked(false);
     
     await getLikedEventsByUser();
     setUpdateScreen(true);
