@@ -10,6 +10,7 @@ export default function useUser() {
   const [updateProfileScreen, setUpdateProfileScreen] = useState<boolean>(false);
   const [followersBool, setFollowersBool] = useState<boolean>(false);
   const [followingBool, setFollowingBool] = useState<boolean>(false);
+  const [updateEventScreen, setUpdateEventScreen] = useState<boolean>(false);
 
   return {
     nameContext,
@@ -29,6 +30,8 @@ export default function useUser() {
     followersBool, 
     setFollowersBool,
     followingBool,
-    setFollowingBool
+    setFollowingBool,
+    updateEventScreen, 
+    setUpdateEventScreen
   };
 }
