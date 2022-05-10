@@ -96,7 +96,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   const [radioUserValue, setRadioUserValue] = useState<string>("");
   const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
-  const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile, setUpdateProfileScreen } = useContext<any>(UserContext);
+  const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile, setUpdateProfileScreen, updateEventScreen, setUpdateEventScreen } = useContext<any>(UserContext);
 
   // const [isLiked, setIsLiked] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);

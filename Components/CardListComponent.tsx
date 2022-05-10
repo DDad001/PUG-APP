@@ -119,7 +119,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     const getNames = async () => {
       let userData = await GetUserById(userId);
       setName(`${userData.firstName} ${userData.lastName}`)
-      setViewUserProfile(userData);
+      //setViewUserProfile(userData);
     }
 
     const checkIfLiked = async () => {
