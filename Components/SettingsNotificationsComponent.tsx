@@ -1,5 +1,5 @@
 import React, { FC, useState, useContext } from "react";
-import {  ScrollView, StyleSheet, Image, View, Pressable, TextInput } from "react-native";
+import {  ScrollView, StyleSheet, Image, View, Pressable, TextInput, KeyboardAvoidingView, Platform } from "react-native";
 import { Switch } from "react-native-paper";
 import AppLoading from "expo-app-loading";
 import { DatePickerModal } from 'react-native-paper-dates';
@@ -237,6 +237,8 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     accent: '#f1c40f',
   }, }
 
+
+
   return (
     <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView }>
@@ -272,7 +274,8 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
         <Modal.Content maxWidth="400px">
           <Modal.CloseButton />
           <Modal.Header><Text style={{color: '#0A326D', fontSize: 20,}}>Edit Profile</Text></Modal.Header>
-          <Modal.Body>
+          <Modal.Body overflow="hidden">
+          <KeyboardAvoidingView style={{}} behavior={"position"} keyboardVerticalOffset={150}>
             <Box>
               <FormControl.Label>
                 <Text style={[styles.LabelTxt, {marginLeft: 20}]}>First Name</Text>
@@ -463,10 +466,11 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                   keyboardType="default"
                   placeholderTextColor={"rgba(59, 86, 124, 1)"}
                   accessibilityLabel="Enter the city you reside in"
+
                 />
             </Box>
             </View>
-            
+          </KeyboardAvoidingView>
           </Modal.Body>
           <Modal.Footer>
             <Button.Group space={2}>
@@ -476,7 +480,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                 onPress={() => {
                   setShowModal(false);
                 }}
-              >
+                >
                 Cancel
               </Button>
               <Button
@@ -484,7 +488,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                   handleEditProfile();
                 }}
                 style={{backgroundColor: '#0A326D'}}
-              >
+                >
                 Save Changes
               </Button>
             </Button.Group>
@@ -601,7 +605,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
-    elevation: 10
+    elevation: 10,
   },
   LabelTxt: {
     fontFamily: "Roboto_400Regular",
