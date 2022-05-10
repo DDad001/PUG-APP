@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext } from "react";
+import React, { FC, useState, useContext, useEffect } from "react";
 import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, TextInput } from "react-native";
 import PUGHeader from "../Components/PUGHeader";
 import { MaterialIcons } from '@expo/vector-icons';
@@ -10,7 +10,7 @@ import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio, useToast } from "native-base";
 import UserContext from '../Context/UserContext';
-import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower, ReportUser, ReportEvent, GetUserById } from '../Services/DataService'
+import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower, ReportUser, ReportEvent, GetUserById, GetIsFollowed } from '../Services/DataService'
 
 
 import {
@@ -96,10 +96,19 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   const [radioUserValue, setRadioUserValue] = useState<string>("");
   const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
-  const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile } = useContext<any>(UserContext);
+  const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile, setUpdateProfileScreen, updateEventScreen, setUpdateEventScreen } = useContext<any>(UserContext);
 
   // const [isLiked, setIsLiked] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
+
+  useEffect(() => {
+    handleIsFollowed();
+  }, [])
+
+  const handleIsFollowed = async () => {
+    let followed = await GetIsFollowed(userItems.id, eventItems.userId);
+    setIsFollowed(followed);
+  }
 
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -227,7 +236,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
       DeleteFollower(userItems.id, eventItems.userId);
       //console.log('Unfollowed')
     }
-
+    setUpdateProfileScreen(true);
 
   }
 
@@ -238,6 +247,8 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
     setNameContext(`${userData.firstName} ${userData.lastName}`)
     setUpdateProfileOther(true);
   }
+
+  
 
   // const handleLiked = () => {
   //   setIsLiked(!isLiked)
@@ -575,7 +586,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                 <Pressable onPress={handleFollow} style={{ marginLeft: 20, marginTop: 17 }}>
                   <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow: 'hidden', marginTop: 10, marginLeft: 12, padding: 5, width: 90, height: 27 }} >
                     {
-                      isFollowed ? <Text style={{ marginLeft: 16, color: 'white', fontFamily: "Lato_400Regular" }}>Unfollow</Text>
+                      isFollowed ? <Text style={{ marginLeft: 14, color: 'white', fontFamily: "Lato_400Regular"}}>Unfollow</Text>
                         : <Text style={{ marginLeft: 16, color: 'white', fontFamily: "Lato_400Regular" }}>Follow</Text>
                     }
 

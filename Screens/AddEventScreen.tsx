@@ -10,6 +10,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Image,
+  Platform,
 } from "react-native";
 import { Box, Button, CheckIcon, FormControl, Input, Select, useToast } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -182,6 +183,7 @@ const AddEventScreen: FC = () => {
       IsDeleted: false
     }
 
+
     //order of forms
     //name
     //date
@@ -193,34 +195,108 @@ const AddEventScreen: FC = () => {
 
 
     //Don't forget validating the image
-    var regex = /^[A-Za-z]+$/
+    var regex = /^[A-Za-z ]+$/
 
 
+    //what if what the user enters is not a valid address?
     let addressArr: string[] = eventAddress.split(" "); //split the string array
     let formatedAddress: string = addressArr.join("+") //put it in the correct format
     let obtainedAddress:any = await GetAddress(formatedAddress); 
-    // console.log(obtainedAddress);
+    let countryCode: string = "";
+    let isAddressValid:boolean = false;
+    if(obtainedAddress.length >= 1){
+      countryCode = obtainedAddress[0]['address']['country_code'];
+      isAddressValid = true;
+    }
 
     let citiesArr:any = await GetCitiesByState(eventState);
-    let result;
     let cityNames: string[] = [];
 
     for(let i = 0; i <citiesArr.length; i++){
       cityNames.push(citiesArr[i].name);
     }
 
-    if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == "" || eventState == ""){
+
+    //save the state to a variable
+    let stateFound:any = [];
+    let statesArr: any[] = 
+    [{stateInitial: "al", stateName: "Alabama"},
+    {stateInitial: "ak", stateName: "Arkansas"},
+    {stateInitial: "az", stateName: "Arizona"},
+    {stateInitial: "ar", stateName: "Arkansas"},
+    {stateInitial: "ca", stateName: "California"},
+    {stateInitial: "co", stateName: "Colorado"},
+    {stateInitial: "ct", stateName: "Connecticut"},
+    {stateInitial: "de", stateName: "Delaware"},
+    {stateInitial: "fl", stateName: "Florida"},
+    {stateInitial: "ga", stateName: "Georgia"},
+    {stateInitial: "hi", stateName: "Hawaii"},
+    {stateInitial: "id", stateName: "Idaho"},
+    {stateInitial: "il", stateName: "Illinois"},
+    {stateInitial: "in", stateName: "Indiana"},
+    {stateInitial: "ia", stateName: "Iowa"},
+    {stateInitial: "ks", stateName: "Kansas"},
+    {stateInitial: "ky", stateName: "Kentucky"},
+    {stateInitial: "la", stateName: "Louisiana"},
+    {stateInitial: "me", stateName: "Maine"},
+    {stateInitial: "md", stateName: "Maryland"},
+    {stateInitial: "ma", stateName: "Massachusetts"},
+    {stateInitial: "mi", stateName: "Michigan"},
+    {stateInitial: "mn", stateName: "Minnesota"},
+    {stateInitial: "ms", stateName: "Mississippi"},
+    {stateInitial: "mo", stateName: "Missouri"},
+    {stateInitial: "mt", stateName: "Montana"},
+    {stateInitial: "ne", stateName: "Nebraska"},
+    {stateInitial: "nv", stateName: "Nevada"},
+    {stateInitial: "nh", stateName: "New Hampshire"},
+    {stateInitial: "nj", stateName: "New Jersey"},
+    {stateInitial: "nm", stateName: "New Mexico"},
+    {stateInitial: "ny", stateName: "New York"},
+    {stateInitial: "nc", stateName: "North Carolina"},
+    {stateInitial: "nd", stateName: "North Dakota"},
+    {stateInitial: "oh", stateName: "Ohio"},
+    {stateInitial: "ok", stateName: "Oklahoma"},
+    {stateInitial: "or", stateName: "Oregon"},
+    {stateInitial: "pa", stateName: "Pennsylvania"},
+    {stateInitial: "ri", stateName: "Rhode Island"},
+    {stateInitial: "sc", stateName: "South Carolina"},
+    {stateInitial: "sd", stateName: "South Dakota"},
+    {stateInitial: "tn", stateName: "Tennessee"},
+    {stateInitial: "tx", stateName: "Texas"},
+    {stateInitial: "ut", stateName: "Utah"},
+    {stateInitial: "vt", stateName: "Vermont"},
+    {stateInitial: "va", stateName: "Virginia"},
+    {stateInitial: "wa", stateName: "Washington"},
+    {stateInitial: "wv", stateName: "West Virginia"},
+    {stateInitial: "wi", stateName: "Wisconsin"},
+    {stateInitial: "wy", stateName: "Wyoming"},]
+
+    stateFound = statesArr.filter(element => element.stateInitial === eventState);
+
+    if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
     }else if(regex.test(eventCity) == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: event city must include characters only!</Box>;}});
     }else if(obtainedAddress.length < 1){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event!</Box>;}});
+    }
+    //Added validation to check if the address is inside the United States
+    else if(isAddressValid == false || countryCode != "us"){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the US!</Box>;}});
+    }
+    //Added validation to check if the address is inside the state the user themself specified
+    else if(eventState != stateFound[0]["stateInitial"]){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the state you specified</Box>;}});
+    }
+    //Added validation to check if the address is inside the city the user themself specified
+    else if(eventCity != obtainedAddress[0]["address"]["city"]){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the city you specified</Box>;}});
     }else if(!cityNames.includes(eventCity)){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
     }else{
-      // AddEventItem(newEvent);
+      AddEventItem(newEvent);
       console.log("All good G!")
-      result = await AddEventItem(newEvent);
+      // result = await AddEventItem(newEvent);
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully created!</Box>}});
       setUpdateScreen(true);
     }
@@ -245,7 +321,8 @@ const AddEventScreen: FC = () => {
   //     console.log(allPeople);
 
   // }, []);
-  
+  const offset = (Platform.OS === 'android') ? -300 : 0;
+  const behavior = (Platform.OS === 'ios') ? 'height' : "posistion";
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -285,11 +362,11 @@ const AddEventScreen: FC = () => {
         >
           <View
             style={{
-              flex: 0.15,
+              flex: 0.1,
               flexDirection: "row",
               paddingLeft: 20,
-              marginBottom: 10,
-              marginTop: 25,
+              marginTop: 35,
+              marginBottom: 3,
             }}
           >
             <View
@@ -317,8 +394,13 @@ const AddEventScreen: FC = () => {
                 justifyContent: "center",
               }}
             >
-                    <View style={{ marginLeft: 18, marginRight: 30 }}>
-                    <Box
+            </View>
+          </View>
+          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={offset} behavior={Platform.OS == "ios" ? "height" : "height"}>
+            <ScrollView style={{ flex: 1, marginBottom: 30 }}>
+              <View style={{ flex: 1 }}>
+                <View style={{ marginLeft: 18, marginRight: 30, marginBottom: 20 }}>
+                <Box
                       maxW="155"
                       borderRadius={14}
                       style={{
@@ -331,7 +413,7 @@ const AddEventScreen: FC = () => {
                     >
                       <Select
                         width="150"
-                        height="10"
+                        height="50"
                         accessibilityLabel="Choose the sport type for this event"
                         placeholderTextColor={"#0A326D"}
                         placeholder="Choose Sport"
@@ -349,8 +431,8 @@ const AddEventScreen: FC = () => {
                         <Select.Item label="Badminton" value="Badminton" />
                         <Select.Item label="Baseball" value="Baseball" />
                         <Select.Item label="Basketball" value="Basketball" />
+                        <Select.Item label="Cricket" value="Cricket" />
                         <Select.Item label="Cycling" value="Cycling" />
-                        <Select.Item label="Hockey" value="Hockey" />
                         <Select.Item label="Disc golf" value="Disc golf" />
                         <Select.Item label="Fishing" value="Fishing" />
                         <Select.Item label="Football" value="Football" />
@@ -358,28 +440,23 @@ const AddEventScreen: FC = () => {
                         <Select.Item label="Golf" value="Golf" />
                         <Select.Item label="Handball" value="Handball" />
                         <Select.Item label="Hiking" value="Handball" />
-                        <Select.Item label="Cricket" value="Cricket" />
-                        <Select.Item label="Rugby" value="Rugby" />
+                        <Select.Item label="Hockey" value="Hockey" />
+                        <Select.Item label="Lacrosse" value="Lacrosse" />
                         <Select.Item label="Pickleball" value="Pickleball" />
+                        <Select.Item label="Rugby" value="Rugby" />
                         <Select.Item label="Running" value="Running" />
                         <Select.Item label="Soccer" value="Soccer" />
                         <Select.Item label="Softball" value="Softball" />
                         <Select.Item label="Spikeball" value="Spikeball" />
                         <Select.Item label="Tennis" value="Tennis" />
-                        <Select.Item label="Lacrosse" value="Lacrosse" />
                         <Select.Item label="Volleyball" value="Volleyball" />
                         <Select.Item label="Other" value="Other" />
                       </Select>
-                      {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
         </FormControl.ErrorMessage> */}
                     </Box>
-                  </View>            
-            </View>
-          </View>
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-            <ScrollView style={{ flex: 1, marginBottom: 30 }}>
-              <View style={{ flex: 1 }}>
+                </View>
                 <TextInput
                   style={[styles.input,{marginBottom: 5}]}
                   onChangeText={(text) => setNameOfEvent(text)}
@@ -395,6 +472,7 @@ const AddEventScreen: FC = () => {
                     fontFamily: "Roboto_400Regular",
                     fontSize: 15,
                     paddingLeft: 25,
+                    marginBottom: 15
                   }}
                 >
                   {nameOfEvent.length}/25 character limit

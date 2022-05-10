@@ -163,14 +163,15 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
 
 
   const ProfileScreen: FC<Props> = ({navigation, route})  => {
-    const { userItems, updateProfileScreen, setUpdateProfileScreen } = useContext<any>(UserContext);
+    const { userItems, updateProfileScreen, setUpdateProfileScreen, setFollowersBool, setFollowingBool } = useContext<any>(UserContext);
 
     useEffect(() => {
       fetchEvents();
       getFollowers();
       getFollowing();
       getUserAge(userItems.dateOfBirth)
-    }, []);
+      setUpdateProfileScreen(false);
+    }, [updateProfileScreen]);
     
     const [allEvents, setAllEvents] = useState<any>([]);
     const [displayFollowers, setDisplayFollowers] = useState<any>([]);
@@ -202,10 +203,21 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(userItems.id);
-    let activeEvents = displayEvents.filter((event: any) => event.isActive);
+    let activeEvents = displayEvents.filter((event: any) => isItAPresentDay(event['dateOfEvent']) == true);
     setAllEvents(activeEvents);
   }
 
+  function isItAPresentDay(date: string){
+    let today: any = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; 
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return date == today;
+  }
 
   const getUserAge = (dob: string) => {
     //get today's year for age calculation
@@ -421,10 +433,16 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
           </View>
 
                     <View style={{justifyContent:'center', flexDirection:'row'}}>
-                    <Pressable onPress={() => navigation.navigate('followers')}>
+                    <Pressable onPress={() => {
+                      navigation.navigate('followers')
+                      setFollowersBool(true);
+                    }}>
                         <Text style={{marginTop: 10, color:'white', marginRight:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Followers</Text>
                     </Pressable>
-                  <Pressable onPress={() => navigation.navigate('following')}>             
+                  <Pressable onPress={() => {
+                    navigation.navigate('following')
+                    setFollowingBool(true);
+                  }}>             
                       <Text style={{marginTop: 10, color:'white', marginLeft:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Following</Text>
                   </Pressable>
                     </View>

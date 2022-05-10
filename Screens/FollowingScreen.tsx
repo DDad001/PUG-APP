@@ -57,80 +57,98 @@ import BaseballPicture from "../assets/BaseballGlove.png";
 import Skier from "../assets/Skier.png";
 import { FlatList } from "native-base";
 
+const FollowerItem = ({
+  handleUnfollow,
+  username,
+  id,
+  displayFollowing,
+}: any) => {
+  const { followingBool } = useContext<any>(UserContext);
 
-const FollowerItem = ({ handleUnfollow, username, id, displayFollowing}: any) => {
+  return (
+    <View>
+      <View style={styles.NotificationView}>
+        <Image source={Skier} style={styles.ImageStyle} />
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={styles.TextStyle}>{username} </Text>
 
-  return(
-      <View >
-
-              <View style={styles.NotificationView}>
-                <Image source={Skier} style={styles.ImageStyle} />
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Text style={styles.TextStyle}>{username} </Text>
-
-                  <Pressable
-                    style={styles.unfollowBtn}
-                    onPress={() => handleUnfollow(id)}
-                    accessibilityLabel="Followers Button"
-                  >
-                    <Text style={styles.unfollowTxt}>Unfollow</Text>
-                    
-                  </Pressable>
-                </View>
-              </View>
-
-      </View> 
-
-  )
- };
-
+          {followingBool ? (
+            <Pressable
+              style={styles.unfollowBtn}
+              onPress={() => handleUnfollow(id)}
+              accessibilityLabel="Followers Button"
+            >
+              <Text style={styles.unfollowTxt}>Unfollow</Text>
+            </Pressable>
+          ) : null}
+        </View>
+      </View>
+    </View>
+  );
+};
 
 const FollowingScreen: FC = () => {
-   const { userItems } = useContext<any>(UserContext);
+  const { userItems, setUpdateProfileScreen, viewUserProfile, followingBool } =
+    useContext<any>(UserContext);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
-  
+
   useEffect(() => {
     getFollowing();
   }, []);
-  
+
   const getFollowing = async () => {
-    let followingArr: any[] = [];
-    let following = await GetFollowingByUserId(userItems.id);
-    //console.log(followers);
-    following.map(async (person: any) => {
-      let follower = await GetUserById(person.followerId);
-      followingArr.push(follower);
-      //console.log(follower);
-    });
-    
-    setTimeout(() => {
-      setDisplayFollowing(followingArr);
-    }, 1000);
+    if (followingBool) {
+      let followingArr: any[] = [];
+      let following = await GetFollowingByUserId(userItems.id);
+      //console.log(followers);
+      following.map(async (person: any) => {
+        let follower = await GetUserById(person.followerId);
+        followingArr.push(follower);
+        //console.log(follower);
+      });
+
+      setTimeout(() => {
+        setDisplayFollowing(followingArr);
+      }, 1000);
+    } else {
+      let followingArr: any[] = [];
+      let following = await GetFollowingByUserId(viewUserProfile.id);
+      //console.log(followers);
+      following.map(async (person: any) => {
+        let follower = await GetUserById(person.followerId);
+        followingArr.push(follower);
+        //console.log(follower);
+      });
+
+      setTimeout(() => {
+        setDisplayFollowing(followingArr);
+      }, 1000);
+    }
   };
 
-    const handleUnfollow = async (unfollowId: number) => {
+  const handleUnfollow = async (unfollowId: number) => {
     console.log("Deleted");
     DeleteFollower(userItems.id, unfollowId);
-    
+
     setTimeout(() => {
       getFollowing();
     }, 1000);
+    setUpdateProfileScreen(true);
   };
 
   const renderItem = ({ item }: any) => {
     return (
-    <FollowerItem 
-      id={item.id}
-      firstName={item.firstName}
-      username={item.username}
-      displayFollowing={displayFollowing}
-      handleUnfollow={handleUnfollow}
-    />
-    )
-};
+      <FollowerItem
+        id={item.id}
+        firstName={item.firstName}
+        username={item.username}
+        displayFollowing={displayFollowing}
+        handleUnfollow={handleUnfollow}
+      />
+    );
+  };
 
-  const [input, setInput] = useState("")
-
+  const [input, setInput] = useState("");
 
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
@@ -157,79 +175,76 @@ const FollowingScreen: FC = () => {
     Roboto_900Black_Italic,
   });
 
-  
   if (!fontsLoaded) {
     return <AppLoading />;
   }
 
-    let searchData = displayFollowing.filter((item:any) => {
-      return(
-        item.username.toLowerCase().includes(input.toLowerCase())
-      )
-    });
+  let searchData = displayFollowing.filter((item: any) => {
+    return item.username.toLowerCase().includes(input.toLowerCase());
+  });
 
   return (
     <>
       <View style={styles.container}>
-      <ImageBackground
-        source={BaseballPicture}
-        resizeMode="cover"
-        style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}
+        <ImageBackground
+          source={BaseballPicture}
+          resizeMode="cover"
+          style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}
         >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            paddingBottom: 33,
-            marginTop: 30,
-          }}
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              paddingBottom: 33,
+              marginTop: 30,
+            }}
           >
-          <View>
-            <TextInput
-              style={styles.input}
-              onChangeText={(setInput)}
-              onSubmitEditing={() => {
-                // alert(`Your message is: ${input}`);
-                // setInput("");
-              }}
-              placeholder="Search following"
-              placeholderTextColor={"#959494"}
+            <View>
+              <TextInput
+                style={styles.input}
+                onChangeText={setInput}
+                onSubmitEditing={() => {
+                  // alert(`Your message is: ${input}`);
+                  // setInput("");
+                }}
+                placeholder="Search following"
+                placeholderTextColor={"#959494"}
               />
-          </View>
-          <TouchableHighlight>
-            <View
-              style={{
-                backgroundColor: "#0A326D",
-                width: 54,
-                height: 45,
-                marginTop: 18,
-                borderBottomRightRadius: 7,
-                borderTopRightRadius: 7,
-              }}
-              >
-              <FontAwesome
-                name="search"
-                size={15}
-                color="white"
-                style={{ marginTop: 14, marginLeft: 17 }}
-                />
             </View>
-          </TouchableHighlight>
-        </View>
-        
-        <Text style={styles.FollowingText}>Following</Text>
+            <TouchableHighlight>
+              <View
+                style={{
+                  backgroundColor: "#0A326D",
+                  width: 54,
+                  height: 45,
+                  marginTop: 18,
+                  borderBottomRightRadius: 7,
+                  borderTopRightRadius: 7,
+                }}
+              >
+                <FontAwesome
+                  name="search"
+                  size={15}
+                  color="white"
+                  style={{ marginTop: 14, marginLeft: 17 }}
+                />
+              </View>
+            </TouchableHighlight>
+          </View>
 
-        <SafeAreaView style={styles.containerFlat}>
-        <FlatList
-        data={searchData}
-        renderItem={renderItem}
-        keyExtractor={(item: any) => item.id}
-        />
-        </SafeAreaView>
-      </ImageBackground>
-    </View>
+          <Text style={styles.FollowingText}>Following</Text>
+
+          <SafeAreaView style={styles.containerFlat}>
+            <FlatList
+              data={searchData}
+              renderItem={renderItem}
+              keyExtractor={(item: any) => item.id}
+            />
+          </SafeAreaView>
+        </ImageBackground>
+      </View>
     </>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
@@ -240,15 +255,15 @@ const styles = StyleSheet.create({
   },
   containerFlat: {
     flex: 1,
-    marginBottom:62
+    marginBottom: 62,
   },
 
   card: {
     borderRadius: 8,
     elevation: 10,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     shadowOffset: { width: 1, height: 1 },
-    shadowColor: '#333',
+    shadowColor: "#333",
     shadowOpacity: 0.3,
     shadowRadius: 2,
     marginHorizontal: 8,
@@ -258,7 +273,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     marginVertical: 8,
   },
-    input: {
+  input: {
     marginLeft: 10,
     marginTop: 18,
     width: 300,
@@ -270,7 +285,7 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 7,
     padding: 10,
   },
-    FollowingText: {
+  FollowingText: {
     fontFamily: "Lato_400Regular",
     fontStyle: "normal",
     fontWeight: "800",
@@ -279,7 +294,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 25,
   },
-    unfollowBtn: {
+  unfollowBtn: {
     backgroundColor: "#0A326D",
     borderRadius: 10,
     marginLeft: 15,
@@ -296,13 +311,13 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 12,
   },
-    ImageStyle: {
+  ImageStyle: {
     height: 70,
     width: 70,
     borderRadius: 50,
     marginRight: 15,
   },
-    NotificationView: {
+  NotificationView: {
     flex: 1,
     justifyContent: "center",
     flexDirection: "row",
@@ -315,7 +330,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto_500Medium",
     fontWeight: "500",
   },
-
 });
 
 export default FollowingScreen;

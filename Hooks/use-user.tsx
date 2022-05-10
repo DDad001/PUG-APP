@@ -8,6 +8,9 @@ export default function useUser() {
   const [updateScreen, setUpdateScreen] = useState<boolean>(false);
   const [updateProfileOther, setUpdateProfileOther] = useState<boolean>(false);
   const [updateProfileScreen, setUpdateProfileScreen] = useState<boolean>(false);
+  const [followersBool, setFollowersBool] = useState<boolean>(false);
+  const [followingBool, setFollowingBool] = useState<boolean>(false);
+  const [updateEventScreen, setUpdateEventScreen] = useState<boolean>(false);
 
   return {
     nameContext,
@@ -23,6 +26,12 @@ export default function useUser() {
     updateProfileOther,
     setUpdateProfileOther,
     updateProfileScreen, 
-    setUpdateProfileScreen
+    setUpdateProfileScreen,
+    followersBool, 
+    setFollowersBool,
+    followingBool,
+    setFollowingBool,
+    updateEventScreen, 
+    setUpdateEventScreen
   };
 }

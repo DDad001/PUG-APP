@@ -119,7 +119,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     const getNames = async () => {
       let userData = await GetUserById(userId);
       setName(`${userData.firstName} ${userData.lastName}`)
-      setViewUserProfile(userData);
+      //setViewUserProfile(userData);
     }
 
     const checkIfLiked = async () => {
@@ -159,7 +159,17 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     setUpdateProfileOther(true);
   }
 
- 
+ const longAddresses = (address: string) => {
+  let editedAddress: string = "";
+  let ditto: string = "...";
+  if(address.length > 40){
+    for(let i = 0; i<40; i++){
+      editedAddress += address[i];
+    }
+  }
+  editedAddress += ditto;
+  return editedAddress;
+ }
 
   return (
     <View style={styles.card}>
@@ -221,8 +231,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
             </View>
             <View style={{ flex:1 }}>
               <View style={{flex:0.4, flexDirection: 'row' }}>
-                {/* Name of the event section below! */}
-                <View style={{flex:1, width: 155, marginLeft: 25, justifyContent:'center'}}>
+                <View style={{flex:1, width: 155, marginLeft: 15, justifyContent:'center'}}>
                   <Text style={{ marginLeft: 0, fontSize: 12, fontFamily: "Lato_700Bold"}}>{nameOfEvent}</Text>
                 </View>
 
@@ -234,7 +243,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 
                 <Pressable onPress={handleLiked}>
                   {
-                    isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8, marginLeft: 9, }} />
+                    isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />
                       : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />
                   }
 
@@ -242,28 +251,30 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
             </View>
 
               </View>
-              {/* Fix the like and address icons */}
               <View style={{flex:1, flexDirection: 'column', }}>
                 <View style={{flex:1, flexDirection: 'row' }}>
-                  {/* Address of the event is below! */}
                   <View style={{flex: 1, justifyContent: 'center'}}>
-                    <Text style={{ flexWrap: 'wrap', flexShrink: 1, fontSize: 11, marginLeft: 25, fontFamily: "Lato_400Regular", borderColor: "white", justifyContent: "center" }}>{addressOfEvent}</Text>
+                    <Text style={{ flexWrap: 'wrap', flexShrink: 1, fontSize: 11, marginLeft: 15, paddingRight: 5, fontFamily: "Lato_400Regular", borderColor: "white", justifyContent: "center" }}>
+                    { 
+                     addressOfEvent.length < 40 ? addressOfEvent : longAddresses(addressOfEvent)
+                    }
+                    </Text>
                   </View>
-                  {/* Calendar Icon and date is below! */}
-                  <View style={{flex:0.5, flexDirection: "row", justifyContent: 'center'}}>
+                  <View style={{flex:0.5, flexDirection: "row", justifyContent: 'flex-start'}}>
                     <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10}} />
                     <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{dateOfEvent}</Text>
                   </View>
                 </View>
 
                 <View style={{ flex:1, flexDirection: 'row' }}>
-                  <View style={{flex: 0.7, flexDirection: "row", justifyContent: "flex-start" }}>
+                  {/* fiddle with the flex */}
+                  <View style={{flex: 0.9, flexDirection: "row", justifyContent: "flex-start"  }}>
                     <Pressable onPress={() => {
                       ProfileHandler();
                       handleSaveUser();
                       }}>
-                      <View style={{ flexDirection: 'row' }}>
-                        <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 25 }} />
+                      <View style={{flex: 1, flexDirection: 'row', }}>
+                        <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 15 }} />
                         <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
                           {       
                             name
@@ -272,9 +283,9 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                       </View>
                     </Pressable>
                   </View>
-                    
-                  <View style={{flex:0.3,flexDirection: "row", paddingRight: 11  }}>
-                    <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 5, marginTop: 4, }} />
+                    {/* Fiddle with the flex */}
+                  <View style={{flex:0.45,flexDirection: "row" }}>
+                    <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 0, marginTop: 4, }} />
                     <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{timeOfEvent}</Text>
                   </View>
 
@@ -303,8 +314,21 @@ const CardListComponent: FC<CardProps> = (props) => {
   
   const fetchEvents = async () => {
     let displayEvents = await GetEventItems();
-    // console.log(displayEvents);
-    setAllEvents(displayEvents);
+    let presentEvents: any;
+    presentEvents = displayEvents.filter((event: any) => isItAPresentDay(event['dateOfEvent']) == true);
+    setAllEvents(presentEvents);
+  }
+
+  function isItAPresentDay(date: string){
+    let today: any = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; 
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return date == today;
   }
   // const [dataFromInput, setDataFromInput] = useState(allEvents);
 
@@ -385,11 +409,22 @@ const CardListComponent: FC<CardProps> = (props) => {
 
     // let data = dataFromInput;
     // console.log(data);
-    let searchData = allEvents.filter((item:any) => {
-      return(
-        item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase())
-      )
-    });
+
+    //this query is done when
+    let searchData: any;
+    if(selectSport != "No Filters"){
+      searchData = allEvents.filter((item:any) => {
+        return(
+          item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase())
+        )
+      });
+    }else{
+      searchData = allEvents.filter((item:any) => {
+        return(
+          item.cityOfEvent.toLowerCase().includes(input.toLowerCase())
+        )
+      });
+    }
 
   return (
     <>
@@ -428,7 +463,7 @@ const CardListComponent: FC<CardProps> = (props) => {
               height="10"
               accessibilityLabel="Choose the sport type for this event"
               placeholderTextColor={"#0A326D"}
-              placeholder="Filters"
+              placeholder="Filter Sports"
               onValueChange={(text) => setSelectSport(text)}
               _selectedItem={{
                 bg: "black.300",
@@ -439,11 +474,13 @@ const CardListComponent: FC<CardProps> = (props) => {
               fontSize={15}
               color={"#0A326D"}
             >
-              <Select.Item label="Badminton" value="Badminton" />
+              
+                <Select.Item label="All Events" value="No Filters" />
+                <Select.Item label="Badminton" value="Badminton" />
                 <Select.Item label="Baseball" value="Baseball" />
                 <Select.Item label="Basketball" value="Basketball" />
+                <Select.Item label="Cricket" value="Cricket" />
                 <Select.Item label="Cycling" value="Cycling" />
-                <Select.Item label="Hockey" value="Hockey" />
                 <Select.Item label="Disc golf" value="Disc golf" />
                 <Select.Item label="Fishing" value="Fishing" />
                 <Select.Item label="Football" value="Football" />
@@ -451,15 +488,15 @@ const CardListComponent: FC<CardProps> = (props) => {
                 <Select.Item label="Golf" value="Golf" />
                 <Select.Item label="Handball" value="Handball" />
                 <Select.Item label="Hiking" value="Handball" />
-                <Select.Item label="Cricket" value="Cricket" />
-                <Select.Item label="Rugby" value="Rugby" />
+                <Select.Item label="Hockey" value="Hockey" />
+                <Select.Item label="Lacrosse" value="Lacrosse" />
                 <Select.Item label="Pickleball" value="Pickleball" />
+                <Select.Item label="Rugby" value="Rugby" />
                 <Select.Item label="Running" value="Running" />
                 <Select.Item label="Soccer" value="Soccer" />
                 <Select.Item label="Softball" value="Softball" />
                 <Select.Item label="Spikeball" value="Spikeball" />
                 <Select.Item label="Tennis" value="Tennis" />
-                <Select.Item label="Lacrosse" value="Lacrosse" />
                 <Select.Item label="Volleyball" value="Volleyball" />
                 <Select.Item label="Other" value="Other" />
             </Select>
@@ -510,6 +547,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderTopStartRadius: 7,
     borderBottomStartRadius: 7,
+    borderTopLeftRadius: 7,
+    borderBottomLeftRadius: 7,
     padding: 10,
     fontFamily: "OpenSans_400Regular",
     fontSize: 12
