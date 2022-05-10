@@ -41,6 +41,8 @@ import {
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as ImagePicker from 'expo-image-picker';
+import { Button } from "native-base";
+import { ImageHandler } from "../Components/ImageHandler";
 
 interface EventsProps{ 
   handlePastEvents: Function,
@@ -174,7 +176,28 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     const [displayFollowers, setDisplayFollowers] = useState<any>([]);
     const [displayFollowing, setDisplayFollowing] = useState<any>([]);
     const [displayUserAge, setDisplayUserAge] = useState<any>();
-    const [pickedImagePath, setPickedImagePath] = useState('');
+    // const [pickedImagePath, setPickedImagePath] = useState('');
+
+
+  // const saveImage = async () =>{
+  //   //we are going to start off by getting the file type using a split.
+  //   let fileType = pickedImagePath.split(".")[1];
+  //   //using FormData to be able to send out data over to the api correctly.
+  //   let formData = new FormData();
+  //   //Getting the file name using a regex (regular expression)
+  //   let fileName = pickedImagePath.replace(/^.*[\\\/]/, "");
+  //   formData.append('photo', {pickedImagePath, name:fileName, type:`image/${fileType}`})
+  //   //formData.append('photo', {uri: pictureURL, name:fileName, type:`image/${fileType}`})
+  //   let res = await fetch(`http://172.20.10.3:5021/Image/uploadImage`, {
+  //     method:"POST",
+  //     headers: {
+  //       'Accept':'application/json'
+  //     },
+  //     body:formData
+  //   })
+  //   let photoUrl = await res.text();
+  //   console.log(photoUrl);
+  // }
     
 
   const fetchEvents = async () => {
@@ -297,54 +320,20 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
 
 
 
-
-  const showImagePicker = async () => {
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (permissionResult.granted === false) {
-      alert("You've refused to allow this app to access your photos!");
-      return;
-    }
-    const result = await ImagePicker.launchImageLibraryAsync();
-    console.log(result);
-    if (!result.cancelled) {
-      setPickedImagePath(result.uri);
-      console.log(result.uri);
-    }
-    let userData = {
-      Id: userItems.id,
-      FirstName: userItems.firstName,
-      LastName: userItems.lastName,
-      Username: userItems.username,
-      Salt: userItems.salt,
-      Hash: userItems.hash,
-      DateOfBirth:userItems.dateOfBirth,
-      City:userItems.city,
-      State:userItems.state,
-      isTermsAccepted:userItems.isTermsAccepted,
-      isEighteen:userItems.isEighteen,
-      Image:pickedImagePath,
-      IsDeleted:false
-    };
-    console.log("test")
-    console.log(userData)
-    let updateUserImage = await UpdateUser(userData);
-    console.log(updateUserImage);
-  }
-
-  const openCamera = async () => {
-    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
-    if (permissionResult.granted === false) {
-      alert("You've refused to allow this appp to access your camera!");
-      return;
-    }
-    const result = await ImagePicker.launchCameraAsync();
-    console.log(result);
+  // const openCamera = async () => {
+  //   const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+  //   if (permissionResult.granted === false) {
+  //     alert("You've refused to allow this appp to access your camera!");
+  //     return;
+  //   }
+  //   const result = await ImagePicker.launchCameraAsync();
+  //   console.log(result);
   
-    if (!result.cancelled) {
-      setPickedImagePath(result.uri);
-      console.log(result.uri);
-    }
-  }
+  //   if (!result.cancelled) {
+  //     setPickedImagePath(result.uri);
+  //     console.log(result.uri);
+  //   }
+  // }
 
   
   let [fontsLoaded, error] = useFonts({
@@ -414,39 +403,8 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
 
              </View>
             <ScrollView style={{flex: 1, marginBottom: 70}}>
-          <View style={{alignItems:'center'}}>
-            <Pressable onPress={() => console.log('Change Photo')}>
-                   <View style={{marginTop:20,flexDirection:'row'}}>
-                <Pressable onPress={showImagePicker}>
-              <View style={{backgroundColor:'#7E90AB', height:100, width:100, borderRadius:50, marginTop: 8}}>
-                {
-                  pickedImagePath !== '' ? <Image
-                  source={{ uri: pickedImagePath }}
-                  style={{ height: 100, width: 100, borderRadius: 50,}}
-                  />
-                  :
-                  <View>
-                  <MaterialCommunityIcons name="image-plus" size={40} color="white" style={{marginLeft:30, marginTop:30}}/>
-                  </View>
-                }
-              </View>
-                </Pressable>
-              </View>
-              {/* <View style={{backgroundColor:'gray', height:100, width:100, borderRadius:50, marginTop: 25}}>
-              <Entypo name="camera" size={40} color="white" style={{marginLeft:30, marginTop:30}}/>
-              {
-                  
-                    pickedImagePath !== '' && <Image
-                    source={{ uri:pickedImagePath}} style={{ height: 100, width: 100, borderRadius: 50,}}/>
-                  
-              }
-                </View> */}
-            </Pressable>
-            <Pressable onPress={showImagePicker}>
-                <Text style={{color:'white',fontSize:15, fontFamily: "Lato_900Black",textDecorationLine:'underline', marginTop:5 }}>{ pickedImagePath == '' ? "Upload Profile Photo" : "Change Profile Photo"}</Text>
-            </Pressable>
-
-          </View>
+            {/* image picker goes here */}
+            <ImageHandler/>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
                 <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{userItems.firstName + " "+ userItems.lastName}, </Text>
                 <Text style={{marginTop: 20, color:'white', fontFamily: "Lato_700Bold", fontSize: 19, fontWeight: "bold"}}>{displayUserAge}</Text>
