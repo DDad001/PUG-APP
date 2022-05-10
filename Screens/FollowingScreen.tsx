@@ -86,7 +86,7 @@ const FollowerItem = ({ handleUnfollow, username, id, displayFollowing}: any) =>
 
 
 const FollowingScreen: FC = () => {
-   const { userItems } = useContext<any>(UserContext);
+   const { userItems, setUpdateProfileScreen } = useContext<any>(UserContext);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
   
   useEffect(() => {
@@ -115,6 +115,7 @@ const FollowingScreen: FC = () => {
     setTimeout(() => {
       getFollowing();
     }, 1000);
+    setUpdateProfileScreen(true);
   };
 
   const renderItem = ({ item }: any) => {
