@@ -161,7 +161,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
 
 
   const ProfileScreen: FC<Props> = ({navigation, route})  => {
-    const { userItems, updateProfileScreen, setUpdateProfileScreen } = useContext<any>(UserContext);
+    const { userItems, updateProfileScreen, setUpdateProfileScreen, setFollowersBool, setFollowingBool } = useContext<any>(UserContext);
 
     useEffect(() => {
       fetchEvents();
@@ -475,10 +475,16 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
           </View>
 
                     <View style={{justifyContent:'center', flexDirection:'row'}}>
-                    <Pressable onPress={() => navigation.navigate('followers')}>
+                    <Pressable onPress={() => {
+                      navigation.navigate('followers')
+                      setFollowersBool(true);
+                    }}>
                         <Text style={{marginTop: 10, color:'white', marginRight:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Followers</Text>
                     </Pressable>
-                  <Pressable onPress={() => navigation.navigate('following')}>             
+                  <Pressable onPress={() => {
+                    navigation.navigate('following')
+                    setFollowingBool(true);
+                  }}>             
                       <Text style={{marginTop: 10, color:'white', marginLeft:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Following</Text>
                   </Pressable>
                     </View>
