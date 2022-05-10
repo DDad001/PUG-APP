@@ -139,7 +139,7 @@ const EventItem = ({event, navigation} :any) => {
 
 
 const ProfileOfOther: FC<Props> = ({navigation, route})  => {
-  const { userItems, nameContext, viewUserProfile, updateProfileOther, setUpdateProfileOther, } = useContext<any>(UserContext);
+  const { userItems, nameContext, viewUserProfile, updateProfileOther, setUpdateProfileOther, setFollowersBool, setFollowingBool} = useContext<any>(UserContext);
   
   const [displayFollowers, setDisplayFollowers] = useState<any>([]);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
@@ -315,10 +315,16 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
-            <Pressable onPress={() => navigation.navigate('OtherPersonsFollowers')}>
+            <Pressable onPress={() => {
+              navigation.navigate('OtherPersonsFollowers')
+              setFollowersBool(false);
+            }}>
                 <Text style={{marginTop: 10, color:'white', marginRight:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Followers</Text>
             </Pressable>
-            <Pressable  onPress={() => navigation.navigate('OtherPersonsFollowings')}>
+            <Pressable  onPress={() => {
+              navigation.navigate('OtherPersonsFollowings')
+              setFollowingBool(false);
+            }}>
                 <Text style={{marginTop: 10, color:'white', marginLeft:15, fontFamily: "Roboto_500Medium", fontSize: 16}}>Following</Text>
             </Pressable>
           </View>
