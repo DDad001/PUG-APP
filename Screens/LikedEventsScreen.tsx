@@ -230,6 +230,18 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
     
   }
 
+  const longAddresses = (address: string) => {
+    let editedAddress: string = "";
+    let ditto: string = "...";
+    if(address.length > 40){
+      for(let i = 0; i<40; i++){
+        editedAddress += address[i];
+      }
+    }
+    editedAddress += ditto;
+    return editedAddress;
+   }
+
   return(
         <>
                     
@@ -248,8 +260,12 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
                                         <Text style={{ marginTop: 8, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16  }}>{timeOfEvent}</Text>
                                       </View>
 
-                                      <View style={{ flexDirection: 'row' }}>
-                                        <Text style={{fontSize:12, marginLeft:20, marginTop:8, fontFamily: "Lato_400Regular"}}>{addressOfEvent}</Text>
+                                      <View style={{ flexDirection: 'row', width: 155}}>
+                                        <Text style={{fontSize:12, marginLeft:20, marginTop:8, fontFamily: "Lato_400Regular"}}>
+                                          {
+                                            addressOfEvent.length < 40 ? addressOfEvent : longAddresses(addressOfEvent)
+                                          }
+                                        </Text>
                                       </View>
 
 

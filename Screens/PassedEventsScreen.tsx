@@ -70,14 +70,26 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
       getAllEvents();
     }, 1000)
    }
-   
 
+    const longAddresses = (address: string) => {
+    let editedAddress: string = "";
+    let ditto: string = "...";
+    if(address.length > 40){
+      for(let i = 0; i<40; i++){
+        editedAddress += address[i];
+      }
+    }
+    editedAddress += ditto;
+    return editedAddress;
+   }
+   
     return (
       <View style={styles.card}>
             <View style={styles.cardContent}>
-            <View style={{ flexDirection: 'row', }}>
-            <Image source={man} style={{ height: 100, width: 145, borderRadius: 8 }} />
-             <View style={{marginLeft:35}}>
+            <View style={{ flex: 0, flexDirection: 'row' }}>
+              {/* You might want to experiment with the flexes */}
+            <Image source={man} style={{flex:1, height: 100, width: 145, borderRadius: 8 }} />
+             <View style={{flex:1 ,marginLeft:35}}>
               <View style={{ flexDirection: 'row' }}>
                 <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
                   <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16 }}>{dateOfEvent}</Text>
@@ -87,24 +99,33 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
                 <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop:5, marginLeft: 14 }} />
                   <Text style={{ marginTop: 8, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16  }}>{timeOfEvent}</Text>
                 </View>
-
-                <View style={{ flexDirection: 'row' }}>
-                   <Text style={{fontSize:12, marginLeft:20, marginTop:8, fontFamily: "Lato_400Regular"}}>{addressOfEvent}</Text>
+                {/* If the valid address is over a certain character limit then edit it */}
+                {/* Character limit 75 */}
+                <View style={{ flexDirection: 'row', width: 155 }}>
+                   <Text style={{fontSize:12, marginLeft:20, marginTop:8, fontFamily: "Lato_400Regular"}}>
+                    {
+                      addressOfEvent.length < 40 ? addressOfEvent : longAddresses(addressOfEvent)
+                    }
+                    </Text>
                 </View>
 
 
                   </View>
                 </View>
               </View>
-                <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:14}}>{nameOfEvent}</Text>
+              <View>
+                <View style={{width:150}}>
+                    <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:14}}>{nameOfEvent}</Text>
+                </View>
+              </View>
 
                   {/* DO NOT DELETE THIS--- CODE FOR LIKED EVENTS PAGE */}
 
                   {/* CODE FOR PAST EVENTS PAGE */}
 
-                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+                <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop: 10}}>
                   <Pressable onPress={() => handleRemoveEvent(id)}>
-                    <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:5, width:110, height:27 }} >
+                    <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:6, width:110, height:30 }} >
                       <Text style={{marginLeft:10, color:'white', fontFamily:"Lato_400Regular"}}>Delete Event</Text>
                     </View>
                   </Pressable>
@@ -295,6 +316,7 @@ const styles = StyleSheet.create({
     cardContent: {
       marginHorizontal: 8,
       marginVertical: 8,
+      flex:1,
     },
 });
 
