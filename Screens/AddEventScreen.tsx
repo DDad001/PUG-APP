@@ -322,7 +322,7 @@ const AddEventScreen: FC = () => {
 
   // }, []);
   // offset -50 works good for iphone 11s!
-  const offset = (Platform.OS === 'android') ? -300 : -50;
+  const offset = (Platform.OS === 'android') ? -300 : -25;
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -396,7 +396,7 @@ const AddEventScreen: FC = () => {
             >
             </View>
           </View>
-          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={offset} behavior={"height"}>
+          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={offset} behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
             <ScrollView style={{ flex: 1, marginBottom: 30 }}>
               <View style={{ flex: 1 }}>
                 <View style={{ marginLeft: 18, marginRight: 30, marginBottom: 20 }}>
