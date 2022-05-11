@@ -322,7 +322,6 @@ const AddEventScreen: FC = () => {
 
   // }, []);
   const offset = (Platform.OS === 'android') ? -300 : 0;
-  const behavior = (Platform.OS === 'ios') ? 'height' : "posistion";
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -396,7 +395,7 @@ const AddEventScreen: FC = () => {
             >
             </View>
           </View>
-          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={offset} behavior={Platform.OS == "ios" ? "height" : "height"}>
+          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={offset} behavior={"height"}>
             <ScrollView style={{ flex: 1, marginBottom: 30 }}>
               <View style={{ flex: 1 }}>
                 <View style={{ marginLeft: 18, marginRight: 30, marginBottom: 20 }}>
