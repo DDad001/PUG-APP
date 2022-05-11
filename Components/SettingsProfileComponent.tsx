@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { Text, ScrollView, StyleSheet, Image, View } from "react-native";
 import AppLoading from "expo-app-loading";
+import UserContext from "../Context/UserContext";
 import {
   useFonts,
   Lato_100Thin,
@@ -34,6 +35,7 @@ import man from '../assets/man.jpg';
 import { Ionicons } from '@expo/vector-icons';
 
 const SettingsProfileComponent: FC = () => {
+  const { userItems } = useContext<any>(UserContext);
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -66,8 +68,8 @@ const SettingsProfileComponent: FC = () => {
   return (
     <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView}>
-        <Image source={man} style={styles.ImageStyle} />
-        <Text style={styles.TextStyle}>Scotterpop</Text>
+        <Image source={{uri: userItems.image}} style={styles.ImageStyle} />
+        <Text style={styles.TextStyle}>{userItems.username}</Text>
       </View>
     </View>
   );
