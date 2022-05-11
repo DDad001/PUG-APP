@@ -104,7 +104,7 @@ type RootStackParamList = {
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   const [isLiked, setIsLiked] = useState(false);
   const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen} = useContext<any>(UserContext);
-  const [profileImage, setProfileImage] = useState<any>("");
+  const [profileImage, setProfileImage] = useState<any>(null);
 
   useEffect(() => {
     getNames();
