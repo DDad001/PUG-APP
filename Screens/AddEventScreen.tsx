@@ -603,7 +603,7 @@ const AddEventScreen: FC = () => {
                   style={styles.input}
                   onChangeText={(text) => setEventAddress(text)}
                   value={eventAddress}
-                  placeholder="Address"
+                  placeholder="Address Ex. 734 Houston Ave, Stockton"
                   accessibilityLabel="Enter the address of where the event takes place"
                   placeholderTextColor={"rgba(59, 86, 124, 1)"}
                 />
