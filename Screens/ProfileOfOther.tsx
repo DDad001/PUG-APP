@@ -150,7 +150,7 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   useEffect(() => {
     getFollowers();
     getFollowing();
-    getUserAge(viewUserProfile.dateOfBirth);
+    // getUserAge(viewUserProfile.dateOfBirth);
     fetchEvents();
     setUpdateProfileOther(false);
     
@@ -172,84 +172,84 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
  
   };
 
-  const getUserAge = (dob: string) => {
-    //get today's year for age calculation
-    const currentYear = new Date().getFullYear();
-    //-----------------------------------------------------------
-    let calculatedAge: number;
-    let dobArr = dob.split("/");
-    let bdayMonth = dobArr[0];
-    let bdayYear = dobArr[2];
-    let bdayMonthNum: number = Number(bdayMonth);
-    let bdayYearNum: number = Number(bdayYear);
+  // const getUserAge = (dob: string) => {
+  //   //get today's year for age calculation
+  //   const currentYear = new Date().getFullYear();
+  //   //-----------------------------------------------------------
+  //   let calculatedAge: number;
+  //   let dobArr = dob.split("/");
+  //   let bdayMonth = dobArr[0];
+  //   let bdayYear = dobArr[2];
+  //   let bdayMonthNum: number = Number(bdayMonth);
+  //   let bdayYearNum: number = Number(bdayYear);
 
 
-    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    let monthNum: number = 0;
+  //   const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  //   let monthNum: number = 0;
 
-    const d = new Date();
-    let monthName = months[d.getMonth()];
+  //   const d = new Date();
+  //   let monthName = months[d.getMonth()];
 
-    switch(monthName){
-      case "January":
-        monthNum = 1;
-        break;
+  //   switch(monthName){
+  //     case "January":
+  //       monthNum = 1;
+  //       break;
 
-      case "February":
-        monthNum = 2;
-        break;
+  //     case "February":
+  //       monthNum = 2;
+  //       break;
 
-      case "March":
-        monthNum = 3;
-        break;
+  //     case "March":
+  //       monthNum = 3;
+  //       break;
 
-      case "April":
-        monthNum = 4;
-        break;
+  //     case "April":
+  //       monthNum = 4;
+  //       break;
 
-      case "May":
-        monthNum = 5;
-        break;
+  //     case "May":
+  //       monthNum = 5;
+  //       break;
 
-      case "June":
-        monthNum = 6;
-        break;
+  //     case "June":
+  //       monthNum = 6;
+  //       break;
 
-      case "July":
-        monthNum = 7;
-        break;
+  //     case "July":
+  //       monthNum = 7;
+  //       break;
 
-      case "August":
-        monthNum = 8;
-        break;
+  //     case "August":
+  //       monthNum = 8;
+  //       break;
 
-      case "September":
-        monthNum = 9;
-        break;
+  //     case "September":
+  //       monthNum = 9;
+  //       break;
 
-      case "October":
-        monthNum = 10;
-        break;
+  //     case "October":
+  //       monthNum = 10;
+  //       break;
 
-      case "November":
-        monthNum = 11;
-        break;
+  //     case "November":
+  //       monthNum = 11;
+  //       break;
 
-      case "December":
-        monthNum = 12;
-        break;
-    }
+  //     case "December":
+  //       monthNum = 12;
+  //       break;
+  //   }
     
-    //logic of calculating age
-    if(monthNum > bdayMonthNum){
-      calculatedAge = currentYear - bdayYearNum;
-    }else{
-      calculatedAge = currentYear - bdayYearNum - 1;
-    }
+  //   //logic of calculating age
+  //   if(monthNum > bdayMonthNum){
+  //     calculatedAge = currentYear - bdayYearNum;
+  //   }else{
+  //     calculatedAge = currentYear - bdayYearNum - 1;
+  //   }
 
-    setDisplayUserAge(calculatedAge);
+  //   setDisplayUserAge(calculatedAge);
     
-  }
+  // }
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(viewUserProfile.id);
