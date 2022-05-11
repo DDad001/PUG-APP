@@ -13,7 +13,7 @@ import {
   FlatList,
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
 import AppLoading from "expo-app-loading";
 import {
@@ -59,11 +59,16 @@ const FollowerItem = ({
   username,
   id,
   displayFollowing,
+  image
 }: any) => {
   return (
     <View>
       <View style={styles.NotificationView}>
-        <Image source={Skier} style={styles.ImageStyle} />
+        {
+          image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
+          : <Image source={{uri: image}} style={styles.ImageStyle} />
+        }
+        
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text style={styles.TextStyle}>{username} </Text>
         </View>
@@ -117,6 +122,7 @@ const FollowersScreen: FC = () => {
         id={item.id}
         firstName={item.firstName}
         username={item.username}
+        image={item.image}
         displayFollowers={displayFollowers}
       />
     );

@@ -55,7 +55,7 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
 const EventItem = ({event, navigation} :any) => {
-  const { userItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile } = useContext<any>(UserContext);
+  const { userItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
@@ -78,6 +78,7 @@ const EventItem = ({event, navigation} :any) => {
     }
     setUpdateScreen(true);
     setUpdateEventScreen(true);
+    setUpdateProfileScreen(true);
   }
 
   const checkIfLiked = async () => {

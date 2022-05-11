@@ -100,7 +100,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
 
   // const [isLiked, setIsLiked] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
-  const [profileImage, setProfileImage] = useState<any>("");
+  const [profileImage, setProfileImage] = useState<any>(null);
 
   useEffect(() => {
     handleIsFollowed();
