@@ -68,7 +68,10 @@ const SettingsProfileComponent: FC = () => {
   return (
     <View style={styles.ScrollStyle}>
       <View style={styles.NotificationView}>
-        <Image source={{uri: userItems.image}} style={styles.ImageStyle} />
+        {
+          userItems.image === null ? <Ionicons name="person-circle-sharp" size={100} color="white" />
+          : <Image source={{uri: userItems.image}} style={styles.ImageStyle} />
+        }
         <Text style={styles.TextStyle}>{userItems.username}</Text>
       </View>
     </View>
