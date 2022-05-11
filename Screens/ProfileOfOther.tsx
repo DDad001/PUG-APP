@@ -77,7 +77,7 @@ const EventItem = ({event, navigation} :any) => {
       DeleteLikedEvent(userItems.id, event.id)
     }
     setUpdateScreen(true);
-    
+    setUpdateEventScreen(true);
   }
 
   const checkIfLiked = async () => {
@@ -150,7 +150,7 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   useEffect(() => {
     getFollowers();
     getFollowing();
-    getUserAge(viewUserProfile.dateOfBirth);
+    //getUserAge(viewUserProfile.dateOfBirth);
     fetchEvents();
     setUpdateProfileOther(false);
     
