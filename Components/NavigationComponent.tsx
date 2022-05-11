@@ -17,7 +17,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
 import FollowingScreen from '../Screens/FollowingScreen';
-
+import UserContext from '../Context/UserContext';
 
 
 type RootStackParamList ={
@@ -27,6 +27,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Nav'>
 
 const Tab = createBottomTabNavigator();
 const MyTabs: FC = () =>{
+    const { userItems } = useContext<any>(UserContext);
 const [BorderColor, setBorderColor] = useState('black')
   return (
 
@@ -155,7 +156,7 @@ const [BorderColor, setBorderColor] = useState('black')
         
             tabBarIcon: ({ color, size }) => (
                 // <MaterialIcons name="notifications" size={33} color="black"/>
-                    <Image source={man}  style={{height: 31, width:31, borderRadius:50, borderWidth:2, borderColor:'white' }}/>
+                    <Image source={{uri: userItems.image}}  style={{height: 31, width:31, borderRadius:50, borderWidth:2, borderColor:'white' }}/>
                 ),
             }}
             />

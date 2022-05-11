@@ -1,7 +1,6 @@
 import { FC, useContext } from "react";
 import { Text, ScrollView, StyleSheet, Image, View } from "react-native";
 import AppLoading from "expo-app-loading";
-import UserContext from "../Context/UserContext";
 import {
   useFonts,
   Lato_100Thin,
@@ -33,6 +32,7 @@ import {
 
 import man from '../assets/man.jpg';
 import { Ionicons } from '@expo/vector-icons';
+import UserContext from '../Context/UserContext';
 
 const SettingsProfileComponent: FC = () => {
   const { userItems } = useContext<any>(UserContext);
