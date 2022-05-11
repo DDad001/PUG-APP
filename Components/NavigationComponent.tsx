@@ -92,7 +92,7 @@ const [BorderColor, setBorderColor] = useState('black')
             />
       <Tab.Screen
         name="PUGLogo"
-        component={test}
+        component={FollowingScreen}
         options={{
             tabBarStyle: {
                 position: 'absolute',
@@ -171,9 +171,6 @@ const NavigationComponent:FC <Props> =()=> {
     return (
         <MyTabs />
   );
-}
-const test = () => {
-return <Text>Testing</Text>
 }
 
 export default NavigationComponent;

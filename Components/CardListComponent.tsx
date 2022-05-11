@@ -104,7 +104,7 @@ type RootStackParamList = {
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   const [isLiked, setIsLiked] = useState(false);
   const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen} = useContext<any>(UserContext);
- 
+  const [profileImage, setProfileImage] = useState<any>("");
 
   useEffect(() => {
     getNames();
@@ -119,7 +119,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     const getNames = async () => {
       let userData = await GetUserById(userId);
       setName(`${userData.firstName} ${userData.lastName}`)
-      //setViewUserProfile(userData);
+      setProfileImage(userData.image);
     }
 
     const checkIfLiked = async () => {
@@ -274,7 +274,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                       handleSaveUser();
                       }}>
                       <View style={{flex: 1, flexDirection: 'row', }}>
-                        <Image source={man} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 15 }} />
+                        <Image source={{ uri: profileImage}} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 15 }} />
                         <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
                           {       
                             name
