@@ -49,6 +49,7 @@ import {
 } from "native-base";
 
 import { DeleteUser, UpdateUser, UpdatePassword, GetUserById } from '../Services/DataService'
+import { position } from "native-base/lib/typescript/theme/styled-system";
 
 
 interface SettingsProps{ 
@@ -237,7 +238,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     accent: '#f1c40f',
   }, }
 
-
+  const offset = (Platform.OS === 'android') ? -300 : 150;
 
   return (
     <View style={styles.ScrollStyle}>
@@ -275,7 +276,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
           <Modal.CloseButton />
           <Modal.Header><Text style={{color: '#0A326D', fontSize: 20,}}>Edit Profile</Text></Modal.Header>
           <Modal.Body overflow="hidden">
-          <KeyboardAvoidingView style={{}} behavior={"position"} keyboardVerticalOffset={150}>
+          <KeyboardAvoidingView behavior={"position"} keyboardVerticalOffset={offset}>
             <Box>
               <FormControl.Label>
                 <Text style={[styles.LabelTxt, {marginLeft: 20}]}>First Name</Text>
