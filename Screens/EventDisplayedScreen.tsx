@@ -100,14 +100,21 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
 
   // const [isLiked, setIsLiked] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
+  const [profileImage, setProfileImage] = useState<any>("");
 
   useEffect(() => {
     handleIsFollowed();
+    getProfileImage();
   }, [])
 
   const handleIsFollowed = async () => {
     let followed = await GetIsFollowed(userItems.id, eventItems.userId);
     setIsFollowed(followed);
+  }
+
+  const getProfileImage = async () => {
+    let userData = await GetUserById(eventItems.userId);
+    setProfileImage(userData.image);
   }
 
   let [fontsLoaded, error] = useFonts({
@@ -579,7 +586,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
               <View style={{ flexDirection: 'row', flex: 1, backgroundColor: '#7E90AB', marginTop: 15, height: 80, shadowRadius: 8, shadowColor: '#333', shadowOffset: { width: 5, height: 5 }, shadowOpacity: 0.4 }}>
 
 
-                <Image source={man} style={{ height: 55, width: 55, borderRadius: 30, marginTop: 13, marginLeft: 22 }} />
+                <Image source={{uri: profileImage}} style={{ height: 55, width: 55, borderRadius: 30, marginTop: 13, marginLeft: 22 }} />
                 <Text style={{ flex: 0.9, marginTop: 30, marginLeft: 17, fontSize: 16, color: 'white', fontFamily: "Roboto_700Bold" }}>{nameContext}</Text>
 
 
