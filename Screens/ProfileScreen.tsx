@@ -288,10 +288,10 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     }
     
     //logic of calculating age
-    if(monthNum > bdayMonthNum){
-      calculatedAge = currentYear - bdayYearNum;
-    }else{
+    if(monthNum < bdayMonthNum){
       calculatedAge = currentYear - bdayYearNum - 1;
+    }else{
+      calculatedAge = currentYear - bdayYearNum;
     }
 
     setDisplayUserAge(calculatedAge);
