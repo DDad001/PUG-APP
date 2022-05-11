@@ -294,9 +294,11 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
     <View style={styles.mainContainer}>
          <ImageBackground source={SoccerField} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
           <View style={{alignItems:'center', marginTop:30}}>
-            <Pressable onPress={() => console.log('Change Photo')}>
-                <Image source={man} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}}/>
-            </Pressable>
+            {
+              viewUserProfile.image === null ? <Ionicons name="person-circle-sharp" size={115} style={{ marginTop:25}} color="white" />
+              : <Image source={{uri: viewUserProfile.image}} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}} />
+            }
+            
           </View>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
                 <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{nameContext}, </Text>

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import man from '../assets/man.jpg';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import AppLoading from 'expo-app-loading';
 // import { Divider, Menu, Provider, Button } from 'react-native-paper';
@@ -274,7 +274,10 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                       handleSaveUser();
                       }}>
                       <View style={{flex: 1, flexDirection: 'row', }}>
-                        <Image source={{ uri: profileImage}} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 15 }} />
+                        {
+                          profileImage === null ? <Ionicons name="person-circle-sharp" size={26} style={{marginLeft: 15}} color="black" />
+                          : <Image source={{ uri: profileImage}} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 15 }} />
+                        }
                         <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
                           {       
                             name
