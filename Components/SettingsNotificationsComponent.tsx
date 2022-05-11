@@ -356,7 +356,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                   <Text style={{ fontSize:12, marginRight: 199, paddingTop: 5, paddingBottom: 5, paddingLeft: 11, color:"gray", fontFamily: 'Roboto_400Regular', opacity: 0.6}}>{dob}</Text>
                   </View>
                 </Pressable> */}
-                <Pressable style={{backgroundColor:'white', flex:0.95, height:55, borderRadius:20, marginLeft:16, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
+                <Pressable style={{backgroundColor:'white', flex:0.95, height:55, borderRadius:20, marginLeft:16, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3, elevation: 10}} onPress={()=> setVisible(true)}>
                   <View style={{flexDirection:'row', shadowColor: "black",}}>
                   <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15, flex:0.9}}>Date of birth</Text>
                  <Text style={{color:'#3B567C',  marginLeft:130, marginTop:19, fontSize:15}}>{dob}</Text>
@@ -381,7 +381,8 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                         shadowOffset: { width: -2, height: 4 },
                         shadowOpacity: 0.5,
                         shadowRadius: 3,
-                        marginLeft: 20
+                        marginLeft: 20,
+                        elevation: 10
                       }}
                     >
                       <Select
