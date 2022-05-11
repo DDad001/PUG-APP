@@ -118,10 +118,8 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 
     const getNames = async () => {
       let userData = await GetUserById(userId);
-      console.log(userData);
       setName(`${userData.firstName} ${userData.lastName}`)
       setProfileImage(userData.image);
-      console.log(userData.image)
     }
 
     const checkIfLiked = async () => {
