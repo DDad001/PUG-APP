@@ -77,7 +77,7 @@ const EventItem = ({event, navigation} :any) => {
       DeleteLikedEvent(userItems.id, event.id)
     }
     setUpdateScreen(true);
-    
+    setUpdateEventScreen(true);
   }
 
   const checkIfLiked = async () => {
