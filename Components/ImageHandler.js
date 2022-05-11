@@ -71,7 +71,7 @@ const ImageHandler = () => {
                 <Pressable onPress={showImagePicker}>
               <View style={{backgroundColor:'#7E90AB', height:100, width:100, borderRadius:50, marginTop: 8}}>
                 {
-                  pickedImagePath !== '' ? <Image
+                  pickedImagePath !== null ? <Image
                   source={{ uri: pickedImagePath }}
                   style={{ height: 100, width: 100, borderRadius: 50,}}
                   />

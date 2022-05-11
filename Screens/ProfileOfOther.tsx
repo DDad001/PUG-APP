@@ -55,7 +55,7 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
 const EventItem = ({event, navigation} :any) => {
-  const { userItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile } = useContext<any>(UserContext);
+  const { userItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
@@ -77,7 +77,8 @@ const EventItem = ({event, navigation} :any) => {
       DeleteLikedEvent(userItems.id, event.id)
     }
     setUpdateScreen(true);
-    
+    setUpdateEventScreen(true);
+    setUpdateProfileScreen(true);
   }
 
   const checkIfLiked = async () => {
@@ -150,7 +151,7 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   useEffect(() => {
     getFollowers();
     getFollowing();
-    // getUserAge(viewUserProfile.dateOfBirth);
+    getUserAge();
     fetchEvents();
     setUpdateProfileOther(false);
     
@@ -172,84 +173,83 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
  
   };
 
-  // const getUserAge = (dob: string) => {
-  //   //get today's year for age calculation
-  //   const currentYear = new Date().getFullYear();
-  //   //-----------------------------------------------------------
-  //   let calculatedAge: number;
-  //   let dobArr = dob.split("/");
-  //   let bdayMonth = dobArr[0];
-  //   let bdayYear = dobArr[2];
-  //   let bdayMonthNum: number = Number(bdayMonth);
-  //   let bdayYearNum: number = Number(bdayYear);
+  const getUserAge = async () => {
+    //get today's year for age calculation
+    let dob = await viewUserProfile['dateOfBirth'];
+    const currentYear = new Date().getFullYear();
+    //-----------------------------------------------------------
+    let calculatedAge: number;
+    let dobArr = dob.split("/");
+    let bdayMonth = dobArr[0];
+    let bdayYear = dobArr[2];
+    let bdayMonthNum: number = Number(bdayMonth);
+    let bdayYearNum: number = Number(bdayYear);
 
 
-  //   const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  //   let monthNum: number = 0;
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    let monthNum: number = 0;
 
-  //   const d = new Date();
-  //   let monthName = months[d.getMonth()];
+    const d = new Date();
+    let monthName = months[d.getMonth()];
 
-  //   switch(monthName){
-  //     case "January":
-  //       monthNum = 1;
-  //       break;
+    switch(monthName){
+      case "January":
+        monthNum = 1;
+        break;
 
-  //     case "February":
-  //       monthNum = 2;
-  //       break;
+      case "February":
+        monthNum = 2;
+        break;
 
-  //     case "March":
-  //       monthNum = 3;
-  //       break;
+      case "March":
+        monthNum = 3;
+        break;
 
-  //     case "April":
-  //       monthNum = 4;
-  //       break;
+      case "April":
+        monthNum = 4;
+        break;
 
-  //     case "May":
-  //       monthNum = 5;
-  //       break;
+      case "May":
+        monthNum = 5;
+        break;
 
-  //     case "June":
-  //       monthNum = 6;
-  //       break;
+      case "June":
+        monthNum = 6;
+        break;
 
-  //     case "July":
-  //       monthNum = 7;
-  //       break;
+      case "July":
+        monthNum = 7;
+        break;
 
-  //     case "August":
-  //       monthNum = 8;
-  //       break;
+      case "August":
+        monthNum = 8;
+        break;
 
-  //     case "September":
-  //       monthNum = 9;
-  //       break;
+      case "September":
+        monthNum = 9;
+        break;
 
-  //     case "October":
-  //       monthNum = 10;
-  //       break;
+      case "October":
+        monthNum = 10;
+        break;
 
-  //     case "November":
-  //       monthNum = 11;
-  //       break;
+      case "November":
+        monthNum = 11;
+        break;
 
-  //     case "December":
-  //       monthNum = 12;
-  //       break;
-  //   }
+      case "December":
+        monthNum = 12;
+        break;
+    }
     
-  //   //logic of calculating age
-  //   if(monthNum > bdayMonthNum){
-  //     calculatedAge = currentYear - bdayYearNum;
-  //   }else{
-  //     calculatedAge = currentYear - bdayYearNum - 1;
-  //   }
-
-  //   setDisplayUserAge(calculatedAge);
-    
-  // }
+    //logic of calculating age
+    if(monthNum < bdayMonthNum){
+      calculatedAge = currentYear - bdayYearNum -1;
+    }else{
+      calculatedAge = currentYear - bdayYearNum;
+    }
+     setDisplayUserAge(calculatedAge);
+  }
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(viewUserProfile.id);
@@ -296,9 +296,11 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
     <View style={styles.mainContainer}>
          <ImageBackground source={SoccerField} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
           <View style={{alignItems:'center', marginTop:30}}>
-            <Pressable onPress={() => console.log('Change Photo')}>
-                <Image source={man} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}}/>
-            </Pressable>
+            {
+              viewUserProfile.image === null ? <Ionicons name="person-circle-sharp" size={115} style={{ marginTop:25}} color="white" />
+              : <Image source={{uri: viewUserProfile.image}} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}} />
+            }
+            
           </View>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
                 <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{nameContext}, </Text>
