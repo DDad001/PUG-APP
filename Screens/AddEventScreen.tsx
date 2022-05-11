@@ -321,7 +321,8 @@ const AddEventScreen: FC = () => {
   //     console.log(allPeople);
 
   // }, []);
-  const offset = (Platform.OS === 'android') ? -300 : 0;
+  // offset -50 works good for iphone 11s!
+  const offset = (Platform.OS === 'android') ? -300 : -50;
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
