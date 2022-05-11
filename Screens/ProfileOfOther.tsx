@@ -150,7 +150,7 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   useEffect(() => {
     getFollowers();
     getFollowing();
-    getUserAge(viewUserProfile['dateOfBirth']);
+    getUserAge();
     fetchEvents();
     setUpdateProfileOther(false);
     
@@ -172,8 +172,9 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
  
   };
 
-  const getUserAge = (dob: string) => {
+  const getUserAge = async () => {
     //get today's year for age calculation
+    let dob = await viewUserProfile['dateOfBirth'];
     const currentYear = new Date().getFullYear();
     //-----------------------------------------------------------
     let calculatedAge: number;
@@ -246,7 +247,7 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
     }else{
       calculatedAge = currentYear - bdayYearNum;
     }
-    setDisplayUserAge(calculatedAge);
+     setDisplayUserAge(calculatedAge);
   }
 
   const fetchEvents = async () => {
