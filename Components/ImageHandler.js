@@ -2,12 +2,12 @@ import { useContext, useState } from "react";
 import { Image, Pressable, Text, View, Button } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import { UpdateUser } from "../Services/DataService";
+import { UpdateUser, GetUserById } from "../Services/DataService";
 import UserContext from "../Context/UserContext";
 
 const ImageHandler = () => {
 
-    const { userItems, updateProfileScreen, setUpdateProfileScreen } = useContext(UserContext);
+    const { userItems, updateProfileScreen, setUpdateProfileScreen, setUserItems, setUpdateScreen } = useContext(UserContext);
     const [pickedImagePath, setPickedImagePath] = useState(userItems.image);
     const saveImage = async () =>{
         //we are going to start off by getting the file type using a split.
@@ -46,6 +46,9 @@ const ImageHandler = () => {
           console.log(userData)
           let updateUserImage = await UpdateUser(userData);
           console.log(updateUserImage);
+          setUpdateScreen(true);
+          let updatedUser = await GetUserById(userItems.id);
+          setUserItems(updatedUser);
       }
 
 
