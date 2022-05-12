@@ -10,7 +10,7 @@ import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio, useToast } from "native-base";
 import UserContext from '../Context/UserContext';
-import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower, ReportUser, ReportEvent, GetUserById, GetIsFollowed } from '../Services/DataService'
+import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower, ReportUser, ReportEvent, GetUserById, GetIsFollowed, triggerNotificationFollowingHandler } from '../Services/DataService'
 
 
 import {
@@ -237,6 +237,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
         FollowerId: eventItems.userId,
         isUnfollowed: false
       }
+      triggerNotificationFollowingHandler(userItems)
       AddFollower(newFollower);
       //console.log('Followed')
     } else {
