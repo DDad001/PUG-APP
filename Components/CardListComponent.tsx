@@ -59,7 +59,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { createOpenLink } from 'react-native-open-maps';
 import UserContext from '../Context/UserContext';
-import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetIsLiked } from "../Services/DataService"
+import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetIsLiked, triggerNotificationHandler } from "../Services/DataService"
 import BasketballEvent from "../assets/BasketballEvent.jpg";
 import soccer from "../assets/soccer.jpg";
 import volleyballevent from "../assets/volleyballevent.jpg";
@@ -102,6 +102,7 @@ type RootStackParamList = {
 // const navigation = useNavigation();
 
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
+  
   const [isLiked, setIsLiked] = useState(false);
   const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen} = useContext<any>(UserContext);
   const [profileImage, setProfileImage] = useState<any>(null);
@@ -139,6 +140,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
         EventId: id,
         EventUnliked: false
       }
+      triggerNotificationHandler(userItems);
       AddLikedEvent(addLike)
     } else {
       DeleteLikedEvent(userItems.id, id)

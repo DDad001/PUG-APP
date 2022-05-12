@@ -1,11 +1,13 @@
 import { TabRouter, useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC } from "react"
+import { FC, useContext, useEffect, useState } from "react"
 import { ImageBackground, StyleSheet, Text, View } from "react-native"
 import SoccerBall from '../assets/SoccerBall.png';
 import CardListComponent from "../Components/CardListComponent";
 import PUGHeader from "../Components/PUGHeader";
-
+import * as Notifications from "expo-notifications";
+import UserContext from "../Context/UserContext";
+import { UpdateUser } from "../Services/DataService";
 
 type RootStackParamList ={
     Nav: undefined,
@@ -24,7 +26,98 @@ type RootStackParamList ={
 //   }
 type Props = NativeStackScreenProps<RootStackParamList, "GoToEvent">;
 
+let show = false;
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+   show = !show; //every second message will be shown
+    console.log('handleNotification, show:', show);
+    
+    //reject promise when you want to hide notification
+    if (!show) return Promise.reject('This notification should not be shown');
+
+    //and this code will show it
+    return {
+      shouldShowAlert: true,
+      shouldSetBadge: false,
+      shouldPlaySound: false,
+    }
+}});
+
+
 const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
+
+    const { userItems } = useContext<any>(UserContext);
+    const [pushToken, setPushToken] = useState();
+    useEffect(() => {
+        Notifications.getPermissionsAsync()
+          .then((statusObj) => {
+            if (statusObj.status !== "granted") {
+              return Notifications.requestPermissionsAsync();
+            }
+            return statusObj;
+          })
+          .then((statusObj) => {
+            if (statusObj.status !== "granted") {
+              // alert();
+              throw new Error("Permission not granted.");
+            }
+          })
+          .then(() => {
+            console.log("Getting token..");
+            return Notifications.getExpoPushTokenAsync();
+          })
+          .then((response) => {
+            const token:any = response.data;
+            setPushToken(token);
+            console.log(token)
+          })
+          .catch((err) => {
+            console.log(err);
+            return null;
+          });
+      }, []);
+    
+      useEffect(() => {
+        const backgroundSubscription =
+          Notifications.addNotificationResponseReceivedListener((response) => {
+            console.log(response);
+          });
+    
+        const foregroundSubscription =
+          Notifications.addNotificationReceivedListener((notification) => {
+            console.log(notification);
+          });
+        return () => {
+          backgroundSubscription.remove();
+          foregroundSubscription.remove();
+        };
+      }, []);
+
+      const handleUpdatingUser = async () => {
+        let userData = {
+            Id: userItems.id,
+            FirstName: userItems.firstName,
+            LastName: userItems.lastName,
+            Username: userItems.username,
+            Salt: userItems.salt,
+            Hash: userItems.hash,
+            DateOfBirth:userItems.dateOfBirth,
+            City:userItems.city,
+            State:userItems.state,
+            isTermsAccepted:userItems.isTermsAccepted,
+            isEighteen:userItems.isEighteen,
+            Image:userItems.image,
+            NotificationsToken:pushToken,
+            IsDeleted:false
+          };
+          let updateData = await UpdateUser(userData);
+          console.log(updateData);
+      }
+
+      useEffect(() => {
+        handleUpdatingUser();
+      }, []);
+
     //    const navigation = useNavigation();
 
     return (
