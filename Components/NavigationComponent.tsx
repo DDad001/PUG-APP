@@ -94,6 +94,12 @@ const [BorderColor, setBorderColor] = useState('black')
       <Tab.Screen
         name="PUGLogo"
         component={FollowingScreen}
+        listeners={{
+            tabPress: e => {
+              e.preventDefault();
+              // Prevent default action
+            },
+          }}
         options={{
             tabBarStyle: {
                 position: 'absolute',
