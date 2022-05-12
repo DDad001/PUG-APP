@@ -48,6 +48,29 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
 
     const { userItems } = useContext<any>(UserContext);
     const [pushToken, setPushToken] = useState();
+
+    const handleUpdatingUser = async (token:any) => {
+        let userData = {
+            Id: userItems.id,
+            FirstName: userItems.firstName,
+            LastName: userItems.lastName,
+            Username: userItems.username,
+            Salt: userItems.salt,
+            Hash: userItems.hash,
+            DateOfBirth:userItems.dateOfBirth,
+            City:userItems.city,
+            State:userItems.state,
+            isTermsAccepted:userItems.isTermsAccepted,
+            isEighteen:userItems.isEighteen,
+            Image:userItems.image,
+            NotificationToken:token,
+            IsDeleted:false
+          };
+          console.log("userUpdate", userData);
+          let updateData = await UpdateUser(userData);
+          console.log("updatedData", updateData);
+      }
+
     useEffect(() => {
         Notifications.getPermissionsAsync()
           .then((statusObj) => {
@@ -65,10 +88,11 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
           .then(() => {
             console.log("Getting token..");
             return Notifications.getExpoPushTokenAsync();
-          })
-          .then((response) => {
+        })
+        .then((response) => {
             const token:any = response.data;
             setPushToken(token);
+            handleUpdatingUser(token);
             console.log(token)
           })
           .catch((err) => {
@@ -91,31 +115,6 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
           backgroundSubscription.remove();
           foregroundSubscription.remove();
         };
-      }, []);
-
-      const handleUpdatingUser = async () => {
-        let userData = {
-            Id: userItems.id,
-            FirstName: userItems.firstName,
-            LastName: userItems.lastName,
-            Username: userItems.username,
-            Salt: userItems.salt,
-            Hash: userItems.hash,
-            DateOfBirth:userItems.dateOfBirth,
-            City:userItems.city,
-            State:userItems.state,
-            isTermsAccepted:userItems.isTermsAccepted,
-            isEighteen:userItems.isEighteen,
-            Image:userItems.image,
-            NotificationsToken:pushToken,
-            IsDeleted:false
-          };
-          let updateData = await UpdateUser(userData);
-          console.log(updateData);
-      }
-
-      useEffect(() => {
-        handleUpdatingUser();
       }, []);
 
     //    const navigation = useNavigation();

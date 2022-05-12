@@ -96,10 +96,10 @@ const LoginScreen: FC<Props> = ({navigation}) => {
       let token = await LoginUser(userData);
       if(token.token != null){
         AsyncStorage.setItem("Token", token.token);
-        navigation.navigate('Nav');
         let userItems1 = await GetUserByUsername(Username);
         setUserItems(userItems1);
-        console.log(userItems1);
+        console.log("userItems1", userItems1);
+        navigation.navigate('Nav');
       }else{
         console.log("incorrect credentials try")
         Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: incorrect password or username inputed!</Box>;}});
