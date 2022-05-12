@@ -276,11 +276,18 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(userItems.id);
-    let activeEvents = displayEvents.filter((event: any) => isItAPresentDay(event['dateOfEvent']) == true);
+    let activeEvents = displayEvents.filter((event: any) => isItAPresentorFutureDay(event['dateOfEvent']) == true);
+
+    activeEvents.sort(function(a: any, b: any){
+      console.log(a["dateOfEvent"]);
+      var aa = a["dateOfEvent"].split('/').reverse().join();
+      var bb = b["dateOfEvent"].split('/').reverse().join();
+      return aa < bb ? -1 : (aa > bb ? 1 : 0);
+  });
     setAllEvents(activeEvents);
   }
 
-  function isItAPresentDay(date: string){
+  function isItAPresentorFutureDay(date: string){
     let today: any = new Date();
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1; 
@@ -289,7 +296,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     if (dd < 10) dd = '0' + dd;
 
     today = mm + '/' + dd + '/' + yyyy;
-    return date == today;
+    return date >= today;
   }
 
   const getUserAge = (dob: string) => {

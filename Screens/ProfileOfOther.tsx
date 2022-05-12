@@ -40,6 +40,29 @@ import {
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import UserContext  from '../Context/UserContext';
 import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetIsLiked, triggerNotificationHandler} from '../Services/DataService';
+import BasketballEvent from "../assets/BasketballEvent.jpg";
+import soccer from "../assets/soccer.jpg";
+import volleyballevent from "../assets/volleyballevent.jpg";
+import spikeball from "../assets/spikeball.jpg";
+import softball from "../assets/softball.jpg";
+import running from "../assets/running.jpg";
+import rugby from "../assets/rugby.jpg";
+import pickleball from "../assets/pickleball.jpg";
+import lacrosse from "../assets/lacrosse.jpg";
+import hockey from "../assets/hockey.jpg";
+import hiking from "../assets/hiking.jpg";
+import handball from "../assets/handball.jpg";
+import golf from "../assets/golf.jpg";
+import frisbee from "../assets/frisbee.jpg";
+import football from "../assets/football.jpg";
+import fishing from "../assets/fishing.jpg";
+import discGolf1 from "../assets/discGolf1.jpg";
+import cricketevent from "../assets/cricketevent.jpg";
+import biking1 from "../assets/biking1.jpg";
+import baseball from "../assets/baseball.jpg";
+import badminton from "../assets/badminton.jpg";
+import tennis from "../assets/tennis.jpg";
+import pugEvent from "../assets/pugEvent.png";
 
 type RootStackParamList ={
   Nav: undefined,
@@ -54,7 +77,7 @@ type RootStackParamList ={
 }
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
-const EventItem = ({event, navigation} :any) => {
+const EventItem = ({event, navigation, sportOfEvent} :any) => {
   const { userItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -96,7 +119,54 @@ const EventItem = ({event, navigation} :any) => {
           <View style={styles.card}>
         <View style={styles.cardContent}>
             <View style={{ flexDirection: 'row', }}>
-            <Image source={man} style={{ height: 90, width: 120, borderRadius: 8 }} />
+            {
+              sportOfEvent === "Basketball" ?
+                <Image source={BasketballEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                : sportOfEvent === "Soccer" ?
+                  <Image source={soccer} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                  : sportOfEvent === "Badminton" ?
+                    <Image source={badminton} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                    : sportOfEvent === "Baseball" ?
+                      <Image source={baseball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                      : sportOfEvent === "Cycling" ?
+                        <Image source={biking1} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                        : sportOfEvent === "Hockey" ?
+                          <Image source={hockey} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                          : sportOfEvent === "Disc golf" ?
+                            <Image source={discGolf1} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                            : sportOfEvent === "Fishing" ?
+                              <Image source={fishing} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                              : sportOfEvent === "Football" ?
+                                <Image source={football} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                : sportOfEvent === "Frisbee" ?
+                                  <Image source={frisbee} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                  : sportOfEvent === "Golf" ?
+                                    <Image source={golf} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                    : sportOfEvent === "Handball" ?
+                                      <Image source={handball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                      : sportOfEvent === "Hiking" ?
+                                        <Image source={hiking} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                        : sportOfEvent === "Cricket" ?
+                                          <Image source={cricketevent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                          : sportOfEvent === "Rugby" ?
+                                            <Image source={rugby} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                            : sportOfEvent === "Pickleball" ?
+                                              <Image source={pickleball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                              : sportOfEvent === "Running" ?
+                                                <Image source={running} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                : sportOfEvent === "Softball" ?
+                                                  <Image source={softball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                  : sportOfEvent === "Spikeball" ?
+                                                    <Image source={spikeball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                    : sportOfEvent === "Tennis" ?
+                                                      <Image source={tennis} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                      : sportOfEvent === "Lacrosse" ?
+                                                        <Image source={lacrosse} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                        : sportOfEvent === "Volleyball" ?
+                                                          <Image source={volleyballevent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                          :
+                                                          <Image source={pugEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+            }
             <View>
               <View style={{ flexDirection: 'row' }}>
                 <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
@@ -254,8 +324,31 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(viewUserProfile.id);
-    let activeEvents = displayEvents.filter((event: any) => event.isActive);
+    let activeEvents = displayEvents.filter((event: any) => isItAPresentorFutureDay(event['dateOfEvent']) == true);
+    
+    console.log(activeEvents);
+    activeEvents.sort(function(a: any, b: any){
+      console.log(a["dateOfEvent"]);
+      var aa = a["dateOfEvent"].split('/').reverse().join();
+      var bb = b["dateOfEvent"].split('/').reverse().join();
+      return aa < bb ? -1 : (aa > bb ? 1 : 0);
+  });
     setAllEvents(activeEvents);
+  }
+
+
+  
+
+  function isItAPresentorFutureDay(date: string){
+    let today: any = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; 
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return date >= today;
   }
 
   
@@ -289,7 +382,9 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   }
 
   const renderItem = ({item}: any) => (
-    <EventItem event={item} />
+    <EventItem event={item}
+    sportOfEvent={item.sportOfEvent}
+    />
   );
 
  return (
