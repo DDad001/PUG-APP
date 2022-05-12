@@ -8,7 +8,7 @@ import { FontAwesome,Entypo } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { Ionicons } from '@expo/vector-icons';
 import UserContext  from '../Context/UserContext';
-import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetFollowersByUserId, GetUserById, GetFollowingByUserId, UpdateUser, GetIsLiked } from "../Services/DataService"
+import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetFollowersByUserId, GetUserById, GetFollowingByUserId, UpdateUser, GetIsLiked, triggerNotificationHandler } from "../Services/DataService"
 
 // Import fonts
 import {
@@ -104,6 +104,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
         EventId: id,
         EventUnliked: false
       }
+      triggerNotificationHandler(userItems);
       AddLikedEvent(addLike)
     }else{
       DeleteLikedEvent(userItems.id, id)
