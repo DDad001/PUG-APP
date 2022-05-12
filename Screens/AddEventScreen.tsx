@@ -439,7 +439,7 @@ const AddEventScreen: FC = () => {
                         <Select.Item label="Frisbee" value="Frisbee" />
                         <Select.Item label="Golf" value="Golf" />
                         <Select.Item label="Handball" value="Handball" />
-                        <Select.Item label="Hiking" value="Handball" />
+                        <Select.Item label="Hiking" value="Hiking" />
                         <Select.Item label="Hockey" value="Hockey" />
                         <Select.Item label="Lacrosse" value="Lacrosse" />
                         <Select.Item label="Pickleball" value="Pickleball" />

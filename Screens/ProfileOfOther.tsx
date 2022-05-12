@@ -39,7 +39,7 @@ import {
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import UserContext  from '../Context/UserContext';
-import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetIsLiked} from '../Services/DataService';
+import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetIsLiked, triggerNotificationHandler} from '../Services/DataService';
 
 type RootStackParamList ={
   Nav: undefined,
@@ -72,6 +72,7 @@ const EventItem = ({event, navigation} :any) => {
         EventId: event.id,
         EventUnliked: false
       }
+      triggerNotificationHandler(userItems);
       AddLikedEvent(addLike)
     }else{
       DeleteLikedEvent(userItems.id, event.id)

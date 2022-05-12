@@ -1,7 +1,7 @@
 import { Pressable, View } from "react-native"
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { FC, useContext, useState, useEffect } from "react";
-import {AddLikedEvent, DeleteLikedEvent, GetIsLiked} from '../Services/DataService'
+import {AddLikedEvent, DeleteLikedEvent, GetIsLiked, triggerNotificationHandler} from '../Services/DataService'
 import UserContext from "../Context/UserContext";
 
 const EventDisplayedImageComponent:FC = () => {
@@ -25,6 +25,7 @@ const EventDisplayedImageComponent:FC = () => {
             EventId: eventItems.id,
             EventUnliked: false
           }
+          triggerNotificationHandler(userItems);
           AddLikedEvent(addLike)
         } else {
           DeleteLikedEvent(userItems.id, eventItems.id)

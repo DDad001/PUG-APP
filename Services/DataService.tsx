@@ -1,4 +1,3 @@
-
 //-------------ALL FETCHES FOR USERCONTROLLER----------------- 
 
 async function createAccount(createdUser:object){
@@ -425,6 +424,45 @@ async function ReportUser(userToReport:object) {
 //---------------ALL FETCHES FOR REPORTING-------------------------------
 
 
+//-------------------------Fetch For Notification----------------------------------
+
+const triggerNotificationHandler = async (userItems:any) => {
+    fetch("https://exp.host/--/api/v2/push/send/", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Accept-Encoding": "gzip, deflate",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+                    to: "ExponentPushToken[d2tkkROoz96gRM9GVpa9D1]",
+                    sound: "default",
+                    data: { extraData: "Some data in the push notification" },
+                    title: "PUG",
+                    body: `${userItems.firstName} ${userItems.lastName} Liked Your Event`,
+                  }),
+                });
+};
+
+const triggerNotificationFollowingHandler = async (userItems:any) => {
+    fetch("https://exp.host/--/api/v2/push/send/", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Accept-Encoding": "gzip, deflate",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+                    to: "ExponentPushToken[d2tkkROoz96gRM9GVpa9D1]",
+                    sound: "default",
+                    data: { extraData: "Some data in the push notification" },
+                    title: "PUG",
+                    body: `${userItems.firstName} ${userItems.lastName} Followed You`,
+                  }),
+                });
+};
+//-------------------------Fetch For Notification----------------------------------
+
 
 
 export{ 
@@ -435,6 +473,6 @@ export{
     AddFollower,GetFollowersByUserId,GetFollowId,GetFollowingByUserId,
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
     DeleteLikedEvent,GetAddress,UpdatePassword,GetCitiesByState,
-    ReportEvent,ReportUser, GetIsLiked, GetIsFollowed
+    ReportEvent,ReportUser, GetIsLiked, GetIsFollowed, triggerNotificationHandler, triggerNotificationFollowingHandler
 
 }
