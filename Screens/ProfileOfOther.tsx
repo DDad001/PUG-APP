@@ -95,7 +95,7 @@ const EventItem = ({event, navigation, sportOfEvent} :any) => {
         EventId: event.id,
         EventUnliked: false
       }
-      triggerNotificationHandler(userItems);
+      triggerNotificationHandler(userItems, viewUserProfile);
       AddLikedEvent(addLike)
     }else{
       DeleteLikedEvent(userItems.id, event.id)

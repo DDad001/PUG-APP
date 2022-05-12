@@ -6,7 +6,7 @@ import UserContext from "../Context/UserContext";
 
 const EventDisplayedImageComponent:FC = () => {
 
-    const { userItems, eventItems, nameContext, setUpdateScreen, setEventItems, setNameContext, updateEventScreen, setUpdateEventScreen} = useContext<any>(UserContext);
+    const { userItems, eventItems, nameContext, setUpdateScreen, setEventItems, setNameContext, updateEventScreen, setUpdateEventScreen, viewUserProfile} = useContext<any>(UserContext);
 
     const [isLiked, setIsLiked] = useState(false);
 
@@ -25,7 +25,7 @@ const EventDisplayedImageComponent:FC = () => {
             EventId: eventItems.id,
             EventUnliked: false
           }
-          triggerNotificationHandler(userItems);
+          triggerNotificationHandler(userItems, viewUserProfile);
           AddLikedEvent(addLike)
         } else {
           DeleteLikedEvent(userItems.id, eventItems.id)

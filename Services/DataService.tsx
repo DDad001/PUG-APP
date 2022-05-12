@@ -426,7 +426,7 @@ async function ReportUser(userToReport:object) {
 
 //-------------------------Fetch For Notification----------------------------------
 
-const triggerNotificationHandler = async (userItems:any) => {
+const triggerNotificationHandler = async (userItems:any, viewUserProfile:any) => {
     fetch("https://exp.host/--/api/v2/push/send/", {
         method: "POST",
         headers: {
@@ -435,7 +435,7 @@ const triggerNotificationHandler = async (userItems:any) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-                    to: "ExponentPushToken[d2tkkROoz96gRM9GVpa9D1]",
+                    to: `${viewUserProfile.notificationToken}`,
                     sound: "default",
                     data: { extraData: "Some data in the push notification" },
                     title: "PUG",
@@ -444,7 +444,7 @@ const triggerNotificationHandler = async (userItems:any) => {
                 });
 };
 
-const triggerNotificationFollowingHandler = async (userItems:any) => {
+const triggerNotificationFollowingHandler = async (userItems:any, viewUserProfile:any) => {
     fetch("https://exp.host/--/api/v2/push/send/", {
         method: "POST",
         headers: {
@@ -453,7 +453,7 @@ const triggerNotificationFollowingHandler = async (userItems:any) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-                    to: "ExponentPushToken[d2tkkROoz96gRM9GVpa9D1]",
+                    to: `${viewUserProfile.notificationToken}`,
                     sound: "default",
                     data: { extraData: "Some data in the push notification" },
                     title: "PUG",

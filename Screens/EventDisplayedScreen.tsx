@@ -96,7 +96,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   const [radioUserValue, setRadioUserValue] = useState<string>("");
   const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
-  const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile, setUpdateProfileScreen, updateEventScreen, setUpdateEventScreen } = useContext<any>(UserContext);
+  const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile, setUpdateProfileScreen, updateEventScreen, setUpdateEventScreen, viewUserProfile } = useContext<any>(UserContext);
 
   // const [isLiked, setIsLiked] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
@@ -237,7 +237,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
         FollowerId: eventItems.userId,
         isUnfollowed: false
       }
-      triggerNotificationFollowingHandler(userItems)
+      triggerNotificationFollowingHandler(userItems, viewUserProfile)
       AddFollower(newFollower);
       //console.log('Followed')
     } else {
