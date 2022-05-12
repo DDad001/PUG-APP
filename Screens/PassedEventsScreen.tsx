@@ -41,6 +41,28 @@ import {
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ScrollView } from "native-base";
+import BasketballEvent from "../assets/BasketballEvent.jpg";
+import soccer from "../assets/soccer.jpg";
+import volleyballevent from "../assets/volleyballevent.jpg";
+import spikeball from "../assets/spikeball.jpg";
+import softball from "../assets/softball.jpg";
+import running from "../assets/running.jpg";
+import rugby from "../assets/rugby.jpg";
+import pickleball from "../assets/pickleball.jpg";
+import lacrosse from "../assets/lacrosse.jpg";
+import hockey from "../assets/hockey.jpg";
+import hiking from "../assets/hiking.jpg";
+import handball from "../assets/handball.jpg";
+import golf from "../assets/golf.jpg";
+import frisbee from "../assets/frisbee.jpg";
+import football from "../assets/football.jpg";
+import fishing from "../assets/fishing.jpg";
+import discGolf1 from "../assets/discGolf1.jpg";
+import cricketevent from "../assets/cricketevent.jpg";
+import biking1 from "../assets/biking1.jpg";
+import baseball from "../assets/baseball.jpg";
+import badminton from "../assets/badminton.jpg";
+import pugEvent from "../assets/pugEvent.png";
 
 interface EventsProps{ 
   handlePastEvents: Function,
@@ -58,7 +80,7 @@ type RootStackParamList ={
 
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
-const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, getAllEvents} :any) => {
+const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, getAllEvents, sportOfEvent} :any) => {
 
     const { userItems } = useContext<any>(UserContext);
 
@@ -88,7 +110,56 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
             <View style={styles.cardContent}>
             <View style={{ flex: 0, flexDirection: 'row' }}>
               {/* You might want to experiment with the flexes */}
-            <Image source={man} style={{flex:1, height: 100, width: 145, borderRadius: 8 }} />
+              {
+              sportOfEvent === "Basketball" ?
+                <Image source={BasketballEvent} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                : sportOfEvent === "Soccer" ?
+                  <Image source={soccer} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                  : sportOfEvent === "Badminton" ?
+                    <Image source={badminton} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                    : sportOfEvent === "Baseball" ?
+                      <Image source={baseball} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                      : sportOfEvent === "Cycling" ?
+                        <Image source={biking1} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                        : sportOfEvent === "Hockey" ?
+                          <Image source={hockey} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                          : sportOfEvent === "Disc golf" ?
+                            <Image source={discGolf1} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                            : sportOfEvent === "Fishing" ?
+                              <Image source={fishing} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                              : sportOfEvent === "Football" ?
+                                <Image source={football} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                : sportOfEvent === "Frisbee" ?
+                                  <Image source={frisbee} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                  : sportOfEvent === "Golf" ?
+                                    <Image source={golf} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                    : sportOfEvent === "Handball" ?
+                                      <Image source={handball} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                      : sportOfEvent === "Hiking" ?
+                                        <Image source={hiking} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                        : sportOfEvent === "Cricket" ?
+                                          <Image source={cricketevent} style={{ height: 100, width: 145, borderRadius: 8 }}/>
+                                          : sportOfEvent === "Rugby" ?
+                                            <Image source={rugby} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                            : sportOfEvent === "Pickleball" ?
+                                              <Image source={pickleball} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                              : sportOfEvent === "Running" ?
+                                                <Image source={running} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                                : sportOfEvent === "Softball" ?
+                                                  <Image source={softball} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                                  : sportOfEvent === "Spikeball" ?
+                                                    <Image source={spikeball} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                                    : sportOfEvent === "Tennis" ?
+                                                      <Image source={tennis} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                                      : sportOfEvent === "Lacrosse" ?
+                                                        <Image source={lacrosse} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                                        : sportOfEvent === "Volleyball" ?
+                                                          <Image source={volleyballevent} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                                          :
+                                                          <Image source={pugEvent} style={{ height: 100, width: 145, borderRadius: 8 }} />
+            }
+
+            
              <View style={{flex:1 ,marginLeft:35}}>
               <View style={{ flexDirection: 'row' }}>
                 <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
@@ -150,6 +221,7 @@ const PassedEventsScreen: FC<Props> = ({navigation, route}) => {
     dateOfEvent={item.dateOfEvent}
     timeOfEvent={item.timeOfEvent}
     getAllEvents = {getAllEvents}
+    sportOfEvent={item.sportOfEvent}
     />
   );
  
