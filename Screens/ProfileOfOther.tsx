@@ -325,8 +325,19 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(viewUserProfile.id);
     let activeEvents = displayEvents.filter((event: any) => isItAPresentorFutureDay(event['dateOfEvent']) == true);
+    
+    console.log(activeEvents);
+    activeEvents.sort(function(a: any, b: any){
+      console.log(a["dateOfEvent"]);
+      var aa = a["dateOfEvent"].split('/').reverse().join();
+      var bb = b["dateOfEvent"].split('/').reverse().join();
+      return aa < bb ? -1 : (aa > bb ? 1 : 0);
+  });
     setAllEvents(activeEvents);
   }
+
+
+  
 
   function isItAPresentorFutureDay(date: string){
     let today: any = new Date();
