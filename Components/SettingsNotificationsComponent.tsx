@@ -276,7 +276,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
           <Modal.CloseButton />
           <Modal.Header><Text style={{color: '#0A326D', fontSize: 20,}}>Edit Profile</Text></Modal.Header>
           <Modal.Body overflow="hidden">
-          <KeyboardAvoidingView behavior={"position"} keyboardVerticalOffset={offset}>
+          <KeyboardAvoidingView style={{flex:1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={offset}>
             <Box>
               <FormControl.Label>
                 <Text style={[styles.LabelTxt, {marginLeft: 20}]}>First Name</Text>
