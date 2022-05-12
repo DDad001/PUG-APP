@@ -439,7 +439,7 @@ const triggerNotificationHandler = async (userItems:any, viewUserProfile:any) =>
                     sound: "default",
                     data: { extraData: "Some data in the push notification" },
                     title: "PUG",
-                    body: `${userItems.firstName} ${userItems.lastName} Liked Your Event`,
+                    body: `${userItems.username} Liked Your Event`,
                   }),
                 });
 };
@@ -457,7 +457,7 @@ const triggerNotificationFollowingHandler = async (userItems:any, viewUserProfil
                     sound: "default",
                     data: { extraData: "Some data in the push notification" },
                     title: "PUG",
-                    body: `${userItems.firstName} ${userItems.lastName} Followed You`,
+                    body: `${userItems.username} Followed You`,
                   }),
                 });
 };
