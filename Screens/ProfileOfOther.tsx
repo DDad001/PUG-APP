@@ -328,7 +328,6 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
     
     console.log(activeEvents);
     activeEvents.sort(function(a: any, b: any){
-      console.log(a["dateOfEvent"]);
       var aa = a["dateOfEvent"].split('/').reverse().join();
       var bb = b["dateOfEvent"].split('/').reverse().join();
       return aa < bb ? -1 : (aa > bb ? 1 : 0);

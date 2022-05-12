@@ -279,7 +279,6 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     let activeEvents = displayEvents.filter((event: any) => isItAPresentorFutureDay(event['dateOfEvent']) == true);
 
     activeEvents.sort(function(a: any, b: any){
-      console.log(a["dateOfEvent"]);
       var aa = a["dateOfEvent"].split('/').reverse().join();
       var bb = b["dateOfEvent"].split('/').reverse().join();
       return aa < bb ? -1 : (aa > bb ? 1 : 0);

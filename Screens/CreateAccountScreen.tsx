@@ -35,7 +35,7 @@ import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, B
 import { Entypo } from "@expo/vector-icons";
 import { DatePickerModal } from 'react-native-paper-dates';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import { createAccount, GetUserByUsername } from "../Services/DataService";
+import { createAccount, GetUserByUsername, GetCitiesByState } from "../Services/DataService";
 
 import { Icon } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -119,6 +119,14 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
         age--;
     }
 
+    //Get the info of the cities of a state
+    let citiesArr:any = await GetCitiesByState(state);
+    let cityNames: string[] = [];
+
+    for(let i = 0; i <citiesArr.length; i++){
+      cityNames.push(citiesArr[i].name);
+    }
+
     var regex = /^[A-Za-z]+$/
     let FirstNameInput = regex.test(newFirstName);
     let LastNameInput = regex.test(newLastName);
@@ -150,6 +158,8 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
     }
     else if(CityInput == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: city must include characters only</Box>;}});
+    } else if(!cityNames.includes(city)){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
     }
     else{
       result = await createAccount(userData);
