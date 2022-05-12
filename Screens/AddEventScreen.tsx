@@ -321,7 +321,8 @@ const AddEventScreen: FC = () => {
   //     console.log(allPeople);
 
   // }, []);
-  const offset = (Platform.OS === 'android') ? -300 : 0;
+  // offset -50 works good for iphone 11s!
+  const offset = (Platform.OS === 'android') ? -300 : -25;
   
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -395,7 +396,7 @@ const AddEventScreen: FC = () => {
             >
             </View>
           </View>
-          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={offset} behavior={"height"}>
+          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={offset} behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
             <ScrollView style={{ flex: 1, marginBottom: 30 }}>
               <View style={{ flex: 1 }}>
                 <View style={{ marginLeft: 18, marginRight: 30, marginBottom: 20 }}>
@@ -438,7 +439,7 @@ const AddEventScreen: FC = () => {
                         <Select.Item label="Frisbee" value="Frisbee" />
                         <Select.Item label="Golf" value="Golf" />
                         <Select.Item label="Handball" value="Handball" />
-                        <Select.Item label="Hiking" value="Handball" />
+                        <Select.Item label="Hiking" value="Hiking" />
                         <Select.Item label="Hockey" value="Hockey" />
                         <Select.Item label="Lacrosse" value="Lacrosse" />
                         <Select.Item label="Pickleball" value="Pickleball" />

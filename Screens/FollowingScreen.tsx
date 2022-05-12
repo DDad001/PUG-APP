@@ -12,7 +12,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
 import UserContext from "../Context/UserContext";
 import {
@@ -61,6 +61,7 @@ const FollowerItem = ({
   handleUnfollow,
   username,
   id,
+  image,
   displayFollowing,
 }: any) => {
   const { followingBool } = useContext<any>(UserContext);
@@ -68,7 +69,10 @@ const FollowerItem = ({
   return (
     <View>
       <View style={styles.NotificationView}>
-        <Image source={Skier} style={styles.ImageStyle} />
+        {
+          image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
+          : <Image source={{uri: image}} style={styles.ImageStyle} />
+        }
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text style={styles.TextStyle}>{username} </Text>
 
@@ -142,6 +146,7 @@ const FollowingScreen: FC = () => {
         id={item.id}
         firstName={item.firstName}
         username={item.username}
+        image={item.image}
         displayFollowing={displayFollowing}
         handleUnfollow={handleUnfollow}
       />
