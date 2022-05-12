@@ -167,8 +167,6 @@ const EventItem = ({event, navigation, sportOfEvent} :any) => {
                                                           :
                                                           <Image source={pugEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
             }
-
-
             <View>
               <View style={{ flexDirection: 'row' }}>
                 <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
@@ -326,8 +324,20 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
 
   const fetchEvents = async () => {
     let displayEvents = await GetItemsByUserId(viewUserProfile.id);
-    let activeEvents = displayEvents.filter((event: any) => event.isActive);
+    let activeEvents = displayEvents.filter((event: any) => isItAPresentorFutureDay(event['dateOfEvent']) == true);
     setAllEvents(activeEvents);
+  }
+
+  function isItAPresentorFutureDay(date: string){
+    let today: any = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; 
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return date >= today;
   }
 
   
