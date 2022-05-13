@@ -149,9 +149,11 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     setUpdateProfileScreen(true);
   }
 
-  const handleSavedEvent = () => {
+  const handleSavedEvent = async() => {
     setEventItems(event);
     setNameContext(name);
+    let userData = await GetUserById(userId);
+    setViewUserProfile(userData);
   }
 
   const handleSaveUser = async () => {
