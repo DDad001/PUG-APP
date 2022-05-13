@@ -247,13 +247,13 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
         <Switch value={isSwitchOn} onValueChange={onToggleSwitch} style={[styles.SwitchStyle, styles.IconStyle]} />
       </View>
 
-      <View style={styles.NotificationView}>
-      <Text style={styles.TextStyle}>Edit Profile</Text>
-        <Pressable onPress={() => setShowModal(true)}>
+      <Pressable onPress={() => setShowModal(true)}>
+        <View style={styles.NotificationView}>
+        <Text style={styles.TextStyle}>Edit Profile</Text>
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
-        </Pressable>
         
-      </View>
+        </View>
+      </Pressable>
 
         <Pressable onPress={HelpHandler}>
         <View style={styles.NotificationView}>
@@ -262,13 +262,13 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
         </View>
         </Pressable>
 
-      <View style={styles.NotificationView}>
+      <Pressable onPress={() => setShowDeleteModal(true)}>
+        <View style={styles.NotificationView}>
         <Text style={styles.TextStyle}>Delete Account</Text>
-        <Pressable onPress={() => setShowDeleteModal(true)}>
         
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
-        </Pressable>
-      </View>
+        </View>
+      </Pressable>
 
       <Center style={{ marginTop: 50, flexDirection: 'row' }}>
       <Modal isOpen={showModal} onClose={() => setShowModal(false)} size={"full"}>
