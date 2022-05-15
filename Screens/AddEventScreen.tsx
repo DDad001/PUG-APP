@@ -64,7 +64,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 
 const AddEventScreen: FC = () => {
-  const { userItems, setUpdateScreen } = useContext<any>(UserContext);
+  const { userItems, setUpdateScreen, setUpdateProfileScreen } = useContext<any>(UserContext);
   const [pickedImagePath, setPickedImagePath] = useState('');
   
   const showImagePicker = async () => {
@@ -299,6 +299,7 @@ const AddEventScreen: FC = () => {
       // result = await AddEventItem(newEvent);
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully created!</Box>}});
       setUpdateScreen(true);
+      setUpdateProfileScreen(true);
     }
   }
   
