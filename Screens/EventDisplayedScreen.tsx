@@ -245,11 +245,10 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
       //console.log('Unfollowed')
     }
     setUpdateProfileScreen(true);
-
   }
 
+
   const handleSaveUser = async () => {
-    
     let userData = await GetUserById(eventItems.userId);
     setViewUserProfile(userData);
     setNameContext(`${userData.firstName} ${userData.lastName}`)
