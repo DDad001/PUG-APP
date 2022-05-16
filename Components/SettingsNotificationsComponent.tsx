@@ -238,7 +238,9 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     accent: '#f1c40f',
   }, }
 
+  // 150
   const offset = (Platform.OS === 'android') ? -300 : 150;
+
 
   return (
     <View style={styles.ScrollStyle}>
@@ -247,13 +249,13 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
         <Switch value={isSwitchOn} onValueChange={onToggleSwitch} style={[styles.SwitchStyle, styles.IconStyle]} />
       </View>
 
-      <View style={styles.NotificationView}>
-      <Text style={styles.TextStyle}>Edit Profile</Text>
-        <Pressable onPress={() => setShowModal(true)}>
+      <Pressable onPress={() => setShowModal(true)}>
+        <View style={styles.NotificationView}>
+        <Text style={styles.TextStyle}>Edit Profile</Text>
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
-        </Pressable>
         
-      </View>
+        </View>
+      </Pressable>
 
         <Pressable onPress={HelpHandler}>
         <View style={styles.NotificationView}>
@@ -262,21 +264,22 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
         </View>
         </Pressable>
 
-      <View style={styles.NotificationView}>
+      <Pressable onPress={() => setShowDeleteModal(true)}>
+        <View style={styles.NotificationView}>
         <Text style={styles.TextStyle}>Delete Account</Text>
-        <Pressable onPress={() => setShowDeleteModal(true)}>
         
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
-        </Pressable>
-      </View>
+        </View>
+      </Pressable>
 
       <Center style={{ marginTop: 50, flexDirection: 'row' }}>
-      <Modal isOpen={showModal} onClose={() => setShowModal(false)} size={"full"}>
-        <Modal.Content maxWidth="400px">
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)} size="full">
+        {/* Removed avoidKeyboard, added a maxHeight, moved modal to the top of the screen */}
+        {/* It also accomodates the Iphone se but not smaller phones though!!! */}
+        <Modal.Content maxWidth="400px" maxHeight="375px"  style={styles.top}>
           <Modal.CloseButton />
           <Modal.Header><Text style={{color: '#0A326D', fontSize: 20,}}>Edit Profile</Text></Modal.Header>
           <Modal.Body overflow="hidden">
-          <KeyboardAvoidingView style={{flex:1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={offset}>
             <Box>
               <FormControl.Label>
                 <Text style={[styles.LabelTxt, {marginLeft: 20}]}>First Name</Text>
@@ -457,7 +460,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
             </Box>
             <Box>
               <FormControl.Label>
-                <Text style={[styles.LabelTxt, {marginLeft: 20}]}>
+                <Text style={[styles.LabelTxt, {marginLeft: 10}]}>
                 City
                 </Text></FormControl.Label>
               <TextInput
@@ -468,11 +471,9 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                   keyboardType="default"
                   placeholderTextColor={"rgba(59, 86, 124, 1)"}
                   accessibilityLabel="Enter the city you reside in"
-
                 />
             </Box>
             </View>
-          </KeyboardAvoidingView>
           </Modal.Body>
           <Modal.Footer>
             <Button.Group space={2}>
@@ -596,7 +597,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     height: 55,
     width: 150,
-    marginLeft: 20,
+    marginLeft: 10,
     marginRight: 25,
     borderWidth: 1,
     padding: 10,
@@ -616,7 +617,11 @@ const styles = StyleSheet.create({
   },
   ToastStyle:{
     zIndex: 1 
-  }
+  },
+  top: {
+    marginBottom: "auto",
+    marginTop: 45
+  },
 });
 
 export default SettingsNotificationsComponent;

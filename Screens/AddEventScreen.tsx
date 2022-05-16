@@ -61,10 +61,11 @@ import * as ImagePicker from 'expo-image-picker';
 import { AddEventItem, GetAddress, GetCitiesByState } from '../Services/DataService';
 import { compareSpecificity } from "native-base/lib/typescript/hooks/useThemeProps/propsFlattener";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { State } from "react-native-gesture-handler";
 
 
 const AddEventScreen: FC = () => {
-  const { userItems, setUpdateScreen } = useContext<any>(UserContext);
+  const { userItems, setUpdateScreen, setUpdateProfileScreen } = useContext<any>(UserContext);
   const [pickedImagePath, setPickedImagePath] = useState('');
   
   const showImagePicker = async () => {
@@ -102,13 +103,13 @@ const AddEventScreen: FC = () => {
   const [eventDetails, setEventDetails] = useState<string>("");
   const [eventAddress, setEventAddress] = useState<string>("");
   const [eventSport, setEventSport] = useState<string>("");
-  const [eventHours, setEventHour] = useState<any>("");
+  const [eventHours, setEventHour] = useState<string>("");
   const [eventMinutes, setEventMinutes] = useState<any>("");
   
   //dummy usestates!
   const [eventDate, setEventDate] = useState<any>("");
   const [eventTime, setEventTime] = useState<any>("");
-  const [eventState, setEventState] = useState<string>("");
+  const [eventState, setEventState] = useState<any>("");
   const [eventCity, setEventCity] = useState<string>("");
 
   const [visible, setVisible] = React.useState(false)
@@ -184,17 +185,6 @@ const AddEventScreen: FC = () => {
     }
 
 
-    //order of forms
-    //name
-    //date
-    //time
-    //event details
-    //address
-    //state
-    //city
-
-
-    //Don't forget validating the image
     var regex = /^[A-Za-z ]+$/
 
 
@@ -299,6 +289,23 @@ const AddEventScreen: FC = () => {
       // result = await AddEventItem(newEvent);
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully created!</Box>}});
       setUpdateScreen(true);
+      setUpdateProfileScreen(true);
+
+
+      //clear all the input fields once
+      //How can i clear the select input fields
+      
+      // eventSport.value = null;
+
+      setNameOfEvent("");
+      setEventDate("");
+      setEventTime("");
+      setEventDetails("");
+      setEventAddress("");
+
+      // eventState.value = null;
+
+      setEventCity("");
     }
   }
   
@@ -348,6 +355,10 @@ const AddEventScreen: FC = () => {
     Roboto_900Black,
     Roboto_900Black_Italic,
   });
+
+  const changeState = (itemValue: string) => {
+    
+  }
 
   if (!fontsLoaded) {
     return <AppLoading />;

@@ -329,7 +329,6 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
     let displayEvents = await GetItemsByUserId(viewUserProfile.id);
     let activeEvents = displayEvents.filter((event: any) => isItAPresentorFutureDay(event['dateOfEvent']) == true);
     
-    console.log(activeEvents);
     activeEvents.sort(function(a: any, b: any){
       var aa = a["dateOfEvent"].split('/').reverse().join();
       var bb = b["dateOfEvent"].split('/').reverse().join();
