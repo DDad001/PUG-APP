@@ -130,7 +130,9 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
       //console.log(liked);
     }
     
-  const handleLiked = () => {
+  const handleLiked = async () => {
+    let userData = await GetUserById(userId);
+    setViewUserProfile(userData);
     setIsLiked(!isLiked)
     let liked = isLiked;
     if (!liked) {
