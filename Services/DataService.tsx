@@ -516,6 +516,7 @@ export{
     AddFollower,GetFollowersByUserId,GetFollowId,GetFollowingByUserId,
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
     DeleteLikedEvent,GetAddress,UpdatePassword,GetCitiesByState,
-    ReportEvent,ReportUser, GetIsLiked, GetIsFollowed, triggerNotificationHandler, triggerNotificationFollowingHandler
+    ReportEvent,ReportUser, GetIsLiked, GetIsFollowed, triggerNotificationHandler, triggerNotificationFollowingHandler,
+    AddNotification, GetNotificationsByUserId, DeleteNotification
 
 }
