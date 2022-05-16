@@ -4,6 +4,7 @@ import man from '../assets/man.jpg';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
+import GreenCourt from '../assets/GreenCourt.png';
 import UserContext from '../Context/UserContext';
 
 
@@ -90,7 +91,7 @@ const YourEventScreen: FC = () => {
   //dummy usestates!
   const [eventDate, setEventDate] = useState<any>(eventItems.dateOfEvent);
   const [eventTime, setEventTime] = useState<any>(eventItems.timeOfEvent);
-  const [eventState, setEventState] = useState<string>(eventItems.stateOfEvent);
+  const [eventState, setEventState] = useState<string>(eventItems.stateOfEvent.toUpperCase());
   const [eventCity, setEventCity] = useState<string>(eventItems.cityOfEvent);
 
   const HandleEventChanges = async () => {
@@ -281,6 +282,7 @@ const YourEventScreen: FC = () => {
     accent: '#f1c40f',
   }, }
 
+  const offset = (Platform.OS === 'android') ? -300 :100;
 
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
@@ -315,7 +317,12 @@ const YourEventScreen: FC = () => {
     <>
       <StatusBar style="dark" />
       <View style={styles.container}>
-          <View style={{ flex: 1, }}>
+      <ImageBackground
+      source={GreenCourt}
+      resizeMode="cover"
+      style={{ height: "100%", width: "100%" }}>
+
+          {/* <View style={{ flex: 0.8, }}>
 
             {
               eventItems.sportOfEvent === "Basketball" ?
@@ -414,9 +421,24 @@ const YourEventScreen: FC = () => {
 
             }
 
+          </View> */}
+          <View>
+          <Text
+                style={{
+                  fontFamily: "Lato_700Bold",
+                  fontWeight: "bold",
+                  fontSize: 28,
+                  color: "white",
+                  marginLeft: 20,
+                  marginBottom: 10,
+                  marginTop: 10,
+                }}
+              >
+                Edit Event
+              </Text>
           </View>
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
-          <ScrollView style={{ flex: 1, marginBottom: 30 }}>
+          <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={offset} behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
+          <ScrollView style={{ flex: 1 }}>
           <View style={{ flex: 1 }}>
           <View style={{ marginLeft: 18, marginRight: 30, marginBottom: 20 }}>
           <Box
@@ -485,7 +507,7 @@ const YourEventScreen: FC = () => {
               />
             <Text
               style={{
-                color: "black",
+                color: "white",
                 fontFamily: "Roboto_400Regular",
                 fontSize: 15,
                 paddingLeft: 25,
@@ -559,7 +581,7 @@ const YourEventScreen: FC = () => {
                 />
                 <Text
                   style={{
-                    color: "black",
+                    color: "white",
                     fontFamily: "Roboto_400Regular",
                     fontSize: 15,
                     paddingLeft: 25,
@@ -583,7 +605,7 @@ const YourEventScreen: FC = () => {
                     fontWeight: "bold",
                     fontSize: 28,
                     paddingLeft: 20,
-                    color: "black",
+                    color: "white",
                   }}
                 >
                   Location
@@ -734,7 +756,7 @@ const YourEventScreen: FC = () => {
                     <FontAwesome
                       name="question-circle-o"
                       size={19}
-                      color="black"
+                      color="white"
                     />
                   </View>
                 </Pressable>
@@ -742,6 +764,7 @@ const YourEventScreen: FC = () => {
 
               </ScrollView>
           </KeyboardAvoidingView>
+          </ImageBackground>
       </View>
     </>
   )
@@ -820,7 +843,7 @@ const styles = StyleSheet.create({
 
   },
   subTxt: {
-    color: "black",
+    color: "white",
     fontFamily: "Roboto_400Regular",
     fontSize: 16,
     textDecorationLine: "underline",
