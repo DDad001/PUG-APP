@@ -9,6 +9,7 @@ const ImageHandler = () => {
 
     const { userItems, updateProfileScreen, setUpdateProfileScreen, setUserItems, setUpdateScreen } = useContext(UserContext);
     const [pickedImagePath, setPickedImagePath] = useState(userItems.image);
+    const [isNewImage, setIsNewImage] = useState(false);
     const saveImage = async () =>{
         //we are going to start off by getting the file type using a split.
         let fileType = pickedImagePath.split(".")[1];
@@ -49,6 +50,7 @@ const ImageHandler = () => {
           setUpdateScreen(true);
           let updatedUser = await GetUserById(userItems.id);
           setUserItems(updatedUser);
+          setIsNewImage(false);
       }
 
 
@@ -63,6 +65,7 @@ const ImageHandler = () => {
     if (!result.cancelled) {
       setPickedImagePath(result.uri);
       console.log(result.uri);
+      setIsNewImage(true);
     }
   }
 
@@ -86,7 +89,7 @@ const ImageHandler = () => {
                 {/* <Button title="Save Image" onPress={saveImage}></Button>  */}
               </View>
                 {
-                    pickedImagePath !== null ?  
+                    pickedImagePath !== null && isNewImage ?  
                     <Pressable onPress={saveImage} accessibilityLabel="Save image selected to be profile photo.">
                       <View style={{alignItems: "center"}}>
                        <Text style={{color:'white',fontSize:15, fontFamily: "Lato_900Black", marginTop:10, marginBottom: 10}}>Save Image</Text> 
