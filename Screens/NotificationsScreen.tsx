@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { Text, View, StyleSheet, ImageBackground, ScrollView } from "react-native";
+import { FC, useState, useContext, useEffect } from "react";
+import { Text, View, StyleSheet, ImageBackground, ScrollView, FlatList, Image } from "react-native";
 import NotificationComponent from "../Components/NotificationComponent";
 import AppLoading from "expo-app-loading";
 import {
@@ -17,8 +17,45 @@ import {
 } from "@expo-google-fonts/lato";
 
 import CricketPicture from "../assets/Cricket.png";
+import Skier from "../assets/Skier.png";
+
+import { GetNotificationsByUserId, DeleteNotification } from "../Services/DataService";
+import UserContext  from '../Context/UserContext';
+
+
+const Notification = ({notification}: any) => {
+
+  return(
+  <View style={styles.NotificationView}>
+        <Image source={Skier} style={styles.ImageStyle} />
+        <View style={{ justifyContent: "center" }}>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={styles.TextStyle}>Scott Morenzone </Text>
+            <Text style={styles.MiddleTextStyle}>liked</Text>
+            <Text style={styles.TextStyle}> your post</Text>
+          </View>
+        </View>
+      </View>
+  )
+}
+
+
+
+
 
 const NotificationsScreen: FC = () => {
+  const { userItems } = useContext<any>(UserContext);
+  const [notifications, setNotifications] = useState<any>([]);
+
+  useEffect(() => {
+    getNotifications();
+  }, [])
+
+  const getNotifications = async () => {
+    let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
+    setNotifications(fetchedNotifications);
+  }
+
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -36,6 +73,14 @@ const NotificationsScreen: FC = () => {
     return <AppLoading />;
   }
 
+  const renderItem = ({ item }: any) => {
+    return (
+    <Notification 
+      notification={item}
+    />
+    )
+};
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -45,12 +90,11 @@ const NotificationsScreen: FC = () => {
       >
         <View style={styles.overlayContainer}>
           <Text style={styles.NotificationsText}>Notifications</Text>
-          <ScrollView>
-          <NotificationComponent />
-          <NotificationComponent />
-          <NotificationComponent />
-          <NotificationComponent />
-          </ScrollView>
+          <FlatList
+                data={notifications}
+                renderItem={renderItem}
+                keyExtractor={(item: any) => item.id}
+                />
         </View>
       </ImageBackground>
     </View>
@@ -75,6 +119,33 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40,
     marginLeft: 27,
+  },
+  ImageStyle: {
+    height: 70,
+    width: 70,
+    borderRadius: 50,
+    marginRight: 20,
+  },
+  TextStyle: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Lato_700Bold",
+  },
+  TimeText: {
+    color: "#DFE6F5",
+    fontSize: 13,
+    paddingTop: 5,
+    fontFamily: "Roboto_500Medium",
+  },
+  NotificationView: {
+    flexDirection: "row",
+    paddingTop: 5,
+    paddingBottom: 34,
+  },
+  MiddleTextStyle: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Lato_300Light",
   },
 });
 
