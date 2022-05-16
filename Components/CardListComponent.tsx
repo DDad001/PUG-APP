@@ -59,7 +59,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { createOpenLink } from 'react-native-open-maps';
 import UserContext from '../Context/UserContext';
-import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetIsLiked, triggerNotificationHandler } from "../Services/DataService"
+import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetIsLiked, triggerNotificationHandler, AddNotification } from "../Services/DataService"
 import BasketballEvent from "../assets/BasketballEvent.jpg";
 import soccer from "../assets/soccer.jpg";
 import volleyballevent from "../assets/volleyballevent.jpg";
@@ -130,7 +130,9 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
       //console.log(liked);
     }
     
-  const handleLiked = () => {
+  const handleLiked = async () => {
+    let userData = await GetUserById(userId);
+    setViewUserProfile(userData);
     setIsLiked(!isLiked)
     let liked = isLiked;
     if (!liked) {
@@ -141,7 +143,15 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
         EventUnliked: false
       }
 
+      let addNotification = {
+        Id: 0,
+        userId: viewUserProfile.id,
+        PersonWhoLikedId: userItems.id,
+        NotificationText: `${userItems.username} Liked Your Event`
+      }
+
       triggerNotificationHandler(userItems, viewUserProfile);
+      AddNotification(addNotification);
       AddLikedEvent(addLike)
     } else {
       DeleteLikedEvent(userItems.id, id)

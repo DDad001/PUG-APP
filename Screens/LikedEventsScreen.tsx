@@ -63,6 +63,7 @@ import biking1 from "../assets/biking1.jpg";
 import baseball from "../assets/baseball.jpg";
 import badminton from "../assets/badminton.jpg";
 import pugEvent from "../assets/pugEvent.png";
+import { createOpenLink } from "react-native-open-maps";
 
 
 
@@ -347,7 +348,9 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
 
 
                                       <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
-                                      <MaterialIcons name="location-on" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginLeft: 12, padding:5  }} />
+                                        <Pressable  onPress={createOpenLink({ provider: 'google', end: addressOfEvent})}>
+                                            <MaterialIcons name="location-on" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginLeft: 12, padding:5  }} />
+                                        </Pressable>
                                       <Pressable onPress={handleLiked} >
                                         {
                                           isLiked ?  <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />

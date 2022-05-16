@@ -462,6 +462,49 @@ const triggerNotificationFollowingHandler = async (userItems:any, viewUserProfil
                 });
 };
 //-------------------------Fetch For Notification----------------------------------
+async function AddNotification(newNotification:object){
+    let res = await fetch('https://pugbackendwebapp.azurewebsites.net/Notifications/AddNotification', {
+        method:"POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify(newNotification)
+    });
+    if(!res.ok)
+    {
+        const message =`An Error has Occured ${res.status}`
+        throw new Error(message)
+    }
+    let data = await res.json();
+    console.log(data)
+}
+
+async function GetNotificationsByUserId(userId:number){
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Notifications/GetNotificationsByUserId/${userId}`);
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
+async function DeleteNotification(notificationId:number) {
+
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Notifications/DeleteNotification/${notificationId}`, {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(notificationId)
+    });
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`;
+        throw new Error(message);
+    }
+    let data = await res.json();
+    console.log(data);
+    return data;
+
+}
 
 
 
@@ -473,6 +516,7 @@ export{
     AddFollower,GetFollowersByUserId,GetFollowId,GetFollowingByUserId,
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
     DeleteLikedEvent,GetAddress,UpdatePassword,GetCitiesByState,
-    ReportEvent,ReportUser, GetIsLiked, GetIsFollowed, triggerNotificationHandler, triggerNotificationFollowingHandler
+    ReportEvent,ReportUser, GetIsLiked, GetIsFollowed, triggerNotificationHandler, triggerNotificationFollowingHandler,
+    AddNotification, GetNotificationsByUserId, DeleteNotification
 
 }

@@ -72,7 +72,6 @@ const NotificationComponent: FC = () => {
             <Text style={styles.MiddleTextStyle}>liked</Text>
             <Text style={styles.TextStyle}> your post</Text>
           </View>
-          <Text style={styles.TimeText}>8:00 am</Text>
         </View>
       </View>
 

@@ -69,6 +69,7 @@ const [BorderColor, setBorderColor] = useState('black')
                 ),
             }}
             />
+                 
       <Tab.Screen
         name="AddEvent"
         component={AddEventScreen}
