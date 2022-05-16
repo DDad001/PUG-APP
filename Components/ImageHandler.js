@@ -83,18 +83,24 @@ const ImageHandler = () => {
                   <MaterialCommunityIcons name="image-plus" size={40} color="white" style={{marginLeft:30, marginTop:30}}/>
                   </View>
                 }
+                {/* <Button title="Save Image" onPress={saveImage}></Button>  */}
               </View>
                 {
-                    pickedImagePath !== null ?  <Button title="Save Image" onPress={saveImage}></Button> : null
+                    pickedImagePath !== null ?  
+                    <Pressable onPress={saveImage} accessibilityLabel="Save image selected to be profile photo.">
+                      <View style={{alignItems: "center"}}>
+                       <Text style={{color:'white',fontSize:15, fontFamily: "Lato_900Black", marginTop:10, marginBottom: 10}}>Save Image</Text> 
+                      </View>
+                    </Pressable>
+                    : null
                 }
                 </Pressable>
               </View>
 
             </Pressable>
             <Pressable onPress={showImagePicker}>
-                <Text style={{color:'white',fontSize:15, fontFamily: "Lato_900Black",textDecorationLine:'underline', marginTop:5 }}>{ pickedImagePath == '' ? "Upload Profile Photo" : "Change Profile Photo"}</Text>
+                <Text style={{color:'white', fontSize:15, fontFamily: "Lato_900Black",textDecorationLine:'underline', marginTop:5 }}>{ pickedImagePath == '' ? "Upload Profile Photo" : "Change Profile Photo"}</Text>
             </Pressable>
-
           </View>
         </>
     )

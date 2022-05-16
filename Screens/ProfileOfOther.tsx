@@ -63,6 +63,7 @@ import baseball from "../assets/baseball.jpg";
 import badminton from "../assets/badminton.jpg";
 import tennis from "../assets/tennis.jpg";
 import pugEvent from "../assets/pugEvent.png";
+import { createOpenLink } from "react-native-open-maps";
 
 type RootStackParamList ={
   Nav: undefined,
@@ -78,7 +79,7 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
 const EventItem = ({event, navigation, sportOfEvent} :any) => {
-  const { userItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen } = useContext<any>(UserContext);
+  const { userItems, eventItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
@@ -179,7 +180,9 @@ const EventItem = ({event, navigation, sportOfEvent} :any) => {
                 </View>
 
                 <View style={{ flexDirection: 'row' }}>
-                <MaterialIcons name="location-on" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:17, padding:3  }} />
+                  <Pressable onPress={createOpenLink({ provider: 'google', end: event.addressOfEvent })}>
+                      <MaterialIcons name="location-on" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:17, padding:3  }} />
+                  </Pressable>
                 <Pressable onPress={handleLiked} >
                   {
                     isLiked ? <FontAwesome name="heart" size={16} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
