@@ -17,22 +17,34 @@ import {
 } from "@expo-google-fonts/lato";
 
 import CricketPicture from "../assets/Cricket.png";
-import Skier from "../assets/Skier.png";
+import { Ionicons } from '@expo/vector-icons';
 
-import { GetNotificationsByUserId, DeleteNotification } from "../Services/DataService";
+import { GetNotificationsByUserId, DeleteNotification, GetUserById } from "../Services/DataService";
 import UserContext  from '../Context/UserContext';
 
 
 const Notification = ({notification}: any) => {
+  const [user, setUser] = useState<any>('');
+
+  useEffect(() => {
+    getUser();
+  })
+
+  const getUser = async () => {
+    let userData = await GetUserById(notification.personWhoLikedId)
+    setUser(userData);
+  }
+
 
   return(
   <View style={styles.NotificationView}>
-        <Image source={Skier} style={styles.ImageStyle} />
+    {
+      user.image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
+      : <Image source={{uri: user.image}} style={styles.ImageStyle} />
+    }
         <View style={{ justifyContent: "center" }}>
           <View style={{ flexDirection: "row" }}>
-            <Text style={styles.TextStyle}>Scott Morenzone </Text>
-            <Text style={styles.MiddleTextStyle}>liked</Text>
-            <Text style={styles.TextStyle}> your post</Text>
+            <Text style={styles.TextStyle}>{notification.notificationText} </Text>
           </View>
         </View>
       </View>
