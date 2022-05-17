@@ -1,5 +1,5 @@
 import { FC, useState, useContext, useEffect } from "react";
-import { Text, View, StyleSheet, ImageBackground, ScrollView, FlatList, Image } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, ScrollView, FlatList, Image, Animated, TouchableOpacity } from "react-native";
 import NotificationComponent from "../Components/NotificationComponent";
 import AppLoading from "expo-app-loading";
 import {
@@ -21,6 +21,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { GetNotificationsByUserId, DeleteNotification, GetUserById } from "../Services/DataService";
 import UserContext  from '../Context/UserContext';
+import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 
 
 const Notification = ({notification}: any) => {
@@ -35,8 +36,27 @@ const Notification = ({notification}: any) => {
     setUser(userData);
   }
 
+  const swipeRight = (progress:any, dragX:any) => {
+    const scale = dragX.interpolate({
+      inputRange: [0, 100],
+      outputRange: [0, 1],
+      extrapolate: 'clamp',
+    }) 
+    return(
+      <TouchableOpacity onPress={() => console.log('Delete')} activeOpacity={0.6}>
+      <View style={styles.DeleteBox}>
+        <Ionicons name="md-trash" size={30} color="white" />
+      </View>
+      </TouchableOpacity>
+    )
+  }
+
 
   return(
+    <GestureHandlerRootView>
+    <Swipeable
+    renderRightActions={swipeRight}
+    >
   <View style={styles.NotificationView}>
     {
       user.image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
@@ -48,6 +68,8 @@ const Notification = ({notification}: any) => {
           </View>
         </View>
       </View>
+      </Swipeable>
+      </GestureHandlerRootView>
   )
 }
 
@@ -160,6 +182,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Lato_300Light",
   },
+  DeleteBox: {
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 100, 
+    height: 80
+  }
 });
 
 export default NotificationsScreen;
