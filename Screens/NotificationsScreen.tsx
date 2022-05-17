@@ -49,7 +49,7 @@ const Notification = ({notification}: any) => {
       extrapolate: 'clamp',
     }) 
     return(
-      <TouchableOpacity onPress={deleteNotification} activeOpacity={1}>
+      <TouchableOpacity onPress={deleteNotification} activeOpacity={0.6}>
       <View style={[styles.DeleteBox]}>
         <Ionicons name="md-trash" size={30} color="white" />
       </View>
