@@ -22,10 +22,6 @@ import {
 import VolleyballPicture from "../assets/VolleyBall.png";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-interface SettingsProps{ 
-  onHelpPress: Function,
-}
-
 
 type RootStackParamList ={
   Nav: undefined,
@@ -34,6 +30,7 @@ type RootStackParamList ={
   PastEvents:undefined,
   LikedEvents:undefined,
   settings:undefined,
+  EditProfile:undefined,
   following:undefined,
   LookAtEvent:undefined,
   OtherPersonsFollowers:undefined,
@@ -43,9 +40,9 @@ type RootStackParamList ={
   FAQ:undefined,
   login: undefined
 }
-type Props = NativeStackScreenProps<RootStackParamList, "FAQ">;
+type Props = NativeStackScreenProps<RootStackParamList, "Nav">;
 
-const SettingsScreen: FC<Props> = ({navigation}) => {
+const SettingsScreen: FC<Props> = ({navigation, route}) => {
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -72,7 +69,7 @@ const SettingsScreen: FC<Props> = ({navigation}) => {
       >
           <View style={styles.overlayContainer}>
             <SettingsProfileComponent />
-            <SettingsNotificationsComponent onHelpPress={() =>  navigation.navigate('FAQ')}/>
+            <SettingsNotificationsComponent onHelpPress={() =>  navigation.navigate('FAQ')} onEditProfilePress={() => navigation.navigate('EditProfile')}/>
             <SignoutBtnComponent onSignOutPress={() => navigation.navigate('login')} />
         </View>
       </ImageBackground>

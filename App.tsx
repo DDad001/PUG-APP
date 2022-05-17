@@ -38,6 +38,7 @@ import ProfileOfOther from "./Screens/ProfileOfOther";
 import FollowersScreen from "./Screens/FollowersScreen";
 import { Platform } from "react-native";
 import YourEventScreen from "./Screens/YourEventScreen";
+import EditProfileScreen from "./Screens/EditProfileScreen";
 
 type RootStackParamList ={
   CreateAccount: undefined,
@@ -48,6 +49,7 @@ type RootStackParamList ={
   PastEvents:undefined,
   LikedEvents:undefined,
   settings:undefined,
+  EditProfile:undefined,
   following:undefined,
   LookAtEvent:undefined,
   OtherPersonsFollowers:undefined,
@@ -121,6 +123,9 @@ const App: FC =()=> {
           <Stack.Screen name="following"
            options={{ title: 'Following',}}
           component={FollowingScreen}/>
+          <Stack.Screen name="EditProfile"
+           options={{ title: 'Edit Profile',}}
+          component={EditProfileScreen}/>
           <Stack.Screen name="followers"
            options={{ title: 'Followers',}}
           component={FollowersScreen}/>

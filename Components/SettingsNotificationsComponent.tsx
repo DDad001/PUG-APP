@@ -54,8 +54,8 @@ import { position } from "native-base/lib/typescript/theme/styled-system";
 
 interface SettingsProps{ 
   onHelpPress: Function,
+  onEditProfilePress: Function
 }
-
 
 const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
   const { userItems, setUserItems } = useContext<any>(UserContext);
@@ -63,6 +63,11 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
    const HelpHandler = () => {
     props.onHelpPress();
    }
+
+   const EditProfileHandler = () => {
+    props.onEditProfilePress();
+   }
+
 
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
@@ -249,11 +254,10 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
         <Switch value={isSwitchOn} onValueChange={onToggleSwitch} style={[styles.SwitchStyle, styles.IconStyle]} />
       </View>
 
-      <Pressable onPress={() => setShowModal(true)}>
+      <Pressable onPress={EditProfileHandler}>
         <View style={styles.NotificationView}>
         <Text style={styles.TextStyle}>Edit Profile</Text>
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
-        
         </View>
       </Pressable>
 
@@ -271,234 +275,6 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
         <Ionicons name="chevron-forward" size={32} color="#E8F1FF" style={styles.IconStyle} />
         </View>
       </Pressable>
-
-      <Center style={{ marginTop: 50, flexDirection: 'row' }}>
-      <Modal isOpen={showModal} onClose={() => setShowModal(false)} size="full">
-        {/* Removed avoidKeyboard, added a maxHeight, moved modal to the top of the screen */}
-        {/* It also accomodates the Iphone se but not smaller phones though!!! */}
-        <Modal.Content maxWidth="400px" maxHeight="375px"  style={styles.top}>
-          <Modal.CloseButton />
-          <Modal.Header><Text style={{color: '#0A326D', fontSize: 20,}}>Edit Profile</Text></Modal.Header>
-          <Modal.Body overflow="hidden">
-            <Box>
-              <FormControl.Label>
-                <Text style={[styles.LabelTxt, {marginLeft: 20}]}>First Name</Text>
-              </FormControl.Label>
-              <TextInput
-                  style={styles.Input}
-                  onChangeText={(text) => setFirstName(text)}
-                  value={firstName}
-                  placeholder={firstName}
-                  accessibilityLabel="Enter your first name"
-                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                />
-            </Box>
-            <Box mt="3">
-              <FormControl.Label>
-                <Text style={[styles.LabelTxt, {marginLeft: 20}]}>Last Name</Text>
-              </FormControl.Label>
-              <TextInput
-                  style={styles.Input}
-                  onChangeText={(text) => setLastName(text)}
-                  value={lastName}
-                  placeholder={lastName}
-                  accessibilityLabel="Enter your last name"
-                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                />
-            </Box>
-            <Box mt="3">
-              <FormControl.Label>
-                <Text style={[styles.LabelTxt, {marginLeft: 20}]}>Username</Text>
-              </FormControl.Label>
-              <TextInput
-                  style={styles.Input}
-                  onChangeText={(text) => setUsername(text)}
-                  value={username}
-                  placeholder={username}
-                  accessibilityLabel="Enter your username"
-                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                />
-            </Box>
-            <Box mt="3">
-              <FormControl.Label>
-                <Text style={[styles.LabelTxt, {marginLeft: 20}]}>Password</Text>
-              </FormControl.Label>
-              <TextInput
-                  style={styles.Input}
-                  onChangeText={(text) => setPassword(text)}
-                  value={password}
-                  placeholder="Enter new password"
-                  accessibilityLabel="Enter your password"
-                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                />
-            </Box>
-
-            <Box mt='3'>
-            <FormControl.Label>
-              <Text style={[styles.LabelTxt, {marginLeft: 20}]}>Date of Birth</Text>
-            </FormControl.Label>
-            <PaperProvider theme={theme}>
-                  <View style={{flexDirection:'row',flex: 1,}}>
-                <DatePickerModal 
-                  
-                  mode="single"
-                  visible={visible}
-                  onDismiss={onDismiss}
-                  date={newDate}
-                  // validRange={{
-                  //   startDate: new Date(2005, 15, 2),  // optional
-                  //    endDate: new Date(2005, 3, 2), // optional
-                  //  }}
-                  onConfirm={onChange}
-                  saveLabel="Save" // optional
-                  label="Select date" // optional
-                  animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
-                  locale={'en'}// optional, default is automically detected by your system  
-                  /> 
-                {/* <Pressable style={{backgroundColor: '#FAFAFA', borderWidth: 1, borderColor:'lightgray', borderRadius: 5,}} onPress={()=> setVisible(true)}>
-                  <View style={{flexDirection:'row',  }}>
-                  <Text style={{ fontSize:12, marginRight: 199, paddingTop: 5, paddingBottom: 5, paddingLeft: 11, color:"gray", fontFamily: 'Roboto_400Regular', opacity: 0.6}}>{dob}</Text>
-                  </View>
-                </Pressable> */}
-                <Pressable style={{backgroundColor:'white', flex:0.95, height:55, borderRadius:20, marginLeft:16, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3, elevation: 10}} onPress={()=> setVisible(true)}>
-                  <View style={{flexDirection:'row', shadowColor: "black",}}>
-                  <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15, flex:0.9}}>Date of birth</Text>
-                 <Text style={{color:'#3B567C',  marginLeft:130, marginTop:19, fontSize:15}}>{dob}</Text>
-                  </View>
-                </Pressable>
-                  </View>
-                  </PaperProvider>
-              </Box>
-
-
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 13}}>
-            <Box>
-              <FormControl.Label>
-                  <Text style={[styles.LabelTxt, {marginLeft: 20}]}>State</Text>
-              </FormControl.Label>
-              <Box
-                      maxW="155"
-                      borderRadius={15}
-                      style={{
-                        backgroundColor: "white",
-                        shadowColor: "black",
-                        shadowOffset: { width: -2, height: 4 },
-                        shadowOpacity: 0.5,
-                        shadowRadius: 3,
-                        marginLeft: 20,
-                        elevation: 10
-                      }}
-                    >
-                      <Select
-                        minWidth="150"
-                        minHeight="53"
-                        accessibilityLabel="Choose Service"
-                        placeholderTextColor={"#3B567C"}
-                        placeholder={updatedState}
-                        _selectedItem={{
-                          bg: "black.300",
-                          endIcon: <CheckIcon size={5} color="#3B567C" />,
-                        }}
-                        borderWidth="0"
-                        fontFamily={"Roboto_400Regular"}
-                        fontSize={15}
-                        color={"#3B567C"}
-                        onValueChange = {(itemValue) => setUpdatedState(itemValue)}
-                      >
-                        <Select.Item label="AL" value="AL" />
-                        <Select.Item label="AK" value="AK" />
-                        <Select.Item label="AZ" value="AZ" />
-                        <Select.Item label="AR" value="AR" />
-                        <Select.Item label="CA" value="CA" />
-                        <Select.Item label="CO" value="CO" />
-                        <Select.Item label="CT" value="CT" />
-                        <Select.Item label="DE" value="DE" />
-                        <Select.Item label="FL" value="FL" />
-                        <Select.Item label="GA" value="GA" />
-                        <Select.Item label="HI" value="HI" />
-                        <Select.Item label="ID" value="ID" />
-                        <Select.Item label="IL" value="IL" />
-                        <Select.Item label="IN" value="IN" />
-                        <Select.Item label="IA" value="IA" />
-                        <Select.Item label="KS" value="KS" />
-                        <Select.Item label="KY" value="KY" />
-                        <Select.Item label="LA" value="LA" />
-                        <Select.Item label="ME" value="ME" />
-                        <Select.Item label="MD" value="MD" />
-                        <Select.Item label="MA" value="MA" />
-                        <Select.Item label="MI" value="MI" />
-                        <Select.Item label="MN" value="MN" />
-                        <Select.Item label="MS" value="MS" />
-                        <Select.Item label="MO" value="MO" />
-                        <Select.Item label="MT" value="MT" />
-                        <Select.Item label="NE" value="NE" />
-                        <Select.Item label="NV" value="NV" />
-                        <Select.Item label="NH" value="NH" />
-                        <Select.Item label="NJ" value="NJ" />
-                        <Select.Item label="NM" value="NM" />
-                        <Select.Item label="NY" value="NY" />
-                        <Select.Item label="NC" value="NC" />
-                        <Select.Item label="ND" value="ND" />
-                        <Select.Item label="OH" value="OH" />
-                        <Select.Item label="OK" value="OK" />
-                        <Select.Item label="OR" value="OR" />
-                        <Select.Item label="PA" value="PA" />
-                        <Select.Item label="RI" value="RI" />
-                        <Select.Item label="SC" value="SC" />
-                        <Select.Item label="SD" value="SD" />
-                        <Select.Item label="TN" value="TN" />
-                        <Select.Item label="TX" value="TX" />
-                        <Select.Item label="UT" value="UT" />
-                        <Select.Item label="VT" value="VT" />
-                        <Select.Item label="VA" value="VA" />
-                        <Select.Item label="WA" value="WA" />
-                        <Select.Item label="WV" value="WV" />
-                        <Select.Item label="WI" value="WI" />
-                        <Select.Item label="WY" value="WY" />
-                      </Select>
-                    </Box>
-            </Box>
-            <Box>
-              <FormControl.Label>
-                <Text style={[styles.LabelTxt, {marginLeft: 10}]}>
-                City
-                </Text></FormControl.Label>
-              <TextInput
-                  style={styles.cityInput}
-                  onChangeText={(text) => setCity(text)}
-                  value={city}
-                  placeholder="City"
-                  keyboardType="default"
-                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                  accessibilityLabel="Enter the city you reside in"
-                />
-            </Box>
-            </View>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button.Group space={2}>
-              <Button
-                variant="ghost"
-                colorScheme="blueGray"
-                onPress={() => {
-                  setShowModal(false);
-                }}
-                >
-                Cancel
-              </Button>
-              <Button
-                onPress={() => {
-                  handleEditProfile();
-                }}
-                style={{backgroundColor: '#0A326D'}}
-                >
-                Save Changes
-              </Button>
-            </Button.Group>
-          </Modal.Footer>
-        </Modal.Content>
-      </Modal>
-    </Center>
 
     <Center style={{ marginTop: 50, flexDirection: 'row' }}>
       <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)}>
