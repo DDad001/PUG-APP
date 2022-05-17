@@ -66,7 +66,7 @@ const NotificationsScreen: FC = () => {
 
   const getNotifications = async () => {
     let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
-    setNotifications(fetchedNotifications);
+    setNotifications(fetchedNotifications.reverse());
   }
 
   let [fontsLoaded] = useFonts({
