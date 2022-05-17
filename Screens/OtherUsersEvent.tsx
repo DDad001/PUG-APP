@@ -1,3 +1,4 @@
+
 import React, { FC, useState, useContext, useEffect } from "react";
 import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, TextInput } from "react-native";
 import PUGHeader from "../Components/PUGHeader";
@@ -73,12 +74,14 @@ type RootStackParamList = {
   schedule: undefined,
   cardList: { name: string },
   GoToEvent: undefined,
+  OtherUserEvent:undefined,
   profile: undefined,
   GoToProfile: undefined,
 }
-type Props = NativeStackScreenProps<RootStackParamList, "GoToProfile">;
 
-const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
+type Props = NativeStackScreenProps<RootStackParamList, "OtherUserEvent">;
+
+const OtherUsersEvent: FC<Props> = ({ navigation, route }) => {
 
   const Errortoast = useToast();
   const Successtoast = useToast();
@@ -227,33 +230,33 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
     }
   }
 
-  const handleFollow = () => {
-    setIsFollowed(!isFollowed);
-    let followed = isFollowed;
-    if (!followed) {
-      let newFollower = {
-        Id: 0,
-        UserId: userItems.id,
-        FollowerId: eventItems.userId,
-        isUnfollowed: false
-      }
-      let addNotification = {
-        Id: 0,
-        userId: eventItems.userId,
-        PersonWhoLikedId: userItems.id,
-        NotificationText: `${userItems.username} Followed You`
-      }
-      triggerNotificationFollowingHandler(userItems, viewUserProfile)
-      AddNotification(addNotification);
-      AddFollower(newFollower);
-      setUpdateNotificationsScreen(true);
-      //console.log('Followed')
-    } else {
-      DeleteFollower(userItems.id, eventItems.userId);
-      //console.log('Unfollowed')
-    }
-    setUpdateProfileScreen(true);
-  }
+//   const handleFollow = () => {
+//     setIsFollowed(!isFollowed);
+//     let followed = isFollowed;
+//     if (!followed) {
+//       let newFollower = {
+//         Id: 0,
+//         UserId: userItems.id,
+//         FollowerId: eventItems.userId,
+//         isUnfollowed: false
+//       }
+//       let addNotification = {
+//         Id: 0,
+//         userId: eventItems.userId,
+//         PersonWhoLikedId: userItems.id,
+//         NotificationText: `${userItems.username} Followed You`
+//       }
+//       triggerNotificationFollowingHandler(userItems, viewUserProfile)
+//       AddNotification(addNotification);
+//       AddFollower(newFollower);
+//       setUpdateNotificationsScreen(true);
+//       //console.log('Followed')
+//     } else {
+//       DeleteFollower(userItems.id, eventItems.userId);
+//       //console.log('Unfollowed')
+//     }
+//     setUpdateProfileScreen(true);
+//   }
 
 
   const handleSaveUser = async () => {
@@ -454,9 +457,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
             </Pressable>
           </View>
 
-          <Pressable onPress={() => {
-            handleSaveUser();
-            navigation.navigate('profile')}}>
+          <Pressable onPress={() => handleSaveUser()}>
             <Center>
               <Modal isOpen={showModal} size="full" onClose={() => setShowModal(false)}>
                 <Modal.Content maxWidth="400px">
@@ -593,13 +594,13 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
               <View style={{ flexDirection: 'row', flex: 1, backgroundColor: '#7E90AB', marginTop: 15, height: 80, shadowRadius: 8, shadowColor: '#333', shadowOffset: { width: 5, height: 5 }, shadowOpacity: 0.4 }}>
 
                 {
-                  profileImage === null ? <Ionicons name="person-circle-sharp" size={65} style={{alignSelf: 'center', marginLeft: 22}} color="black" />
-                  : <Image source={{uri: profileImage}} style={{ height: 55, width: 55, borderRadius: 30, marginTop: 13, marginLeft: 22 }} />
+                  viewUserProfile.image === null ? <Ionicons name="person-circle-sharp" size={65} style={{alignSelf: 'center', marginLeft: 22}} color="black" />
+                  : <Image source={{uri: viewUserProfile.image}} style={{ height: 55, width: 55, borderRadius: 30, marginTop: 13, marginLeft: 22 }} />
 
                 }
                 <Text style={{ flex: 0.9, marginTop: 30, marginLeft: 17, fontSize: 16, color: 'white', fontFamily: "Roboto_700Bold" }}>{nameContext}</Text>
 
-
+{/* 
                 <Pressable onPress={handleFollow} style={{ marginLeft: 20, marginTop: 17 }}>
                   <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow: 'hidden', marginTop: 10, marginLeft: 12, padding: 5, width: 90, height: 27 }} >
                     {
@@ -608,7 +609,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                     }
 
                   </View>
-                </Pressable>
+                </Pressable> */}
 
               </View>
 
@@ -656,4 +657,4 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
 });
-export default EventDisplayedScreen;
+export default OtherUsersEvent;

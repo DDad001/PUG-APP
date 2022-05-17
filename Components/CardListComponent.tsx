@@ -285,6 +285,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                   <View style={{flex: 0.9, flexDirection: "row", justifyContent: "flex-start"  }}>
                     <Pressable onPress={() => {
                       ProfileHandler();
+                      setEventItems(event);
                       handleSaveUser();
                       }}>
                       <View style={{flex: 1, flexDirection: 'row', }}>

@@ -68,18 +68,18 @@ import { createOpenLink } from "react-native-open-maps";
 type RootStackParamList ={
   Nav: undefined,
   event:{name:string},
-  profile:{name:string},
+  profile:undefined,
   PastEvents:undefined,
   LikedEvents:undefined,
-  LookAtEvent:undefined,
+  OtherUserEvent:undefined,
   OtherPersonsFollowers:undefined,
   OtherPersonsFollowings:undefined,
 
 }
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
-const EventItem = ({event, navigation, sportOfEvent} :any) => {
-  const { userItems, eventItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen, setUpdateNotificationsScreen } = useContext<any>(UserContext);
+const EventItem= ({event, navigation, sportOfEvent} :any) => {
+  const { userItems, eventItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen, setUpdateNotificationsScreen, setUpdateProfileOther } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
@@ -112,6 +112,7 @@ const EventItem = ({event, navigation, sportOfEvent} :any) => {
     setUpdateScreen(true);
     setUpdateEventScreen(true);
     setUpdateProfileScreen(true);
+    setUpdateProfileOther(true)
   }
 
   const checkIfLiked = async () => {
@@ -123,9 +124,8 @@ const EventItem = ({event, navigation, sportOfEvent} :any) => {
  
 
   return (
-    
-    <Pressable onPress={() => navigation.navigate('LookAtEvent')}>
-          <View style={styles.card}>
+       <Pressable onPress={() => navigation.navigate('OtherUserEvent')}>
+    <View style={styles.card}>
         <View style={styles.cardContent}>
             <View style={{ flexDirection: 'row', }}>
             {
@@ -393,6 +393,7 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   const renderItem = ({item}: any) => (
     <EventItem event={item}
     sportOfEvent={item.sportOfEvent}
+    navigation={navigation}
     />
   );
 
@@ -404,8 +405,7 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
             {
               viewUserProfile.image === null ? <Ionicons name="person-circle-sharp" size={115} style={{ marginTop:25}} color="white" />
               : <Image source={{uri: viewUserProfile.image}} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}} />
-            }
-            
+            }    
           </View>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
                 <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{nameContext}, </Text>

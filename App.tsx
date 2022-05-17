@@ -38,18 +38,21 @@ import ProfileOfOther from "./Screens/ProfileOfOther";
 import FollowersScreen from "./Screens/FollowersScreen";
 import { Platform } from "react-native";
 import YourEventScreen from "./Screens/YourEventScreen";
+import EditProfileScreen from "./Screens/EditProfileScreen";
+import OtherUsersEvent from "./Screens/OtherUsersEvent";
 
 type RootStackParamList ={
   CreateAccount: undefined,
   login:undefined,
   Nav: undefined,
   event:{name:string},
-  profile:{name:string},
+  profile:undefined,
   PastEvents:undefined,
   LikedEvents:undefined,
   settings:undefined,
+  EditProfile:undefined,
+  OtherUserEvent:undefined,
   following:undefined,
-  LookAtEvent:undefined,
   OtherPersonsFollowers:undefined,
   OtherPersonsFollowings:undefined,
   YourActiveEvent:undefined,
@@ -121,12 +124,18 @@ const App: FC =()=> {
           <Stack.Screen name="following"
            options={{ title: 'Following',}}
           component={FollowingScreen}/>
+          <Stack.Screen name="EditProfile"
+           options={{ title: 'Edit Profile',}}
+          component={EditProfileScreen}/>
           <Stack.Screen name="followers"
            options={{ title: 'Followers',}}
           component={FollowersScreen}/>
-          <Stack.Screen name="LookAtEvent"
+          {/* <Stack.Screen name="LookAtEvent"
            options={{ title: 'Look At Event',}}
-          component={EventDisplayedScreen}/>
+          component={EventDisplayedScreen}/> */}
+          <Stack.Screen name="OtherUserEvent"
+           options={{ title: 'Other User Event',}}
+          component={OtherUsersEvent}/>
           <Stack.Screen name="OtherPersonsFollowers"
            options={{ title: 'OtherPersonFollowers',}}
           component={FollowersScreen}/>
