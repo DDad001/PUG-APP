@@ -10,7 +10,7 @@ import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Radio, useToast } from "native-base";
 import UserContext from '../Context/UserContext';
-import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower, ReportUser, ReportEvent, GetUserById, GetIsFollowed, triggerNotificationFollowingHandler } from '../Services/DataService'
+import { AddFollower, AddLikedEvent, DeleteLikedEvent, DeleteFollower, ReportUser, ReportEvent, GetUserById, GetIsFollowed, triggerNotificationFollowingHandler, AddNotification } from '../Services/DataService'
 
 
 import {
@@ -96,7 +96,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   const [radioUserValue, setRadioUserValue] = useState<string>("");
   const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
-  const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile, setUpdateProfileScreen, updateEventScreen, setUpdateEventScreen, viewUserProfile } = useContext<any>(UserContext);
+  const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile, setUpdateProfileScreen, updateEventScreen, setUpdateEventScreen, viewUserProfile, setUpdateNotificationsScreen } = useContext<any>(UserContext);
 
   // const [isLiked, setIsLiked] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
@@ -237,8 +237,16 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
         FollowerId: eventItems.userId,
         isUnfollowed: false
       }
+      let addNotification = {
+        Id: 0,
+        userId: eventItems.userId,
+        PersonWhoLikedId: userItems.id,
+        NotificationText: `${userItems.username} Followed You`
+      }
       triggerNotificationFollowingHandler(userItems, viewUserProfile)
+      AddNotification(addNotification);
       AddFollower(newFollower);
+      setUpdateNotificationsScreen(true);
       //console.log('Followed')
     } else {
       DeleteFollower(userItems.id, eventItems.userId);

@@ -1,5 +1,5 @@
 import { FC, useState, useContext, useEffect } from "react";
-import { Text, View, StyleSheet, ImageBackground, ScrollView, FlatList, Image } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, ScrollView, FlatList, Image, Animated, TouchableOpacity } from "react-native";
 import NotificationComponent from "../Components/NotificationComponent";
 import AppLoading from "expo-app-loading";
 import {
@@ -21,9 +21,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { GetNotificationsByUserId, DeleteNotification, GetUserById } from "../Services/DataService";
 import UserContext  from '../Context/UserContext';
+import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 
 
 const Notification = ({notification}: any) => {
+  const { setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [user, setUser] = useState<any>('');
 
   useEffect(() => {
@@ -35,19 +37,45 @@ const Notification = ({notification}: any) => {
     setUser(userData);
   }
 
+  const deleteNotification = () => {
+    DeleteNotification(notification.id);
+    setUpdateNotificationsScreen(true);
+  }
+
+  const swipeRight = (progress:any, dragX:any) => {
+    const scale = dragX.interpolate({
+      inputRange: [0, 100],
+      outputRange: [0, 1],
+      extrapolate: 'clamp',
+    }) 
+    return(
+      <TouchableOpacity onPress={deleteNotification} activeOpacity={0.6}>
+      <View style={styles.DeleteBox}>
+        <Ionicons name="md-trash" size={30} color="white" />
+      </View>
+      </TouchableOpacity>
+    )
+  }
+
 
   return(
+    <GestureHandlerRootView>
+    <Swipeable
+    renderRightActions={swipeRight}
+    >
   <View style={styles.NotificationView}>
     {
       user.image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
       : <Image source={{uri: user.image}} style={styles.ImageStyle} />
     }
         <View style={{ justifyContent: "center" }}>
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", width: 225}}>
             <Text style={styles.TextStyle}>{notification.notificationText} </Text>
           </View>
         </View>
       </View>
+      </Swipeable>
+      </GestureHandlerRootView>
   )
 }
 
@@ -56,16 +84,17 @@ const Notification = ({notification}: any) => {
 
 
 const NotificationsScreen: FC = () => {
-  const { userItems } = useContext<any>(UserContext);
+  const { userItems, updateNotificationsScreen, setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [notifications, setNotifications] = useState<any>([]);
 
   useEffect(() => {
     getNotifications();
-  }, [])
+    setUpdateNotificationsScreen(false);
+  }, [updateNotificationsScreen])
 
   const getNotifications = async () => {
     let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
-    setNotifications(fetchedNotifications);
+    setNotifications(fetchedNotifications.reverse());
   }
 
   let [fontsLoaded] = useFonts({
@@ -131,6 +160,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40,
     marginLeft: 27,
+    marginBottom: 50,    
   },
   ImageStyle: {
     height: 70,
@@ -159,6 +189,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Lato_300Light",
   },
+  DeleteBox: {
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 100, 
+    height: 80
+  }
 });
 
 export default NotificationsScreen;

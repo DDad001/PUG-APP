@@ -7,7 +7,7 @@ import UserContext from "../Context/UserContext";
 
 const ImageHandler = () => {
 
-    const { userItems, updateProfileScreen, setUpdateProfileScreen, setUserItems, setUpdateScreen } = useContext(UserContext);
+    const { userItems, updateProfileScreen, setUpdateProfileScreen, setUserItems, setUpdateScreen,setUpdateNotificationsScreen } = useContext(UserContext);
     const [pickedImagePath, setPickedImagePath] = useState(userItems.image);
     const [isNewImage, setIsNewImage] = useState(false);
     const saveImage = async () =>{
@@ -48,6 +48,7 @@ const ImageHandler = () => {
           let updateUserImage = await UpdateUser(userData);
           console.log(updateUserImage);
           setUpdateScreen(true);
+          setUpdateNotificationsScreen(true);
           let updatedUser = await GetUserById(userItems.id);
           setUserItems(updatedUser);
           setIsNewImage(false);
