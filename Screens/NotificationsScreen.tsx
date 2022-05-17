@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40,
     marginLeft: 27,
+    marginBottom: 50,    
   },
   ImageStyle: {
     height: 70,
