@@ -50,9 +50,9 @@ const Notification = ({notification}: any) => {
     }) 
     return(
       <TouchableOpacity onPress={deleteNotification} activeOpacity={1}>
-      <Animated.View style={[styles.DeleteBox, {opacity}]}>
+      <View style={[styles.DeleteBox]}>
         <Ionicons name="md-trash" size={30} color="white" />
-      </Animated.View>
+      </View>
       </TouchableOpacity>
     )
   }
