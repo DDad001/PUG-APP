@@ -42,14 +42,14 @@ const Notification = ({notification}: any) => {
     setUpdateNotificationsScreen(true);
   }
 
-  const swipeRight = (progress: Animated.AnimatedInterpolation, dragX: Animated.AnimatedInterpolation) => {
-    const opacity = dragX.interpolate({
+  const swipeRight = (progress: Animated.AnimatedInterpolation, dragAnimatedValue: Animated.AnimatedInterpolation) => {
+    const opacity = dragAnimatedValue.interpolate({
       inputRange: [-150, 0],
       outputRange: [1, 0],
       extrapolate: 'clamp',
     }) 
     return(
-      <TouchableOpacity onPress={deleteNotification} activeOpacity={0.6}>
+      <TouchableOpacity onPress={deleteNotification} activeOpacity={1}>
       <Animated.View style={[styles.DeleteBox, {opacity}]}>
         <Ionicons name="md-trash" size={30} color="white" />
       </Animated.View>
