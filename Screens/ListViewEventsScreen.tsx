@@ -15,7 +15,7 @@ type RootStackParamList ={
     schedule:undefined,
     cardList:{name:string},
     GoToEvent:undefined,
-    profile:{name:string} 
+    profile:undefined,
   }
 
 //   interface ProfileCardProps{ 
@@ -124,7 +124,7 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
       <View style={styles.container}>
           <ImageBackground source={SoccerBall} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
               <PUGHeader/>
-              <CardListComponent onEventDisplayPress={() =>  navigation.navigate('event', {name: 'danial'})} onProfilePress={() => navigation.navigate('profile', {name: 'danial'})}/>
+              <CardListComponent onEventDisplayPress={() =>  navigation.navigate('event', {name: 'danial'})} onProfilePress={() => navigation.navigate('profile')}/>
           </ImageBackground>
       </View>
         </>

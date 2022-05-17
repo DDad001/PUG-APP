@@ -76,7 +76,7 @@ interface EventsProps{
 type RootStackParamList ={
   Nav: undefined,
   event:{name:string},
-  profile:{name:string},
+  profile:undefined,
   PastEvents:undefined,
   LikedEvents:undefined,
   settings:undefined,
@@ -87,7 +87,7 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
 const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation, sportOfEvent} :any) => {
-  const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext, setUpdateProfileScreen, updateProfileScreen, viewUserProfile, setUpdateNotificationsScreen} = useContext<any>(UserContext);
+  const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext, setUpdateProfileScreen, updateProfileScreen, viewUserProfile, setUpdateNotificationsScreen, setUpdateEventScreen, setUpdateProfileOther} = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
@@ -229,6 +229,10 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
             <Pressable onPress={() => {
               console.log("Removed")
               DeleteEventItem(id);
+              setUpdateScreen(true);
+              setUpdateEventScreen(true);
+              setUpdateProfileScreen(true);
+              setUpdateProfileOther(true)
             }} >
               <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
                 <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
@@ -472,7 +476,8 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     addressOfEvent={item.addressOfEvent}
     dateOfEvent={item.dateOfEvent}
     timeOfEvent={item.timeOfEvent} 
-    navigation={navigation} event={item}
+    navigation={navigation} 
+    event={item}
     sportOfEvent={item.sportOfEvent}
     />
     

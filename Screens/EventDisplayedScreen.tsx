@@ -73,7 +73,7 @@ type RootStackParamList = {
   schedule: undefined,
   cardList: { name: string },
   GoToEvent: undefined,
-  profile: { name: string },
+  profile: undefined,
   GoToProfile: undefined,
 }
 type Props = NativeStackScreenProps<RootStackParamList, "GoToProfile">;
@@ -456,8 +456,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
 
           <Pressable onPress={() => {
             handleSaveUser();
-            navigation.navigate('profile', { name: 'profile' }
-            )}}>
+            navigation.navigate('profile')}}>
             <Center>
               <Modal isOpen={showModal} size="full" onClose={() => setShowModal(false)}>
                 <Modal.Content maxWidth="400px">

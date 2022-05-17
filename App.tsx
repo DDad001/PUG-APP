@@ -46,7 +46,7 @@ type RootStackParamList ={
   login:undefined,
   Nav: undefined,
   event:{name:string},
-  profile:{name:string},
+  profile:undefined,
   PastEvents:undefined,
   LikedEvents:undefined,
   settings:undefined,

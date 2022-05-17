@@ -68,7 +68,7 @@ import { createOpenLink } from "react-native-open-maps";
 type RootStackParamList ={
   Nav: undefined,
   event:{name:string},
-  profile:{name:string},
+  profile:undefined,
   PastEvents:undefined,
   LikedEvents:undefined,
   OtherUserEvent:undefined,
@@ -79,7 +79,7 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
 const EventItem= ({event, navigation, sportOfEvent} :any) => {
-  const { userItems, eventItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen, setUpdateNotificationsScreen } = useContext<any>(UserContext);
+  const { userItems, eventItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen, setUpdateNotificationsScreen, setUpdateProfileOther } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
@@ -112,6 +112,7 @@ const EventItem= ({event, navigation, sportOfEvent} :any) => {
     setUpdateScreen(true);
     setUpdateEventScreen(true);
     setUpdateProfileScreen(true);
+    setUpdateProfileOther(true)
   }
 
   const checkIfLiked = async () => {
@@ -123,9 +124,8 @@ const EventItem= ({event, navigation, sportOfEvent} :any) => {
  
 
   return (
-    
-    <View style={styles.card}>
        <Pressable onPress={() => navigation.navigate('OtherUserEvent')}>
+    <View style={styles.card}>
         <View style={styles.cardContent}>
             <View style={{ flexDirection: 'row', }}>
             {
@@ -210,8 +210,8 @@ const EventItem= ({event, navigation, sportOfEvent} :any) => {
                 <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
                 </View>
         </View>
-     </Pressable>
       </View>
+     </Pressable>
    
 
   )};
