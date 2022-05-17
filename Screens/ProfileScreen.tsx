@@ -8,7 +8,7 @@ import { FontAwesome,Entypo } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { Ionicons } from '@expo/vector-icons';
 import UserContext  from '../Context/UserContext';
-import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetFollowersByUserId, GetUserById, GetFollowingByUserId, UpdateUser, GetIsLiked, triggerNotificationHandler } from "../Services/DataService"
+import { DeleteEventItem, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetFollowersByUserId, GetUserById, GetFollowingByUserId, UpdateUser, GetIsLiked, triggerNotificationHandler, AddNotification } from "../Services/DataService"
 
 // Import fonts
 import {
@@ -87,7 +87,7 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 
 const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation, sportOfEvent} :any) => {
-  const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext, setUpdateProfileScreen, updateProfileScreen, viewUserProfile} = useContext<any>(UserContext);
+  const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext, setUpdateProfileScreen, updateProfileScreen, viewUserProfile, setUpdateNotificationsScreen} = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
@@ -105,8 +105,16 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
         EventId: id,
         EventUnliked: false
       }
+      let addNotification = {
+        Id: 0,
+        userId: userItems.id,
+        PersonWhoLikedId: userItems.id,
+        NotificationText: `${userItems.username} Liked ${nameOfEvent}`
+      }
       triggerNotificationHandler(userItems, viewUserProfile);
+      AddNotification(addNotification);
       AddLikedEvent(addLike)
+      setUpdateNotificationsScreen(true);
     }else{
       DeleteLikedEvent(userItems.id, id)
     }

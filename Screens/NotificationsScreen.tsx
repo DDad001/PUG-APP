@@ -56,12 +56,13 @@ const Notification = ({notification}: any) => {
 
 
 const NotificationsScreen: FC = () => {
-  const { userItems } = useContext<any>(UserContext);
+  const { userItems, updateNotificationsScreen, setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [notifications, setNotifications] = useState<any>([]);
 
   useEffect(() => {
     getNotifications();
-  }, [])
+    setUpdateNotificationsScreen(false);
+  }, [updateNotificationsScreen])
 
   const getNotifications = async () => {
     let fetchedNotifications = await GetNotificationsByUserId(userItems.id);

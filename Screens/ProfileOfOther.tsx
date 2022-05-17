@@ -39,7 +39,7 @@ import {
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import UserContext  from '../Context/UserContext';
-import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetIsLiked, triggerNotificationHandler} from '../Services/DataService';
+import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetIsLiked, triggerNotificationHandler, AddNotification} from '../Services/DataService';
 import BasketballEvent from "../assets/BasketballEvent.jpg";
 import soccer from "../assets/soccer.jpg";
 import volleyballevent from "../assets/volleyballevent.jpg";
@@ -79,7 +79,7 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
 const EventItem = ({event, navigation, sportOfEvent} :any) => {
-  const { userItems, eventItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen } = useContext<any>(UserContext);
+  const { userItems, eventItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen, setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
@@ -96,8 +96,16 @@ const EventItem = ({event, navigation, sportOfEvent} :any) => {
         EventId: event.id,
         EventUnliked: false
       }
+      let addNotification = {
+        Id: 0,
+        userId: viewUserProfile.id,
+        PersonWhoLikedId: userItems.id,
+        NotificationText: `${userItems.username} Liked ${event.nameOfEvent}`
+      }
       triggerNotificationHandler(userItems, viewUserProfile);
+      AddNotification(addNotification);
       AddLikedEvent(addLike)
+      setUpdateNotificationsScreen(true);
     }else{
       DeleteLikedEvent(userItems.id, event.id)
     }

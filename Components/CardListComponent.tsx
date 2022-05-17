@@ -104,7 +104,7 @@ type RootStackParamList = {
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   
   const [isLiked, setIsLiked] = useState(false);
-  const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen, viewUserProfile } = useContext<any>(UserContext);
+  const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen, viewUserProfile, setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [profileImage, setProfileImage] = useState<any>(null);
 
   useEffect(() => {
@@ -147,12 +147,13 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
         Id: 0,
         userId: viewUserProfile.id,
         PersonWhoLikedId: userItems.id,
-        NotificationText: `${userItems.username} Liked Your Event`
+        NotificationText: `${userItems.username} Liked ${nameOfEvent}`
       }
 
       triggerNotificationHandler(userItems, viewUserProfile);
       AddNotification(addNotification);
       AddLikedEvent(addLike)
+      setUpdateNotificationsScreen(true);
     } else {
       DeleteLikedEvent(userItems.id, id)
     }

@@ -11,6 +11,7 @@ export default function useUser() {
   const [followersBool, setFollowersBool] = useState<boolean>(false);
   const [followingBool, setFollowingBool] = useState<boolean>(false);
   const [updateEventScreen, setUpdateEventScreen] = useState<boolean>(false);
+  const [updateNotificationsScreen, setUpdateNotificationsScreen] = useState<boolean>(false);
 
   return {
     nameContext,
@@ -32,6 +33,8 @@ export default function useUser() {
     followingBool,
     setFollowingBool,
     updateEventScreen, 
-    setUpdateEventScreen
+    setUpdateEventScreen,
+    updateNotificationsScreen, 
+    setUpdateNotificationsScreen
   };
 }
