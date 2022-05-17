@@ -69,7 +69,7 @@ const Notification = ({notification}: any) => {
       : <Image source={{uri: user.image}} style={styles.ImageStyle} />
     }
         <View style={{ justifyContent: "center" }}>
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", width: 225}}>
             <Text style={styles.TextStyle}>{notification.notificationText} </Text>
           </View>
         </View>
