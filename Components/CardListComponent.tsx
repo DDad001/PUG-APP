@@ -131,8 +131,6 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     }
     
   const handleLiked = async () => {
-    let userData = await GetUserById(userId);
-    setViewUserProfile(userData);
     setIsLiked(!isLiked)
     let liked = isLiked;
     if (!liked) {
@@ -145,7 +143,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 
       let addNotification = {
         Id: 0,
-        userId: viewUserProfile.id,
+        userId: userId,
         PersonWhoLikedId: userItems.id,
         NotificationText: `${userItems.username} Liked ${nameOfEvent}`
       }

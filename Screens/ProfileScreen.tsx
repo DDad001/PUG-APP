@@ -107,7 +107,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
       }
       let addNotification = {
         Id: 0,
-        userId: userItems.id,
+        userId: event.userId,
         PersonWhoLikedId: userItems.id,
         NotificationText: `${userItems.username} Liked ${nameOfEvent}`
       }

@@ -98,7 +98,7 @@ const EventItem = ({event, navigation, sportOfEvent} :any) => {
       }
       let addNotification = {
         Id: 0,
-        userId: viewUserProfile.id,
+        userId: event.userId,
         PersonWhoLikedId: userItems.id,
         NotificationText: `${userItems.username} Liked ${event.nameOfEvent}`
       }
