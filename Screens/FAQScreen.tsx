@@ -27,12 +27,13 @@ const FAQScreen: FC = () => {
           <ImageBackground source={GradientBackground} resizeMode="cover" style={{ height: "100%", width: "100%"}}>
              <Text style={{color:'white',fontSize:20}}>FAQ</Text>
              <View style={{flex: 1,}}>
-                <List.Section title="" style={{width: "100%"}}>
+                <List.Section title="" style={{width: "100%",}}>
                     <List.Accordion
                         style={{backgroundColor: "white"}}
                         titleStyle={{color: "#0A326D", fontSize: 18}}
                         title="Creating an Event"
                         left={props => <MaterialCommunityIcons name="help-box" size={30} color="#0A326D" style={{paddingLeft: 10,marginRight: 15}} />}>
+                            {/* Below is one List Item! */}
                             <List.Item style={{ backgroundColor: "white", width: "100%", maxHeight: "100%" }}  title=""                            
                             left={props => <List.Item style={{  backgroundColor: "white", width: "100%", maxHeight: "100%" }} titleStyle={{color: "#0A326D", fontSize: 18}} titleNumberOfLines={2} title="First item"
                             descriptionNumberOfLines={3} descriptionStyle={{color: "#0A326D", fontSize: 15}}
