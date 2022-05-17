@@ -25,6 +25,7 @@ import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 
 
 const Notification = ({notification}: any) => {
+  const { setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [user, setUser] = useState<any>('');
 
   useEffect(() => {
@@ -36,6 +37,11 @@ const Notification = ({notification}: any) => {
     setUser(userData);
   }
 
+  const deleteNotification = () => {
+    DeleteNotification(notification.id);
+    setUpdateNotificationsScreen(true);
+  }
+
   const swipeRight = (progress:any, dragX:any) => {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
@@ -43,7 +49,7 @@ const Notification = ({notification}: any) => {
       extrapolate: 'clamp',
     }) 
     return(
-      <TouchableOpacity onPress={() => console.log('Delete')} activeOpacity={0.6}>
+      <TouchableOpacity onPress={deleteNotification} activeOpacity={0.6}>
       <View style={styles.DeleteBox}>
         <Ionicons name="md-trash" size={30} color="white" />
       </View>
