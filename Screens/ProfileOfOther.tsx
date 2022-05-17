@@ -71,14 +71,14 @@ type RootStackParamList ={
   profile:{name:string},
   PastEvents:undefined,
   LikedEvents:undefined,
-  LookAtEvent:undefined,
+  OtherUserEvent:undefined,
   OtherPersonsFollowers:undefined,
   OtherPersonsFollowings:undefined,
 
 }
 type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 
-const EventItem = ({event, navigation, sportOfEvent} :any) => {
+const EventItem= ({event, navigation, sportOfEvent} :any) => {
   const { userItems, eventItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen, setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -124,8 +124,8 @@ const EventItem = ({event, navigation, sportOfEvent} :any) => {
 
   return (
     
-    <Pressable onPress={() => navigation.navigate('LookAtEvent')}>
-          <View style={styles.card}>
+    <View style={styles.card}>
+       <Pressable onPress={() => navigation.navigate('OtherUserEvent')}>
         <View style={styles.cardContent}>
             <View style={{ flexDirection: 'row', }}>
             {
@@ -210,8 +210,8 @@ const EventItem = ({event, navigation, sportOfEvent} :any) => {
                 <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
                 </View>
         </View>
-      </View>
      </Pressable>
+      </View>
    
 
   )};
@@ -393,6 +393,7 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   const renderItem = ({item}: any) => (
     <EventItem event={item}
     sportOfEvent={item.sportOfEvent}
+    navigation={navigation}
     />
   );
 
@@ -404,8 +405,7 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
             {
               viewUserProfile.image === null ? <Ionicons name="person-circle-sharp" size={115} style={{ marginTop:25}} color="white" />
               : <Image source={{uri: viewUserProfile.image}} style={{ height: 100, width: 100, borderRadius: 50, marginTop: 25}} />
-            }
-            
+            }    
           </View>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
                 <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{nameContext}, </Text>
