@@ -314,9 +314,10 @@ const YourEventScreen: FC = () => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <>
       <StatusBar style="dark" />
       <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ImageBackground
       source={GreenCourt}
       resizeMode="cover"
@@ -324,104 +325,104 @@ const YourEventScreen: FC = () => {
 
           {/* <View style={{ flex: 0.8, }}>
 
-            {
-              eventItems.sportOfEvent === "Basketball" ?
-                <ImageBackground source={BasketballEvent} resizeMode="cover" style={{ height: 250 }}>
-                  <EventDisplayedImageComponent />
-                </ImageBackground>
-                : eventItems.sportOfEvent === "Soccer" ?
-                  <ImageBackground source={soccer} resizeMode="cover" style={{ height: 250 }}>
-                    <EventDisplayedImageComponent />
-                  </ImageBackground>
-                  : eventItems.sportOfEvent === "Badminton" ?
-                    <ImageBackground source={badminton} resizeMode="cover" style={{ height: 250 }}>
-                      <EventDisplayedImageComponent />
-                    </ImageBackground>
-                    : eventItems.sportOfEvent === "Baseball" ?
-                      <ImageBackground source={baseball} resizeMode="cover" style={{ height: 250 }}>
-                        <EventDisplayedImageComponent />
-                      </ImageBackground>
-                      : eventItems.sportOfEvent === "Cycling" ?
-                        <ImageBackground source={biking1} resizeMode="cover" style={{ height: 250 }}>
-                          <EventDisplayedImageComponent />
-                        </ImageBackground>
-                        : eventItems.sportOfEvent === "Hockey" ?
-                          <ImageBackground source={hockey} resizeMode="cover" style={{ height: 250 }}>
-                            <EventDisplayedImageComponent />
-                          </ImageBackground>
-                          : eventItems.sportOfEvent === "Disc golf" ?
-                            <ImageBackground source={discGolf1} resizeMode="cover" style={{ height: 250 }}>
-                              <EventDisplayedImageComponent />
-                            </ImageBackground>
-                            : eventItems.sportOfEvent === "Fishing" ?
-                              <ImageBackground source={fishing} resizeMode="cover" style={{ height: 250 }}>
-                                <EventDisplayedImageComponent />
-                              </ImageBackground>
-                              : eventItems.sportOfEvent === "Football" ?
-                                <ImageBackground source={football} resizeMode="cover" style={{ height: 250 }}>
-                                  <EventDisplayedImageComponent />
-                                </ImageBackground>
-                                : eventItems.sportOfEvent === "Frisbee" ?
-                                  <ImageBackground source={frisbee} resizeMode="cover" style={{ height: 250 }}>
-                                    <EventDisplayedImageComponent />
-                                  </ImageBackground>
-                                  : eventItems.sportOfEvent === "Golf" ?
-                                    <ImageBackground source={golf} resizeMode="cover" style={{ height: 250 }}>
-                                      <EventDisplayedImageComponent />
-                                    </ImageBackground>
-                                    : eventItems.sportOfEvent === "Handball" ?
-                                      <ImageBackground source={handball} resizeMode="cover" style={{ height: 250 }}>
-                                        <EventDisplayedImageComponent />
-                                      </ImageBackground>
-                                      : eventItems.sportOfEvent === "Hiking" ?
-                                        <ImageBackground source={hiking} resizeMode="cover" style={{ height: 250 }}>
-                                          <EventDisplayedImageComponent />
-                                        </ImageBackground>
-                                        : eventItems.sportOfEvent === "Cricket" ?
-                                          <ImageBackground source={cricketevent} resizeMode="cover" style={{ height: 250 }}>
-                                            <EventDisplayedImageComponent />
-                                          </ImageBackground>
-                                          : eventItems.sportOfEvent === "Rugby" ?
-                                            <ImageBackground source={rugby} resizeMode="cover" style={{ height: 250 }}>
-                                              <EventDisplayedImageComponent />
-                                            </ImageBackground>
-                                            : eventItems.sportOfEvent === "Pickleball" ?
-                                              <ImageBackground source={pickleball} resizeMode="cover" style={{ height: 250 }}>
-                                                <EventDisplayedImageComponent />
-                                              </ImageBackground>
-                                              : eventItems.sportOfEvent === "Running" ?
-                                                <ImageBackground source={running} resizeMode="cover" style={{ height: 250 }}>
-                                                  <EventDisplayedImageComponent />
-                                                </ImageBackground>
-                                                : eventItems.sportOfEvent === "Softball" ?
-                                                  <ImageBackground source={softball} resizeMode="cover" style={{ height: 250 }}>
-                                                    <EventDisplayedImageComponent />
-                                                  </ImageBackground>
-                                                  : eventItems.sportOfEvent === "Spikeball" ?
-                                                    <ImageBackground source={spikeball} resizeMode="cover" style={{ height: 250 }}>
-                                                      <EventDisplayedImageComponent />
-                                                    </ImageBackground>
-                                                    : eventItems.sportOfEvent === "Tennis" ?
-                                                      <ImageBackground source={tennis} resizeMode="cover" style={{ height: 250 }}>
-                                                        <EventDisplayedImageComponent />
-                                                      </ImageBackground>
-                                                      : eventItems.sportOfEvent === "Lacrosse" ?
-                                                        <ImageBackground source={lacrosse} resizeMode="cover" style={{ height: 250 }}>
-                                                          <EventDisplayedImageComponent />
-                                                        </ImageBackground>
-                                                        : eventItems.sportOfEvent === "Volleyball" ?
-                                                          <ImageBackground source={volleyballevent} resizeMode="cover" style={{ height: 250 }}>
-                                                            <EventDisplayedImageComponent />
-                                                          </ImageBackground>
-                                                          :
-                                                          <ImageBackground source={pugEvent} resizeMode="cover" style={{ height: 250 }}>
-                                                            <EventDisplayedImageComponent />
-                                                          </ImageBackground>
+{
+  eventItems.sportOfEvent === "Basketball" ?
+  <ImageBackground source={BasketballEvent} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Soccer" ?
+  <ImageBackground source={soccer} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Badminton" ?
+  <ImageBackground source={badminton} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Baseball" ?
+  <ImageBackground source={baseball} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Cycling" ?
+  <ImageBackground source={biking1} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Hockey" ?
+  <ImageBackground source={hockey} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Disc golf" ?
+  <ImageBackground source={discGolf1} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Fishing" ?
+  <ImageBackground source={fishing} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Football" ?
+  <ImageBackground source={football} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Frisbee" ?
+  <ImageBackground source={frisbee} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Golf" ?
+  <ImageBackground source={golf} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Handball" ?
+  <ImageBackground source={handball} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Hiking" ?
+  <ImageBackground source={hiking} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Cricket" ?
+  <ImageBackground source={cricketevent} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Rugby" ?
+  <ImageBackground source={rugby} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Pickleball" ?
+  <ImageBackground source={pickleball} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Running" ?
+  <ImageBackground source={running} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Softball" ?
+  <ImageBackground source={softball} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Spikeball" ?
+  <ImageBackground source={spikeball} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Tennis" ?
+  <ImageBackground source={tennis} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Lacrosse" ?
+  <ImageBackground source={lacrosse} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  : eventItems.sportOfEvent === "Volleyball" ?
+  <ImageBackground source={volleyballevent} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  :
+  <ImageBackground source={pugEvent} resizeMode="cover" style={{ height: 250 }}>
+  <EventDisplayedImageComponent />
+  </ImageBackground>
+  
+  
+}
 
-
-            }
-
-          </View> */}
+</View> */}
           <View>
           <Text
                 style={{
@@ -433,7 +434,7 @@ const YourEventScreen: FC = () => {
                   marginBottom: 10,
                   marginTop: 10,
                 }}
-              >
+                >
                 Edit Event
               </Text>
           </View>
@@ -556,7 +557,7 @@ const YourEventScreen: FC = () => {
                   confirmLabel="Ok" // optional, default: 'Ok'
                   animationType="fade" // optional, default is 'none'
                   locale={'en'} // optional, default is automically detected by your system
-                />
+                  />
                 <Pressable style={{ backgroundColor: 'white', width: 150, height: 55, borderRadius: 20, shadowOffset: { width: -2, height: 4 }, shadowOpacity: 0.5, shadowRadius: 3, }} onPress={() => setShowTimePicker(true)}>
                   <View style={{ flexDirection: 'row', shadowColor: "black" }}>
                     <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="#0A326D" style={{ marginTop: 17, marginLeft: 20 }} />
@@ -578,7 +579,7 @@ const YourEventScreen: FC = () => {
                   accessibilityLabel="Enter the details of the event under 200 characters or less"
                   placeholderTextColor={"rgba(59, 86, 124, 1)"}
                   numberOfLines={5}
-                />
+                  />
                 <Text
                   style={{
                     color: "white",
@@ -586,7 +587,7 @@ const YourEventScreen: FC = () => {
                     fontSize: 15,
                     paddingLeft: 25,
                   }}
-                >
+                  >
                   {eventDetails.length}/200 character limit
                 </Text>
 
@@ -598,7 +599,7 @@ const YourEventScreen: FC = () => {
                   marginBottom:10,
                   marginTop: 20,
                 }}
-              >
+                >
                 <Text
                   style={{
                     fontFamily: "Lato_700Bold",
@@ -607,7 +608,7 @@ const YourEventScreen: FC = () => {
                     paddingLeft: 20,
                     color: "white",
                   }}
-                >
+                  >
                   Location
                 </Text>
               </View>
@@ -620,7 +621,7 @@ const YourEventScreen: FC = () => {
                   placeholder="Address Ex. 734 Houston Ave, Stockton"
                   accessibilityLabel="Enter the address of where the event takes place"
                   placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                />
+                  />
               </View>
               <View style={{ flex: 1, flexDirection: "row" }}>
                 <View style={{ flex: 1, flexDirection: "row" }}>
@@ -635,7 +636,7 @@ const YourEventScreen: FC = () => {
                         shadowOpacity: 0.5,
                         shadowRadius: 3,
                       }}
-                    >
+                      >
                       <Select
                         minWidth="150"
                         minHeight="53"
@@ -651,7 +652,7 @@ const YourEventScreen: FC = () => {
                         fontSize={15}
                         color={"#3B567C"}
                         onValueChange = {(itemValue) => setEventState(itemValue)}
-                      >
+                        >
                         <Select.Item label="AL" value="al" />
                         <Select.Item label="AK" value="ak" />
                         <Select.Item label="AZ" value="az" />
@@ -705,7 +706,7 @@ const YourEventScreen: FC = () => {
                       </Select>
                       {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Please make a selection!
-        </FormControl.ErrorMessage> */}
+          </FormControl.ErrorMessage> */}
                     </Box>
                   </View>
                 </View>
@@ -716,7 +717,7 @@ const YourEventScreen: FC = () => {
                   placeholder="City"
                   accessibilityLabel="Enter the city where your event takes place"
                   placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                />
+                  />
               </View>
 
               {/* Add the create event button here */}
@@ -730,7 +731,7 @@ const YourEventScreen: FC = () => {
                     paddingLeft: 60,
                     paddingRight: 60,
                   }}
-                >
+                  >
                   <Text
                     style={{
                       color: "white",
@@ -740,7 +741,7 @@ const YourEventScreen: FC = () => {
                       paddingTop: 20,
                       paddingBottom: 20,
                     }}
-                  >
+                    >
                     Save Changes
                   </Text>
                 </Pressable>
@@ -750,14 +751,14 @@ const YourEventScreen: FC = () => {
                 <Pressable
                   onPress={() => console.log("Send the user to help!")}
                   accessibilityLabel="Click here if you need help?"
-                >
+                  >
                   <View style={{ flexDirection: "row" }}>
                     <Text style={styles.subTxt}>Need help</Text>
                     <FontAwesome
                       name="question-circle-o"
                       size={19}
                       color="white"
-                    />
+                      />
                   </View>
                 </Pressable>
               </View>
@@ -765,8 +766,9 @@ const YourEventScreen: FC = () => {
               </ScrollView>
           </KeyboardAvoidingView>
           </ImageBackground>
-      </View>
       </TouchableWithoutFeedback>
+      </View>
+  </>
   )
 }
 
@@ -775,7 +777,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
+  
   containerInsideImage: {
     flexDirection: "row",
     paddingTop: 5,
