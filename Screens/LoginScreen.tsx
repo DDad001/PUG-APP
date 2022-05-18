@@ -50,6 +50,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Icon } from 'native-base';
 import UserContext  from '../Context/UserContext';
 // import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ListViewEventsScreen from "./ListViewEventsScreen";
 
 type RootStackParamList ={
   CreateAccount: undefined,
@@ -71,10 +73,18 @@ type RootStackParamList ={
 
 type Props = NativeStackScreenProps<RootStackParamList, "login">;
 
+const Tab = createBottomTabNavigator();
 
 const LoginScreen: FC<Props> = ({navigation}) => {
   const { setUserItems } = useContext<any>(UserContext);
 
+  // const Tabs = () => (
+  //   <Tab.Navigator>
+  //     <Tab.Screen name="index" component={ListViewEventsScreen} 
+  //      options={{headerShown: false, tabBarAccessibilityLabel:'Home Screen',}}/>
+  //   </Tab.Navigator>
+  // );
+  
   const Errortoast = useToast();
   const Successtoast = useToast();
   const [show, setShow] = React.useState(false);

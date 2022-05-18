@@ -105,7 +105,7 @@ const App: FC =()=> {
           options={{headerShown: false}} />
           <Stack.Screen name="Nav"
           component={NavigationComponent}
-          options={{headerShown: false}} />
+          options={{headerShown: false, gestureEnabled: false}}/>
           <Stack.Screen name="event"
            options={{ title: 'Event'}}
           component={EventDisplayedScreen}/>
