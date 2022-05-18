@@ -211,7 +211,7 @@ const FollowersScreen: FC = () => {
               </View>
             </TouchableHighlight>
           </View>
-
+              {/* this is a test for pushing changes */}
           <Text style={styles.FollowingText}>Followers</Text>
 
           <SafeAreaView style={styles.containerFlat}>
