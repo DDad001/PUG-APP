@@ -31,6 +31,7 @@ async function LoginUser(userData:object){
 //        const message =`An Error has Occured ${res.status}`
 //        throw new Error(message)
 //     }
+console.log(res.status)
     let data = await res.json();
     return data;
 }
