@@ -288,12 +288,14 @@ return (
         accessibilityLabel="Enter new password"
         /> */}
 
+          <View style={{height: 75, shadowColor: "black", shadowOffset: { width: -2, height: 4 }, shadowOpacity: 0.5, shadowRadius: 3}}>
           <Input
-              backgroundColor={'white'} borderWidth={0} w={"91%"} marginLeft={4} bg={'white'} shadowColor={"black"} shadow={9} marginBottom={5} borderRadius={20} fontSize="15" fontFamily={"Roboto_400Regular"} h={{base:"13%"}}  type={show ? "text" : "password"} 
+              backgroundColor={'white'} borderWidth={0} w={"91%"} marginLeft={4} bg={'white'} shadowColor={"black"} shadow={9} marginBottom={5} borderRadius={20} fontSize="15" fontFamily={"Roboto_400Regular"} h={{base:"75%"}}  type={show ? "text" : "password"} 
               InputRightElement={<Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={7} mr="5" color="rgba(59, 86, 124, 1)" onPress={() => setShow(!show)} />} placeholder="Enter new password" 
               placeholderTextColor={"rgba(59, 86, 124, 1)"}  onChangeText={(text) => setPassword(text)} value={password} accessibilityLabel="Enter new password" keyboardType="default"/>
 
-        <View style={{ shadowOffset: { width: -2, height: 4 },shadowColor:"black",shadowRadius: 3,shadowOpacity: 0.5,}}></View>
+          </View>
+
 
           <PaperProvider theme={theme}>
             <View style={{flexDirection:'row',flex: 1}}>
