@@ -21,7 +21,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { GetNotificationsByUserId, DeleteNotification, GetUserById } from "../Services/DataService";
 import UserContext  from '../Context/UserContext';
-import {Swipeable, GestureHandlerRootView, FlatList} from 'react-native-gesture-handler';
+import { GestureHandlerRootView, FlatList} from 'react-native-gesture-handler';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 
 const Notification = ({notification}: any) => {
