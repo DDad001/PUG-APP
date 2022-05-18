@@ -268,8 +268,9 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
 
 
           <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-          <ScrollView style={{}}>
+          <ScrollView style={{flex: 1}}>
             <View style={{ flex: 0.7, marginTop:20}}>
+
               <TextInput
                 style={[styles.input, { marginTop: 0 }]}
                 onChangeText={(text) => setNewFirstName(text)}
@@ -308,14 +309,12 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
 
               /> */}
 
-
-
+          <View style={{height: 75, shadowColor: "black", shadowOffset: { width: -2, height: 4 }, shadowOpacity: 0.5, shadowRadius: 3}}>
               <Input
-              backgroundColor={'white'} borderWidth={0} w={"91%"} marginLeft={4} bg={'white'} shadowColor={"black"} shadow={9} marginBottom={5} borderRadius={20} fontSize="15" fontFamily={"Roboto_400Regular"} h={{base:"13%"}}  type={show ? "text" : "password"} 
+              backgroundColor={'white'} borderWidth={0} w={"91%"} marginLeft={4} bg={'white'} shadowColor={"black"} shadow={9} marginBottom={40} borderRadius={20} fontSize="15" fontFamily={"Roboto_400Regular"} h={{base:"75%"}}  type={show ? "text" : "password"} 
               InputRightElement={<Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={7} mr="5" color="rgba(59, 86, 124, 1)" onPress={() => setShow(!show)} />} placeholder="Password" 
               placeholderTextColor={"rgba(59, 86, 124, 1)"}  onChangeText={(text) => setNewPassword(text)} value={newPassword} accessibilityLabel="Enter password" keyboardType="default"/>
-
-              <View style={{ shadowOffset: { width: -2, height: 4 },shadowColor:"black",shadowRadius: 3,shadowOpacity: 0.5,}}></View>
+          </View>
 
 
          
@@ -334,6 +333,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
                 onSelect={(nextDate) => setDate(nextDate)}
               /> */}
 
+                <View></View>
                 <PaperProvider theme={theme}>
                   <View style={{flexDirection:'row',flex: 1}}>
                 <DatePickerModal 
@@ -351,7 +351,8 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
                   animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
                   locale={'en'}// optional, default is automically detected by your system  
                   /> 
-                <Pressable style={{backgroundColor:'white', flex:0.95, height:55, borderRadius:20, marginLeft:16, marginBottom:20, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
+                
+                <Pressable style={{ backgroundColor:'white', flex:0.95, height:55, borderRadius:20, marginLeft:16, marginBottom:20, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
                   <View style={{flexDirection:'row', shadowColor: "black",}}>
                   <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15, flex:0.9}}>Date of birth</Text>
                  <Text style={{color:'#3B567C',  marginLeft:130, marginTop:19, fontSize:15}}>{DOB}</Text>
@@ -544,6 +545,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
                 <Text style={styles.subTxt}>Login here!</Text>
               </Pressable>
             </View>
+
           </ScrollView>
         </KeyboardAvoidingView>
       </ImageBackground>
