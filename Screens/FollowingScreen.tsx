@@ -10,6 +10,8 @@ import {
   ScrollView,
   Image,
   SafeAreaView,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
@@ -189,7 +191,7 @@ const FollowingScreen: FC = () => {
   });
 
   return (
-    <>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <ImageBackground
           source={BaseballPicture}
@@ -248,7 +250,7 @@ const FollowingScreen: FC = () => {
           </SafeAreaView>
         </ImageBackground>
       </View>
-    </>
+    </TouchableWithoutFeedback>
   );
 };
 

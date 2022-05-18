@@ -6,7 +6,9 @@ import {
   TextInput,
   ImageBackground,
   Pressable,
-  Image
+  Image,
+  Keyboard,
+  TouchableWithoutFeedback
 } from "react-native";
 
 import { FontAwesome } from "@expo/vector-icons";
@@ -43,10 +45,11 @@ import {
 import { LoginUser, GetUserByUsername, UpdateUser } from '../Services/DataService';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useToast, Box, Input } from "native-base";
+import { useToast, Box, Input, keyboardDismissHandlerManager } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Icon } from 'native-base';
 import UserContext  from '../Context/UserContext';
+// import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 type RootStackParamList ={
   CreateAccount: undefined,
@@ -107,19 +110,6 @@ const LoginScreen: FC<Props> = ({navigation}) => {
   }
 }
 
-
-// const [allFriends, setAllFriends] = useState([]);
-// useEffect(() => {
-//   fetchFriend();
-// }, [])
-
-// const fetchFriend = async () => {
-//   let results = await GetAllFriends();
-//   setAllFriends(results.value)
-//   console.log(results);
-// }
-
-
   let [fontsLoaded, error] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -150,6 +140,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <ImageBackground
         source={Skater}
@@ -204,6 +195,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         </View>
       </ImageBackground>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 

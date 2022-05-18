@@ -9,6 +9,8 @@ import {
   Pressable,
   KeyboardAvoidingView,
   SafeAreaView,
+  Keyboard,
+  TouchableWithoutFeedback
 } from "react-native";
 // import { Datepicker, Icon, Layout } from "@ui-kitten/components";
 import PUGbutton from "../Components/PUGButton";
@@ -247,6 +249,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <ImageBackground
         source={CourtPicture}
@@ -545,6 +548,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
         </KeyboardAvoidingView>
       </ImageBackground>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { FC, useState, useContext } from "react";
-import { Image, ImageBackground, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Image, ImageBackground, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import man from '../assets/man.jpg';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
@@ -314,7 +314,7 @@ const YourEventScreen: FC = () => {
   }
 
   return (
-    <>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <StatusBar style="dark" />
       <View style={styles.container}>
       <ImageBackground
@@ -766,7 +766,7 @@ const YourEventScreen: FC = () => {
           </KeyboardAvoidingView>
           </ImageBackground>
       </View>
-    </>
+      </TouchableWithoutFeedback>
   )
 }
 
