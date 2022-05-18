@@ -1,7 +1,7 @@
 import { TabRouter, useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useContext, useEffect, useState } from "react"
-import { ImageBackground, StyleSheet, Text, View } from "react-native"
+import { ImageBackground, StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from "react-native"
 import SoccerBall from '../assets/SoccerBall.png';
 import CardListComponent from "../Components/CardListComponent";
 import PUGHeader from "../Components/PUGHeader";
@@ -120,14 +120,14 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
     //    const navigation = useNavigation();
 
     return (
-        <>
-      <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.container}>
           <ImageBackground source={SoccerBall} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
               <PUGHeader/>
               <CardListComponent onEventDisplayPress={() =>  navigation.navigate('event', {name: 'danial'})} onProfilePress={() => navigation.navigate('profile')}/>
           </ImageBackground>
       </View>
-        </>
+      </TouchableWithoutFeedback>
     //   ic:baseline-notifications
     )
 }

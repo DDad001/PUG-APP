@@ -9,6 +9,8 @@ import {
   Pressable,
   ScrollView,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
   Image,
   Platform,
 } from "react-native";
@@ -446,7 +448,7 @@ const AddEventScreen: FC = () => {
     return <AppLoading />;
   }
   return (
-    <>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <ImageBackground
           source={GreenCourt}
@@ -900,7 +902,7 @@ const AddEventScreen: FC = () => {
           </KeyboardAvoidingView>
         </ImageBackground>
       </View>
-    </>
+    </TouchableWithoutFeedback>
   );
 };
 

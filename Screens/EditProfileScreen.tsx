@@ -1,6 +1,6 @@
 import { Box, Button, Center, Checkbox, CheckIcon, FormControl, HStack, Icon, Input, KeyboardAvoidingView, Modal, Select, useToast } from "native-base";
 import React, { useState,useContext, FC } from "react";
-import { ImageBackground, Platform, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { ImageBackground, Platform, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { DatePickerModal } from "react-native-paper-dates";
 import { DeleteUser, GetUserById, UpdatePassword, UpdateUser } from "../Services/DataService";
@@ -221,6 +221,7 @@ const EditProfileScreen: FC = () => {
    const offset = (Platform.OS === 'android') ? -300 : 150;
  
 return (
+<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 <View style={styles.container}>
 <ImageBackground
   source={CourtPicture}
@@ -439,6 +440,7 @@ return (
   </KeyboardAvoidingView>
 </ImageBackground>
 </View>
+</TouchableWithoutFeedback>
  );
 };
 
