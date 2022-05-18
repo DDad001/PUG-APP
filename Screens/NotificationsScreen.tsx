@@ -25,7 +25,7 @@ import { GestureHandlerRootView, FlatList} from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 
-const Notification = ({notification}: any) => {
+const Notification = ({notification, getNotifications}: any) => {
   const { setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [user, setUser] = useState<any>('');
 
@@ -39,8 +39,11 @@ const Notification = ({notification}: any) => {
   }
 
   const deleteNotification = () => {
-    DeleteNotification(notification.id);
-    setUpdateNotificationsScreen(true);
+    DeleteNotification(notification.id).then(() => {
+      getNotifications();
+    });
+    //setUpdateNotificationsScreen(true);
+    
   }
 
   const swipeRight = (progress: Animated.AnimatedInterpolation, dragX: Animated.AnimatedInterpolation) => {
@@ -92,8 +95,8 @@ const NotificationsScreen: FC = () => {
 
   useEffect(() => {
     getNotifications();
-    setUpdateNotificationsScreen(false);
-  }, [updateNotificationsScreen])
+    //setUpdateNotificationsScreen(false);
+  }, [])
 
   const getNotifications = async () => {
     let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
@@ -121,6 +124,7 @@ const NotificationsScreen: FC = () => {
     return (
     <Notification 
       notification={item}
+      getNotifications={getNotifications}
     />
     )
 };

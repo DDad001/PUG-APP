@@ -118,7 +118,8 @@ const AddEventScreen: FC = () => {
   const [eventSport, setEventSport] = useState<string>("");
   const [eventHours, setEventHour] = useState<string>("");
   const [eventMinutes, setEventMinutes] = useState<any>("");
-
+  let currentYear =  new Date().getFullYear();
+  //dummy usestates!
   const [eventDate, setEventDate] = useState<any>("");
   const [eventTime, setEventTime] = useState<any>("");
   const [eventState, setEventState] = useState<any>("");
@@ -575,67 +576,34 @@ const AddEventScreen: FC = () => {
                 </Text>
               </View>
 
-              <View
-                style={{
-                  flex: 1,
-                  marginBottom: 20,
-                  flexDirection: "row",
-                  marginTop: 10,
-                }}
-              >
-                <PaperProvider theme={theme}>
-                  <View style={{ flexDirection: "row", flex: 1 }}>
-                    <View style={{ flexDirection: "row", flex: 0.93 }}>
-                      <DatePickerModal
-                        mode="single"
-                        validRange={{
-                          startDate: new Date(),
-                        }}
-                        visible={visible}
-                        onDismiss={onDismiss}
-                        date={date}
-                        onConfirm={onChange}
-                        saveLabel="Save" // optional
-                        label="Select date" // optional
-                        animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
-                        locale={"en"} // optional, default is automically detected by your system
-                      />
-                      <Pressable
-                        style={{
-                          backgroundColor: "white",
-                          width: 150,
-                          height: 55,
-                          borderRadius: 20,
-                          marginLeft: 16,
-                          shadowOffset: { width: -2, height: 4 },
-                          shadowOpacity: 0.5,
-                          shadowRadius: 3,
-                        }}
-                        onPress={() => setVisible(true)}
-                      >
-                        <View
-                          style={{ flexDirection: "row", shadowColor: "black" }}
-                        >
-                          <MaterialCommunityIcons
-                            name="calendar-month"
-                            size={23}
-                            color="#0A326D"
-                            style={{ marginTop: 17, marginLeft: 20 }}
-                          />
-                          {/* If no date is chosen display Data, otherwise display the date chosen */}
-                          <Text
-                            style={{
-                              color: "#3B567C",
-                              marginLeft: 10,
-                              marginTop: 19,
-                              fontSize: 15,
-                            }}
-                          >
-                            {eventDate === "" ? "Date" : eventDate}
-                          </Text>
-                        </View>
-                      </Pressable>
-                    </View>
+              <View style={{flex: 1, marginBottom: 20, flexDirection:'row', marginTop:10}}>
+
+              <PaperProvider theme={theme}>
+                <View style={{flexDirection:'row',flex: 1}}>
+                  <View style={{flexDirection:'row',flex: 0.93}}>
+                <DatePickerModal 
+                  mode="single"
+                  validRange={{
+                   startDate: new Date(),
+                   endDate: new Date(currentYear,11,31)
+                   }}
+                  visible={visible}
+                  onDismiss={onDismiss}
+                  date={date}
+                  onConfirm={onChange}
+                  saveLabel="Save" // optional
+                  label="Select date" // optional
+                  animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
+                  locale={'en'}// optional, default is automically detected by your system  
+                  /> 
+                <Pressable style={{backgroundColor:'white', width:150, height:55, borderRadius:20, marginLeft:16, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
+                  <View style={{flexDirection:'row', shadowColor: "black",}}>
+                <MaterialCommunityIcons name="calendar-month" size={23} color="#0A326D" style={{ marginTop: 17, marginLeft: 20}} />
+                {/* If no date is chosen display Data, otherwise display the date chosen */}
+                <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>{eventDate === "" ? "Date" : eventDate}</Text>
+                  </View>
+                </Pressable>
+                  </View>
 
                     <TimePickerModal
                       visible={showTimePicker}

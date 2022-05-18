@@ -107,7 +107,7 @@ const App: FC =()=> {
           component={NavigationComponent}
           options={{headerShown: false}} />
           <Stack.Screen name="event"
-           options={{ title: 'Event' }}
+           options={{ title: 'Event'}}
           component={EventDisplayedScreen}/>
           <Stack.Screen name="profile"
            options={{ title: 'Profile' }}
@@ -125,7 +125,7 @@ const App: FC =()=> {
            options={{ title: 'Following',}}
           component={FollowingScreen}/>
           <Stack.Screen name="EditProfile"
-           options={{ title: 'Edit Profile',}}
+           options={{ title: 'Edit Profile'}}
           component={EditProfileScreen}/>
           <Stack.Screen name="followers"
            options={{ title: 'Followers',}}
