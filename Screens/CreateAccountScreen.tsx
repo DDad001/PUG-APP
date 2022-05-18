@@ -31,6 +31,20 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
+
+import {
+  Lato_100Thin,
+  Lato_100Thin_Italic,
+  Lato_300Light,
+  Lato_300Light_Italic,
+  Lato_400Regular,
+  Lato_400Regular_Italic,
+  Lato_700Bold,
+  Lato_700Bold_Italic,
+  Lato_900Black,
+  Lato_900Black_Italic,
+} from "@expo-google-fonts/lato";
+
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Stack, useToast } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 import { DatePickerModal } from 'react-native-paper-dates';
@@ -204,6 +218,16 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
   }, }
 
   let [fontsLoaded, error] = useFonts({
+    Lato_100Thin,
+    Lato_100Thin_Italic,
+    Lato_300Light,
+    Lato_300Light_Italic,
+    Lato_400Regular,
+    Lato_400Regular_Italic,
+    Lato_700Bold,
+    Lato_700Bold_Italic,
+    Lato_900Black,
+    Lato_900Black_Italic,
     Roboto_100Thin,
     Roboto_100Thin_Italic,
     Roboto_300Light,
@@ -456,20 +480,25 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
               </HStack>
             </View> 
             <Center>
-              <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-              <Modal.Content maxWidth="400px">
+              <Modal isOpen={showModal} onClose={() => setShowModal(false)} size="full">
+              <Modal.Content size="full">
               <Modal.CloseButton />
               <Modal.Header>PUG's Terms and Services</Modal.Header>
               <Modal.Body>
                 <Box>
-                  <Text>
-                    We, the PUG team are not liable for any damages, or bodily harm that occur when using the app. Use descretion when going to sporting events.
-                  </Text>
+                  <Text style={{marginBottom:10, fontFamily:"Lato_700Bold" }}>1. Eligiblity and Registration</Text>
+                  <Text style={{fontFamily:"Lato_400Regular"}}>We, the PUG team are not liable for any damages, or bodily harm that occur when using the app. Use descretion when going to sporting events.</Text>
+                  <Text style={{marginBottom:10, marginTop:20, fontFamily:"Lato_700Bold" }}>2. Eligiblity and Registration</Text>
+                  <Text style={{fontFamily:"Lato_400Regular"}}>We, the PUG team are not liable for any damages, or bodily harm that occur when using the app. Use descretion when going to sporting events.</Text>
+                  <Text style={{marginBottom:10, marginTop:20, fontFamily:"Lato_700Bold" }}>3. Eligiblity and Registration</Text>
+                  <Text style={{fontFamily:"Lato_400Regular"}}>We, the PUG team are not liable for any damages, or bodily harm that occur when using the app. Use descretion when going to sporting events.</Text>
+                  <Text style={{marginBottom:10, marginTop:20, fontFamily:"Lato_700Bold" }}>4. Eligiblity and Registration</Text>
+                  <Text style={{fontFamily:"Lato_400Regular"}}>We, the PUG team are not liable for any damages, or bodily harm that occur when using the app. Use descretion when going to sporting events.</Text>
                 </Box>
               </Modal.Body>
               <Modal.Footer>
             <Button.Group space={2}>
-              <Button onPress={() => {
+              <Button colorScheme={"rgba(10, 50, 109, 1)"} _pressed={{bg: 'muted.500'}} onPress={() => {
               setShowModal(false);
             }}>
                 Close

@@ -105,7 +105,7 @@ const AddEventScreen: FC = () => {
   const [eventSport, setEventSport] = useState<string>("");
   const [eventHours, setEventHour] = useState<string>("");
   const [eventMinutes, setEventMinutes] = useState<any>("");
-  
+  let currentYear =  new Date().getFullYear();
   //dummy usestates!
   const [eventDate, setEventDate] = useState<any>("");
   const [eventTime, setEventTime] = useState<any>("");
@@ -186,7 +186,7 @@ const AddEventScreen: FC = () => {
 
 
     var regex = /^[A-Za-z ]+$/
-
+  
 
     //what if what the user enters is not a valid address?
     let addressArr: string[] = eventAddress.split(" "); //split the string array
@@ -498,7 +498,8 @@ const AddEventScreen: FC = () => {
                 <DatePickerModal 
                   mode="single"
                   validRange={{
-                   startDate: new Date()
+                   startDate: new Date(),
+                   endDate: new Date(currentYear,11,31)
                    }}
                   visible={visible}
                   onDismiss={onDismiss}
