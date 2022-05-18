@@ -1,5 +1,5 @@
 import { FC, useState, useContext, useEffect } from "react";
-import { Text, View, StyleSheet, ImageBackground, ScrollView, FlatList, Image, Animated, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, ScrollView, Image, Animated, TouchableOpacity } from "react-native";
 import NotificationComponent from "../Components/NotificationComponent";
 import AppLoading from "expo-app-loading";
 import {
@@ -21,10 +21,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { GetNotificationsByUserId, DeleteNotification, GetUserById } from "../Services/DataService";
 import UserContext  from '../Context/UserContext';
-import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
+import { GestureHandlerRootView, FlatList} from 'react-native-gesture-handler';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 
-const Notification = ({notification}: any) => {
+const Notification = ({notification, getNotifications}: any) => {
   const { setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [user, setUser] = useState<any>('');
 
@@ -38,21 +39,24 @@ const Notification = ({notification}: any) => {
   }
 
   const deleteNotification = () => {
-    DeleteNotification(notification.id);
-    setUpdateNotificationsScreen(true);
+    DeleteNotification(notification.id).then(() => {
+      getNotifications();
+    });
+    //setUpdateNotificationsScreen(true);
+    
   }
 
-  const swipeRight = (progress: Animated.AnimatedInterpolation, dragAnimatedValue: Animated.AnimatedInterpolation) => {
-    const opacity = dragAnimatedValue.interpolate({
+  const swipeRight = (progress: Animated.AnimatedInterpolation, dragX: Animated.AnimatedInterpolation) => {
+    const opacity = dragX.interpolate({
       inputRange: [-150, 0],
       outputRange: [1, 0],
-      extrapolate: 'clamp',
+      extrapolate: 'identity',
     }) 
     return(
       <TouchableOpacity onPress={deleteNotification} activeOpacity={0.6}>
-      <View style={[styles.DeleteBox]}>
+      <Animated.View style={[styles.DeleteBox, {opacity}]} >
         <Ionicons name="md-trash" size={30} color="white" />
-      </View>
+      </Animated.View>
       </TouchableOpacity>
     )
   }
@@ -62,6 +66,8 @@ const Notification = ({notification}: any) => {
     <GestureHandlerRootView>
     <Swipeable
     renderRightActions={swipeRight}
+    friction={3}
+    rightThreshold={-200}
     >
   <View style={styles.NotificationView}>
     {
@@ -89,8 +95,8 @@ const NotificationsScreen: FC = () => {
 
   useEffect(() => {
     getNotifications();
-    setUpdateNotificationsScreen(false);
-  }, [updateNotificationsScreen])
+    //setUpdateNotificationsScreen(false);
+  }, [])
 
   const getNotifications = async () => {
     let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
@@ -118,6 +124,7 @@ const NotificationsScreen: FC = () => {
     return (
     <Notification 
       notification={item}
+      getNotifications={getNotifications}
     />
     )
 };
