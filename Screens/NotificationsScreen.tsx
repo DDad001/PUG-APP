@@ -47,7 +47,7 @@ const Notification = ({notification}: any) => {
     const opacity = dragX.interpolate({
       inputRange: [-150, 0],
       outputRange: [1, 0],
-      //extrapolate: 'clamp',
+      extrapolate: 'identity',
     }) 
     return(
       <TouchableOpacity onPress={deleteNotification} activeOpacity={0.6}>
@@ -64,6 +64,7 @@ const Notification = ({notification}: any) => {
     <Swipeable
     renderRightActions={swipeRight}
     friction={3}
+    rightThreshold={-200}
     >
   <View style={styles.NotificationView}>
     {
