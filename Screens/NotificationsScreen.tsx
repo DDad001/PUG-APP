@@ -95,8 +95,8 @@ const NotificationsScreen: FC = () => {
 
   useEffect(() => {
     getNotifications();
-    //setUpdateNotificationsScreen(false);
-  }, [])
+    setUpdateNotificationsScreen(false);
+  }, [updateNotificationsScreen])
 
   const getNotifications = async () => {
     let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
