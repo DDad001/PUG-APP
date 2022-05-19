@@ -59,7 +59,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { createOpenLink } from 'react-native-open-maps';
 import UserContext from '../Context/UserContext';
-import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetIsLiked, triggerNotificationHandler, AddNotification } from "../Services/DataService"
+import { GetEventItems, AddLikedEvent, DeleteLikedEvent, GetUserByUsername, GetUserById, GetIsLiked, triggerNotificationHandler, AddNotification, GetNotificationsByUserId } from "../Services/DataService"
 import BasketballEvent from "../assets/BasketballEvent.jpg";
 import soccer from "../assets/soccer.jpg";
 import volleyballevent from "../assets/volleyballevent.jpg";
@@ -104,7 +104,7 @@ type RootStackParamList = {
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   
   const [isLiked, setIsLiked] = useState(false);
-  const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen, viewUserProfile, setUpdateNotificationsScreen } = useContext<any>(UserContext);
+  const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen, viewUserProfile, setUpdateNotificationsScreen,  } = useContext<any>(UserContext);
   const [profileImage, setProfileImage] = useState<any>(null);
 
   useEffect(() => {
@@ -320,7 +320,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 };
 
 const CardListComponent: FC<CardProps> = (props) => {
-  const { updateScreen, setUpdateScreen, userItems } = useContext<any>(UserContext);
+  const { updateScreen, setUpdateScreen, userItems, setUsersNotifications, notificationsNumber, setNotificationNumber, numberOfNotifications } = useContext<any>(UserContext);
   
   const [allEvents, setAllEvents] = useState<any>([]);
 
@@ -332,10 +332,12 @@ const CardListComponent: FC<CardProps> = (props) => {
   
   const fetchEvents = async () => {
     let displayEvents = await GetEventItems();
+    let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
     let presentEvents: any;
     //get events from the state the user is in!
     presentEvents = displayEvents.filter((event: any, idx: number) => isItAPresentDay(event['dateOfEvent']) == true && userItems["state"] == displayEvents[idx]["stateOfEvent"].toUpperCase());
     setAllEvents(presentEvents);
+    setNotificationNumber(fetchedNotifications.length - numberOfNotifications);
 
   }
 

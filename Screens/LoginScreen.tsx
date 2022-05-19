@@ -76,7 +76,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "login">;
 const Tab = createBottomTabNavigator();
 
 const LoginScreen: FC<Props> = ({navigation}) => {
-  const { setUserItems, setUsersNotifications } = useContext<any>(UserContext);
+  const { setUserItems, setUsersNotifications, } = useContext<any>(UserContext);
 
   // const Tabs = () => (
   //   <Tab.Navigator>
@@ -112,8 +112,8 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         let userItems1 = await GetUserByUsername(Username);
         setUserItems(userItems1);
         console.log("userItems1", userItems1);
-        let fetchedNotifications = await GetNotificationsByUserId(userItems1.id);
-        setUsersNotifications(fetchedNotifications.reverse());
+        // let fetchedNotifications = await GetNotificationsByUserId(userItems1.id);
+        // setUsersNotifications(fetchedNotifications.reverse());
         navigation.navigate('Nav');
       }else{
         console.log("incorrect credentials try")

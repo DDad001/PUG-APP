@@ -90,7 +90,7 @@ const Notification = ({notification, getNotifications}: any) => {
 
 
 const NotificationsScreen: FC = () => {
-  const { userItems, updateNotificationsScreen, setUpdateNotificationsScreen, usersNotifications, setUsersNotifications } = useContext<any>(UserContext);
+  const { userItems, updateNotificationsScreen, setUpdateNotificationsScreen, usersNotifications, setUsersNotifications, numberOfNotifications, setNumberOfNotifications } = useContext<any>(UserContext);
 
   useEffect(() => {
     getNotifications();
@@ -100,6 +100,7 @@ const NotificationsScreen: FC = () => {
   const getNotifications = async () => {
     let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
     setUsersNotifications(fetchedNotifications.reverse());
+    setNumberOfNotifications(fetchedNotifications.length);
   }
 
   let [fontsLoaded] = useFonts({
