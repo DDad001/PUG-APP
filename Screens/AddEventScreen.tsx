@@ -230,7 +230,7 @@ const AddEventScreen: FC = () => {
     let stateFound: any = [];
     let statesArr: any[] = [
       { stateInitial: "al", stateName: "Alabama" },
-      { stateInitial: "ak", stateName: "Arkansas" },
+      { stateInitial: "ak", stateName: "Alaska" },
       { stateInitial: "az", stateName: "Arizona" },
       { stateInitial: "ar", stateName: "Arkansas" },
       { stateInitial: "ca", stateName: "California" },
@@ -355,6 +355,7 @@ const AddEventScreen: FC = () => {
       });
     }
     //Added validation to check if the address is inside the city the user themself specified
+    //This is additional data validation however it might be too strict to the point it will inconvenience and anger users!
     else if (eventCity != obtainedAddress[0]["address"]["city"]) {
       Errortoast.show({
         placement: "top",
@@ -367,7 +368,9 @@ const AddEventScreen: FC = () => {
           );
         },
       });
-    } else if (!cityNames.includes(eventCity)) {
+    }
+    //citites from a state are inside an array and checks if the city the user entered is in large arr!
+     else if (!cityNames.includes(eventCity)) {
       Errortoast.show({
         placement: "top",
         render: () => {
