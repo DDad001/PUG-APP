@@ -13,6 +13,7 @@ export default function useUser() {
   const [followingBool, setFollowingBool] = useState<boolean>(false);
   const [updateEventScreen, setUpdateEventScreen] = useState<boolean>(false);
   const [updateNotificationsScreen, setUpdateNotificationsScreen] = useState<boolean>(false);
+  const [numberOfNotifications, setNumberOfNotifications] = useState<number>(0);
 
   return {
     nameContext,
@@ -38,6 +39,8 @@ export default function useUser() {
     updateNotificationsScreen, 
     setUpdateNotificationsScreen,
     usersNotifications,
-    setUsersNotifications
+    setUsersNotifications,
+    numberOfNotifications, 
+    setNumberOfNotifications
   };
 }
