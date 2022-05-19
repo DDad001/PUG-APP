@@ -384,7 +384,7 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
   const getLikedEventsByUser = async () => {
     //let likedEvents: any[] = [];
     let likedEventsIds: number[] = [];
-    let eventsArr: any[] = [];
+    let eventsArr: object[] = [];
 
     let likedEvents = await GetLikedEventsByUserId(userItems.id)
     
