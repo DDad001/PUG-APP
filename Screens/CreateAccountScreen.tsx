@@ -289,15 +289,28 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
                 placeholderTextColor={"rgba(59, 86, 124, 1)"}
                 accessibilityLabel="Enter last name"
               />
-              <TextInput
-                style={styles.input}
-                onChangeText={(text) => setNewUsername(text)}
-                value={newUsername}
-                placeholder="Username"
-                keyboardType="default"
-                placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                accessibilityLabel="Enter username"
-              />
+              <View style={{}}>
+                <TextInput
+                  style={styles.UsernameInput}
+                  onChangeText={(text) => setNewUsername(text)}
+                  maxLength={15}
+                  value={newUsername}
+                  placeholder="Username"
+                  keyboardType="default"
+                  placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                  accessibilityLabel="Enter username"
+                />
+                <Text style={{
+                  marginTop: 5,
+                  marginBottom: 10,
+                  color: "white",
+                  fontFamily: "Roboto_400Regular",
+                  fontSize: 15,
+                  paddingLeft: 25,
+
+                }}
+                >{newUsername.length}/15 character length</Text>
+              </View>
               {/* <TextInput
                 style={styles.input}
                 onChangeText={(text) => setNewPassword(text)}
@@ -626,6 +639,26 @@ const styles = StyleSheet.create({
     marginLeft: 31,
     marginRight: 20,
     marginBottom: 20,
+    borderWidth: 1,
+    padding: 10,
+    borderColor: "white",
+    backgroundColor: "white",
+    borderRadius: 20,
+    shadowColor: "black",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 10
+  },
+  UsernameInput: {
+    //Text styling for the input fields!
+    fontFamily: "Roboto_400Regular",
+    color: "rgba(59, 86, 124, 1)",
+    fontSize: 15,
+    height: 55,
+    // marginTop: 10,
+    marginLeft: 18,
+    marginRight: 20,
     borderWidth: 1,
     padding: 10,
     borderColor: "white",
