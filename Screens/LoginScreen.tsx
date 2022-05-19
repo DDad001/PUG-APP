@@ -76,7 +76,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "login">;
 const Tab = createBottomTabNavigator();
 
 const LoginScreen: FC<Props> = ({navigation}) => {
-  const { setUserItems, setUsersNotifications } = useContext<any>(UserContext);
+  const { setUserItems, setUsersNotifications, } = useContext<any>(UserContext);
 
   // const Tabs = () => (
   //   <Tab.Navigator>

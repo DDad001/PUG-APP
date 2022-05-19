@@ -6,6 +6,7 @@ export default function useUser() {
   const [eventItems, setEventItems] = useState<object>({});
   const [viewUserProfile, setViewUserProfile] = useState<object>({});
   const [usersNotifications, setUsersNotifications] = useState<object>([]);
+  const [newNotifications, setNewNotifications] = useState<object>([]);
   const [updateScreen, setUpdateScreen] = useState<boolean>(false);
   const [updateProfileOther, setUpdateProfileOther] = useState<boolean>(false);
   const [updateProfileScreen, setUpdateProfileScreen] = useState<boolean>(false);
@@ -38,6 +39,8 @@ export default function useUser() {
     updateNotificationsScreen, 
     setUpdateNotificationsScreen,
     usersNotifications,
-    setUsersNotifications
+    setUsersNotifications,
+    newNotifications,
+    setNewNotifications
   };
 }
