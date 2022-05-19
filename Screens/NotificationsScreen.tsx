@@ -90,8 +90,7 @@ const Notification = ({notification, getNotifications}: any) => {
 
 
 const NotificationsScreen: FC = () => {
-  const { userItems, updateNotificationsScreen, setUpdateNotificationsScreen } = useContext<any>(UserContext);
-  const [notifications, setNotifications] = useState<any>([]);
+  const { userItems, updateNotificationsScreen, setUpdateNotificationsScreen, usersNotifications, setUsersNotifications } = useContext<any>(UserContext);
 
   useEffect(() => {
     getNotifications();
@@ -100,7 +99,7 @@ const NotificationsScreen: FC = () => {
 
   const getNotifications = async () => {
     let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
-    setNotifications(fetchedNotifications.reverse());
+    setUsersNotifications(fetchedNotifications.reverse());
   }
 
   let [fontsLoaded] = useFonts({
@@ -139,7 +138,7 @@ const NotificationsScreen: FC = () => {
         <View style={styles.overlayContainer}>
           <Text style={styles.NotificationsText}>Notifications</Text>
           <FlatList
-                data={notifications}
+                data={usersNotifications}
                 renderItem={renderItem}
                 keyExtractor={(item: any) => item.id}
                 />
