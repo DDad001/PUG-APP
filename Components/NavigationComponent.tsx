@@ -27,9 +27,10 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Nav'>
 
 const Tab = createBottomTabNavigator();
 const MyTabs: FC = () =>{
-    const { userItems, usersNotifications } = useContext<any>(UserContext);
+    const { userItems, usersNotifications, setUpdateNotificationsScreen  } = useContext<any>(UserContext);
 
  const [BorderColor, setBorderColor] = useState('black')
+ const [notificationBadgeVisible, setNotificationBadgeVisible] = React.useState(false);
   return (
 
     <Tab.Navigator
@@ -132,7 +133,7 @@ const MyTabs: FC = () =>{
                 paddingBottom:0,
                 paddingTop:10,     
             },
-            tabBarBadge: usersNotifications.length, 
+            tabBarBadge: (notificationBadgeVisible ? usersNotifications.length : null), 
             tabBarActiveTintColor:'#5E7FB4',
             headerShown: false,
             tabBarLabel: '',
@@ -140,7 +141,11 @@ const MyTabs: FC = () =>{
                 marginBottom:5
             },
             tabBarIcon: ({ color, size }) => (
+                setNotificationBadgeVisible(true),
+                setUpdateNotificationsScreen(true),
+                console.log(notificationBadgeVisible),
                 <MaterialIcons name="notifications" size={31} color={color} />
+                
                 ),
             }}
             />
