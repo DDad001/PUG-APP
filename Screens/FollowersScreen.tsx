@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
   },
   TextStyle: {
     color: "white",
-    fontSize: 22,
+    fontSize: 19,
     fontFamily: "Roboto_500Medium",
     fontWeight: "500",
   },
