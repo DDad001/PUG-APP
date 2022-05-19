@@ -393,9 +393,10 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
     }) 
 
      likedEventsIds.map(async eventId => {
-      let event: object = await GetEventItemById(eventId);
-      eventsArr.push(event);
-      
+      let event = await GetEventItemById(eventId);
+      if(event.id != 0){
+        eventsArr.push(event);
+      }
     })
 
     setTimeout(() => {

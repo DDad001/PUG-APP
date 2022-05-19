@@ -320,7 +320,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 };
 
 const CardListComponent: FC<CardProps> = (props) => {
-  const { updateScreen, setUpdateScreen } = useContext<any>(UserContext);
+  const { updateScreen, setUpdateScreen, userItems } = useContext<any>(UserContext);
   
   const [allEvents, setAllEvents] = useState<any>([]);
 
@@ -333,8 +333,10 @@ const CardListComponent: FC<CardProps> = (props) => {
   const fetchEvents = async () => {
     let displayEvents = await GetEventItems();
     let presentEvents: any;
-    presentEvents = displayEvents.filter((event: any) => isItAPresentDay(event['dateOfEvent']) == true);
+    //get events from the state the user is in!
+    presentEvents = displayEvents.filter((event: any, idx: number) => isItAPresentDay(event['dateOfEvent']) == true && userItems["state"] == displayEvents[idx]["stateOfEvent"].toUpperCase());
     setAllEvents(presentEvents);
+
   }
 
   function isItAPresentDay(date: string){

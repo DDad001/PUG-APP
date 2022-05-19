@@ -44,7 +44,7 @@ async function GetUserById(id:number){
 
 async function GetUserByUsername(username:string){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/User/GetUserByUsername/${username}`);
-    let data = res.json();
+    let data = await res.json();
     return data;
 }
 
@@ -155,19 +155,36 @@ async function GetEventItems(){
 
 async function GetItemsByUserId(UserID:number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Event/GetItemsByUserId/${UserID}`);
-    let data = res.json();
+    let data = await res.json();
     return data;
 }
 
 async function GetItemsBySport(Sport:string){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Event/GetItemsBySport/${Sport}`);
-    let data = res.json();
+    let data = await res.json();
     return data;
 }
 
 async function GetEventItemById(eventID:number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Event/GetEventItemById/${eventID}`);
-    let data = res.json();
+    let data = {
+        "id": 0,
+    "userId": 4,
+    "sportOfEvent": "",
+    "nameOfEvent": "",
+    "dateOfEvent": "",
+    "timeOfEvent": "",
+    "descriptionOfEvent": "",
+    "imageOfEvent": "",
+    "addressOfEvent": "",
+    "cityOfEvent": "",
+    "stateOfEvent": "",
+    "isActive": true,
+    "isDeleted": false
+    }
+    if(res.status == 200){
+        data = await res.json();
+    }
     return data;
 }
 
@@ -216,7 +233,7 @@ async function DeleteEventItem(id:number) {
 async function GetAddress(address:string){
     //1798+Diablo+Creek+Drive
     let res = await fetch(`https://nominatim.openstreetmap.org/?addressdetails=1&q=${address}&format=json&limit=1`);
-    let data = res.json();
+    let data = await res.json();
     return data;
 }
 
@@ -234,7 +251,7 @@ async function GetCitiesByState(state:string) {
     // .catch(error => console.log('error', error));
 
     let res = await fetch(`https://api.countrystatecity.in/v1/countries/us/states/${state}/cities`, requestOptions)
-    let data = res.json();
+    let data = await res.json();
     return data;
 
 }
@@ -274,13 +291,13 @@ async function GetFollowersByUserId(userId:number){
 
 async function GetFollowId(userId:number,followerId:number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Followers/GetFollowId/${userId}/${followerId}`);
-    let data = res.json();
+    let data = await res.json();
     return data;
 }
 
 async function GetFollowingByUserId(userId:number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Followers/GetFollowingByUserId/${userId}`);
-    let data = res.json();
+    let data = await res.json();
     // console.log(data);
     return data;
 }
