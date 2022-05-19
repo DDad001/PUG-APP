@@ -70,9 +70,9 @@ const FollowerItem = ({
           image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
           : <Image source={{uri: image}} style={styles.ImageStyle} />
         }
-        
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.TextStyle}>{username} </Text>
+          
+        <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15 }}>
+          <Text style={styles.TextStyle}>{username}</Text>
         </View>
       </View>
     </View>
@@ -301,7 +301,8 @@ const styles = StyleSheet.create({
   },
   NotificationView: {
     flex: 1,
-    justifyContent: "center",
+    // justifyContent: "center",
+    paddingLeft: 25,
     flexDirection: "row",
     paddingTop: 5,
     paddingBottom: 34,
