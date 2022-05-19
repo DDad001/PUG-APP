@@ -184,8 +184,8 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
                   </View>
                 </View>
               </View>
-              <View>
-                <View style={{width:150}}>
+              <View style={{}}>
+                <View style={{width:180}}>
                     <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:14}}>{nameOfEvent}</Text>
                 </View>
               </View>
@@ -194,7 +194,7 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
 
                   {/* CODE FOR PAST EVENTS PAGE */}
 
-                <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop: 10}}>
+                <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop: 5}}>
                   <Pressable onPress={() => handleRemoveEvent(id)}>
                     <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:6, width:110, height:30 }} >
                       <Text style={{marginLeft:10, color:'white', fontFamily:"Lato_400Regular"}}>Delete Event</Text>
