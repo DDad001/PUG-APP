@@ -14,6 +14,7 @@ export default function useUser() {
   const [updateEventScreen, setUpdateEventScreen] = useState<boolean>(false);
   const [updateNotificationsScreen, setUpdateNotificationsScreen] = useState<boolean>(false);
   const [numberOfNotifications, setNumberOfNotifications] = useState<number>(0);
+  const [notificationsNumber, setNotificationNumber] = useState<any>(null);
 
   return {
     nameContext,
@@ -41,6 +42,8 @@ export default function useUser() {
     usersNotifications,
     setUsersNotifications,
     numberOfNotifications, 
-    setNumberOfNotifications
+    setNumberOfNotifications,
+    notificationsNumber, 
+    setNotificationNumber
   };
 }

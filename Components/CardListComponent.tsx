@@ -320,7 +320,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 };
 
 const CardListComponent: FC<CardProps> = (props) => {
-  const { updateScreen, setUpdateScreen, userItems, setUsersNotifications } = useContext<any>(UserContext);
+  const { updateScreen, setUpdateScreen, userItems, setUsersNotifications, notificationsNumber, setNotificationNumber, numberOfNotifications } = useContext<any>(UserContext);
   
   const [allEvents, setAllEvents] = useState<any>([]);
 
@@ -331,13 +331,13 @@ const CardListComponent: FC<CardProps> = (props) => {
   }, [updateScreen]);
   
   const fetchEvents = async () => {
-    let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
-    await setUsersNotifications(fetchedNotifications.reverse());
     let displayEvents = await GetEventItems();
+    let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
     let presentEvents: any;
     //get events from the state the user is in!
     presentEvents = displayEvents.filter((event: any, idx: number) => isItAPresentDay(event['dateOfEvent']) == true && userItems["state"] == displayEvents[idx]["stateOfEvent"].toUpperCase());
     setAllEvents(presentEvents);
+    setNotificationNumber(fetchedNotifications.length - numberOfNotifications);
 
   }
 

@@ -28,11 +28,11 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Nav'>
 
 const Tab = createBottomTabNavigator();
 const NavigationComponent: FC = () =>{
-    const { userItems, usersNotifications, setUpdateNotificationsScreen, setUsersNotifications, numberOfNotifications, setNumberOfNotifications  } = useContext<any>(UserContext);
+    const { userItems, usersNotifications, setUpdateNotificationsScreen, setUsersNotifications, numberOfNotifications, setNumberOfNotifications, notificationsNumber, setNotificationNumber  } = useContext<any>(UserContext);
 
  const [BorderColor, setBorderColor] = useState('black')
  const [notificationBadgeVisible, setNotificationBadgeVisible] = React.useState(false);
- const [notificationsNumber, setNotificationNumber] = useState<any>(usersNotifications.length - numberOfNotifications);
+//  const [notificationsNumber, setNotificationNumber] = useState<any>(usersNotifications.length - numberOfNotifications);
 
 
 
