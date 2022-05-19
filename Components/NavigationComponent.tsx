@@ -27,8 +27,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Nav'>
 
 const Tab = createBottomTabNavigator();
 const MyTabs: FC = () =>{
-    const { userItems } = useContext<any>(UserContext);
-const [BorderColor, setBorderColor] = useState('black')
+    const { userItems, usersNotifications } = useContext<any>(UserContext);
+
+ const [BorderColor, setBorderColor] = useState('black')
   return (
 
     <Tab.Navigator
@@ -131,6 +132,7 @@ const [BorderColor, setBorderColor] = useState('black')
                 paddingBottom:0,
                 paddingTop:10,     
             },
+            tabBarBadge: usersNotifications.length, 
             tabBarActiveTintColor:'#5E7FB4',
             headerShown: false,
             tabBarLabel: '',

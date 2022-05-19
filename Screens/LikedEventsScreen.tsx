@@ -382,14 +382,13 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
   }, []);
 
   const getLikedEventsByUser = async () => {
-    let likedEvents: any[] = [];
+    //let likedEvents: any[] = [];
     let likedEventsIds: number[] = [];
-    let eventsArr: any[] = [];
-    let result: any;
+    let eventsArr: object[] = [];
 
-    likedEvents = await GetLikedEventsByUserId(userItems.id);
+    let likedEvents = await GetLikedEventsByUserId(userItems.id)
     
-    likedEvents.map(eventObj =>{
+    likedEvents.map((eventObj: any) => {
       likedEventsIds.push(eventObj.eventId)
     }) 
 

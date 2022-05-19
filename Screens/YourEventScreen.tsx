@@ -91,7 +91,7 @@ const YourEventScreen: FC = () => {
   //dummy usestates!
   const [eventDate, setEventDate] = useState<any>(eventItems.dateOfEvent);
   const [eventTime, setEventTime] = useState<any>(eventItems.timeOfEvent);
-  const [eventState, setEventState] = useState<string>(eventItems.stateOfEvent.toUpperCase());
+  const [eventState, setEventState] = useState<string>(eventItems.stateOfEvent);
   const [eventCity, setEventCity] = useState<string>(eventItems.cityOfEvent);
 
   const HandleEventChanges = async () => {
@@ -103,7 +103,7 @@ const YourEventScreen: FC = () => {
       DateOfEvent: eventDate,
       TimeOfEvent: eventTime,
       DescriptionOfEvent: eventDetails,
-      ImageOfEvent: "Event Image",
+      ImageOfEvent: eventItems.image,
       AddressOfEvent: eventAddress,
       CityOfEvent: eventCity,
       StateOfEvent: eventState,
@@ -133,7 +133,7 @@ const YourEventScreen: FC = () => {
     }
 
 
-    //save the state to a variable
+    // save the state to a variable
     let stateFound:any = [];
     let statesArr: any[] = 
     [{stateInitial: "al", stateName: "Alabama"},
@@ -188,6 +188,7 @@ const YourEventScreen: FC = () => {
     {stateInitial: "wy", stateName: "Wyoming"},]
 
     stateFound = statesArr.filter(element => element.stateInitial === eventState);
+    console.log(stateFound);
 
     if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
