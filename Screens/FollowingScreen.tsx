@@ -71,12 +71,14 @@ const FollowerItem = ({
   return (
     <View>
       <View style={styles.NotificationView}>
-        {
-          image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
-          : <Image source={{uri: image}} style={styles.ImageStyle} />
-        }
+          {
+            image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
+            : <Image source={{uri: image}} style={styles.ImageStyle} />
+          }
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.TextStyle}>{username} </Text>
+          <View style={{ width: 150, alignItems: "center"}}>
+            <Text style={styles.TextStyle}>{username}</Text>
+          </View>
 
           {followingBool ? (
             <Pressable
@@ -326,14 +328,14 @@ const styles = StyleSheet.create({
   },
   NotificationView: {
     flex: 1,
-    justifyContent: "center",
     flexDirection: "row",
     paddingTop: 5,
     paddingBottom: 34,
+    paddingLeft: 25
   },
   TextStyle: {
     color: "white",
-    fontSize: 22,
+    fontSize: 19,
     fontFamily: "Roboto_500Medium",
     fontWeight: "500",
   },
