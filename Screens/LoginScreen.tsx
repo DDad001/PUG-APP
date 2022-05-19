@@ -42,7 +42,7 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
-import { LoginUser, GetUserByUsername, UpdateUser } from '../Services/DataService';
+import { LoginUser, GetUserByUsername, UpdateUser, GetNotificationsByUserId } from '../Services/DataService';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useToast, Box, Input, keyboardDismissHandlerManager } from "native-base";
@@ -76,7 +76,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "login">;
 const Tab = createBottomTabNavigator();
 
 const LoginScreen: FC<Props> = ({navigation}) => {
-  const { setUserItems } = useContext<any>(UserContext);
+  const { setUserItems, setUsersNotifications } = useContext<any>(UserContext);
 
   // const Tabs = () => (
   //   <Tab.Navigator>
@@ -112,6 +112,8 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         let userItems1 = await GetUserByUsername(Username);
         setUserItems(userItems1);
         console.log("userItems1", userItems1);
+        let fetchedNotifications = await GetNotificationsByUserId(userItems1.id);
+        setUsersNotifications(fetchedNotifications.reverse());
         navigation.navigate('Nav');
       }else{
         console.log("incorrect credentials try")

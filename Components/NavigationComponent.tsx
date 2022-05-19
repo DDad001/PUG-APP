@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -18,6 +18,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
 import FollowingScreen from '../Screens/FollowingScreen';
 import UserContext from '../Context/UserContext';
+import { GetNotificationsByUserId } from '../Services/DataService';
 
 
 type RootStackParamList ={
@@ -26,11 +27,15 @@ type RootStackParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, 'Nav'>
 
 const Tab = createBottomTabNavigator();
-const MyTabs: FC = () =>{
-    const { userItems, usersNotifications, setUpdateNotificationsScreen  } = useContext<any>(UserContext);
+const NavigationComponent: FC = () =>{
+    const { userItems, usersNotifications, setUpdateNotificationsScreen, setUsersNotifications  } = useContext<any>(UserContext);
 
  const [BorderColor, setBorderColor] = useState('black')
  const [notificationBadgeVisible, setNotificationBadgeVisible] = React.useState(false);
+ const [notificationsNumber, setNotificationNumber] = useState(usersNotifications.length);
+
+
+
   return (
 
     <Tab.Navigator
@@ -125,6 +130,12 @@ const MyTabs: FC = () =>{
       <Tab.Screen
         name="Notifications"
         component={NotificationsScreen}
+        listeners={{
+            tabPress: e => {
+              setNotificationNumber(null);
+              // Prevent default action
+            },
+          }}
         options={{
             tabBarStyle: {
                 position: 'absolute',
@@ -133,7 +144,8 @@ const MyTabs: FC = () =>{
                 paddingBottom:0,
                 paddingTop:10,     
             },
-            tabBarBadge: (notificationBadgeVisible ? usersNotifications.length : null), 
+            tabBarBadge: (notificationsNumber),
+             
             tabBarActiveTintColor:'#5E7FB4',
             headerShown: false,
             tabBarLabel: '',
@@ -141,9 +153,9 @@ const MyTabs: FC = () =>{
                 marginBottom:5
             },
             tabBarIcon: ({ color, size }) => (
-                setNotificationBadgeVisible(true),
-                setUpdateNotificationsScreen(true),
-                console.log(notificationBadgeVisible),
+                // setNotificationBadgeVisible(true),
+                // setUpdateNotificationsScreen(true),
+                // console.log(notificationBadgeVisible),
                 <MaterialIcons name="notifications" size={31} color={color} />
                 
                 ),
@@ -212,10 +224,6 @@ const MyTabs: FC = () =>{
 
   );
 }
-const NavigationComponent:FC <Props> =()=> {
-    return (
-        <MyTabs />
-  );
-}
+
 
 export default NavigationComponent;
