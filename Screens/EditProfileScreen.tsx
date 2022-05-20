@@ -218,7 +218,7 @@ const EditProfileScreen: FC = () => {
    }, }
  
    // 150
-   const offset = (Platform.OS === 'android') ? -300 : 150;
+   const offset = (Platform.OS === 'android') ? -300 : 100;
  
 return (
 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -245,8 +245,8 @@ return (
               </Text>
           </View>
 
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-    <ScrollView style={{}}>
+    <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={offset} behavior={Platform.OS === "android" ? "height" : "padding"}>
+    <ScrollView style={{flex: 1}}>
       <View style={{ flex: 0.7, marginTop:20}}>
         <TextInput
           style={[styles.input, { marginTop: 0 }]}
