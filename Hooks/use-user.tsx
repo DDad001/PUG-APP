@@ -7,6 +7,7 @@ export default function useUser() {
   const [viewUserProfile, setViewUserProfile] = useState<object>({});
   const [usersNotifications, setUsersNotifications] = useState<object>([]);
   const [newNotifications, setNewNotifications] = useState<object>([]);
+  const [pushToken, setPushToken] = useState("");
   const [updateScreen, setUpdateScreen] = useState<boolean>(false);
   const [updateProfileOther, setUpdateProfileOther] = useState<boolean>(false);
   const [updateProfileScreen, setUpdateProfileScreen] = useState<boolean>(false);
@@ -14,6 +15,7 @@ export default function useUser() {
   const [followingBool, setFollowingBool] = useState<boolean>(false);
   const [updateEventScreen, setUpdateEventScreen] = useState<boolean>(false);
   const [updateNotificationsScreen, setUpdateNotificationsScreen] = useState<boolean>(false);
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
   const [numberOfNotifications, setNumberOfNotifications] = useState<number>(0);
   const [notificationsNumber, setNotificationNumber] = useState<any>(null);
 
@@ -45,6 +47,10 @@ export default function useUser() {
     numberOfNotifications, 
     setNumberOfNotifications,
     notificationsNumber, 
-    setNotificationNumber
+    setNotificationNumber,
+    pushToken,
+    setPushToken,
+    isSwitchOn,
+    setIsSwitchOn
   };
 }

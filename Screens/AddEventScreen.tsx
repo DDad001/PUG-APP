@@ -119,6 +119,9 @@ const AddEventScreen: FC = () => {
   const [eventHours, setEventHour] = useState<string>("");
   const [eventMinutes, setEventMinutes] = useState<any>("");
   let currentYear =  new Date().getFullYear();
+  let currentHour = new Date().getHours();
+  let currentMinutes = new Date().getMinutes();
+
   //dummy usestates!
   const [eventDate, setEventDate] = useState<any>("");
   const [eventTime, setEventTime] = useState<any>("");
@@ -612,8 +615,8 @@ const AddEventScreen: FC = () => {
                       visible={showTimePicker}
                       onDismiss={onCancel}
                       onConfirm={onApproved}
-                      hours={12} // default: current hours
-                      minutes={14} // default: current minutes
+                      hours={currentHour} // default: current hours
+                      minutes={currentMinutes} // default: current minutes
                       label="Select time" // optional, default 'Select time'
                       cancelLabel="Cancel" // optional, default: 'Cancel'
                       confirmLabel="Ok" // optional, default: 'Ok'

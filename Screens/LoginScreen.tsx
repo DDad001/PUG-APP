@@ -76,7 +76,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "login">;
 const Tab = createBottomTabNavigator();
 
 const LoginScreen: FC<Props> = ({navigation}) => {
-  const { setUserItems, setUsersNotifications, } = useContext<any>(UserContext);
+  const { setUserItems, setUsersNotifications, isSwitchOn, setIsSwitchOn } = useContext<any>(UserContext);
 
   // const Tabs = () => (
   //   <Tab.Navigator>
@@ -115,6 +115,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         // let fetchedNotifications = await GetNotificationsByUserId(userItems1.id);
         // setUsersNotifications(fetchedNotifications.reverse());
         navigation.navigate('Nav');
+        setIsSwitchOn(isSwitchOn);
       }else{
         console.log("incorrect credentials try")
         Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: incorrect password or username inputed!</Box>;}});
