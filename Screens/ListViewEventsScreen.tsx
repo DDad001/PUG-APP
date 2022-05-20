@@ -46,10 +46,37 @@ Notifications.setNotificationHandler({
 
 const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
 
-    const { userItems } = useContext<any>(UserContext);
-    const [pushToken, setPushToken] = useState();
+    const { userItems, setPushToken, pushToken, setUpdateScreen, setUpdateEventScreen, setUpdateProfileScreen, setUpdateProfileOther, isSwitchOn} = useContext<any>(UserContext);
+
 
     const handleUpdatingUser = async (token:any) => {
+      if(isSwitchOn == false){
+        let userData = {
+          Id: userItems.id,
+          FirstName: userItems.firstName,
+          LastName: userItems.lastName,
+          Username: userItems.username,
+          Salt: userItems.salt,
+          Hash: userItems.hash,
+          DateOfBirth:userItems.dateOfBirth,
+          City:userItems.city,
+          State:userItems.state,
+          isTermsAccepted:userItems.isTermsAccepted,
+          isEighteen:userItems.isEighteen,
+          Image:userItems.image,
+          NotificationToken:null,
+          IsDeleted:false
+        };
+        console.log("userUpdate", userData);
+        let updateData = await UpdateUser(userData);
+        console.log("updatedData", updateData);
+        console.log(isSwitchOn)
+        setUpdateScreen(true);
+        setUpdateEventScreen(true);
+        setUpdateProfileScreen(true);
+        setUpdateProfileOther(true);
+      }
+      else{
         let userData = {
             Id: userItems.id,
             FirstName: userItems.firstName,
@@ -69,7 +96,12 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
           console.log("userUpdate", userData);
           let updateData = await UpdateUser(userData);
           console.log("updatedData", updateData);
+          setUpdateScreen(true);
+          setUpdateEventScreen(true);
+          setUpdateProfileScreen(true);
+          setUpdateProfileOther(true);
       }
+    }
 
     useEffect(() => {
         Notifications.getPermissionsAsync()
