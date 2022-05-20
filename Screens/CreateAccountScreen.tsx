@@ -10,7 +10,8 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
   Keyboard,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Platform
 } from "react-native";
 // import { Datepicker, Icon, Layout } from "@ui-kitten/components";
 import PUGbutton from "../Components/PUGButton";
@@ -267,7 +268,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
           </Text>
 
 
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
           <ScrollView style={{flex: 1}}>
             <View style={{ flex: 0.7, marginTop:20}}>
 
