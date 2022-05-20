@@ -134,13 +134,13 @@ const App: FC =()=> {
            options={{ title: 'Look At Event',}}
           component={EventDisplayedScreen}/> */}
           <Stack.Screen name="OtherUserEvent"
-           options={{ title: 'Other User Event',}}
+           options={{ title: '',}}
           component={OtherUsersEvent}/>
           <Stack.Screen name="OtherPersonsFollowers"
-           options={{ title: 'OtherPersonFollowers',}}
+           options={{ title: '',}}
           component={FollowersScreen}/>
           <Stack.Screen name="OtherPersonsFollowings"
-           options={{ title: 'OtherPersonsFollowings',}}
+           options={{ title: '',}}
           component={FollowingScreen}/>
           <Stack.Screen name="YourActiveEvent"
            options={{ title: 'Your Event',}}
