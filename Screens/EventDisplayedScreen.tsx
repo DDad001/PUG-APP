@@ -96,6 +96,9 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   const [radioUserValue, setRadioUserValue] = useState<string>("");
   const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
+    const [disabled, setDisabled] = useState(false);
+
+
   const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile, setUpdateProfileScreen, updateEventScreen, setUpdateEventScreen, viewUserProfile, setUpdateNotificationsScreen } = useContext<any>(UserContext);
 
   // const [isLiked, setIsLiked] = useState(false);
@@ -228,6 +231,11 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   }
 
   const handleFollow = () => {
+
+    // setTimeout(() => {
+    //   setDisabled(!disabled);
+    // },5000)
+
     setIsFollowed(!isFollowed);
     let followed = isFollowed;
     if (!followed) {
@@ -601,6 +609,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
 
 
                 <Pressable onPress={handleFollow} style={{ marginLeft: 20, marginTop: 17 }}>
+                
                   <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow: 'hidden', marginTop: 10, marginLeft: 12, padding: 5, width: 90, height: 27 }} >
                     {
                       isFollowed ? <Text style={{color: 'white', fontFamily: "Lato_400Regular", alignSelf: "center"}}>Unfollow</Text>
