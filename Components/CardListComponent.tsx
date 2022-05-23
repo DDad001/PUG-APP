@@ -104,6 +104,7 @@ type RootStackParamList = {
 const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
   
   const [isLiked, setIsLiked] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false);
   const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen, viewUserProfile, setUpdateNotificationsScreen,  } = useContext<any>(UserContext);
   const [profileImage, setProfileImage] = useState<any>(null);
 
@@ -131,6 +132,9 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
     }
     
   const handleLiked = async () => {
+    setDisableBtn(true);
+    console.log("disabled");
+
     setIsLiked(!isLiked)
     let liked = isLiked;
     if (!liked) {
@@ -156,6 +160,11 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
       DeleteLikedEvent(userItems.id, id)
     }
     setUpdateProfileScreen(true);
+
+    setTimeout(() => {
+      setDisableBtn(false);
+      console.log("enabled");
+    }, 2000)
   }
 
   const handleSavedEvent = async() => {
@@ -255,7 +264,7 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                   <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 7 }} />
                 </Pressable>
 
-                <Pressable onPress={handleLiked}>
+                <Pressable onPress={handleLiked} disabled={disableBtn}>
                   {
                     isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />
                       : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />

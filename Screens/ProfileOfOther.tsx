@@ -81,12 +81,14 @@ type Props = NativeStackScreenProps<RootStackParamList, "profile">;
 const EventItem= ({event, navigation, sportOfEvent} :any) => {
   const { userItems, eventItems, setUpdateScreen, setUpdateEventScreen, viewUserProfile, setViewUserProfile, setUpdateProfileScreen, setUpdateNotificationsScreen, setUpdateProfileOther } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false);
 
   useEffect(() => {
     checkIfLiked();
   }, [])
 
   const handleLiked = async () => {
+    setDisableBtn(true);
     setIsLiked(!isLiked)
     let liked = isLiked;
     if(!liked){
@@ -113,6 +115,10 @@ const EventItem= ({event, navigation, sportOfEvent} :any) => {
     setUpdateEventScreen(true);
     setUpdateProfileScreen(true);
     setUpdateProfileOther(true)
+
+    setTimeout(() => {
+      setDisableBtn(false);
+    }, 2000)
   }
 
   const checkIfLiked = async () => {
@@ -191,7 +197,7 @@ const EventItem= ({event, navigation, sportOfEvent} :any) => {
                   <Pressable onPress={createOpenLink({ provider: 'google', end: event.addressOfEvent })}>
                       <MaterialIcons name="location-on" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:17, padding:3  }} />
                   </Pressable>
-                <Pressable onPress={handleLiked} >
+                <Pressable onPress={handleLiked} disabled={disableBtn} >
                   {
                     isLiked ? <FontAwesome name="heart" size={16} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
                     : <FontAwesome name="heart-o" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
