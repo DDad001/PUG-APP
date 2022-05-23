@@ -418,7 +418,7 @@ const AddEventScreen: FC = () => {
     setTimeout(() => {
       setDisableBtn(false);
       console.log("enabled")
-    }, 5000)
+    }, 2000)
   };
 
   const theme = {
