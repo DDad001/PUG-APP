@@ -84,8 +84,11 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
 
     const { userItems } = useContext<any>(UserContext);
 
+    const [disableBtn, setDisableBtn] = useState(false);
+
     //set up deleting events
    const handleRemoveEvent = (id: any) => {
+     setDisableBtn(true);
     DeleteEventItem(id);
 
     setTimeout(() => {
@@ -195,7 +198,9 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
                   {/* CODE FOR PAST EVENTS PAGE */}
 
                 <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop: 5}}>
-                  <Pressable onPress={() => handleRemoveEvent(id)}>
+                  <Pressable onPress={() => handleRemoveEvent(id)} 
+                    disabled={disableBtn}
+                  >
                     <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:6, width:110, height:30 }} >
                       <Text style={{marginLeft:10, color:'white', fontFamily:"Lato_400Regular"}}>Delete Event</Text>
                     </View>

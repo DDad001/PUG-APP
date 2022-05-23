@@ -89,7 +89,7 @@ const EventItem= ({event, navigation, sportOfEvent} :any) => {
 
   const handleLiked = async () => {
     setDisableBtn(true);
-    setIsLiked(!isLiked)
+    setIsLiked(!isLiked);
     let liked = isLiked;
     if(!liked){
       let addLike = {
