@@ -97,7 +97,6 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
   const [date, setDate] = useState<Date>(new Date());
   const Errortoast = useToast();
   const Successtoast = useToast();
-  //place holders Not actually being used!
   const [DOB, setDOB] = useState<string>("MM/DD/YYYY");
   const [state, setState] = useState<string>("");
   const [city, setCity] = useState<string>("");
@@ -105,6 +104,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
   const [show, setShow] = React.useState(false);
   const [isTermsOfServiceAccepted, setIsTermsOfServiceAccepted] = useState<boolean>(false);
   const [isOverAgeOf18, setIsOverAgeOf18] = useState<boolean>(false);
+  const [disableBtn, setDisableBtn] = useState<boolean>(false);
 
   const areTermsAccepted = (isTermsAccepted:boolean) => {
     setIsTermsOfServiceAccepted(isTermsAccepted);
@@ -115,6 +115,8 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
   }
 
   const handleCreateAccount = async () => {
+    setDisableBtn(true);
+    console.log("disabled");
     let userData = {
       Id: 0,
       FirstName: newFirstName,
@@ -192,6 +194,10 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
       }
     }
 
+    setTimeout(() => {
+      setDisableBtn(false);
+      console.log("enabled");
+    }, 5000)
     }
 
 
@@ -529,7 +535,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
 
             {/* Flex losses all meaning when scroll view is used! Disregard logic with flex below! */}
             <View style={{ flex: 0.2, alignItems: "center", marginTop: 20}}>
-              <Pressable
+              <Pressable disabled={disableBtn}
                 style={{
                   backgroundColor: "rgba(10, 50, 109, 1)",
                   borderRadius: 50,
