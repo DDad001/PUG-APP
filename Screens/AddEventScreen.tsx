@@ -79,6 +79,7 @@ const AddEventScreen: FC = () => {
   const { userItems, setUpdateScreen, setUpdateProfileScreen } =
     useContext<any>(UserContext);
   const [pickedImagePath, setPickedImagePath] = useState("");
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const showImagePicker = async () => {
     const permissionResult =
@@ -194,6 +195,8 @@ const AddEventScreen: FC = () => {
   );
 
   const HandleCreateEvent = async () => {
+    setDisableBtn(true);
+    console.log("disabled")
     let newEvent = {
       Id: 0,
       UserID: userItems.id,
@@ -412,6 +415,10 @@ const AddEventScreen: FC = () => {
       setEventState("");
       setEventCity("");
     }
+    setTimeout(() => {
+      setDisableBtn(false);
+      console.log("enabled")
+    }, 5000)
   };
 
   const theme = {
@@ -839,6 +846,7 @@ const AddEventScreen: FC = () => {
                     paddingLeft: 60,
                     paddingRight: 60,
                   }}
+                  disabled={disableBtn}
                 >
                   <Text
                     style={{

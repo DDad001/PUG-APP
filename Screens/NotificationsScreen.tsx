@@ -28,6 +28,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 const Notification = ({notification, getNotifications}: any) => {
   const { setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [user, setUser] = useState<any>('');
+  const [disableBtn, setDisableBtn] = useState(false);
 
   useEffect(() => {
     getUser();
@@ -39,6 +40,7 @@ const Notification = ({notification, getNotifications}: any) => {
   }
 
   const deleteNotification = () => {
+    setDisableBtn(true);
     DeleteNotification(notification.id).then(() => {
       getNotifications();
     });
@@ -53,7 +55,7 @@ const Notification = ({notification, getNotifications}: any) => {
       extrapolate: 'identity',
     }) 
     return(
-      <TouchableOpacity onPress={deleteNotification} activeOpacity={0.6}>
+      <TouchableOpacity onPress={deleteNotification} activeOpacity={0.6} disabled={disableBtn}>
       <Animated.View style={[styles.DeleteBox, {opacity}]} >
         <Ionicons name="md-trash" size={30} color="white" />
       </Animated.View>
