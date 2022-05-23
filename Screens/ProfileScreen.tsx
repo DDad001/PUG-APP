@@ -89,13 +89,15 @@ type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation, sportOfEvent} :any) => {
   const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext, setUpdateProfileScreen, updateProfileScreen, viewUserProfile, setUpdateNotificationsScreen, setUpdateEventScreen, setUpdateProfileOther} = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
-
+  const [disableBtn, setDisableBtn] = useState(false);
+  
   useEffect(() => {
     checkIfLiked();
     setUpdateProfileScreen(false);
   }, [updateProfileScreen])
 
   const handleLiked = () => {
+    setDisableBtn(true);
     setIsLiked(!isLiked)
     let liked = isLiked;
     if(!liked){
@@ -119,6 +121,10 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
       DeleteLikedEvent(userItems.id, id)
     }
     setUpdateScreen(true);
+    setTimeout(() => {
+      setDisableBtn(false);
+      console.log("enabled")
+    }, 5000)
   }
 
   const checkIfLiked = async () => {
@@ -209,10 +215,11 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
             <Pressable onPress={createOpenLink({ provider: 'google', end: addressOfEvent})}>
                 <MaterialIcons name="location-on" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:17, padding:3  }} />
             </Pressable>
-            <Pressable onPress={handleLiked} >
+            <Pressable onPress={handleLiked} disabled={disableBtn} >
               {
                 isLiked ? <FontAwesome name="heart" size={16} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
                 : <FontAwesome name="heart-o" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+                
               }
               
              </Pressable>
