@@ -222,7 +222,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
         </View>
       </View>
     </View>
-
+    
           <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>{nameOfEvent} </Text>
           <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: 'Lato_400Regular'}}>{addressOfEvent}</Text>
           <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop:25, marginLeft: 10 }}>
