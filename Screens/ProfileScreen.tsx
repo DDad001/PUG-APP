@@ -89,13 +89,15 @@ type Props = NativeStackScreenProps<RootStackParamList, "PastEvents">;
 const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfEvent, navigation, sportOfEvent} :any) => {
   const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext, setUpdateProfileScreen, updateProfileScreen, viewUserProfile, setUpdateNotificationsScreen, setUpdateEventScreen, setUpdateProfileOther} = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
-
+  const [disableBtn, setDisableBtn] = useState(false);
+  
   useEffect(() => {
     checkIfLiked();
     setUpdateProfileScreen(false);
   }, [updateProfileScreen])
 
   const handleLiked = () => {
+    setDisableBtn(true);
     setIsLiked(!isLiked)
     let liked = isLiked;
     if(!liked){
@@ -119,6 +121,10 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
       DeleteLikedEvent(userItems.id, id)
     }
     setUpdateScreen(true);
+    setTimeout(() => {
+      setDisableBtn(false);
+      console.log("enabled")
+    }, 5000)
   }
 
   const checkIfLiked = async () => {
@@ -209,10 +215,11 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
             <Pressable onPress={createOpenLink({ provider: 'google', end: addressOfEvent})}>
                 <MaterialIcons name="location-on" size={17} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:17, padding:3  }} />
             </Pressable>
-            <Pressable onPress={handleLiked} >
+            <Pressable onPress={handleLiked} disabled={disableBtn} >
               {
                 isLiked ? <FontAwesome name="heart" size={16} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
                 : <FontAwesome name="heart-o" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+                
               }
               
              </Pressable>
@@ -227,13 +234,16 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
           <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: 'Lato_400Regular'}}>{addressOfEvent}</Text>
           <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop:25, marginLeft: 10 }}>
             <Pressable onPress={() => {
+              setDisableBtn(true);
               console.log("Removed")
               DeleteEventItem(id);
               setUpdateScreen(true);
               setUpdateEventScreen(true);
               setUpdateProfileScreen(true);
               setUpdateProfileOther(true)
-            }} >
+            }} 
+            disabled={disableBtn}
+            >
               <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
                 <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
               </View>

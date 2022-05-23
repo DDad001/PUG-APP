@@ -243,8 +243,10 @@ type RootStackParamList ={
 const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEvent, getLikedEventsByUser, navigation, sportOfEvent }: any) => {
   const { userItems, setUpdateScreen, setUpdateProfileScreen } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState<boolean>(true);
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const handleLiked = async () => {
+    setDisableBtn(true);
     await DeleteLikedEvent(userItems.id, id)
     setIsLiked(false);
     
@@ -351,7 +353,7 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
                                         <Pressable  onPress={createOpenLink({ provider: 'google', end: addressOfEvent})}>
                                             <MaterialIcons name="location-on" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginLeft: 12, padding:5  }} />
                                         </Pressable>
-                                      <Pressable onPress={handleLiked} >
+                                      <Pressable onPress={handleLiked} disabled={disableBtn} >
                                         {
                                           isLiked ?  <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
                                           :  <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
