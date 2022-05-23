@@ -97,6 +97,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
     const [disabled, setDisabled] = useState(false);
+    const [disableBtn, setDisableBtn] = useState(false);
 
 
   const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile, setUpdateProfileScreen, updateEventScreen, setUpdateEventScreen, viewUserProfile, setUpdateNotificationsScreen } = useContext<any>(UserContext);
@@ -231,10 +232,8 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   }
 
   const handleFollow = () => {
-
-    // setTimeout(() => {
-    //   setDisabled(!disabled);
-    // },5000)
+    setDisableBtn(true);
+    console.log("enabled");
 
     setIsFollowed(!isFollowed);
     let followed = isFollowed;
@@ -261,6 +260,11 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
       //console.log('Unfollowed')
     }
     setUpdateProfileScreen(true);
+
+    setTimeout(() => {
+      setDisableBtn(false);
+      console.log("enabled");
+    }, 2000)
   }
 
 
@@ -608,7 +612,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                 <Text style={{ flex: 0.9, marginTop: 30, marginLeft: 17, fontSize: 16, color: 'white', fontFamily: "Roboto_700Bold" }}>{nameContext}</Text>
 
 
-                <Pressable onPress={handleFollow} style={{ marginLeft: 20, marginTop: 17 }}>
+                <Pressable onPress={handleFollow} style={{ marginLeft: 20, marginTop: 17 }} disabled={disableBtn}>
                 
                   <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow: 'hidden', marginTop: 10, marginLeft: 12, padding: 5, width: 90, height: 27 }} >
                     {
