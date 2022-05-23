@@ -82,6 +82,7 @@ import biking1 from "../assets/biking1.jpg";
 import baseball from "../assets/baseball.jpg";
 import badminton from "../assets/badminton.jpg";
 import tennis from "../assets/tennis.jpg";
+import yoga from "../assets/yoga.jpg";
 import pugEvent from "../assets/pugEvent.png";
 import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
@@ -248,6 +249,8 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
                                                         <Image source={lacrosse} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
                                                         : sportOfEvent === "Volleyball" ?
                                                           <Image source={volleyballevent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                          : sportOfEvent === "Yoga" ?
+                                                           <Image source={yoga} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
                                                           :
                                                           <Image source={pugEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
             }

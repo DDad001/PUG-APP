@@ -500,6 +500,7 @@ const YourEventScreen: FC = () => {
               <Select.Item label="Spikeball" value="Spikeball" />
               <Select.Item label="Tennis" value="Tennis" />
               <Select.Item label="Volleyball" value="Volleyball" />
+              <Select.Item label="Yoga" value="Yoga" />
               <Select.Item label="Other" value="Other" />
             </Select>
           </Box>
