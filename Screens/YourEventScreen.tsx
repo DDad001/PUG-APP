@@ -94,7 +94,10 @@ const YourEventScreen: FC = () => {
   const [eventState, setEventState] = useState<string>(eventItems.stateOfEvent);
   const [eventCity, setEventCity] = useState<string>(eventItems.cityOfEvent);
 
+  const [disableBtn, setDisableBtn] = useState(false);
+
   const HandleEventChanges = async () => {
+    setDisableBtn(true);
     let edittedEvent = {
       Id: eventItems.id, //userId useContext
       UserID: userItems.id, 
@@ -222,6 +225,10 @@ const YourEventScreen: FC = () => {
       let result = await GetEventItemById(eventItems.id)
       setEventItems(result);
     }
+    setTimeout(() => {
+      setDisableBtn(false);
+      console.log("enabled")
+    }, 2000)
   }
 
 
@@ -732,6 +739,7 @@ const YourEventScreen: FC = () => {
                     paddingLeft: 60,
                     paddingRight: 60,
                   }}
+                  disabled={disableBtn}
                   >
                   <Text
                     style={{

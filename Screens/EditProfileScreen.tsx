@@ -42,6 +42,7 @@ import {
 
 const EditProfileScreen: FC = () => {
     const { userItems, setUserItems, setUpdateScreen, setUpdateEventScreen, setUpdateProfileScreen, setUpdateProfileOther } = useContext<any>(UserContext);
+    const [disableBtn, setDisableBtn] = useState(false);
 
    let [fontsLoaded] = useFonts({
      Lato_100Thin,
@@ -95,6 +96,7 @@ const EditProfileScreen: FC = () => {
    const Successtoast = useToast();
    
    const handleEditProfile = async () => {
+      setDisableBtn(true);
      let edittedProfile = {
        Id: userItems.id, //userId useContext
        FirstName: firstName,
@@ -175,6 +177,10 @@ const EditProfileScreen: FC = () => {
          setUpdateProfileScreen(true);
          setUpdateProfileOther(true)
        }
+       setTimeout(() => {
+        setDisableBtn(false);
+        console.log("enabled")
+      }, 2000)
      }
  
      // if(password != ""){
@@ -434,6 +440,7 @@ return (
             paddingRight: 60,
           }}
           onPress={handleEditProfile}
+          disabled={disableBtn}
         >
           <Text style={styles.SaveChangesBtnTxt}>Save Changes</Text>
         </Pressable>
