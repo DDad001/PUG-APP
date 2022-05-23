@@ -11,7 +11,8 @@ import {
   Image,
   SafeAreaView,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  DatePickerIOSBase
 } from "react-native";
 import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
@@ -65,6 +66,7 @@ const FollowerItem = ({
   id,
   image,
   displayFollowing,
+  disableBtn
 }: any) => {
   const { followingBool } = useContext<any>(UserContext);
 
@@ -85,6 +87,7 @@ const FollowerItem = ({
               style={styles.unfollowBtn}
               onPress={() => handleUnfollow(id)}
               accessibilityLabel="Followers Button"
+              disabled={disableBtn}
             >
               <Text style={styles.unfollowTxt}>Unfollow</Text>
             </Pressable>
@@ -99,6 +102,7 @@ const FollowingScreen: FC = () => {
   const { userItems, setUpdateProfileScreen, viewUserProfile, followingBool } =
     useContext<any>(UserContext);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
+  const [disableBtn, setDisableBtn] = useState(false);
 
   useEffect(() => {
     getFollowing();
@@ -135,6 +139,7 @@ const FollowingScreen: FC = () => {
   };
 
   const handleUnfollow = async (unfollowId: number) => {
+    setDisableBtn(true);
     console.log("Deleted");
     DeleteFollower(userItems.id, unfollowId);
 
@@ -153,6 +158,7 @@ const FollowingScreen: FC = () => {
         image={item.image}
         displayFollowing={displayFollowing}
         handleUnfollow={handleUnfollow}
+        disableBtn={disableBtn}
       />
     );
   };
