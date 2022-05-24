@@ -496,17 +496,17 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
       <View style={{flexDirection:'row', justifyContent:'center'}}>
               <Pressable onPress={() => navigation.navigate('Nav')}>
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:50, borderTopLeftRadius:10, borderBottomLeftRadius:10,}}>
-                    <Text style={{marginLeft:20, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>My Profile</Text>
+                    <Text style={{marginLeft:20, marginTop:10, fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>My Profile</Text>
                 </View>
               </Pressable>
                 <Pressable onPress={handlePastEvents}>    
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:50}}>
-                    <Text style={{marginLeft:12, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
+                    <Text style={{marginLeft:12, marginTop:10, fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Past events</Text>
                 </View>
                 </Pressable>
                 <Pressable onPress={handleLikedEvents}>
                 <View style={{backgroundColor:'white', height:35,width:110, marginTop:50,borderTopRightRadius:10, borderBottomRightRadius:10}}>
-                    <Text style={{marginLeft:10, marginTop:10, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Liked events</Text>
+                    <Text style={{marginLeft:10, marginTop:10, fontSize:13, fontFamily: "Lato_700Bold",color: "rgba(10, 50, 109, 1)"}}>Liked events</Text>
                 </View>
                 </Pressable>
              </View>
