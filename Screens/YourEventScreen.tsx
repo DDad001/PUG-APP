@@ -225,7 +225,6 @@ const YourEventScreen: FC = () => {
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
     } else if(eventItems.sportOfEvent == eventSport && eventItems.nameOfEvent == nameOfEvent && eventItems.dateOfEvent == eventDate && eventItems.timeOfEvent == eventTime && eventItems.descriptionOfEvent == eventDetails && eventItems.addressOfEvent == eventAddress && eventItems.stateOfEvent == eventState.toLowerCase() && eventItems.cityOfEvent == eventCity){
       //check if the save changes event is the exact same to what was previously saved into the database
-      //You should have 8 checks in the if statement!
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You did not make any changes to your event!</Box>;}});
     }else{
       UpdateEventItem(edittedEvent);
