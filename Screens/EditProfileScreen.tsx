@@ -2,6 +2,17 @@ import { Box, Button, Center, Checkbox, CheckIcon, FormControl, HStack, Icon, In
 import React, { useState,useContext, FC } from "react";
 import { ImageBackground, Platform, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import {
+  en,
+  // nl,
+  // de,
+  // pl,
+  // pt,
+  //enGB,
+  registerTranslation,
+} from 'react-native-paper-dates'
+registerTranslation('en', en)
+
 import { DatePickerModal } from "react-native-paper-dates";
 import { DeleteUser, GetUserById, UpdatePassword, UpdateUser } from "../Services/DataService";
 import { Switch } from "react-native-paper";
