@@ -273,14 +273,16 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
       fetchEvents();
       getFollowers();
       getFollowing();
-      getUserAge(userItems.dateOfBirth)
+      getUserAge(userItems.dateOfBirth);
       setUpdateProfileScreen(false);
+      setDisplayUserName(userItems.firstName + " " + userItems.lastName);
     }, [updateProfileScreen]);
     
     const [allEvents, setAllEvents] = useState<any>([]);
     const [displayFollowers, setDisplayFollowers] = useState<any>([]);
     const [displayFollowing, setDisplayFollowing] = useState<any>([]);
     const [displayUserAge, setDisplayUserAge] = useState<any>();
+    const [displayUserName, setDisplayUserName] = useState<string>("");
     // const [pickedImagePath, setPickedImagePath] = useState('');
 
 
@@ -439,9 +441,16 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
   };
 
 
+  const displayShorterName = (name : string) => {
+    let editedName: string = "";
+    for(let i = 0; i < 51; i++){
+      editedName += name[i];
+    }
+    console.log(editedName)
+    return editedName;
+  }
 
-
-
+  
   // const openCamera = async () => {
   //   const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
   //   if (permissionResult.granted === false) {
@@ -532,8 +541,8 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
             {/* image picker goes here */}
             <ImageHandler/>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
-                <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{userItems.firstName + " "+ userItems.lastName}, </Text>
-                <Text style={{marginTop: 20, color:'white', fontFamily: "Lato_700Bold", fontSize: 19, fontWeight: "bold"}}>{displayUserAge}</Text>
+                <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{displayUserName.length <= 30 ? displayUserName + `, ${displayUserAge}` : displayShorterName(displayUserName) + `, ${displayUserAge}`} </Text>
+                {/* <Text style={{marginTop: 20, color:'white', fontFamily: "Lato_700Bold", fontSize: 19, fontWeight: "bold"}}>{displayUserAge}</Text> */}
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
