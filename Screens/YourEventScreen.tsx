@@ -501,6 +501,7 @@ const YourEventScreen: FC = () => {
               <Select.Item label="Tennis" value="Tennis" />
               <Select.Item label="Volleyball" value="Volleyball" />
               <Select.Item label="Yoga" value="Yoga" />
+              <Select.Item label="SkateBoarding" value="SkateBoarding" />
               <Select.Item label="Other" value="Other" />
             </Select>
           </Box>
@@ -756,7 +757,7 @@ const YourEventScreen: FC = () => {
                   </Text>
                 </Pressable>
               </View>
-
+{/* 
               <View style={{ flex: 0.2, alignItems: "center", marginTop: 40 }}>
                 <Pressable
                   onPress={() => console.log("Send the user to help!")}
@@ -771,7 +772,7 @@ const YourEventScreen: FC = () => {
                       />
                   </View>
                 </Pressable>
-              </View>
+              </View> */}
 
               </ScrollView>
           </KeyboardAvoidingView>

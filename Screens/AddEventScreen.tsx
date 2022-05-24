@@ -75,7 +75,27 @@ import { compareSpecificity } from "native-base/lib/typescript/hooks/useThemePro
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { State } from "react-native-gesture-handler";
 
-const AddEventScreen: FC = () => {
+type RootStackParamList ={
+  CreateAccount: undefined,
+  login:undefined,
+  Nav: undefined,
+  event:{name:string},
+  profile:{name:string},
+  PastEvents:undefined,
+  LikedEvents:undefined,
+  settings:undefined,
+  following:undefined,
+  LookAtEvent:undefined,
+  OtherPersonsFollowers:undefined,
+  OtherPersonsFollowings:undefined,
+  YourActiveEvents:undefined,
+  followers:undefined,
+  FAQ:undefined,
+}
+
+type Props = NativeStackScreenProps<RootStackParamList, "Nav">;
+
+const AddEventScreen: FC<Props> = ({navigation}) => {
   const { userItems, setUpdateScreen, setUpdateProfileScreen } =
     useContext<any>(UserContext);
   const [pickedImagePath, setPickedImagePath] = useState("");
@@ -561,6 +581,7 @@ const AddEventScreen: FC = () => {
                       <Select.Item label="Tennis" value="Tennis" />
                       <Select.Item label="Volleyball" value="Volleyball" />
                       <Select.Item label="Yoga" value="Yoga" />
+                      <Select.Item label="SkateBoarding" value="SkateBoarding" />
                       <Select.Item label="Other" value="Other" />
                     </Select>
                     {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
@@ -866,7 +887,7 @@ const AddEventScreen: FC = () => {
 
               <View style={{ flex: 0.2, alignItems: "center", marginTop: 40 }}>
                 <Pressable
-                  onPress={() => console.log("Send the user to help!")}
+                  onPress={() => navigation.navigate('FAQ')}
                   accessibilityLabel="Click here if you need help?"
                 >
                   <View style={{ flexDirection: "row" }}>
