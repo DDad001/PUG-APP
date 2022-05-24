@@ -602,7 +602,7 @@ const OtherUsersEvent: FC<Props> = ({ navigation, route }) => {
             </Center>
             <View style={{ flexDirection: 'row' }}>
 
-              <View style={{ flexDirection: 'row', flex: 1, backgroundColor: '#7E90AB', marginTop: 15, height: 80, shadowRadius: 8, shadowColor: '#333', shadowOffset: { width: 5, height: 5 }, shadowOpacity: 0.4 }}>
+              <View style={styles.viewUserImage}>
 
                 {
                   viewUserProfile.image === null ? <Ionicons name="person-circle-sharp" size={65} style={{alignSelf: 'center', marginLeft: 22}} color="black" />
@@ -667,5 +667,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
+  viewUserImage: {
+    flexDirection: 'row', 
+    flex: 1, 
+    backgroundColor: '#7E90AB', 
+    marginTop: 15, 
+    height: 80, 
+    shadowRadius: 8, 
+    shadowColor: '#333', 
+    shadowOffset: { width: 5, height: 5 }, 
+    shadowOpacity: 0.4 
+  }
 });
 export default OtherUsersEvent;

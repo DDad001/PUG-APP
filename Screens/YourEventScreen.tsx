@@ -35,6 +35,16 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
+import {
+  en,
+  // nl,
+  // de,
+  // pl,
+  // pt,
+  //enGB,
+  registerTranslation,
+} from 'react-native-paper-dates'
+registerTranslation('en', en)
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import BasketballEvent from "../assets/BasketballEvent.jpg";
 import soccer from "../assets/soccer.jpg";
