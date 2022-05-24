@@ -292,6 +292,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
               <TextInput
                 style={[styles.input, { marginTop: 0 }]}
                 onChangeText={(text) => setNewFirstName(text)}
+                maxLength={25}
                 value={newFirstName}
                 placeholder="First name"
                 keyboardType="default"
@@ -301,6 +302,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
               <TextInput
                 style={styles.input}
                 onChangeText={(text) => setNewLastName(text)}
+                maxLength={25}
                 value={newLastName}
                 placeholder="Last name"
                 keyboardType="default"
@@ -327,7 +329,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
                   paddingLeft: 25,
 
                 }}
-                >{newUsername.length}/15 character length</Text>
+                >{newUsername.length}/15 max length</Text>
               </View>
               {/* <TextInput
                 style={styles.input}
