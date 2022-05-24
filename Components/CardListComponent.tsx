@@ -456,27 +456,6 @@ const CardListComponent: FC<CardProps> = (props) => {
     return <AppLoading />;
   }
 
-  // console.log(input)
-
-  // let allNames: any [] = []
-  // allEvents.map(async (event:any, i:number ) =>{
-  //   console.log(event.userId)
-  //   let userData = await GetUserById(event.userId);
-  //   allNames.push(`${userData.firstName}, ${userData.lastName}`)
-  //   console.log(allNames)
-  // })
-  // const searchCity = (input) => {
-  //   let data = data
-  //   let searchData = data.filter((item) =>{
-  //     return item.name.toLowerCase().includes(input.toLowerCase())
-  //   })
-  //   setNewSearch(searchData)
-  // }
-
-
-    // let data = dataFromInput;
-    // console.log(data);
-
     //this query is done when
     let searchData: any;
       function NoFilters(timeFrame: string){
