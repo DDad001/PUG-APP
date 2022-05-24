@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext } from "react";
 import { View, StyleSheet, Pressable } from "react-native";
 import AppLoading from "expo-app-loading";
 import {
@@ -14,6 +14,7 @@ import {
   Lato_900Black,
   Lato_900Black_Italic,
 } from "@expo-google-fonts/lato";
+import UserContext from "../Context/UserContext";
 
 import {
   Roboto_100Thin,
@@ -51,6 +52,7 @@ interface SignOutProps{
 
 //You can't style a button have to use a pressable!
 const SignoutBtnComponent: FC<SignOutProps> = (props) => {
+  const { setNotificationNumber } = useContext<any>(UserContext);
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -86,6 +88,7 @@ const SignoutBtnComponent: FC<SignOutProps> = (props) => {
     AsyncStorage.removeItem('Token');
     console.log('Signed Out');
     props.onSignOutPress();
+    setNotificationNumber(0);
   }
 
   return (
