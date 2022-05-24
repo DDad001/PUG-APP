@@ -197,7 +197,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
     setTimeout(() => {
       setDisableBtn(false);
       console.log("enabled");
-    }, 5000)
+    }, 2000)
     }
 
 

@@ -62,6 +62,7 @@ import cricketevent from "../assets/cricketevent.jpg";
 import biking1 from "../assets/biking1.jpg";
 import baseball from "../assets/baseball.jpg";
 import badminton from "../assets/badminton.jpg";
+import yoga from "../assets/yoga.jpg";
 import pugEvent from "../assets/pugEvent.png";
 
 interface EventsProps{ 
@@ -158,6 +159,8 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
                                                         <Image source={lacrosse} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                         : sportOfEvent === "Volleyball" ?
                                                           <Image source={volleyballevent} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                                          : sportOfEvent === "Yoga" ?
+                                                          <Image source={yoga} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                           :
                                                           <Image source={pugEvent} style={{ height: 100, width: 145, borderRadius: 8 }} />
             }

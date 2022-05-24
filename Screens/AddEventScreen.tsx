@@ -418,7 +418,7 @@ const AddEventScreen: FC = () => {
     setTimeout(() => {
       setDisableBtn(false);
       console.log("enabled")
-    }, 5000)
+    }, 2000)
   };
 
   const theme = {
@@ -560,6 +560,7 @@ const AddEventScreen: FC = () => {
                       <Select.Item label="Spikeball" value="Spikeball" />
                       <Select.Item label="Tennis" value="Tennis" />
                       <Select.Item label="Volleyball" value="Volleyball" />
+                      <Select.Item label="Yoga" value="Yoga" />
                       <Select.Item label="Other" value="Other" />
                     </Select>
                     {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
