@@ -600,7 +600,7 @@ const CardListComponent: FC<CardProps> = (props) => {
               height="10"
               accessibilityLabel="Choose the sport type for this event"
               placeholderTextColor={"#0A326D"}
-              placeholder="Filter By Sports"
+              placeholder="Filter By Sport"
               onValueChange={(text) => setSelectSport(text)}
               _selectedItem={{
                 bg: "black.300",
