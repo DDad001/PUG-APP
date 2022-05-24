@@ -32,7 +32,7 @@ const Notification = ({notification, getNotifications}: any) => {
 
   useEffect(() => {
     getUser();
-  })
+  }, [])
 
   const getUser = async () => {
     let userData = await GetUserById(notification.personWhoLikedId)
@@ -42,10 +42,8 @@ const Notification = ({notification, getNotifications}: any) => {
   const deleteNotification = () => {
     setDisableBtn(true);
     DeleteNotification(notification.id).then(() => {
-      getNotifications();
-    });
-    //setUpdateNotificationsScreen(true);
-    
+      setUpdateNotificationsScreen(true);
+    });    
   }
 
   const swipeRight = (progress: Animated.AnimatedInterpolation, dragX: Animated.AnimatedInterpolation) => {
