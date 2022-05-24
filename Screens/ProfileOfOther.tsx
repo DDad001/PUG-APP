@@ -63,6 +63,7 @@ import baseball from "../assets/baseball.jpg";
 import badminton from "../assets/badminton.jpg";
 import tennis from "../assets/tennis.jpg";
 import yoga from "../assets/yoga.jpg";
+import skateboarding from "../assets/SkateboardEvent.jpg";
 import pugEvent from "../assets/pugEvent.png";
 import { createOpenLink } from "react-native-open-maps";
 
@@ -182,6 +183,8 @@ const EventItem= ({event, navigation, sportOfEvent} :any) => {
                                                           <Image source={volleyballevent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
                                                           : sportOfEvent === "Yoga" ?
                                                           <Image source={yoga} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                          : sportOfEvent === "SkateBoarding" ?
+                                                          <Image source={skateboarding} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
                                                           :
                                                           <Image source={pugEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
             }

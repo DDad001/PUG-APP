@@ -65,6 +65,7 @@ import baseball from "../assets/baseball.jpg";
 import badminton from "../assets/badminton.jpg";
 import tennis from "../assets/tennis.jpg";
 import yoga from "../assets/yoga.jpg";
+import skatebaording from "../assets/SkateboardEvent.jpg";
 import pugEvent from "../assets/pugEvent.png";
 import EventDisplayedImageComponent from "../Components/EventDisplayedImageComponent";
 
@@ -384,6 +385,11 @@ const OtherUsersEvent: FC<Props> = ({ navigation, route }) => {
                                                           </ImageBackground>
                                                           : eventItems.sportOfEvent === "Yoga" ?
                                                           <ImageBackground source={yoga} resizeMode="cover" style={{ height: 250 }}>
+                                                            <EventDisplayedImageComponent />
+                                                          </ImageBackground>
+                                                          :
+                                                          eventItems.sportOfEvent === "SkateBoarding" ?
+                                                          <ImageBackground source={skatebaording} resizeMode="cover" style={{ height: 250 }}>
                                                             <EventDisplayedImageComponent />
                                                           </ImageBackground>
                                                           :
