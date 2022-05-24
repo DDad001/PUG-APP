@@ -344,7 +344,9 @@ const CardListComponent: FC<CardProps> = (props) => {
     let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
     let presentEvents: any;
     //get events from the state the user is in!
-    presentEvents = displayEvents.filter((event: any, idx: number) => isItAPresentDay(event['dateOfEvent']) == true && userItems["state"] == displayEvents[idx]["stateOfEvent"].toUpperCase());
+    //additional filter code, events in the state
+    //          == true && userItems["state"] == displayEvents[idx]["stateOfEvent"].toUpperCase()
+    presentEvents = displayEvents.filter((event: any, idx: number) => isItAPresentOrFutureDay(event['dateOfEvent']));
     setAllEvents(presentEvents);
     let numToDisplay = fetchedNotifications.length - numberOfNotifications
     if(numToDisplay == 0){
@@ -354,6 +356,30 @@ const CardListComponent: FC<CardProps> = (props) => {
     }
     
 
+  }
+
+  function isItAPresentOrFutureDay(date: string){
+    let today: any = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; 
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return date >= today;
+  }
+
+  function isItAFutureDay(date: string){
+    let today: any = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; 
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return date > today;
   }
 
   function isItAPresentDay(date: string){
@@ -401,7 +427,8 @@ const CardListComponent: FC<CardProps> = (props) => {
 
   const closeMenu = () => setVisible(false);
   const [input, setInput] = useState("")
-  const [selectSport, setSelectSport] = useState("")
+  const [selectSport, setSelectSport] = useState("");
+  const [selectTimeFrame, setSelectTimeFrame] = useState("");
 
 
   let [fontsLoaded, error] = useFonts({
@@ -449,19 +476,69 @@ const CardListComponent: FC<CardProps> = (props) => {
 
     //this query is done when
     let searchData: any;
-    if(selectSport != "No Filters"){
-      searchData = allEvents.filter((item:any) => {
-        return(
-          item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase())
-        )
-      });
-    }else{
-      searchData = allEvents.filter((item:any) => {
-        return(
-          item.cityOfEvent.toLowerCase().includes(input.toLowerCase())
-        )
-      });
+      function NoFilters(timeFrame: string){
+        if(selectSport != "No Filters"){
+          searchData = allEvents.filter((item:any, idx: number) => {
+            return(
+              item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase()) 
+            )
+          });
+        }else{
+          searchData = allEvents.filter((item:any) => {
+            return(
+              item.cityOfEvent.toLowerCase().includes(input.toLowerCase())
+            )
+          });
+        }
+      }
+
+      function presentDayEvents (timeFrame: string){
+        if(selectSport != "No Filters"){
+          searchData = allEvents.filter((item:any) => {
+            return(
+              item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase()) && isItAPresentDay(item["dateOfEvent"]) == true
+            )
+          });
+        }else{
+          searchData = allEvents.filter((item:any) => {
+            return(
+              item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && isItAPresentDay(item["dateOfEvent"]) == true
+            )
+          });
+        }
+      }
+
+      function futureDayEvents (timeFrame: string){
+        if(selectSport != "No Filters"){
+          searchData = allEvents.filter((item:any) => {
+            return(
+              item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase()) && isItAFutureDay(item["dateOfEvent"]) == true
+            )
+          });
+        }else{
+          searchData = allEvents.filter((item:any) => {
+            return(
+              item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && isItAFutureDay(item["dateOfEvent"]) == true
+            )
+          });
+        }
+      }    
+
+    switch(selectTimeFrame){
+
+      case "PresentEvents":
+        presentDayEvents(selectTimeFrame);
+        break;
+
+      case "FutureEvents":
+        futureDayEvents(selectTimeFrame);
+        break;
+
+      default: 
+        NoFilters(selectTimeFrame);
+        break;
     }
+
 
   return (
     <>
@@ -482,7 +559,45 @@ const CardListComponent: FC<CardProps> = (props) => {
         </TouchableHighlight>
       </View>
 
-      <View style={{ flex: 0, alignItems: "flex-end", justifyContent: "center", marginTop: 20, marginBottom: 5 }}>
+      <View style={{ flex: 0, flexDirection: 'row', justifyContent: "space-between", marginTop: 20, marginBottom: 5 }}>
+      <View style={{marginLeft: 10}}>
+          <Box
+            maxW="155"
+            borderRadius={8}
+            style={{
+              backgroundColor: "#E8F1FF",
+              shadowColor: "black",
+              shadowOffset: { width: -2, height: 4 },
+              shadowOpacity: 0.5,
+              shadowRadius: 3,
+            }}
+          >
+            <Select
+              width="150"
+              height="10"
+              accessibilityLabel="Choose the sport type for this event"
+              placeholderTextColor={"#0A326D"}
+              placeholder="Filter By Time"
+              onValueChange={(text) => setSelectTimeFrame(text)}
+              _selectedItem={{
+                bg: "black.300",
+                endIcon: <CheckIcon size={5} color="#3B567C" />,
+              }}
+              borderWidth="0"
+              fontFamily={"Roboto_500Medium"}
+              fontSize={15}
+              color={"#0A326D"}
+            >
+              
+                <Select.Item label="All Events" value="No Filters" />
+                <Select.Item label="Present Day Events" value="PresentEvents" />
+                <Select.Item label="Future Events" value="FutureEvents" />
+            </Select>
+            {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+            Please make a selection!
+        </FormControl.ErrorMessage> */}
+          </Box>
+        </View>
         <View style={{ marginRight: 10 }}>
           <Box
             maxW="155"
@@ -500,7 +615,7 @@ const CardListComponent: FC<CardProps> = (props) => {
               height="10"
               accessibilityLabel="Choose the sport type for this event"
               placeholderTextColor={"#0A326D"}
-              placeholder="Filter Sports"
+              placeholder="Filter By Sports"
               onValueChange={(text) => setSelectSport(text)}
               _selectedItem={{
                 bg: "black.300",
