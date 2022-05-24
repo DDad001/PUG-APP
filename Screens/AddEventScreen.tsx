@@ -59,6 +59,16 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 
+import {
+  en,
+  // nl,
+  // de,
+  // pl,
+  // pt,
+  //enGB,
+  registerTranslation,
+} from 'react-native-paper-dates'
+registerTranslation('en', en)
 import DateField from "react-native-datefield";
 import { DatePickerModal } from "react-native-paper-dates";
 import { TimePickerModal } from "react-native-paper-dates";
@@ -318,7 +328,8 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
       eventTime == "" ||
       eventDetails == "" ||
       eventAddress == "" ||
-      eventState == ""
+      eventState == "" ||
+      eventCity == ""
     ) {
       Errortoast.show({
         placement: "top",

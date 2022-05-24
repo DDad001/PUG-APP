@@ -35,6 +35,16 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
+import {
+  en,
+  // nl,
+  // de,
+  // pl,
+  // pt,
+  //enGB,
+  registerTranslation,
+} from 'react-native-paper-dates'
+registerTranslation('en', en)
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import BasketballEvent from "../assets/BasketballEvent.jpg";
 import soccer from "../assets/soccer.jpg";
@@ -91,7 +101,7 @@ const YourEventScreen: FC = () => {
   //dummy usestates!
   const [eventDate, setEventDate] = useState<any>(eventItems.dateOfEvent);
   const [eventTime, setEventTime] = useState<any>(eventItems.timeOfEvent);
-  const [eventState, setEventState] = useState<string>(eventItems.stateOfEvent);
+  const [eventState, setEventState] = useState<string>(eventItems.stateOfEvent.toUpperCase());
   const [eventCity, setEventCity] = useState<string>(eventItems.cityOfEvent);
 
   const [disableBtn, setDisableBtn] = useState(false);
@@ -109,7 +119,7 @@ const YourEventScreen: FC = () => {
       ImageOfEvent: eventItems.image,
       AddressOfEvent: eventAddress,
       CityOfEvent: eventCity,
-      StateOfEvent: eventState,
+      StateOfEvent: eventState.toLowerCase(),
       isActive: true,
       IsDeleted: false
     }
@@ -128,7 +138,7 @@ const YourEventScreen: FC = () => {
       isAddressValid = true;
     }
 
-    let citiesArr:any = await GetCitiesByState(eventState);
+    let citiesArr:any = await GetCitiesByState(eventState.toLowerCase());
     let cityNames: string[] = [];
 
     for(let i = 0; i <citiesArr.length; i++){
@@ -190,10 +200,10 @@ const YourEventScreen: FC = () => {
     {stateInitial: "wi", stateName: "Wisconsin"},
     {stateInitial: "wy", stateName: "Wyoming"},]
 
-    stateFound = statesArr.filter(element => element.stateInitial === eventState);
+    stateFound = statesArr.filter(element => element.stateInitial === eventState.toLowerCase());
     console.log(stateFound);
 
-    if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == ""){
+    if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == "" || eventCity == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
     }else if(regex.test(eventCity) == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: event city must include characters only!</Box>;}});
@@ -205,7 +215,7 @@ const YourEventScreen: FC = () => {
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the US!</Box>;}});
     }
     //Added validation to check if the address is inside the state the user themself specified
-    else if(eventState != stateFound[0]["stateInitial"]){
+    else if(eventState.toLowerCase() != stateFound[0]["stateInitial"]){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the state you specified</Box>;}});
     }
     //Added validation to check if the address is inside the city the user themself specified
@@ -213,6 +223,9 @@ const YourEventScreen: FC = () => {
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the city you specified</Box>;}});
     }else if(!cityNames.includes(eventCity)){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
+    } else if(eventItems.sportOfEvent == eventSport && eventItems.nameOfEvent == nameOfEvent && eventItems.dateOfEvent == eventDate && eventItems.timeOfEvent == eventTime && eventItems.descriptionOfEvent == eventDetails && eventItems.addressOfEvent == eventAddress && eventItems.stateOfEvent == eventState.toLowerCase() && eventItems.cityOfEvent == eventCity){
+      //check if the save changes event is the exact same to what was previously saved into the database
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You did not make any changes to your event!</Box>;}});
     }else{
       UpdateEventItem(edittedEvent);
       console.log("All good G!")
@@ -228,7 +241,7 @@ const YourEventScreen: FC = () => {
     setTimeout(() => {
       setDisableBtn(false);
       console.log("enabled")
-    }, 2000)
+    }, 2000);
   }
 
 
@@ -238,14 +251,14 @@ const YourEventScreen: FC = () => {
   }, [setVisible])
 
   const onChange = React.useCallback(({ date }) => {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       
-    setVisible(false)
+    setVisible(false);
     let d = date.toString();
-    let splArr = d.split(" ")
-    let month = splArr.slice(1, 2).join(" ")
-    let day = splArr.slice(2, 3).join(" ")
-    let year = splArr.slice(3, 4).join(" ")
+    let splArr = d.split(" ");
+    let month = splArr.slice(1, 2).join(" ");
+    let day = splArr.slice(2, 3).join(" ");
+    let year = splArr.slice(3, 4).join(" ");
     month = months.indexOf(month);
     setEventDate( month+1+'/'+day +'/'+year );
   }, [])
@@ -253,7 +266,7 @@ const YourEventScreen: FC = () => {
 
   const [showTimePicker, setShowTimePicker] = React.useState(false)
   const onCancel = React.useCallback(() => {
-    setShowTimePicker(false)
+    setShowTimePicker(false);
   }, [setShowTimePicker])
 
   const onApproved= React.useCallback(
@@ -272,10 +285,10 @@ const YourEventScreen: FC = () => {
         morningOrEvening = "am";
       }
       if(minute < 10){
-        minute = '0'+minute
+        minute = '0'+minute;
       }
       if(hour == 0){
-        hour = 12
+        hour = 12;
       }
       let time = (hour +":" + minute + ' '+morningOrEvening);
       
@@ -650,7 +663,7 @@ const YourEventScreen: FC = () => {
                       <Select
                         minWidth="150"
                         minHeight="53"
-                        accessibilityLabel="Choose Service"
+                        accessibilityLabel="Select the state your event takes place"
                         placeholderTextColor={"#3B567C"}
                         placeholder={eventState}
                         _selectedItem={{
@@ -731,7 +744,7 @@ const YourEventScreen: FC = () => {
               </View>
 
               {/* Add the create event button here */}
-              <View style={{ flex: 1, alignItems: "center", marginTop: 30 }}>
+              <View style={{ flex: 1, alignItems: "center", marginTop: 30, marginBottom: 40 }}>
                 <Pressable
                   onPress={() => HandleEventChanges()}
                   accessibilityLabel="Click this button to create an event"

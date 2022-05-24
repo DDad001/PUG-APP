@@ -48,6 +48,17 @@ import {
   Lato_900Black_Italic,
 } from "@expo-google-fonts/lato";
 
+import {
+  en,
+  // nl,
+  // de,
+  // pl,
+  // pt,
+  //enGB,
+  registerTranslation,
+} from 'react-native-paper-dates'
+registerTranslation('en', en)
+
 import { Box, CheckIcon, FormControl, Select, HStack, Checkbox, Center, Modal, Button, VStack, NativeBaseProvider, Input, Stack, useToast } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 import { DatePickerModal } from 'react-native-paper-dates';
