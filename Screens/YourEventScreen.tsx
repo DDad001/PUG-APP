@@ -731,7 +731,7 @@ const YourEventScreen: FC = () => {
               </View>
 
               {/* Add the create event button here */}
-              <View style={{ flex: 1, alignItems: "center", marginTop: 30 }}>
+              <View style={{ flex: 1, alignItems: "center", marginTop: 30, marginBottom: 40 }}>
                 <Pressable
                   onPress={() => HandleEventChanges()}
                   accessibilityLabel="Click this button to create an event"
