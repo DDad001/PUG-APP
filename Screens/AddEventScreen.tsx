@@ -318,7 +318,8 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
       eventTime == "" ||
       eventDetails == "" ||
       eventAddress == "" ||
-      eventState == ""
+      eventState == "" ||
+      eventCity == ""
     ) {
       Errortoast.show({
         placement: "top",
