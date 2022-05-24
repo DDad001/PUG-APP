@@ -431,7 +431,7 @@ return (
       </View>
 
       {/* Flex losses all meaning when scroll view is used! Disregard logic with flex below! */}
-      <View style={{ flex: 0.2, alignItems: "center", marginTop: 20, marginBottom:20}}>
+      <View style={{ flex: 0.2, alignItems: "center", marginTop: 20, marginBottom:40}}>
         <Pressable
           style={{
             backgroundColor: "rgba(10, 50, 109, 1)",
