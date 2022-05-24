@@ -174,6 +174,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
           <TextInput
             style={styles.input}
             onChangeText={(text) => setUsername(text)}
+            maxLength={15}
             value={Username}
             placeholder="Username"
             keyboardType="default"

@@ -441,14 +441,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
   };
 
 
-  const displayShorterName = (name : string) => {
-    let editedName: string = "";
-    for(let i = 0; i < 51; i++){
-      editedName += name[i];
-    }
-    console.log(editedName)
-    return editedName;
-  }
+ 
 
   
   // const openCamera = async () => {
@@ -541,8 +534,8 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
             {/* image picker goes here */}
             <ImageHandler/>
           <View style={{justifyContent:'center', flexDirection:'row'}}>
-                <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{displayUserName.length <= 30 ? displayUserName + `, ${displayUserAge}` : displayShorterName(displayUserName) + `, ${displayUserAge}`} </Text>
-                {/* <Text style={{marginTop: 20, color:'white', fontFamily: "Lato_700Bold", fontSize: 19, fontWeight: "bold"}}>{displayUserAge}</Text> */}
+                <Text style={{marginTop: 20, color:'white', marginLeft:2, fontFamily: "Lato_900Black", fontSize: 19, fontWeight: "bold"}}>{`${displayUserName},`} </Text>
+                <Text style={{marginTop: 20, color:'white', fontFamily: "Lato_700Bold", fontSize: 19, fontWeight: "bold"}}>{displayUserAge}</Text>
           </View>
 
           <View style={{justifyContent:'center', flexDirection:'row'}}>
