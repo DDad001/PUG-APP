@@ -457,7 +457,8 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
  return (
      <>
     <View style={styles.mainContainer}>
-         <ImageBackground source={SoccerField} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
+      <ImageBackground source={SoccerField} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
+     <ScrollView style={{flex: 1}}>
           <View style={{alignItems:'center', marginTop:30}}>
             {
               viewUserProfile.image === null ? <Ionicons name="person-circle-sharp" size={115} style={{ marginTop:25}} color="white" />
@@ -519,7 +520,8 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
             
 
    </SafeAreaView>
-          </ImageBackground>
+    </ScrollView>
+      </ImageBackground>
     </View>
      </>
  )   
