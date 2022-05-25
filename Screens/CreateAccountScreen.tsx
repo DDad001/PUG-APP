@@ -322,7 +322,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
                 />
                 <Text style={{
                   marginTop: 5,
-                  marginBottom: 10,
+                  marginBottom: 13,
                   color: "white",
                   fontFamily: "Roboto_400Regular",
                   fontSize: 15,
