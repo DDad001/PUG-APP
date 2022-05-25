@@ -145,11 +145,6 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
   return (
     
     <View style={styles.card}>
-      <Pressable onPress={() => {
-      console.log('pressed');
-      handleSavedEvent();
-      navigation.navigate('YourActiveEvent')
-    }}>
   <View style={styles.cardContent}>
       <View style={{ flexDirection: 'row', }}>
       {
@@ -238,7 +233,16 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     
           <Text style={{marginTop:10, marginLeft: 4, fontFamily: "Lato_700Bold", fontSize:13 }}>{nameOfEvent} </Text>
           <Text style={{marginTop:5, marginLeft:4, fontSize:11, fontFamily: 'Lato_400Regular'}}>{addressOfEvent}</Text>
-          <View style={{flexDirection:'row', justifyContent:'flex-end', marginTop:25, marginLeft: 10 }}>
+          <View style={{flexDirection:'row', marginTop:25, justifyContent: 'space-between' }}>
+            <Pressable onPress={() => {
+              console.log('pressed');
+              handleSavedEvent();
+              navigation.navigate('YourActiveEvent');
+            }}>
+              <View style={{backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
+                <Text style={{ alignSelf: 'center',marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Edit Event</Text>
+              </View>
+            </Pressable>
             <Pressable onPress={() => {
               setDisableBtn(true);
               console.log("Removed")
@@ -246,17 +250,16 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
               setUpdateScreen(true);
               setUpdateEventScreen(true);
               setUpdateProfileScreen(true);
-              setUpdateProfileOther(true)
+              setUpdateProfileOther(true);
             }} 
             disabled={disableBtn}
             >
-              <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
+              <View style={{backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
                 <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
               </View>
             </Pressable>
           </View>
   </View>
-  </Pressable>
 </View>
    
 
