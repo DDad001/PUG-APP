@@ -321,27 +321,109 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
       (element) => element.stateInitial === eventState
     );
 
-    if (
-      eventSport == "" ||
-      nameOfEvent == "" ||
-      eventDate == "" ||
-      eventTime == "" ||
-      eventDetails == "" ||
-      eventAddress == "" ||
-      eventState == "" ||
-      eventCity == ""
-    ) {
+    if (eventSport == "" ) {
       Errortoast.show({
         placement: "top",
         render: () => {
           return (
             <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>
-              Error: all fields need to be filled!
+              Error: You must select a sport to create an event!
             </Box>
           );
         },
       });
-    } else if (regex.test(eventCity) == false) {
+    } 
+    
+    else if (nameOfEvent == "" ) {
+      Errortoast.show({
+        placement: "top",
+        render: () => {
+          return (
+            <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>
+              Error: You must include a name for the event being created
+            </Box>
+          );
+        },
+      });
+    } 
+
+    else if (eventDate == "" ) {
+      Errortoast.show({
+        placement: "top",
+        render: () => {
+          return (
+            <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>
+              Error: You must include a date for the event being created
+            </Box>
+          );
+        },
+      });
+    } 
+
+    else if (eventTime == "" ) {
+      Errortoast.show({
+        placement: "top",
+        render: () => {
+          return (
+            <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>
+              Error: You must include a time for the event being created
+            </Box>
+          );
+        },
+      });
+    } 
+    
+    else if (eventDetails == "" ) {
+      Errortoast.show({
+        placement: "top",
+        render: () => {
+          return (
+            <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>
+              Error: Provide some details for the event being created
+            </Box>
+          );
+        },
+      });
+    } 
+
+    else if (eventAddress == "" ) {
+      Errortoast.show({
+        placement: "top",
+        render: () => {
+          return (
+            <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>
+              Error: You must include an address for the event being created
+            </Box>
+          );
+        },
+      });
+    } 
+    else if (eventState == "" ) {
+      Errortoast.show({
+        placement: "top",
+        render: () => {
+          return (
+            <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>
+              Error: You must include the state in which the event will be held
+            </Box>
+          );
+        },
+      });
+    } 
+    else if (eventCity == "" ) {
+      Errortoast.show({
+        placement: "top",
+        render: () => {
+          return (
+            <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>
+              Error: You must include the city in which the event will be held
+            </Box>
+          );
+        },
+      });
+    } 
+
+     else if (regex.test(eventCity) == false) {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -352,7 +434,8 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
           );
         },
       });
-    } else if (obtainedAddress.length < 1) {
+    } 
+    else if (obtainedAddress.length < 1) {
       Errortoast.show({
         placement: "top",
         render: () => {

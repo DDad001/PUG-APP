@@ -223,7 +223,8 @@ const YourEventScreen: FC = () => {
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the city you specified</Box>;}});
     }else if(!cityNames.includes(eventCity)){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
-    } else if(eventItems.sportOfEvent == eventSport && eventItems.nameOfEvent == nameOfEvent && eventItems.dateOfEvent == eventDate && eventItems.timeOfEvent == eventTime && eventItems.descriptionOfEvent == eventDetails && eventItems.addressOfEvent == eventAddress && eventItems.stateOfEvent == eventState.toLowerCase() && eventItems.cityOfEvent == eventCity){
+    }  
+    else if(eventItems.sportOfEvent == eventSport && eventItems.nameOfEvent == nameOfEvent && eventItems.dateOfEvent == eventDate && eventItems.timeOfEvent == eventTime && eventItems.descriptionOfEvent == eventDetails && eventItems.addressOfEvent == eventAddress && eventItems.stateOfEvent == eventState.toLowerCase() && eventItems.cityOfEvent == eventCity){
       //check if the save changes event is the exact same to what was previously saved into the database
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You did not make any changes to your event!</Box>;}});
     }else{
@@ -263,6 +264,10 @@ const YourEventScreen: FC = () => {
     setEventDate( month+1+'/'+day +'/'+year );
   }, [])
   const date = new Date()
+  
+  let currentYear =  new Date().getFullYear();
+  let currentHour = new Date().getHours();
+  let currentMinutes = new Date().getMinutes();
 
   const [showTimePicker, setShowTimePicker] = React.useState(false)
   const onCancel = React.useCallback(() => {
@@ -549,8 +554,9 @@ const YourEventScreen: FC = () => {
                   <DatePickerModal
                     mode="single"
                     validRange={{
-                      startDate: new Date()
-                    }}
+                      startDate: new Date(),
+                      endDate: new Date(currentYear,11,31)
+                      }}
                     visible={visible}
                     onDismiss={onDismiss}
                     date={date}
@@ -558,7 +564,8 @@ const YourEventScreen: FC = () => {
                     saveLabel="Save" // optional
                     label="Select date" // optional
                     animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
-                    locale={'en'}// optional, default is automically detected by your system  
+                    locale={'en'}// optional, default is automically detected by your system
+                      
                     />
                   <Pressable style={{ backgroundColor: 'white', width: 150, height: 55, borderRadius: 20, marginLeft: 16, shadowOffset: { width: -2, height: 4 }, shadowOpacity: 0.5, shadowRadius: 3 }} onPress={() => setVisible(true)}>
                     <View style={{ flexDirection: 'row', shadowColor: "black", }}>
@@ -573,8 +580,8 @@ const YourEventScreen: FC = () => {
                   visible={showTimePicker}
                   onDismiss={onCancel}
                   onConfirm={onApproved}
-                  hours={12} // default: current hours
-                  minutes={14} // default: current minutes
+                  hours={currentHour} // default: current hours
+                  minutes={currentMinutes} // default: current minutes
                   label="Select time" // optional, default 'Select time'
                   cancelLabel="Cancel" // optional, default: 'Cancel'
                   confirmLabel="Ok" // optional, default: 'Ok'

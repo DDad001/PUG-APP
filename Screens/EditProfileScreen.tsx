@@ -14,7 +14,7 @@ import {
 registerTranslation('en', en)
 
 import { DatePickerModal } from "react-native-paper-dates";
-import { DeleteUser, GetUserById, UpdatePassword, UpdateUser } from "../Services/DataService";
+import { DeleteUser, GetCitiesByState, GetUserById, UpdatePassword, UpdateUser } from "../Services/DataService";
 import { Switch } from "react-native-paper";
 import AppLoading from "expo-app-loading";
 import UserContext  from '../Context/UserContext';
@@ -132,6 +132,12 @@ const EditProfileScreen: FC = () => {
          age--;
      }
  
+     let citiesArr: any = await GetCitiesByState(updatedState);
+    let cityNames: string[] = [];
+
+    for (let i = 0; i < citiesArr.length; i++) {
+      cityNames.push(citiesArr[i].name);
+    }
      var regex = /^[A-Za-z]+$/
      let FirstNameInput = regex.test(firstName);
      let LastNameInput = regex.test(lastName);
@@ -143,32 +149,39 @@ const EditProfileScreen: FC = () => {
  
      let result:any;
      //check if all the fields are empty!
-     if(firstName.length < 1 || lastName.length < 1 || username.length < 1 || city.length < 1 || updatedState.length < 1 || password.length < 1){
-       // Use zIndex on all of them go get the toast to appear in the front!
-       Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex:1}} bg="danger.500" px="5" py="1" rounded="sm" mb={5}>Error: all fields must be filled out!</Box>;}});
-     }
-     else if(FirstNameInput == false){
-       Errortoast.show({ placement:  "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: first name must include characters only</Box>;}});
-       //setShowModal(true);
-     }
-     else if(LastNameInput == false){
-       Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: last name must include characters only</Box>;}});
-       //setShowModal(true);
-     }
-     else if(username.length < 8 ){
-       Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username length is too small</Box>;}});
-       //setShowModal(true);
-     }
-     else if(age < 18){
-       Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: you must be 18 years or older to create an account</Box>;}});
-       //setShowModal(true);
-     }
-     else if(CityInput == false){
-       Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: city must include characters only</Box>;}});
-       //setShowModal(true);
-     }else if(password.length < 8){
-       Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: password length is too small</Box>;}});
-     }
+     if(firstName == ""){ 
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a first name to edit account</Box>;}});
+    }
+    else if(lastName == ""){ 
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a last name to edit account</Box>;}});
+    }
+    else if(FirstNameInput == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: first name must include characters only and no spaces</Box>;}});
+    }
+    else if(LastNameInput == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: last name must include characters only and no spaces</Box>;}});
+    }
+    else if(username.length < 8 ){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Enter in a username: username length must be at least 8 characters long</Box>;}});
+    }
+    else if(password.length < 8){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Enter in a new password: password length must be at least 8 characters long</Box>;}});
+    }
+    else if(age < 18){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: Date Of Birth: you must be 18 years or older to create an account</Box>;}});
+    }
+    else if(updatedState == ""){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a state to create an account</Box>;}});
+    } 
+    else if(city == ""){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a city to create an account</Box>;}});
+    } 
+    else if(CityInput == false){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: city field must include characters only</Box>;}});
+    } 
+    else if(!cityNames.includes(city)){
+      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
+    }
      else{
        result = await UpdateUser(edittedProfile);
        //console.log(result);
@@ -178,9 +191,9 @@ const EditProfileScreen: FC = () => {
        }else{
          Successtoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully updated!</Box>}});
          setShowModal(false);
-         setTimeout(() => {
-           UpdatePassword(userItems.id, password);
-         }, 1000)
+        //  setTimeout(() => {
+        //    UpdatePassword(userItems.id, password);
+        //  }, 500)
          let updatedUser = await GetUserById(userItems.id);
          setUserItems(updatedUser);
          setUpdateScreen(true);
@@ -188,10 +201,10 @@ const EditProfileScreen: FC = () => {
          setUpdateProfileScreen(true);
          setUpdateProfileOther(true)
        }
-       setTimeout(() => {
-        setDisableBtn(false);
-        console.log("enabled")
-      }, 2000)
+      //  setTimeout(() => {
+      //   setDisableBtn(false);
+      //   console.log("enabled")
+      // }, 2000)
      }
  
      // if(password != ""){
@@ -451,7 +464,7 @@ return (
             paddingRight: 60,
           }}
           onPress={handleEditProfile}
-          disabled={disableBtn}
+          // disabled={disableBtn}
         >
           <Text style={styles.SaveChangesBtnTxt}>Save Changes</Text>
         </Pressable>
