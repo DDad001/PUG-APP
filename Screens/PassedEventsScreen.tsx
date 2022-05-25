@@ -1,6 +1,7 @@
 import React, { FC, useState, useContext, useEffect } from "react";
 import { View, Text, StyleSheet, ImageBackground, Pressable, Image, FlatList, SafeAreaView } from "react-native";
 import tennis from "../assets/TennisRacket.png";
+import tennisPic from "../assets/tennis.jpg";
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -89,13 +90,12 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
     const [disableBtn, setDisableBtn] = useState(false);
 
     //set up deleting events
-   const handleRemoveEvent = (id: any) => {
+   const handleRemoveEvent = async (id: any) => {
      setDisableBtn(true);
-    DeleteEventItem(id);
+    await DeleteEventItem(id);
 
-    setTimeout(() => {
-      getAllEvents();
-    }, 1000)
+    getAllEvents();
+    
    }
 
     const longAddresses = (address: string) => {
@@ -155,7 +155,7 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
                                                   : sportOfEvent === "Spikeball" ?
                                                     <Image source={spikeball} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                     : sportOfEvent === "Tennis" ?
-                                                      <Image source={tennis} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                                      <Image source={tennisPic} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                       : sportOfEvent === "Lacrosse" ?
                                                         <Image source={lacrosse} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                         : sportOfEvent === "Volleyball" ?

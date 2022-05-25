@@ -39,11 +39,10 @@ const Notification = ({notification, getNotifications}: any) => {
     setUser(userData);
   }
 
-  const deleteNotification = () => {
+  const deleteNotification = async () => {
     setDisableBtn(true);
-    DeleteNotification(notification.id).then(() => {
-      setUpdateNotificationsScreen(true);
-    });    
+    await DeleteNotification(notification.id)
+    getNotifications();
   }
 
   const swipeRight = (progress: Animated.AnimatedInterpolation, dragX: Animated.AnimatedInterpolation) => {
@@ -137,7 +136,7 @@ const NotificationsScreen: FC = () => {
         style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}
       >
         <View style={styles.overlayContainer}>
-          <Text style={styles.NotificationsText}>Notifications</Text>
+          <Text style={styles.NotificationsText}>Your Notifications</Text>
           <FlatList
                 data={usersNotifications}
                 renderItem={renderItem}

@@ -354,13 +354,16 @@ const CardListComponent: FC<CardProps> = (props) => {
     //          == true && userItems["state"] == displayEvents[idx]["stateOfEvent"].toUpperCase()
     presentEvents = displayEvents.filter((event: any, idx: number) => isItAPresentOrFutureDay(event['dateOfEvent']));
     setAllEvents(presentEvents);
+    if(numberOfNotifications != 0){
     let numToDisplay = fetchedNotifications.length - numberOfNotifications
     if(numToDisplay == 0){
       setNotificationNumber(null);
     }else{
       setNotificationNumber(numToDisplay);
     }
-    
+  }else{
+    setNotificationNumber(null);
+  }
 
   }
 
@@ -575,7 +578,7 @@ const CardListComponent: FC<CardProps> = (props) => {
             >
               
                 <Select.Item label="All Events" value="No Filters" />
-                <Select.Item label="Present Day Events" value="PresentEvents" />
+                <Select.Item label="Events For Today" value="PresentEvents" />
                 <Select.Item label="Future Events" value="FutureEvents" />
             </Select>
             {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>

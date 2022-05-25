@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, ImageBackground, Pressable, Image, SafeAreaView, FlatList } from "react-native";
 import tennis from "../assets/TennisRacket.png";
+import tennisPic from "../assets/tennis.jpg";
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
@@ -248,11 +249,10 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
   const [disableBtn, setDisableBtn] = useState(false);
 
   const handleLiked = async () => {
-    setDisableBtn(true);
     await DeleteLikedEvent(userItems.id, id)
+    getLikedEventsByUser();
+    setDisableBtn(true);
     setIsLiked(false);
-    
-    await getLikedEventsByUser();
     setUpdateScreen(true);
     setUpdateProfileScreen(true);
   }
@@ -315,7 +315,7 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
                                                   : sportOfEvent === "Spikeball" ?
                                                     <Image source={spikeball} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                     : sportOfEvent === "Tennis" ?
-                                                      <Image source={tennis} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                                      <Image source={tennisPic} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                       : sportOfEvent === "Lacrosse" ?
                                                         <Image source={lacrosse} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                         : sportOfEvent === "Volleyball" ?
@@ -395,22 +395,15 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
     let eventsArr: object[] = [];
 
     let likedEvents = await GetLikedEventsByUserId(userItems.id)
-    
-    likedEvents.map((eventObj: any) => {
-      likedEventsIds.push(eventObj.eventId)
-    }) 
-
-     likedEventsIds.map(async eventId => {
-      let event = await GetEventItemById(eventId);
+    await likedEvents.map(async(eventObj: any) => {
+      let event = await GetEventItemById(eventObj.eventId);
+      
       if(event.id != 0){
         eventsArr.push(event);
+        setDisplayEvents(eventsArr)
       }
-    })
+    }) 
 
-    setTimeout(() => {
-      setDisplayEvents(eventsArr)
-    }, 1000)
-    
     //setDisplayEvents(result);
 
     
