@@ -171,54 +171,67 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
     if(newFirstName == ""){ 
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a first name to create an account</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(newLastName == ""){ 
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a last name to create an account</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(FirstNameInput == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: first name must include characters only and no spaces</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(LastNameInput == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: last name must include characters only and no spaces</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(newUsername.length < 8 ){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username length must be at least 8 characters long</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(newPassword.length < 8){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: password length must be at least 8 characters long</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(age < 18){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: Date Of Birth: you must be 18 years or older to create an account</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(state == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a state to create an account</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     } 
     else if(city == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a city to create an account</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     } 
     else if(CityInput == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: city field must include characters only</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     } 
     else if(!cityNames.includes(city)){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     } 
     else if(!isTermsOfServiceAccepted){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must Accept PUG's Terms of Service to create an account</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(!isOverAgeOf18){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must Accept that you are 18 years or Older to create an account</Box>;}});
       setDisableBtn(false);
+      setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else{
       result = await createAccount(userData);
@@ -226,6 +239,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
       if(!result){
         Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username has already been taken</Box>;}});
         setDisableBtn(false);
+        setCreateAccountBtnColor("rgba(10, 50, 109, 1)");
       }else{
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully created!</Box>}});
       navigation.navigate('Nav');

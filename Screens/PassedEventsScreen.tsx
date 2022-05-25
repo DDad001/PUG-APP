@@ -88,12 +88,12 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
     const { userItems } = useContext<any>(UserContext);
 
     const [disableBtn, setDisableBtn] = useState(false);
-
+    const [changeBtnColor, setChangeBtnColor] = useState("#0A326D")
     //set up deleting events
    const handleRemoveEvent = async (id: any) => {
      setDisableBtn(true);
+     setChangeBtnColor("gray");
     await DeleteEventItem(id);
-
     getAllEvents();
     
    }
@@ -207,7 +207,7 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
                   <Pressable onPress={() => handleRemoveEvent(id)} 
                     disabled={disableBtn}
                   >
-                    <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 2, padding:6, width:110, height:30 }} >
+                    <View style={{ backgroundColor:changeBtnColor, borderRadius: 2, overflow:'hidden', marginRight: 2, padding:6, width:110, height:30 }} >
                       <Text style={{marginLeft:10, color:'white', fontFamily:"Lato_400Regular"}}>Delete Event</Text>
                     </View>
                   </Pressable>

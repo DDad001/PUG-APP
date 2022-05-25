@@ -66,9 +66,11 @@ const FollowerItem = ({
   id,
   image,
   displayFollowing,
-  disableBtn
+  disableBtn,
+  changeBtnColor
 }: any) => {
   const { followingBool } = useContext<any>(UserContext);
+
 
   return (
     <View>
@@ -84,7 +86,7 @@ const FollowerItem = ({
 
           {followingBool ? (
             <Pressable
-              style={styles.unfollowBtn}
+              style={{ backgroundColor:changeBtnColor, borderRadius: 10, marginLeft: 15,}}
               onPress={() => handleUnfollow(id)}
               accessibilityLabel="Followers Button"
               disabled={disableBtn}
@@ -103,6 +105,7 @@ const FollowingScreen: FC = () => {
     useContext<any>(UserContext);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
   const [disableBtn, setDisableBtn] = useState(false);
+  const [changeBtnColor, setChangeBtnColor] = useState("#0A326D");
 
   useEffect(() => {
     getFollowing();
@@ -140,6 +143,7 @@ const FollowingScreen: FC = () => {
 
   const handleUnfollow = async (unfollowId: number) => {
     setDisableBtn(true);
+    setChangeBtnColor("gray");
     console.log("Deleted");
     await DeleteFollower(userItems.id, unfollowId);
 
@@ -158,6 +162,7 @@ const FollowingScreen: FC = () => {
         image={item.image}
         displayFollowing={displayFollowing}
         handleUnfollow={handleUnfollow}
+        changeBtnColor={changeBtnColor}
         disableBtn={disableBtn}
       />
     );
@@ -310,12 +315,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
     marginBottom: 5,
     marginLeft: 25,
-  },
-  unfollowBtn: {
-    backgroundColor: "#0A326D",
-    borderRadius: 10,
-    marginLeft: 15,
-    //marginRight: 55,
   },
   unfollowTxt: {
     color: "white",

@@ -97,7 +97,7 @@ const YourEventScreen: FC = () => {
   const [eventAddress, setEventAddress] = useState<string>(eventItems.addressOfEvent);
   const [eventHours, setEventHour] = useState<any>("");
   const [eventMinutes, setEventMinutes] = useState<any>("");
-  
+  const [saveChangesBtnColor, setSaveChangesBtnColor] = useState("rgba(10, 50, 109, 1)")
   //dummy usestates!
   const [eventDate, setEventDate] = useState<any>(eventItems.dateOfEvent);
   const [eventTime, setEventTime] = useState<any>(eventItems.timeOfEvent);
@@ -108,6 +108,7 @@ const YourEventScreen: FC = () => {
 
   const HandleEventChanges = async () => {
     setDisableBtn(true);
+    setSaveChangesBtnColor("gray");
     let edittedEvent = {
       Id: eventItems.id, //userId useContext
       UserID: userItems.id, 
@@ -205,28 +206,44 @@ const YourEventScreen: FC = () => {
 
     if(eventSport == "" || nameOfEvent == "" || eventDate == "" || eventTime == "" || eventDetails == "" || eventAddress == "" || eventState == "" || eventCity == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
+      setDisableBtn(false);
+      setSaveChangesBtnColor("rgba(10, 50, 109, 1)");
     }else if(regex.test(eventCity) == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: event city must include characters only!</Box>;}});
+      setDisableBtn(false);
+      setSaveChangesBtnColor("rgba(10, 50, 109, 1)");
     }else if(obtainedAddress.length < 1){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event!</Box>;}});
+      setDisableBtn(false);
+      setSaveChangesBtnColor("rgba(10, 50, 109, 1)");
     }
     //Added validation to check if the address is inside the United States
     else if(isAddressValid == false || countryCode != "us"){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the US!</Box>;}});
+      setDisableBtn(false);
+      setSaveChangesBtnColor("rgba(10, 50, 109, 1)");
     }
     //Added validation to check if the address is inside the state the user themself specified
     else if(eventState.toLowerCase() != stateFound[0]["stateInitial"]){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the state you specified</Box>;}});
+      setDisableBtn(false);
+      setSaveChangesBtnColor("rgba(10, 50, 109, 1)");
     }
     //Added validation to check if the address is inside the city the user themself specified
     else if(eventCity != obtainedAddress[0]["address"]["city"]){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid address for your event in the city you specified</Box>;}});
+      setDisableBtn(false);
+      setSaveChangesBtnColor("rgba(10, 50, 109, 1)");
     }else if(!cityNames.includes(eventCity)){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
+      setDisableBtn(false);
+      setSaveChangesBtnColor("rgba(10, 50, 109, 1)");
     }  
     else if(eventItems.sportOfEvent == eventSport && eventItems.nameOfEvent == nameOfEvent && eventItems.dateOfEvent == eventDate && eventItems.timeOfEvent == eventTime && eventItems.descriptionOfEvent == eventDetails && eventItems.addressOfEvent == eventAddress && eventItems.stateOfEvent == eventState.toLowerCase() && eventItems.cityOfEvent == eventCity){
       //check if the save changes event is the exact same to what was previously saved into the database
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You did not make any changes to your event!</Box>;}});
+      setDisableBtn(false);
+      setSaveChangesBtnColor("rgba(10, 50, 109, 1)");
     }else{
       UpdateEventItem(edittedEvent);
       console.log("All good G!")
@@ -756,7 +773,7 @@ const YourEventScreen: FC = () => {
                   onPress={() => HandleEventChanges()}
                   accessibilityLabel="Click this button to create an event"
                   style={{
-                    backgroundColor: "rgba(10, 50, 109, 1)",
+                    backgroundColor: saveChangesBtnColor,
                     borderRadius: 50,
                     paddingLeft: 60,
                     paddingRight: 60,

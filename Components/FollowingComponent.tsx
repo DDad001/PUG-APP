@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Text,
   ScrollView,
@@ -40,6 +40,8 @@ import {
 import Skier from "../assets/Skier.png";
 
 const FollowingComponent: FC = () => {
+  const [changeBtnColor, setChangeBtnColor] = useState("#0A326D");
+
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -76,7 +78,7 @@ const FollowingComponent: FC = () => {
           <Text style={styles.TextStyle}>Scott Morenzone </Text>
 
           <Pressable
-            style={styles.unfollowBtn}
+            style={{backgroundColor: changeBtnColor, borderRadius: 10, marginLeft: 15}}
             onPress={() => console.log("Login")}
             accessibilityLabel="Followers Button"
           >
@@ -119,12 +121,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontFamily: "Lato_300Light",
-  },
-  unfollowBtn: {
-    backgroundColor: "#0A326D",
-    borderRadius: 10,
-    marginLeft: 15,
-    //marginRight: 55,
   },
   unfollowTxt: {
     color: "white",
