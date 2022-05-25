@@ -90,6 +90,8 @@ const LoginScreen: FC<Props> = ({navigation}) => {
   const [show, setShow] = React.useState(false);
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
+  const [disableBtn, setDisableBtn] = useState<boolean>(false);
+  const [loginBtnBg, setLoginBtnBg] = useState("rgba(10, 50, 109, 1)");
 
   // interface LoginProps {
   //   Username:string;
@@ -97,6 +99,8 @@ const LoginScreen: FC<Props> = ({navigation}) => {
   // }
 
   const handleLogin = async () => {
+    setDisableBtn(true);
+    setLoginBtnBg("gray");
     let userData = { 
         Username: Username,
         Password: Password
@@ -104,6 +108,8 @@ const LoginScreen: FC<Props> = ({navigation}) => {
 
     if(Username == "" || Password == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
+      setDisableBtn(false);
+      setLoginBtnBg("rgba(10, 50, 109, 1)");
     }else{ 
       //if the user cannot get a token, incorrect username or password toast appears, otherwise if credentials are correct give token!
       let token = await LoginUser(userData);
@@ -114,11 +120,13 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         console.log("userItems1", userItems1);
         // let fetchedNotifications = await GetNotificationsByUserId(userItems1.id);
         // setUsersNotifications(fetchedNotifications.reverse());
-        navigation.navigate('Nav');
         setIsSwitchOn(isSwitchOn);
+        navigation.navigate('Nav');
       }else{
         console.log("incorrect credentials try")
         Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: incorrect password or username inputed!</Box>;}});
+        setDisableBtn(false);
+        setLoginBtnBg("rgba(10, 50, 109, 1)");
       }
   }
 }
@@ -190,8 +198,9 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         </View>
         <View style={{ flex: 0.15, alignItems: "center", marginTop: 45}}>
           <Pressable
+            disabled={disableBtn}
             style={{
-              backgroundColor: "rgba(10, 50, 109, 1)",
+              backgroundColor: loginBtnBg,
               borderRadius: 50,
               paddingLeft: 100, paddingRight: 100
             }}

@@ -428,7 +428,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
 
             <View style={{ flexDirection: 'column', flex: 0.93 }}>
               <Text style={{ marginLeft: 15, fontFamily: "Lato_700Bold", }}>Sport being played:</Text>
-              <Text style={{ marginLeft: 15, fontFamily: "Lato_400Regular", }}>{eventItems.sportOfEvent}</Text>
+              <Text style={{ marginLeft: 15, fontFamily: "Lato_400Regular", fontSize: 17}}>{eventItems.sportOfEvent}</Text>
             </View>
 
             <Pressable onPress={() => console.log('clicked')} style={{ marginLeft: 9 }}>
