@@ -92,6 +92,8 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
   const { userItems, setUpdateScreen, updateScreen, setEventItems, setNameContext, setUpdateProfileScreen, updateProfileScreen, viewUserProfile, setUpdateNotificationsScreen, setUpdateEventScreen, setUpdateProfileOther} = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState(false);
   const [disableBtn, setDisableBtn] = useState(false);
+  const [editEventBtnColor, setEditEventBtnColor] = useState("#0A326D")
+  const [removeBtnColor, setRemoveBtnColor] = useState("#0A326D")
   
   useEffect(() => {
     checkIfLiked();
@@ -137,6 +139,10 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
   }
 
   const handleSavedEvent = () => {
+    setEditEventBtnColor("gray");
+    setTimeout(() => {
+      setEditEventBtnColor("#0A326D");
+    }, 300)
     setEventItems(event);
     setNameContext(`${userItems.firstName} ${userItems.lastName}`);
   }
@@ -239,12 +245,13 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
               handleSavedEvent();
               navigation.navigate('YourActiveEvent');
             }}>
-              <View style={{backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
+              <View style={{backgroundColor: editEventBtnColor, borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
                 <Text style={{ alignSelf: 'center',marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Edit Event</Text>
               </View>
             </Pressable>
             <Pressable onPress={() => {
               setDisableBtn(true);
+              setRemoveBtnColor("gray");
               console.log("Removed")
               DeleteEventItem(id);
               setUpdateScreen(true);
@@ -254,7 +261,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
             }} 
             disabled={disableBtn}
             >
-              <View style={{backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
+              <View style={{backgroundColor:removeBtnColor, borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
                 <Text style={{marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Remove Event</Text>
               </View>
             </Pressable>

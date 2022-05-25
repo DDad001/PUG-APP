@@ -102,12 +102,14 @@ const EditProfileScreen: FC = () => {
  
    const [visible, setVisible] = React.useState<boolean>(false)
    const [show, setShow] = React.useState(false);
- 
+   const [EditAccountBtnColor, setEditAccountBtnColor] = useState("rgba(10, 50, 109, 1)")
+
    const Errortoast = useToast();
    const Successtoast = useToast();
    
    const handleEditProfile = async () => {
-      setDisableBtn(true);
+     setDisableBtn(true);
+     setEditAccountBtnColor("gray");
      let edittedProfile = {
        Id: userItems.id, //userId useContext
        FirstName: firstName,
@@ -151,42 +153,66 @@ const EditProfileScreen: FC = () => {
      //check if all the fields are empty!
      if(firstName == ""){ 
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a first name to edit account</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(lastName == ""){ 
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a last name to edit account</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(FirstNameInput == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: first name must include characters only and no spaces</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(LastNameInput == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: last name must include characters only and no spaces</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(username.length < 8 ){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Enter in a username: username length must be at least 8 characters long</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(password.length < 8){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Enter in a new password: password length must be at least 8 characters long</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(age < 18){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: Date Of Birth: you must be 18 years or older to create an account</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     }
     else if(updatedState == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a state to create an account</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     } 
     else if(city == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a city to create an account</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     } 
     else if(CityInput == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: city field must include characters only</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     } 
     else if(!cityNames.includes(city)){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
+      setDisableBtn(false);
+      setEditAccountBtnColor("rgba(10, 50, 109, 1)");
     }
      else{
        result = await UpdateUser(edittedProfile);
        //console.log(result);
        if(!result){
          Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username has already been taken</Box>;}});
+         setDisableBtn(false);
+         setEditAccountBtnColor("rgba(10, 50, 109, 1)");
          //setShowModal(true);
        }else{
          Successtoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully updated!</Box>}});
@@ -458,7 +484,7 @@ return (
       <View style={{ flex: 0.2, alignItems: "center", marginTop: 20, marginBottom:40}}>
         <Pressable
           style={{
-            backgroundColor: "rgba(10, 50, 109, 1)",
+            backgroundColor: EditAccountBtnColor,
             borderRadius: 50,
             paddingLeft: 60,
             paddingRight: 60,

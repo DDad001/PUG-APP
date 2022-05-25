@@ -149,6 +149,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
   const [eventSport, setEventSport] = useState<string>("");
   const [eventHours, setEventHour] = useState<string>("");
   const [eventMinutes, setEventMinutes] = useState<any>("");
+  const [CreateEventBtnColor, setCreateEventBtnColor] = useState("rgba(10, 50, 109, 1)");
   let currentYear = new Date().getFullYear();
   let currentHour = new Date().getHours();
   let currentMinutes = new Date().getMinutes();
@@ -225,6 +226,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
   );
 
   const HandleCreateEvent = async () => {
+    setCreateEventBtnColor("gray");
     setDisableBtn(true);
     console.log("disabled");
     let newEvent = {
@@ -332,6 +334,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } 
     
     else if (nameOfEvent == "" ) {
@@ -345,6 +349,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } 
 
     else if (eventDate == "" ) {
@@ -358,6 +364,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } 
 
     else if (eventTime == "" ) {
@@ -371,6 +379,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } 
     
     else if (eventDetails == "" ) {
@@ -384,6 +394,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } 
 
     else if (eventAddress == "" ) {
@@ -397,6 +409,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } 
     else if (eventState == "" ) {
       Errortoast.show({
@@ -409,6 +423,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } 
     else if (eventCity == "" ) {
       Errortoast.show({
@@ -421,6 +437,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } 
 
      else if (regex.test(eventCity) == false) {
@@ -434,6 +452,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } 
     else if (obtainedAddress.length < 1) {
       Errortoast.show({
@@ -446,6 +466,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     }
     //Added validation to check if the address is inside the United States
     else if (isAddressValid == false || countryCode != "us") {
@@ -459,6 +481,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     }
     //Added validation to check if the address is inside the state the user themself specified
     else if (eventState != stateFound[0]["stateInitial"]) {
@@ -473,6 +497,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     }
     //Added validation to check if the address is inside the city the user themself specified
     //This is additional data validation however it might be too strict to the point it will inconvenience and anger users!
@@ -488,6 +514,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     }
     //citites from a state are inside an array and checks if the city the user entered is in large arr!
     else if (!cityNames.includes(eventCity)) {
@@ -501,6 +529,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
           );
         },
       });
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } else {
       AddEventItem(newEvent);
       console.log("All good G!");
@@ -981,7 +1011,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
                   onPress={() => HandleCreateEvent()}
                   accessibilityLabel="Click this button to create an event"
                   style={{
-                    backgroundColor: "rgba(10, 50, 109, 1)",
+                    backgroundColor: CreateEventBtnColor,
                     borderRadius: 50,
                     paddingLeft: 60,
                     paddingRight: 60,

@@ -50,6 +50,6 @@ export default function useUser() {
     pushToken,
     setPushToken,
     isSwitchOn,
-    setIsSwitchOn
+    setIsSwitchOn,
   };
 }
