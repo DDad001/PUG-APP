@@ -121,6 +121,8 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         // let fetchedNotifications = await GetNotificationsByUserId(userItems1.id);
         // setUsersNotifications(fetchedNotifications.reverse());
         setIsSwitchOn(isSwitchOn);
+        setDisableBtn(false);
+        setLoginBtnBg("rgba(10, 50, 109, 1)");
         navigation.navigate('Nav');
       }else{
         console.log("incorrect credentials try")
@@ -129,6 +131,7 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         setLoginBtnBg("rgba(10, 50, 109, 1)");
       }
   }
+  
 }
 
   let [fontsLoaded, error] = useFonts({
