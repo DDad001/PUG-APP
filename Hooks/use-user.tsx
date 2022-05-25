@@ -14,7 +14,7 @@ export default function useUser() {
   const [followingBool, setFollowingBool] = useState<boolean>(false);
   const [updateEventScreen, setUpdateEventScreen] = useState<boolean>(false);
   const [updateNotificationsScreen, setUpdateNotificationsScreen] = useState<boolean>(false);
-  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const [isSwitchOn, setIsSwitchOn] = useState(true);
   const [numberOfNotifications, setNumberOfNotifications] = useState<number>(0);
   const [notificationsNumber, setNotificationNumber] = useState<any>(0);
 
