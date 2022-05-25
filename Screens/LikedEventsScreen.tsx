@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, ImageBackground, Pressable, Image, SafeAreaView, FlatList } from "react-native";
 import tennis from "../assets/TennisRacket.png";
+import tennisPic from "../assets/tennis.jpg";
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
@@ -315,7 +316,7 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
                                                   : sportOfEvent === "Spikeball" ?
                                                     <Image source={spikeball} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                     : sportOfEvent === "Tennis" ?
-                                                      <Image source={tennis} style={{ height: 100, width: 145, borderRadius: 8 }} />
+                                                      <Image source={tennisPic} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                       : sportOfEvent === "Lacrosse" ?
                                                         <Image source={lacrosse} style={{ height: 100, width: 145, borderRadius: 8 }} />
                                                         : sportOfEvent === "Volleyball" ?

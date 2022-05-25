@@ -575,7 +575,7 @@ const CardListComponent: FC<CardProps> = (props) => {
             >
               
                 <Select.Item label="All Events" value="No Filters" />
-                <Select.Item label="Present Day Events" value="PresentEvents" />
+                <Select.Item label="Events For Today" value="PresentEvents" />
                 <Select.Item label="Future Events" value="FutureEvents" />
             </Select>
             {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
