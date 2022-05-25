@@ -16,7 +16,7 @@ export default function useUser() {
   const [updateNotificationsScreen, setUpdateNotificationsScreen] = useState<boolean>(false);
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const [numberOfNotifications, setNumberOfNotifications] = useState<number>(0);
-  const [notificationsNumber, setNotificationNumber] = useState<any>(null);
+  const [notificationsNumber, setNotificationNumber] = useState<any>(0);
 
   return {
     nameContext,
