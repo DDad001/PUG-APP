@@ -90,13 +90,12 @@ const EventItem = ({id, nameOfEvent, EventHandler, ProfileHandler, addressOfEven
     const [disableBtn, setDisableBtn] = useState(false);
 
     //set up deleting events
-   const handleRemoveEvent = (id: any) => {
+   const handleRemoveEvent = async (id: any) => {
      setDisableBtn(true);
-    DeleteEventItem(id);
+    await DeleteEventItem(id);
 
-    setTimeout(() => {
-      getAllEvents();
-    }, 1000)
+    getAllEvents();
+    
    }
 
     const longAddresses = (address: string) => {

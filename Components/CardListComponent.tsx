@@ -354,13 +354,16 @@ const CardListComponent: FC<CardProps> = (props) => {
     //          == true && userItems["state"] == displayEvents[idx]["stateOfEvent"].toUpperCase()
     presentEvents = displayEvents.filter((event: any, idx: number) => isItAPresentOrFutureDay(event['dateOfEvent']));
     setAllEvents(presentEvents);
+    if(numberOfNotifications != 0){
     let numToDisplay = fetchedNotifications.length - numberOfNotifications
     if(numToDisplay == 0){
       setNotificationNumber(null);
     }else{
       setNotificationNumber(numToDisplay);
     }
-    
+  }else{
+    setNotificationNumber(null);
+  }
 
   }
 
