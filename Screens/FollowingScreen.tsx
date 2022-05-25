@@ -113,23 +113,28 @@ const FollowingScreen: FC = () => {
       let followingArr: any[] = [];
       let following = await GetFollowingByUserId(userItems.id);
       //console.log(followers);
-      await following.map(async (person: any) => {
+      following.map(async (person: any) => {
         let follower = await GetUserById(person.followerId);
         followingArr.push(follower);
         //console.log(follower);
-        setDisplayFollowing(followingArr);
       });
 
+      setTimeout(() => {
+        setDisplayFollowing(followingArr);
+      }, 1000);
     } else {
       let followingArr: any[] = [];
       let following = await GetFollowingByUserId(viewUserProfile.id);
       //console.log(followers);
-      await following.map(async (person: any) => {
+      following.map(async (person: any) => {
         let follower = await GetUserById(person.followerId);
         followingArr.push(follower);
         //console.log(follower);
-        setDisplayFollowing(followingArr);
       });
+
+      setTimeout(() => {
+        setDisplayFollowing(followingArr);
+      }, 1000);
     }
   };
 
@@ -138,6 +143,7 @@ const FollowingScreen: FC = () => {
     console.log("Deleted");
     await DeleteFollower(userItems.id, unfollowId);
 
+    
     getFollowing();
     
     setUpdateProfileScreen(true);

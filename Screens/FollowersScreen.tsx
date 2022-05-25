@@ -96,10 +96,12 @@ const FollowersScreen: FC = () => {
       await followers.map(async (person: any) => {
         let follower: object = await GetUserById(person.userId);
         followersArr.push(follower);
-        setDisplayFollowers(followersArr);
         //console.log(follower);
       });
 
+      setTimeout(() => {
+        setDisplayFollowers(followersArr);
+      }, 1000);
     } else {
       let followersArr: any[] = [];
       let followers = await GetFollowersByUserId(viewUserProfile.id);
@@ -108,8 +110,11 @@ const FollowersScreen: FC = () => {
         let follower: object = await GetUserById(person.userId);
         followersArr.push(follower);
         //console.log(follower);
-        setDisplayFollowers(followersArr);
       });
+
+      setTimeout(() => {
+        setDisplayFollowers(followersArr);
+      }, 1000);
     }
   };
 
