@@ -53,6 +53,8 @@ interface SignOutProps{
 //You can't style a button have to use a pressable!
 const SignoutBtnComponent: FC<SignOutProps> = (props) => {
   const { setNotificationNumber } = useContext<any>(UserContext);
+  const [signOutBtnColor, setSignOutBtnColor] = useState("#0A326D");
+
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -95,14 +97,15 @@ const SignoutBtnComponent: FC<SignOutProps> = (props) => {
     <View style={styles.NotificationView}>
       <Pressable
         style={{
-          backgroundColor: "#7E90AB",
+          backgroundColor: signOutBtnColor,
           borderRadius: 50,
           alignItems: "center", 
           //justifyContent: "center",
           marginLeft: 100,
           marginRight: 100,
         }}
-        onPress={() => setShowSignoutModal(true)}
+        onPress={() => {setShowSignoutModal(true)
+          setSignOutBtnColor("gray")}}
         accessibilityLabel="Take Me Home"
       >
         <Text
@@ -122,7 +125,8 @@ const SignoutBtnComponent: FC<SignOutProps> = (props) => {
       <Center style={{ marginTop: 50, flexDirection: "row" }}>
         <Modal
           isOpen={showSignoutModal}
-          onClose={() => setShowSignoutModal(false)}
+          onClose={() => {setShowSignoutModal(false)
+            setSignOutBtnColor("#0A326D")}}
         >
           <Modal.Content maxWidth="400px">
             <Modal.CloseButton />
@@ -174,6 +178,7 @@ const SignoutBtnComponent: FC<SignOutProps> = (props) => {
               <Button
                 onPress={() => {
                   setShowSignoutModal(false);
+                  setSignOutBtnColor("#0A326D");
                 }}
                 style={{
                   backgroundColor: "#0A326D",
