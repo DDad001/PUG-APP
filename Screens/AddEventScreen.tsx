@@ -67,8 +67,8 @@ import {
   // pt,
   //enGB,
   registerTranslation,
-} from 'react-native-paper-dates'
-registerTranslation('en', en)
+} from "react-native-paper-dates";
+registerTranslation("en", en);
 import DateField from "react-native-datefield";
 import { DatePickerModal } from "react-native-paper-dates";
 import { TimePickerModal } from "react-native-paper-dates";
@@ -85,27 +85,27 @@ import { compareSpecificity } from "native-base/lib/typescript/hooks/useThemePro
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { State } from "react-native-gesture-handler";
 
-type RootStackParamList ={
-  CreateAccount: undefined,
-  login:undefined,
-  Nav: undefined,
-  event:{name:string},
-  profile:{name:string},
-  PastEvents:undefined,
-  LikedEvents:undefined,
-  settings:undefined,
-  following:undefined,
-  LookAtEvent:undefined,
-  OtherPersonsFollowers:undefined,
-  OtherPersonsFollowings:undefined,
-  YourActiveEvents:undefined,
-  followers:undefined,
-  FAQ:undefined,
-}
+type RootStackParamList = {
+  CreateAccount: undefined;
+  login: undefined;
+  Nav: undefined;
+  event: { name: string };
+  profile: { name: string };
+  PastEvents: undefined;
+  LikedEvents: undefined;
+  settings: undefined;
+  following: undefined;
+  LookAtEvent: undefined;
+  OtherPersonsFollowers: undefined;
+  OtherPersonsFollowings: undefined;
+  YourActiveEvents: undefined;
+  followers: undefined;
+  FAQ: undefined;
+};
 
 type Props = NativeStackScreenProps<RootStackParamList, "Nav">;
 
-const AddEventScreen: FC<Props> = ({navigation}) => {
+const AddEventScreen: FC<Props> = ({ navigation }) => {
   const { userItems, setUpdateScreen, setUpdateProfileScreen } =
     useContext<any>(UserContext);
   const [pickedImagePath, setPickedImagePath] = useState("");
@@ -149,7 +149,7 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
   const [eventSport, setEventSport] = useState<string>("");
   const [eventHours, setEventHour] = useState<string>("");
   const [eventMinutes, setEventMinutes] = useState<any>("");
-  let currentYear =  new Date().getFullYear();
+  let currentYear = new Date().getFullYear();
   let currentHour = new Date().getHours();
   let currentMinutes = new Date().getMinutes();
 
@@ -226,7 +226,7 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
 
   const HandleCreateEvent = async () => {
     setDisableBtn(true);
-    console.log("disabled")
+    console.log("disabled");
     let newEvent = {
       Id: 0,
       UserID: userItems.id,
@@ -407,7 +407,7 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
       });
     }
     //citites from a state are inside an array and checks if the city the user entered is in large arr!
-     else if (!cityNames.includes(eventCity)) {
+    else if (!cityNames.includes(eventCity)) {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -435,7 +435,6 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
       setUpdateScreen(true);
       setUpdateProfileScreen(true);
 
-
       //clear all the input fields once an event is created
       setEventSport("");
       setNameOfEvent("");
@@ -448,8 +447,8 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
     }
     setTimeout(() => {
       setDisableBtn(false);
-      console.log("enabled")
-    }, 2000)
+      console.log("enabled");
+    }, 2000);
   };
 
   const theme = {
@@ -501,13 +500,7 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
           style={{ height: "100%", width: "100%" }}
         >
           <View
-            style={{
-              flex: 0.1,
-              flexDirection: "row",
-              paddingLeft: 20,
-              marginTop: 35,
-              marginBottom: 3,
-            }}
+            style={styles.titleSection}
           >
             <View
               style={{
@@ -592,7 +585,10 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
                       <Select.Item label="Tennis" value="Tennis" />
                       <Select.Item label="Volleyball" value="Volleyball" />
                       <Select.Item label="Yoga" value="Yoga" />
-                      <Select.Item label="SkateBoarding" value="SkateBoarding" />
+                      <Select.Item
+                        label="SkateBoarding"
+                        value="SkateBoarding"
+                      />
                       <Select.Item label="Other" value="Other" />
                     </Select>
                     {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
@@ -622,34 +618,68 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
                 </Text>
               </View>
 
-              <View style={{flex: 1, marginBottom: 20, flexDirection:'row', marginTop:10}}>
-
-              <PaperProvider theme={theme}>
-                <View style={{flexDirection:'row',flex: 1}}>
-                  <View style={{flexDirection:'row',flex: 0.93}}>
-                <DatePickerModal 
-                  mode="single"
-                  validRange={{
-                   startDate: new Date(),
-                   endDate: new Date(currentYear,11,31)
-                   }}
-                  visible={visible}
-                  onDismiss={onDismiss}
-                  date={date}
-                  onConfirm={onChange}
-                  saveLabel="Save" // optional
-                  label="Select date" // optional
-                  animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
-                  locale={'en'}// optional, default is automically detected by your system  
-                  /> 
-                <Pressable style={{backgroundColor:'white', width:150, height:55, borderRadius:20, marginLeft:16, shadowOffset: { width: -2, height: 4 },shadowOpacity: 0.5,shadowRadius: 3}} onPress={()=> setVisible(true)}>
-                  <View style={{flexDirection:'row', shadowColor: "black",}}>
-                <MaterialCommunityIcons name="calendar-month" size={23} color="#0A326D" style={{ marginTop: 17, marginLeft: 20}} />
-                {/* If no date is chosen display Data, otherwise display the date chosen */}
-                <Text style={{color:'#3B567C', marginLeft:10, marginTop:19, fontSize:15}}>{eventDate === "" ? "Date" : eventDate}</Text>
-                  </View>
-                </Pressable>
-                  </View>
+              <View
+                style={{
+                  flex: 1,
+                  marginBottom: 20,
+                  flexDirection: "row",
+                  marginTop: 10,
+                }}
+              >
+                <PaperProvider theme={theme}>
+                  <View style={{ flexDirection: "row", flex: 1 }}>
+                    <View style={{ flexDirection: "row", flex: 0.93 }}>
+                      <DatePickerModal
+                        mode="single"
+                        validRange={{
+                          startDate: new Date(),
+                          endDate: new Date(currentYear, 11, 31),
+                        }}
+                        visible={visible}
+                        onDismiss={onDismiss}
+                        date={date}
+                        onConfirm={onChange}
+                        saveLabel="Save" // optional
+                        label="Select date" // optional
+                        animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
+                        locale={"en"} // optional, default is automically detected by your system
+                      />
+                      <Pressable
+                        style={{
+                          backgroundColor: "white",
+                          width: 150,
+                          height: 55,
+                          borderRadius: 20,
+                          marginLeft: 16,
+                          shadowOffset: { width: -2, height: 4 },
+                          shadowOpacity: 0.5,
+                          shadowRadius: 3,
+                        }}
+                        onPress={() => setVisible(true)}
+                      >
+                        <View
+                          style={{ flexDirection: "row", shadowColor: "black" }}
+                        >
+                          <MaterialCommunityIcons
+                            name="calendar-month"
+                            size={23}
+                            color="#0A326D"
+                            style={{ marginTop: 17, marginLeft: 20 }}
+                          />
+                          {/* If no date is chosen display Data, otherwise display the date chosen */}
+                          <Text
+                            style={{
+                              color: "#3B567C",
+                              marginLeft: 10,
+                              marginTop: 19,
+                              fontSize: 15,
+                            }}
+                          >
+                            {eventDate === "" ? "Date" : eventDate}
+                          </Text>
+                        </View>
+                      </Pressable>
+                    </View>
 
                     <TimePickerModal
                       visible={showTimePicker}
@@ -780,13 +810,7 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
                     <Box
                       maxW="155"
                       borderRadius={15}
-                      style={{
-                        backgroundColor: "white",
-                        shadowColor: "black",
-                        shadowOffset: { width: -2, height: 4 },
-                        shadowOpacity: 0.5,
-                        shadowRadius: 3,
-                      }}
+                      style={styles.boxShadow}
                     >
                       <Select
                         selectedValue={eventState}
@@ -898,7 +922,7 @@ const AddEventScreen: FC<Props> = ({navigation}) => {
 
               <View style={{ flex: 0.2, alignItems: "center", marginTop: 40 }}>
                 <Pressable
-                  onPress={() => navigation.navigate('FAQ')}
+                  onPress={() => navigation.navigate("FAQ")}
                   accessibilityLabel="Click here if you need help?"
                 >
                   <View style={{ flexDirection: "row" }}>
@@ -1043,6 +1067,20 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     resizeMode: "cover",
   },
+  titleSection:{
+    flex: 0.1,
+    flexDirection: "row",
+    paddingLeft: 20,
+    marginTop: 35,
+    marginBottom: 3,
+  },
+  boxShadow:{
+    backgroundColor: "#E8F1FF",
+    shadowColor: "black",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+  }
 });
 
 export default AddEventScreen;
