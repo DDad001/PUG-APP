@@ -121,7 +121,7 @@ const FollowingScreen: FC = () => {
 
       setTimeout(() => {
         setDisplayFollowing(followingArr);
-      }, 1000);
+      }, 500);
     } else {
       let followingArr: any[] = [];
       let following = await GetFollowingByUserId(viewUserProfile.id);
@@ -134,7 +134,7 @@ const FollowingScreen: FC = () => {
 
       setTimeout(() => {
         setDisplayFollowing(followingArr);
-      }, 1000);
+      }, 500);
     }
   };
 
