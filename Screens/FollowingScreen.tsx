@@ -113,7 +113,7 @@ const FollowingScreen: FC = () => {
       let followingArr: any[] = [];
       let following = await GetFollowingByUserId(userItems.id);
       //console.log(followers);
-      following.map(async (person: any) => {
+      await following.map(async (person: any) => {
         let follower = await GetUserById(person.followerId);
         followingArr.push(follower);
         //console.log(follower);
@@ -126,7 +126,7 @@ const FollowingScreen: FC = () => {
       let followingArr: any[] = [];
       let following = await GetFollowingByUserId(viewUserProfile.id);
       //console.log(followers);
-      following.map(async (person: any) => {
+      await following.map(async (person: any) => {
         let follower = await GetUserById(person.followerId);
         followingArr.push(follower);
         //console.log(follower);
