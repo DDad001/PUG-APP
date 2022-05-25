@@ -39,11 +39,10 @@ const Notification = ({notification, getNotifications}: any) => {
     setUser(userData);
   }
 
-  const deleteNotification = () => {
+  const deleteNotification = async () => {
     setDisableBtn(true);
-    DeleteNotification(notification.id).then(() => {
-      setUpdateNotificationsScreen(true);
-    });    
+    await DeleteNotification(notification.id)
+    getNotifications();
   }
 
   const swipeRight = (progress: Animated.AnimatedInterpolation, dragX: Animated.AnimatedInterpolation) => {
