@@ -623,14 +623,12 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                 <Text style={{ flex: 0.9, marginTop: 30, marginLeft: 17, fontSize: 16, color: 'white', fontFamily: "Roboto_700Bold" }}>{nameContext}</Text>
 
 
-                <Pressable onPress={handleFollow} style={{ marginLeft: 20, marginTop: 17 }} disabled={disableBtn}>
-                
-                  <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow: 'hidden', marginTop: 10, marginLeft: 12, padding: 5, width: 90, height: 27 }} >
+                <Pressable onPress={handleFollow} style={{justifyContent: "center"}} disabled={disableBtn}>
+                  <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow: 'hidden', marginLeft: 12, width: 100, height: 35, justifyContent: "center" }} >
                     {
                       isFollowed ? <Text style={{color: 'white', fontFamily: "Lato_400Regular", alignSelf: "center"}}>Unfollow</Text>
                         : <Text style={{color: 'white', fontFamily: "Lato_400Regular", alignSelf: "center" }}>Follow</Text>
                     }
-
                   </View>
                 </Pressable>
 
