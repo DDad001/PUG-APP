@@ -39,7 +39,7 @@ import {
 } from "@expo-google-fonts/roboto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import UserContext  from '../Context/UserContext';
-import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetIsLiked, triggerNotificationHandler, AddNotification} from '../Services/DataService';
+import { GetUserByUsername, GetFollowersByUserId, GetUserById, GetFollowingByUserId, GetItemsByUserId, AddLikedEvent, DeleteLikedEvent, GetIsLiked, triggerNotificationHandler, AddNotification, GetIsFollowed, triggerNotificationFollowingHandler, AddFollower, DeleteFollower} from '../Services/DataService';
 import BasketballEvent from "../assets/BasketballEvent.jpg";
 import soccer from "../assets/soccer.jpg";
 import volleyballevent from "../assets/volleyballevent.jpg";
@@ -235,12 +235,15 @@ const EventItem= ({event, navigation, sportOfEvent} :any) => {
 
 
 const ProfileOfOther: FC<Props> = ({navigation, route})  => {
-  const { userItems, nameContext, viewUserProfile, updateProfileOther, setUpdateProfileOther, setFollowersBool, setFollowingBool} = useContext<any>(UserContext);
+  const { userItems, nameContext, viewUserProfile, updateProfileOther, setUpdateProfileOther, setUpdateProfileScreen, setFollowersBool, setFollowingBool, eventItems, setUpdateNotificationsScreen} = useContext<any>(UserContext);
   
   const [displayFollowers, setDisplayFollowers] = useState<any>([]);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
   const [displayUserAge, setDisplayUserAge] = useState<any>();
   const [allEvents, setAllEvents] = useState<any>([]);
+  const [isFollowed, setIsFollowed] = useState<boolean>(false);
+  const [disableBtn, setDisableBtn] = useState<boolean>(false);
+
 
   useEffect(() => {
     getFollowers();
@@ -248,8 +251,50 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
     getUserAge();
     fetchEvents();
     setUpdateProfileOther(false);
-    
+    handleIsFollowed();
   }, [updateProfileOther])
+
+  const handleIsFollowed = async () => {
+    let followed = await GetIsFollowed(userItems.id, eventItems.userId);
+    setIsFollowed(followed);
+  }
+
+  const handleFollow = () => {
+    setDisableBtn(true);
+    console.log("enabled");
+
+    setIsFollowed(!isFollowed);
+    let followed = isFollowed;
+    if (!followed) {
+      let newFollower = {
+        Id: 0,
+        UserId: userItems.id,
+        FollowerId: eventItems.userId,
+        isUnfollowed: false
+      }
+      let addNotification = {
+        Id: 0,
+        userId: eventItems.userId,
+        PersonWhoLikedId: userItems.id,
+        NotificationText: `${userItems.username} Followed You`
+      }
+      triggerNotificationFollowingHandler(userItems, viewUserProfile)
+      AddNotification(addNotification);
+      AddFollower(newFollower);
+      setUpdateNotificationsScreen(true);
+      //console.log('Followed')
+    } else {
+      DeleteFollower(userItems.id, eventItems.userId);
+      //console.log('Unfollowed')
+    }
+    setUpdateProfileScreen(true);
+
+    setTimeout(() => {
+      setDisableBtn(false);
+      console.log("enabled");
+    }, 2000)
+  }
+
 
   const getFollowers = async () => {
     
@@ -412,7 +457,8 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
  return (
      <>
     <View style={styles.mainContainer}>
-         <ImageBackground source={SoccerField} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
+      <ImageBackground source={SoccerField} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
+     <ScrollView style={{flex: 1}}>
           <View style={{alignItems:'center', marginTop:30}}>
             {
               viewUserProfile.image === null ? <Ionicons name="person-circle-sharp" size={115} style={{ marginTop:25}} color="white" />
@@ -430,8 +476,11 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
           </View>
 
           <View style={{backgroundColor: '#0A326D', marginTop: 20, borderRadius: 2,width:125, height:40, justifyContent: 'center', alignSelf: 'center'}}>
-            <Pressable>
-              <Text style={{ color:'white', fontFamily: "Roboto_400Regular", fontSize: 18, alignSelf: 'center' }}>Follow</Text>
+            <Pressable onPress={handleFollow}>
+              {
+                isFollowed ?  <Text style={{ color:'white', fontFamily: "Roboto_400Regular", fontSize: 18, alignSelf: 'center' }}>Unfollow</Text>
+                : <Text style={{ color:'white', fontFamily: "Roboto_400Regular", fontSize: 18, alignSelf: 'center' }}>Follow</Text>
+              }
             </Pressable>
           </View>
 
@@ -471,7 +520,8 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
             
 
    </SafeAreaView>
-          </ImageBackground>
+    </ScrollView>
+      </ImageBackground>
     </View>
      </>
  )   
