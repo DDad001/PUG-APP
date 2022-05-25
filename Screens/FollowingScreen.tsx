@@ -61,15 +61,29 @@ import Skier from "../assets/Skier.png";
 import { FlatList } from "native-base";
 
 const FollowerItem = ({
-  handleUnfollow,
+  
   username,
   id,
   image,
   displayFollowing,
-  disableBtn,
-  changeBtnColor
+  getFollowing
 }: any) => {
-  const { followingBool } = useContext<any>(UserContext);
+  const { followingBool, userItems, setUpdateProfileScreen } = useContext<any>(UserContext);
+
+  const [disableBtn, setDisableBtn] = useState(false);
+  const [changeBtnColor, setChangeBtnColor] = useState("#0A326D");
+
+  const handleUnfollow = async (unfollowId: number) => {
+    setDisableBtn(true);
+    setChangeBtnColor("gray");
+    console.log("Deleted");
+    await DeleteFollower(userItems.id, unfollowId);
+
+    
+    getFollowing();
+    
+    setUpdateProfileScreen(true);
+  };
 
 
   return (
@@ -86,7 +100,7 @@ const FollowerItem = ({
 
           {followingBool ? (
             <Pressable
-              style={{ backgroundColor:changeBtnColor, borderRadius: 10, marginLeft: 15,}}
+              style={{ backgroundColor: changeBtnColor, borderRadius: 10, marginLeft: 15,}}
               onPress={() => handleUnfollow(id)}
               accessibilityLabel="Followers Button"
               disabled={disableBtn}
@@ -104,8 +118,7 @@ const FollowingScreen: FC = () => {
   const { userItems, setUpdateProfileScreen, viewUserProfile, followingBool } =
     useContext<any>(UserContext);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
-  const [disableBtn, setDisableBtn] = useState(false);
-  const [changeBtnColor, setChangeBtnColor] = useState("#0A326D");
+  
 
   useEffect(() => {
     getFollowing();
@@ -141,17 +154,7 @@ const FollowingScreen: FC = () => {
     }
   };
 
-  const handleUnfollow = async (unfollowId: number) => {
-    setDisableBtn(true);
-    setChangeBtnColor("gray");
-    console.log("Deleted");
-    await DeleteFollower(userItems.id, unfollowId);
-
-    
-    getFollowing();
-    
-    setUpdateProfileScreen(true);
-  };
+  
 
   const renderItem = ({ item }: any) => {
     return (
@@ -161,9 +164,8 @@ const FollowingScreen: FC = () => {
         username={item.username}
         image={item.image}
         displayFollowing={displayFollowing}
-        handleUnfollow={handleUnfollow}
-        changeBtnColor={changeBtnColor}
-        disableBtn={disableBtn}
+        
+        getFollowing={getFollowing}
       />
     );
   };
