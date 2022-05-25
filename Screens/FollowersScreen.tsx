@@ -101,7 +101,7 @@ const FollowersScreen: FC = () => {
 
       setTimeout(() => {
         setDisplayFollowers(followersArr);
-      }, 1000);
+      }, 500);
     } else {
       let followersArr: any[] = [];
       let followers = await GetFollowersByUserId(viewUserProfile.id);
@@ -114,7 +114,7 @@ const FollowersScreen: FC = () => {
 
       setTimeout(() => {
         setDisplayFollowers(followersArr);
-      }, 1000);
+      }, 500);
     }
   };
 

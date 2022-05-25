@@ -170,48 +170,62 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
     let result:any;
     if(newFirstName == ""){ 
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a first name to create an account</Box>;}});
+      setDisableBtn(false);
     }
     else if(newLastName == ""){ 
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a last name to create an account</Box>;}});
+      setDisableBtn(false);
     }
     else if(FirstNameInput == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: first name must include characters only and no spaces</Box>;}});
+      setDisableBtn(false);
     }
     else if(LastNameInput == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: last name must include characters only and no spaces</Box>;}});
+      setDisableBtn(false);
     }
     else if(newUsername.length < 8 ){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username length must be at least 8 characters long</Box>;}});
+      setDisableBtn(false);
     }
     else if(newPassword.length < 8){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: password length must be at least 8 characters long</Box>;}});
+      setDisableBtn(false);
     }
     else if(age < 18){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: Date Of Birth: you must be 18 years or older to create an account</Box>;}});
+      setDisableBtn(false);
     }
     else if(state == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a state to create an account</Box>;}});
+      setDisableBtn(false);
     } 
     else if(city == ""){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a city to create an account</Box>;}});
+      setDisableBtn(false);
     } 
     else if(CityInput == false){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: city field must include characters only</Box>;}});
+      setDisableBtn(false);
     } 
     else if(!cityNames.includes(city)){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a valid city that corresponds to your event's state!</Box>;}});
+      setDisableBtn(false);
     } 
     else if(!isTermsOfServiceAccepted){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must Accept PUG's Terms of Service to create an account</Box>;}});
+      setDisableBtn(false);
     }
     else if(!isOverAgeOf18){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must Accept that you are 18 years or Older to create an account</Box>;}});
+      setDisableBtn(false);
     }
     else{
       result = await createAccount(userData);
       console.log(result);
       if(!result){
         Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username has already been taken</Box>;}});
+        setDisableBtn(false);
       }else{
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully created!</Box>}});
       navigation.navigate('Nav');
@@ -221,10 +235,6 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
       }
     }
 
-    setTimeout(() => {
-      setDisableBtn(false);
-      console.log("enabled");
-    }, 2000)
     }
 
 
