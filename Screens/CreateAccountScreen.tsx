@@ -116,7 +116,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
   const [isTermsOfServiceAccepted, setIsTermsOfServiceAccepted] = useState<boolean>(false);
   const [isOverAgeOf18, setIsOverAgeOf18] = useState<boolean>(false);
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
-
+  const [CreateAccountBtnColor, setCreateAccountBtnColor] = useState("rgba(10, 50, 109, 1)")
   const areTermsAccepted = (isTermsAccepted:boolean) => {
     setIsTermsOfServiceAccepted(isTermsAccepted);
   }
@@ -127,6 +127,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
 
   const handleCreateAccount = async () => {
     setDisableBtn(true);
+    setCreateAccountBtnColor("gray")
     console.log("disabled");
     let userData = {
       Id: 0,
@@ -565,7 +566,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
             <View style={{ flex: 0.2, alignItems: "center", marginTop: 20}}>
               <Pressable disabled={disableBtn}
                 style={{
-                  backgroundColor: "rgba(10, 50, 109, 1)",
+                  backgroundColor: CreateAccountBtnColor,
                   borderRadius: 50,
                   paddingLeft: 60,
                   paddingRight: 60,
