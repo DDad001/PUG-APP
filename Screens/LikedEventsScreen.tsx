@@ -248,11 +248,10 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
   const [disableBtn, setDisableBtn] = useState(false);
 
   const handleLiked = async () => {
-    setDisableBtn(true);
     await DeleteLikedEvent(userItems.id, id)
-    setIsLiked(false);
-    
     await getLikedEventsByUser();
+    setDisableBtn(true);
+    setIsLiked(false);
     setUpdateScreen(true);
     setUpdateProfileScreen(true);
   }
@@ -395,22 +394,15 @@ const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEven
     let eventsArr: object[] = [];
 
     let likedEvents = await GetLikedEventsByUserId(userItems.id)
-    
-    likedEvents.map((eventObj: any) => {
-      likedEventsIds.push(eventObj.eventId)
-    }) 
-
-     likedEventsIds.map(async eventId => {
-      let event = await GetEventItemById(eventId);
+    await likedEvents.map(async(eventObj: any) => {
+      let event = await GetEventItemById(eventObj.eventId);
+      
       if(event.id != 0){
         eventsArr.push(event);
+        setDisplayEvents(eventsArr)
       }
-    })
+    }) 
 
-    setTimeout(() => {
-      setDisplayEvents(eventsArr)
-    }, 1000)
-    
     //setDisplayEvents(result);
 
     
