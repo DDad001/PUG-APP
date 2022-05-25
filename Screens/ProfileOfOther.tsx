@@ -429,6 +429,12 @@ const ProfileOfOther: FC<Props> = ({navigation, route})  => {
                 <Text style={{marginTop: 20, color:'white', fontFamily: "Roboto_400Regular", fontSize: 18 }}>{viewUserProfile.city}, {viewUserProfile.state}</Text>
           </View>
 
+          <View style={{backgroundColor: '#0A326D', marginTop: 20, borderRadius: 2,width:125, height:40, justifyContent: 'center', alignSelf: 'center'}}>
+            <Pressable>
+              <Text style={{ color:'white', fontFamily: "Roboto_400Regular", fontSize: 18, alignSelf: 'center' }}>Follow</Text>
+            </Pressable>
+          </View>
+
           <View style={{justifyContent:'center', flexDirection:'row'}}>
                 <Text style={{marginTop: 20, color:'white',marginRight:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>{displayFollowers}</Text>
                 <Text style={{marginTop: 20, color:'white', marginLeft:35, fontFamily: "Roboto_700Bold", fontSize: 17}}>{displayFollowing}</Text>
