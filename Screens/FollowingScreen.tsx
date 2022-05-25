@@ -113,39 +113,33 @@ const FollowingScreen: FC = () => {
       let followingArr: any[] = [];
       let following = await GetFollowingByUserId(userItems.id);
       //console.log(followers);
-      following.map(async (person: any) => {
+      await following.map(async (person: any) => {
         let follower = await GetUserById(person.followerId);
         followingArr.push(follower);
         //console.log(follower);
+        setDisplayFollowing(followingArr);
       });
 
-      setTimeout(() => {
-        setDisplayFollowing(followingArr);
-      }, 1000);
     } else {
       let followingArr: any[] = [];
       let following = await GetFollowingByUserId(viewUserProfile.id);
       //console.log(followers);
-      following.map(async (person: any) => {
+      await following.map(async (person: any) => {
         let follower = await GetUserById(person.followerId);
         followingArr.push(follower);
         //console.log(follower);
-      });
-
-      setTimeout(() => {
         setDisplayFollowing(followingArr);
-      }, 1000);
+      });
     }
   };
 
   const handleUnfollow = async (unfollowId: number) => {
     setDisableBtn(true);
     console.log("Deleted");
-    DeleteFollower(userItems.id, unfollowId);
+    await DeleteFollower(userItems.id, unfollowId);
 
-    setTimeout(() => {
-      getFollowing();
-    }, 1000);
+    getFollowing();
+    
     setUpdateProfileScreen(true);
   };
 

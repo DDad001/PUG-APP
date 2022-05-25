@@ -414,30 +414,26 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     let followersArr: any[] = [];
     let followers = await GetFollowersByUserId(userItems.id);
     //console.log(followers);
-    followers.map(async (person: any) => {
+    await followers.map(async (person: any) => {
       let follower: object = await GetUserById(person.userId);
       followersArr.push(follower);
       //console.log(follower);
+      setDisplayFollowers(followersArr.length);
     });
 
-    setTimeout(() => {
-      setDisplayFollowers(followersArr.length);
-    }, 1000);
   };
 
   const getFollowing = async () => {
     let followingArr: any[] = [];
     let following = await GetFollowingByUserId(userItems.id);
     //console.log(followers);
-    following.map(async (person: any) => {
+    await following.map(async (person: any) => {
       let follower: object = await GetUserById(person.followerId);
       followingArr.push(follower);
       //console.log(follower);
+      setDisplayFollowing(followingArr.length);
     });
 
-    setTimeout(() => {
-      setDisplayFollowing(followingArr.length);
-    }, 1000);
   };
 
 

@@ -93,28 +93,23 @@ const FollowersScreen: FC = () => {
       let followersArr: any[] = [];
       let followers = await GetFollowersByUserId(userItems.id);
       //console.log(followers);
-      followers.map(async (person: any) => {
+      await followers.map(async (person: any) => {
         let follower: object = await GetUserById(person.userId);
         followersArr.push(follower);
+        setDisplayFollowers(followersArr);
         //console.log(follower);
       });
 
-      setTimeout(() => {
-        setDisplayFollowers(followersArr);
-      }, 1000);
     } else {
       let followersArr: any[] = [];
       let followers = await GetFollowersByUserId(viewUserProfile.id);
       //console.log(followers);
-      followers.map(async (person: any) => {
+      await followers.map(async (person: any) => {
         let follower: object = await GetUserById(person.userId);
         followersArr.push(follower);
         //console.log(follower);
-      });
-
-      setTimeout(() => {
         setDisplayFollowers(followersArr);
-      }, 1000);
+      });
     }
   };
 
