@@ -289,8 +289,8 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     }, [updateProfileScreen]);
     
     const [allEvents, setAllEvents] = useState<any>([]);
-    const [displayFollowers, setDisplayFollowers] = useState<any>([]);
-    const [displayFollowing, setDisplayFollowing] = useState<any>([]);
+    const [displayFollowers, setDisplayFollowers] = useState<number>(0);
+    const [displayFollowing, setDisplayFollowing] = useState<number>(0);
     const [displayUserAge, setDisplayUserAge] = useState<any>();
     const [displayUserName, setDisplayUserName] = useState<string>("");
     // const [pickedImagePath, setPickedImagePath] = useState('');

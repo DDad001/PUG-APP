@@ -48,7 +48,7 @@ import {
   useToast
 } from "native-base";
 
-import { DeleteUser, UpdateUser, UpdatePassword, GetUserById, GetItemsByUserId, DeleteEventItem, GetFollowersByUserId, DeleteFollower, GetFollowingByUserId, GetLikedEventsByUserId, DeleteLikedEvent, GetNotificationsByUserId, DeleteNotification  } from '../Services/DataService'
+import { DeleteUser, UpdateUser, UpdatePassword, GetUserById, GetItemsByUserId, DeleteEventItem, GetFollowersByUserId, DeleteFollower, GetFollowingByUserId, GetLikedEventsByUserId, DeleteLikedEvent, GetNotificationsByUserId, DeleteNotification, GetNotificationsByPersonWhoLiked  } from '../Services/DataService'
 import { position } from "native-base/lib/typescript/theme/styled-system";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
@@ -315,6 +315,11 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     //Notifications Model 
     let usersNotifications = await GetNotificationsByUserId(userItems.id);
     await usersNotifications.map((notification: any, idx: number) => {
+      DeleteNotification(notification.id);
+    })
+
+    let usersOtherNotifications = await GetNotificationsByPersonWhoLiked(userItems.id);
+    await usersOtherNotifications.map((notification: any, idx: number) => {
       DeleteNotification(notification.id);
     })
     //Delete User
