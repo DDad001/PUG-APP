@@ -504,6 +504,13 @@ async function GetNotificationsByUserId(userId:number){
     return data;
 }
 
+async function GetNotificationsByPersonWhoLiked(personWhoLiked: number){
+    let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Notifications/GetNotificationsByPersonWhoLiked/${personWhoLiked}`);
+    let data = await res.json();
+    console.log(data);
+    return data;
+}
+
 async function DeleteNotification(notificationId:number) {
 
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Notifications/DeleteNotification/${notificationId}`, {
@@ -535,6 +542,6 @@ export{
     DeleteFollower,AddLikedEvent,GetLikedEventsByUserId,GetLikedId,
     DeleteLikedEvent,GetAddress,UpdatePassword,GetCitiesByState,
     ReportEvent,ReportUser, GetIsLiked, GetIsFollowed, triggerNotificationHandler, triggerNotificationFollowingHandler,
-    AddNotification, GetNotificationsByUserId, DeleteNotification
+    AddNotification, GetNotificationsByUserId, DeleteNotification, GetNotificationsByPersonWhoLiked
 
 }
