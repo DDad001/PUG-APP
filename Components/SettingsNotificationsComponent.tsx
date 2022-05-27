@@ -48,7 +48,7 @@ import {
   useToast
 } from "native-base";
 
-import { DeleteUser, UpdateUser, UpdatePassword, GetUserById } from '../Services/DataService'
+import { DeleteUser, UpdateUser, UpdatePassword, GetUserById, GetItemsByUserId, DeleteEventItem, GetFollowersByUserId, DeleteFollower, GetFollowingByUserId, GetLikedEventsByUserId, DeleteLikedEvent, GetNotificationsByUserId, DeleteNotification  } from '../Services/DataService'
 import { position } from "native-base/lib/typescript/theme/styled-system";
 
 
@@ -265,14 +265,38 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     // }
   }
 
-  const handleDeleteProfile = () => {
+  const handleDeleteProfile = async () => {
     //need to use useContext for this to get user's username
-    DeleteUser(userItems.username);
-
-    
-
-
+    //event Model
+    let usersEvents = await GetItemsByUserId(userItems.id);
+    await usersEvents.map((event: any, idx: number) => {
+      DeleteEventItem(event.id);
+    })
+    //Followers Model
+    let usersFollowers = await GetFollowersByUserId(userItems.id);
+    await usersFollowers.map((follower: any, idx: number) => {
+      DeleteFollower(userItems.id, follower.followerId);
+    })
+    //Following Model
+    let usersFollowing = await GetFollowingByUserId(userItems.id);
+    await usersFollowing.map((following: any, idx: number) =>{
+      DeleteFollower(following.userId, userItems.id);
+    })
+    //Liked Events Model
+    let usersLikedEvents = await GetLikedEventsByUserId(userItems.id);
+    await usersLikedEvents.map((likedEvent: any, idx: number) => {
+      DeleteLikedEvent(userItems.id, likedEvent.eventId);
+    })
+    //Notifications Model 
+    let usersNotifications = await GetNotificationsByUserId(userItems.id);
+    await usersNotifications.map((notification: any, idx: number) => {
+      DeleteNotification(notification.id);
+    })
+    //Delete User
+    await DeleteUser(userItems.username);
     //console.log('Deleted');
+    //Set userItems to {}
+    setUserItems({});
 
   }
 
