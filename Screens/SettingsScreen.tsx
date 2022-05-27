@@ -69,7 +69,7 @@ const SettingsScreen: FC<Props> = ({navigation, route}) => {
       >
           <View style={styles.overlayContainer}>
             <SettingsProfileComponent/>
-            <SettingsNotificationsComponent onHelpPress={() =>  navigation.navigate('FAQ')} onEditProfilePress={() => navigation.navigate('EditProfile')}/>
+            <SettingsNotificationsComponent onHelpPress={() =>  navigation.navigate('FAQ')} onEditProfilePress={() => navigation.navigate('EditProfile')} onDeleteAccountPress={() => navigation.navigate('login')}/>
             <SignoutBtnComponent onSignOutPress={() => navigation.navigate('login')} />
         </View>
       </ImageBackground>

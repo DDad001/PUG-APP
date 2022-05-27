@@ -50,12 +50,34 @@ import {
 
 import { DeleteUser, UpdateUser, UpdatePassword, GetUserById, GetItemsByUserId, DeleteEventItem, GetFollowersByUserId, DeleteFollower, GetFollowingByUserId, GetLikedEventsByUserId, DeleteLikedEvent, GetNotificationsByUserId, DeleteNotification  } from '../Services/DataService'
 import { position } from "native-base/lib/typescript/theme/styled-system";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 
 interface SettingsProps{ 
   onHelpPress: Function,
-  onEditProfilePress: Function
+  onEditProfilePress: Function,
+  onDeleteAccountPress: Function
 }
+
+// type RootStackParamList = {
+//   CreateAccount: undefined;
+//   login: undefined;
+//   Nav: undefined;
+//   event: { name: string };
+//   profile: { name: string };
+//   PastEvents: undefined;
+//   LikedEvents: undefined;
+//   settings: undefined;
+//   following: undefined;
+//   LookAtEvent: undefined;
+//   OtherPersonsFollowers: undefined;
+//   OtherPersonsFollowings: undefined;
+//   YourActiveEvents: undefined;
+//   followers: undefined;
+//   FAQ: undefined;
+// };
+
+// type Props = NativeStackScreenProps<RootStackParamList, "Nav">;
 
 const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
   const { userItems, setUserItems, pushToken, setUpdateScreen, setUpdateProfileScreen, setUpdateEventScreen, setUpdateProfileOther, isSwitchOn, setIsSwitchOn } = useContext<any>(UserContext);
@@ -67,6 +89,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
    const EditProfileHandler = () => {
     props.onEditProfilePress();
    }
+   
 
 
   let [fontsLoaded] = useFonts({
@@ -265,7 +288,9 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     // }
   }
 
-  const handleDeleteProfile = async () => {
+
+
+  const DeleteAccountHandler = async () => {
     //need to use useContext for this to get user's username
     //event Model
     let usersEvents = await GetItemsByUserId(userItems.id);
@@ -297,7 +322,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     //console.log('Deleted');
     //Set userItems to {}
     setUserItems({});
-
+    props.onDeleteAccountPress();
   }
 
   const onDismiss = React.useCallback(() => {
@@ -370,7 +395,7 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
                 style={{backgroundColor: '#0A326D', paddingLeft: 30, paddingRight: 30, borderRadius: 10}}
                 onPress={() => {
                   setShowDeleteModal(false);
-                  handleDeleteProfile();
+                  DeleteAccountHandler();
                 }}
               >
                 <Text style={{ fontFamily: 'Lato_700Bold', fontSize: 16, fontWeight: '800', color: 'white'}}>Yes</Text>
