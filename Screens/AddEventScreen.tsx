@@ -535,6 +535,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
     } else {
       AddEventItem(newEvent);
       console.log("All good G!");
+      setDisableBtn(false);
+      setCreateEventBtnColor("rgba(10, 50, 109, 1)");
       // result = await AddEventItem(newEvent);
       Successtoast.show({
         placement: "top",
