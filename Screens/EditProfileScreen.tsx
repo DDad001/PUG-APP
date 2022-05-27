@@ -217,6 +217,8 @@ const EditProfileScreen: FC = () => {
        }else{
          Successtoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully updated!</Box>}});
          setShowModal(false);
+         setDisableBtn(false);
+         setEditAccountBtnColor("rgba(10, 50, 109, 1)");
         //  setTimeout(() => {
         //    UpdatePassword(userItems.id, password);
         //  }, 500)

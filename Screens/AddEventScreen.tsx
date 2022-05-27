@@ -151,7 +151,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
   const [eventHours, setEventHour] = useState<string>("");
   const [eventMinutes, setEventMinutes] = useState<any>("");
   const [CreateEventBtnColor, setCreateEventBtnColor] = useState("rgba(10, 50, 109, 1)");
-  let currentYear = new Date().getFullYear();
+  let currentYear = new Date().getFullYear() + 1;
   let currentHour = new Date().getHours();
   let currentMinutes = new Date().getMinutes();
 

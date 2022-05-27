@@ -249,6 +249,8 @@ const YourEventScreen: FC = () => {
       console.log("All good G!")
       // result = await AddEventItem(newEvent);
       Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully changed!</Box>}});
+      setDisableBtn(false);
+      setSaveChangesBtnColor("rgba(10, 50, 109, 1)");
       setUpdateScreen(true);
       setUpdateEventScreen(true);
       setUpdateProfileScreen(true);
