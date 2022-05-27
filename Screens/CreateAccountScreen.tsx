@@ -369,7 +369,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
                   paddingLeft: 25,
 
                 }}
-                >{newUsername.length}/15 max length</Text>
+                >Minimum of 8 characters</Text>
               </View>
               {/* <TextInput
                 style={styles.input}
@@ -387,6 +387,18 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
               backgroundColor={'white'} borderWidth={0} w={"91%"} marginLeft={4} bg={'white'} shadowColor={"black"} shadow={9} marginBottom={40} borderRadius={20} fontSize="15" fontFamily={"Roboto_400Regular"} h={{base:"75%"}}  type={show ? "text" : "password"} 
               InputRightElement={<Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={7} mr="5" color="rgba(59, 86, 124, 1)" onPress={() => setShow(!show)} />} placeholder="Password" 
               placeholderTextColor={"rgba(59, 86, 124, 1)"}  onChangeText={(text) => setNewPassword(text)} value={newPassword} accessibilityLabel="Enter password" keyboardType="default"/>
+          </View>
+          <View>
+          <Text style={{
+                  marginTop: -13,
+                  marginBottom: 13,
+                  color: "white",
+                  fontFamily: "Roboto_400Regular",
+                  fontSize: 15,
+                  paddingLeft: 25,
+
+                }}
+                >Minimum of 8 characters</Text>
           </View>
 
 
