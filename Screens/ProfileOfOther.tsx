@@ -237,8 +237,8 @@ const EventItem= ({event, navigation, sportOfEvent} :any) => {
 const ProfileOfOther: FC<Props> = ({navigation, route})  => {
   const { userItems, nameContext, viewUserProfile, updateProfileOther, setUpdateProfileOther, setUpdateProfileScreen, setFollowersBool, setFollowingBool, eventItems, setUpdateNotificationsScreen} = useContext<any>(UserContext);
   
-  const [displayFollowers, setDisplayFollowers] = useState<any>([]);
-  const [displayFollowing, setDisplayFollowing] = useState<any>([]);
+  const [displayFollowers, setDisplayFollowers] = useState<number>(0);
+  const [displayFollowing, setDisplayFollowing] = useState<number>(0);
   const [displayUserAge, setDisplayUserAge] = useState<any>();
   const [allEvents, setAllEvents] = useState<any>([]);
   const [isFollowed, setIsFollowed] = useState<boolean>(false);
