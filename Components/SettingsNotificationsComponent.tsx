@@ -48,7 +48,7 @@ import {
   useToast
 } from "native-base";
 
-import { DeleteUser, UpdateUser, UpdatePassword, GetUserById, GetItemsByUserId, DeleteEventItem, GetFollowersByUserId, DeleteFollower, GetFollowingByUserId, GetLikedEventsByUserId, DeleteLikedEvent } from '../Services/DataService'
+import { DeleteUser, UpdateUser, UpdatePassword, GetUserById, GetItemsByUserId, DeleteEventItem, GetFollowersByUserId, DeleteFollower, GetFollowingByUserId, GetLikedEventsByUserId, DeleteLikedEvent, GetNotificationsByUserId, DeleteNotification  } from '../Services/DataService'
 import { position } from "native-base/lib/typescript/theme/styled-system";
 
 
@@ -288,10 +288,15 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
       DeleteLikedEvent(userItems.id, likedEvent.eventId);
     })
     //Notifications Model 
+    let usersNotifications = await GetNotificationsByUserId(userItems.id);
+    await usersNotifications.map((notification: any, idx: number) => {
+      DeleteNotification(notification.id);
+    })
     //Delete User
-    DeleteUser(userItems.username);
+    await DeleteUser(userItems.username);
     //console.log('Deleted');
     //Set userItems to {}
+    setUserItems({});
 
   }
 
