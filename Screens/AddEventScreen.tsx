@@ -730,7 +730,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
                     marginBottom: 15,
                   }}
                 >
-                  {nameOfEvent.length}/25 character limit
+                  Maximum 25 characters
                 </Text>
               </View>
 
@@ -866,7 +866,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
                   paddingLeft: 25,
                 }}
               >
-                {eventDetails.length}/200 character limit
+               Maximum 200 characters
               </Text>
 
               {/* <View style={{marginTop:20,flexDirection:'row'}}>
