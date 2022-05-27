@@ -730,7 +730,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
                     marginBottom: 15,
                   }}
                 >
-                  {nameOfEvent.length}/25 character limit
+                  Maximum 25 characters
                 </Text>
               </View>
 
