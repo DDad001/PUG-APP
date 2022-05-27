@@ -246,7 +246,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
               navigation.navigate('YourActiveEvent');
             }}>
               <View style={{backgroundColor: editEventBtnColor, borderRadius: 2, overflow:'hidden', marginRight: 0, width:105, height:30, paddingTop:6, paddingLeft:4 }} >
-                <Text style={{ alignSelf: 'center',marginLeft:4, color:'white', fontFamily:"Lato_400Regular"}}>Edit Event</Text>
+                <Text style={{ alignSelf: 'center', color:'white', fontFamily:"Lato_400Regular"}}>Edit Event</Text>
               </View>
             </Pressable>
             <Pressable onPress={() => {
