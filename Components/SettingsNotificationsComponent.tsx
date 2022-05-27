@@ -294,32 +294,32 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     //need to use useContext for this to get user's username
     //event Model
     let usersEvents = await GetItemsByUserId(userItems.id);
-    await usersEvents.map(async(event: any, idx: number) => {
+    usersEvents.map(async(event: any, idx: number) => {
       await DeleteEventItem(event.id);
     })
     //Followers Model
     let usersFollowers = await GetFollowersByUserId(userItems.id);
-    await usersFollowers.map(async(follower: any, idx: number) => {
+    usersFollowers.map(async(follower: any, idx: number) => {
       await DeleteFollower(follower.userId, userItems.id);
     })
     //Following Model
     let usersFollowing = await GetFollowingByUserId(userItems.id);
-    await usersFollowing.map(async(following: any, idx: number) =>{
+    usersFollowing.map(async(following: any, idx: number) =>{
       await DeleteFollower(userItems.id, following.followerId );
     })
     //Liked Events Model
     let usersLikedEvents = await GetLikedEventsByUserId(userItems.id);
-    await usersLikedEvents.map(async(likedEvent: any, idx: number) => {
+    usersLikedEvents.map(async(likedEvent: any, idx: number) => {
       await DeleteLikedEvent(userItems.id, likedEvent.eventId);
     })
     //Notifications Model 
     let usersNotifications = await GetNotificationsByUserId(userItems.id);
-    await usersNotifications.map(async(notification: any, idx: number) => {
+    usersNotifications.map(async(notification: any, idx: number) => {
       await DeleteNotification(notification.id);
     })
 
     let usersOtherNotifications = await GetNotificationsByPersonWhoLiked(userItems.id);
-    await usersOtherNotifications.map(async (notification: any, idx: number) => {
+    usersOtherNotifications.map(async (notification: any, idx: number) => {
       await DeleteNotification(notification.id);
     })
     //Delete User
