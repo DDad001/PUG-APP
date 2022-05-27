@@ -268,6 +268,10 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
   const handleDeleteProfile = () => {
     //need to use useContext for this to get user's username
     DeleteUser(userItems.username);
+
+    
+
+
     //console.log('Deleted');
 
   }
@@ -360,9 +364,6 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
         </Modal.Content>
       </Modal>
     </Center>
-
-
-   
 
 
     </View>
