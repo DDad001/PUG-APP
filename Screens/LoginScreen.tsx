@@ -116,7 +116,13 @@ const LoginScreen: FC<Props> = ({navigation}) => {
       if(token.token != null){
         AsyncStorage.setItem("Token", token.token);
         let userItems1 = await GetUserByUsername(Username);
-        setUserItems(userItems1);
+        if(userItems1.username != Username.toLowerCase())
+        {
+          setUserItems(userItems1);
+        }
+        else{
+          Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>;}});
+        }
         console.log("userItems1", userItems1);
         // let fetchedNotifications = await GetNotificationsByUserId(userItems1.id);
         // setUsersNotifications(fetchedNotifications.reverse());
