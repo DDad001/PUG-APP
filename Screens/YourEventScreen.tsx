@@ -635,7 +635,7 @@ const YourEventScreen: FC = () => {
                     paddingLeft: 25,
                   }}
                   >
-                  {eventDetails.length}/200 character limit
+                  Maximum 200 characters
                 </Text>
 
                   
