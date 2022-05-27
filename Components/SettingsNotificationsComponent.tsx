@@ -48,7 +48,7 @@ import {
   useToast
 } from "native-base";
 
-import { DeleteUser, UpdateUser, UpdatePassword, GetUserById } from '../Services/DataService'
+import { DeleteUser, UpdateUser, UpdatePassword, GetUserById, GetItemsByUserId, DeleteEventItem } from '../Services/DataService'
 import { position } from "native-base/lib/typescript/theme/styled-system";
 
 
@@ -265,10 +265,20 @@ const SettingsNotificationsComponent: FC<SettingsProps> = (props) => {
     // }
   }
 
-  const handleDeleteProfile = () => {
+  const handleDeleteProfile = async () => {
     //need to use useContext for this to get user's username
+    //event Model
+    let usersEvents = await GetItemsByUserId(userItems.id);
+    await usersEvents.map((event: any, idx: number) => {
+      DeleteEventItem(event.id);
+    })
+    //Followers Model
+    //Following Model
+    //Liked Events Model
+    //Notifications Model 
     DeleteUser(userItems.username);
     //console.log('Deleted');
+    //Set userItems to {}
 
   }
 
