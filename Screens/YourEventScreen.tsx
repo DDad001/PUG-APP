@@ -280,7 +280,15 @@ const YourEventScreen: FC = () => {
     let day = splArr.slice(2, 3).join(" ");
     let year = splArr.slice(3, 4).join(" ");
     month = months.indexOf(month);
-    setEventDate( month+1+'/'+day +'/'+year );
+    month += 1;
+
+    if(month < 10){
+      setEventDate("0" + month + "/" + day + "/" + year);
+    }else{
+      setEventDate(month + "/" + day + "/" + year);
+    }
+
+    console.log(eventDate);
   }, [])
   const date = new Date()
   

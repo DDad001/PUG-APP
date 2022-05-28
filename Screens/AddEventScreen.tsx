@@ -155,7 +155,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
   let currentHour = new Date().getHours();
   let currentMinutes = new Date().getMinutes();
 
-  //dummy usestates!
   const [eventDate, setEventDate] = useState<any>("");
   const [eventTime, setEventTime] = useState<any>("");
   const [eventState, setEventState] = useState<any>("");
@@ -188,8 +187,17 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
     let month = splArr.slice(1, 2).join(" ");
     let day = splArr.slice(2, 3).join(" ");
     let year = splArr.slice(3, 4).join(" ");
+    
     month = months.indexOf(month);
-    setEventDate(month + 1 + "/" + day + "/" + year);
+    month += 1;
+
+    if(month < 10){
+      setEventDate("0" + month + "/" + day + "/" + year);
+    }else{
+      setEventDate(month + "/" + day + "/" + year);
+    }
+    
+    console.log(eventDate);
   }, []);
 
   const date = new Date();
@@ -227,6 +235,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
   );
 
   const HandleCreateEvent = async () => {
+    console.log(eventDate);
     setCreateEventBtnColor("gray");
     setDisableBtn(true);
     console.log("disabled");
