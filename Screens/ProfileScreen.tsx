@@ -128,7 +128,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     setTimeout(() => {
       setDisableBtn(false);
       console.log("enabled")
-    }, 5000)
+    }, 2000)
   }
 
   const checkIfLiked = async () => {
@@ -224,8 +224,8 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
             </Pressable>
             <Pressable onPress={handleLiked} disabled={disableBtn} >
               {
-                isLiked ? <FontAwesome name="heart" size={16} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
-                : <FontAwesome name="heart-o" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+                isLiked ? <FontAwesome name="heart" size={15} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
+                : <FontAwesome name="heart-o" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginTop: 9, marginLeft:9, padding:4 }} />
                 
               }
               
