@@ -264,7 +264,13 @@ const EditProfileScreen: FC = () => {
      let day = splArr.slice(2, 3).join(" ")
      let year = splArr.slice(3, 4).join(" ")
      month = months.indexOf(month);
-     setDob( month+1+'/'+day +'/'+year );
+     month += 1;
+
+    if(month < 10){
+      setDob("0" + month + "/" + day + "/" + year);
+    }else{
+      setDob(month + "/" + day + "/" + year);
+    }
    }, [])
  
    const newDate = new Date()
