@@ -546,7 +546,7 @@ const YourEventScreen: FC = () => {
               <Select.Item label="Tennis" value="Tennis" />
               <Select.Item label="Volleyball" value="Volleyball" />
               <Select.Item label="Yoga" value="Yoga" />
-              <Select.Item label="SkateBoarding" value="SkateBoarding" />
+              <Select.Item label="Skateboarding" value="SkateBoarding" />
               <Select.Item label="Other" value="Other" />
             </Select>
           </Box>

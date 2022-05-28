@@ -711,7 +711,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
                       <Select.Item label="Volleyball" value="Volleyball" />
                       <Select.Item label="Yoga" value="Yoga" />
                       <Select.Item
-                        label="SkateBoarding"
+                        label="Skateboarding"
                         value="SkateBoarding"
                       />
                       <Select.Item label="Other" value="Other" />
