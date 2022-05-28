@@ -1,5 +1,5 @@
 import React, { FC, useState, useContext, useEffect } from "react";
-import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, TextInput } from "react-native";
+import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, TextInput, KeyboardAvoidingView, Platform } from "react-native";
 import PUGHeader from "../Components/PUGHeader";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -482,7 +482,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
             navigation.navigate('profile')}}>
             <Center>
               <Modal isOpen={showModal} size="full" onClose={() => setShowModal(false)}>
-                <Modal.Content maxWidth="400px">
+                <Modal.Content maxWidth="400px" style={styles.top}>
                   <Modal.CloseButton />
                   <Modal.Header>Report this user</Modal.Header>
                   <Modal.Body>
@@ -510,14 +510,13 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                       {
                         radioUserValue === "OtherUser" ?
                           <View>
-                            <TextInput style={[ styles.LargeTxtInput,{alignItems: "flex-start"}] } onChangeText={(text) => setOtherReasonUserTxt(text)} value={otherReasonUserTxt} accessibilityLabel="Enter the reason you are reporting this user in 200 characters or less."
-                            textAlignVertical="top"
-                            multiline={true}
+                            <TextInput style={[ styles.LargeTxtInput,{alignItems: "flex-start"}] } onChangeText={(text) => setOtherReasonUserTxt(text)} value={otherReasonUserTxt} accessibilityLabel="Enter your reason here."
+                            multiline={false}
                             maxLength={200}
-                            placeholder="Enter the reason you are reporting this user..."
+                            placeholder="Enter your reason here..."
                             placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                            numberOfLines={5} />
-                            <Text style={{color: "rgba(59, 86, 124, 1)", paddingLeft: 20}}>{otherReasonUserTxt.length}/200 character limit</Text>
+                            />
+                            <Text style={{color: "rgba(59, 86, 124, 1)", paddingLeft: 20}}>Maximum 200 characters</Text>
                           </View>
                           : null
                       }
@@ -542,7 +541,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
             </Center>
             <Center>
               <Modal isOpen={showModal2} onClose={() => setShowModal2(false)} size="full">
-                <Modal.Content maxWidth="400px">
+                <Modal.Content maxWidth="400px" style={styles.top}>
                   <Modal.CloseButton />
                   <Modal.Header>Report this event</Modal.Header>
                   <Modal.Body>
@@ -580,14 +579,12 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                           radioEventValue === "seven" ?
                             <View>
                               <TextInput style={[styles.LargeTxtInput, {alignItems: "flex-start"}]} onChangeText={(text) => setOtherReasonEventTxt(text)} value={otherReasonEventTxt}
-                                textAlignVertical="top"
-                                multiline={true}
                                 maxLength={200}
                                 placeholder="Enter your reason for reporting this event..."
                                 accessibilityLabel="Enter the reason you are reporting this event in 200 characters or less."
                                 placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                                numberOfLines={5}/>
-                                <Text style={{color: "rgba(59, 86, 124, 1)", paddingLeft: 20}}>{otherReasonEventTxt.length}/200 character limit</Text>
+                                />
+                                <Text style={{color: "rgba(59, 86, 124, 1)", paddingLeft: 20}}>Maximum 200 characters </Text>
                             </View>
                             : null
                         }
@@ -652,7 +649,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
+  top: {
+    marginBottom: "auto",
+    marginTop: 50
+  },
   containerInsideImage: {
     flexDirection: "row",
     paddingTop: 5,
@@ -661,7 +661,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto_400Regular",
     color: "rgba(59, 86, 124, 1)",
     fontSize: 15,
-    height: 100,
+    height: 50,
     marginTop: 10,
     marginLeft: 18,
     marginRight: 20,

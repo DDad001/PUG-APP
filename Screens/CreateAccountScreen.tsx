@@ -266,7 +266,13 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
     let day = splArr.slice(2, 3).join(" ")
     let year = splArr.slice(3, 4).join(" ")
     month = months.indexOf(month);
-    setDOB( month+1+'/'+day +'/'+year );
+    month += 1;
+
+    if(month < 10){
+      setDOB("0" + month + "/" + day + "/" + year);
+    }else{
+      setDOB(month + "/" + day + "/" + year);
+    }
   }, [])
 
   const newDate = new Date()
@@ -369,7 +375,7 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
                   paddingLeft: 25,
 
                 }}
-                >Minimum of 8 characters</Text>
+                >Maximum 8 characters</Text>
               </View>
               {/* <TextInput
                 style={styles.input}
