@@ -374,6 +374,8 @@ const CardListComponent: FC<CardProps> = (props) => {
     let dd = today.getDate();
 
     if (dd < 10) dd = '0' + dd;
+    if(mm < 10) mm = '0' + mm;
+
 
     today = mm + '/' + dd + '/' + yyyy;
     return date >= today;
@@ -386,6 +388,7 @@ const CardListComponent: FC<CardProps> = (props) => {
     let dd = today.getDate();
 
     if (dd < 10) dd = '0' + dd;
+    if(mm < 10) mm = '0' + mm;
 
     today = mm + '/' + dd + '/' + yyyy;
     return date > today;
@@ -398,6 +401,7 @@ const CardListComponent: FC<CardProps> = (props) => {
     let dd = today.getDate();
 
     if (dd < 10) dd = '0' + dd;
+    if(mm < 10) mm = '0' + mm;
 
     today = mm + '/' + dd + '/' + yyyy;
     return date == today;

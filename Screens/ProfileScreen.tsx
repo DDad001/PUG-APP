@@ -336,6 +336,7 @@ const EventItem = ({event, id, nameOfEvent, addressOfEvent, dateOfEvent, timeOfE
     let dd = today.getDate();
 
     if (dd < 10) dd = '0' + dd;
+    if(mm < 10) mm = '0' + mm;
 
     today = mm + '/' + dd + '/' + yyyy;
     return date >= today;
