@@ -1,6 +1,5 @@
 import { FC, useState, useContext, useEffect } from "react";
 import { Text, View, StyleSheet, ImageBackground, ScrollView, Image, Animated, TouchableOpacity } from "react-native";
-import NotificationComponent from "../Components/NotificationComponent";
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
@@ -20,12 +19,12 @@ import CricketPicture from "../assets/Cricket.png";
 import { Ionicons } from '@expo/vector-icons';
 
 import { GetNotificationsByUserId, DeleteNotification, GetUserById } from "../Services/DataService";
-import UserContext  from '../Context/UserContext';
-import { GestureHandlerRootView, FlatList} from 'react-native-gesture-handler';
+import UserContext from '../Context/UserContext';
+import { GestureHandlerRootView, FlatList } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 
-const Notification = ({notification, getNotifications}: any) => {
+const Notification = ({ notification, getNotifications }: any) => {
   const { setUpdateNotificationsScreen } = useContext<any>(UserContext);
   const [user, setUser] = useState<any>('');
   const [disableBtn, setDisableBtn] = useState(false);
@@ -50,37 +49,37 @@ const Notification = ({notification, getNotifications}: any) => {
       inputRange: [-150, 0],
       outputRange: [1, 0],
       extrapolate: 'identity',
-    }) 
-    return(
+    })
+    return (
       <TouchableOpacity onPress={deleteNotification} activeOpacity={0.6} disabled={disableBtn}>
-      <Animated.View style={[styles.DeleteBox, {opacity}]} >
-        <Ionicons name="md-trash" size={30} color="white" />
-      </Animated.View>
+        <Animated.View style={[styles.DeleteBox, { opacity }]} >
+          <Ionicons name="md-trash" size={30} color="white" />
+        </Animated.View>
       </TouchableOpacity>
     )
   }
 
 
-  return(
+  return (
     <GestureHandlerRootView>
-    <Swipeable
-    renderRightActions={swipeRight}
-    friction={3}
-    rightThreshold={-200}
-    >
-  <View style={styles.NotificationView}>
-    {
-      user.image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
-      : <Image source={{uri: user.image}} style={styles.ImageStyle} />
-    }
-        <View style={{ justifyContent: "center" }}>
-          <View style={{ flexDirection: "row", width: 225}}>
-            <Text style={styles.TextStyle}>{notification.notificationText} </Text>
+      <Swipeable
+        renderRightActions={swipeRight}
+        friction={3}
+        rightThreshold={-200}
+      >
+        <View style={styles.NotificationView}>
+          {
+            user.image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
+              : <Image source={{ uri: user.image }} style={styles.ImageStyle} />
+          }
+          <View style={{ justifyContent: "center" }}>
+            <View style={{ flexDirection: "row", width: 225 }}>
+              <Text style={styles.TextStyle}>{notification.notificationText} </Text>
+            </View>
           </View>
         </View>
-      </View>
       </Swipeable>
-      </GestureHandlerRootView>
+    </GestureHandlerRootView>
   )
 }
 
@@ -121,12 +120,12 @@ const NotificationsScreen: FC = () => {
 
   const renderItem = ({ item }: any) => {
     return (
-    <Notification 
-      notification={item}
-      getNotifications={getNotifications}
-    />
+      <Notification
+        notification={item}
+        getNotifications={getNotifications}
+      />
     )
-};
+  };
 
   return (
     <View style={styles.container}>
@@ -138,10 +137,10 @@ const NotificationsScreen: FC = () => {
         <View style={styles.overlayContainer}>
           <Text style={styles.NotificationsText}>Your Notifications</Text>
           <FlatList
-                data={usersNotifications}
-                renderItem={renderItem}
-                keyExtractor={(item: any) => item.id}
-                />
+            data={usersNotifications}
+            renderItem={renderItem}
+            keyExtractor={(item: any) => item.id}
+          />
         </View>
       </ImageBackground>
     </View>
@@ -166,7 +165,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40,
     marginLeft: 27,
-    marginBottom: 50,    
+    marginBottom: 50,
   },
   ImageStyle: {
     height: 70,
@@ -199,7 +198,7 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     justifyContent: "center",
     alignItems: "center",
-    width: 100, 
+    width: 100,
     height: 80
   }
 });

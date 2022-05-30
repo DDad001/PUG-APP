@@ -1,20 +1,19 @@
 import { FC } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import AppLoading from 'expo-app-loading';
-import { LinearGradient } from 'expo-linear-gradient';
 
 import {
-  useFonts,
-  Lato_100Thin,
-  Lato_100Thin_Italic,
-  Lato_300Light,
-  Lato_300Light_Italic,
-  Lato_400Regular,
-  Lato_400Regular_Italic,
-  Lato_700Bold,
-  Lato_700Bold_Italic,
-  Lato_900Black,
-  Lato_900Black_Italic,
+    useFonts,
+    Lato_100Thin,
+    Lato_100Thin_Italic,
+    Lato_300Light,
+    Lato_300Light_Italic,
+    Lato_400Regular,
+    Lato_400Regular_Italic,
+    Lato_700Bold,
+    Lato_700Bold_Italic,
+    Lato_900Black,
+    Lato_900Black_Italic,
 } from '@expo-google-fonts/lato';
 
 import {
@@ -30,26 +29,11 @@ import {
     OpenSans_600SemiBold_Italic,
     OpenSans_700Bold_Italic,
     OpenSans_800ExtraBold_Italic,
-  } from '@expo-google-fonts/open-sans';
-
-  import {
-    Roboto_100Thin,
-    Roboto_100Thin_Italic,
-    Roboto_300Light,
-    Roboto_300Light_Italic,
-    Roboto_400Regular,
-    Roboto_400Regular_Italic,
-    Roboto_500Medium,
-    Roboto_500Medium_Italic,
-    Roboto_700Bold,
-    Roboto_700Bold_Italic,
-    Roboto_900Black,
-    Roboto_900Black_Italic,
-  } from '@expo-google-fonts/roboto';
+} from '@expo-google-fonts/open-sans';
 
 const LoadingLogoScreen: FC = () => {
 
-    let [fontsLoaded, error]= useFonts({
+    let [fontsLoaded, error] = useFonts({
         Lato_100Thin,
         Lato_100Thin_Italic,
         Lato_300Light,
@@ -63,18 +47,18 @@ const LoadingLogoScreen: FC = () => {
         OpenSans_400Regular,
     });
 
-    if(!fontsLoaded){
-        return <AppLoading/>;
+    if (!fontsLoaded) {
+        return <AppLoading />;
     }
 
     return (
         <View style={styles.container}>
-            <View style={{flex: 0.6, justifyContent: "flex-end", alignItems: "center"}}>
-                <Text style={[{fontFamily: "Lato_400Regular",  fontSize:20, fontWeight: "bold", }, styles.Titletxt]}>PUG</Text>
+            <View style={{ flex: 0.6, justifyContent: "flex-end", alignItems: "center" }}>
+                <Text style={[{ fontFamily: "Lato_400Regular", fontSize: 20, fontWeight: "bold", }, styles.Titletxt]}>PUG</Text>
             </View>
 
-            <View style= {{flex: 0.1, alignItems: "center", paddingTop: 40}}>
-                <Text style={{fontFamily: "Lato_400Regular", color: "white", fontSize: 18}}>Pick up games</Text>
+            <View style={{ flex: 0.1, alignItems: "center", paddingTop: 40 }}>
+                <Text style={{ fontFamily: "Lato_400Regular", color: "white", fontSize: 18 }}>Pick up games</Text>
             </View>
         </View>
     )
@@ -96,7 +80,7 @@ const styles = StyleSheet.create({
         paddingBottom: 50,
         paddingLeft: 50,
         paddingRight: 50
-      
+
     }
 });
 
