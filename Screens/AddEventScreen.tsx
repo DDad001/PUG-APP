@@ -178,16 +178,16 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
     let month = splArr.slice(1, 2).join(" ");
     let day = splArr.slice(2, 3).join(" ");
     let year = splArr.slice(3, 4).join(" ");
-    
+
     month = months.indexOf(month);
     month += 1;
 
-    if(month < 10){
+    if (month < 10) {
       setEventDate("0" + month + "/" + day + "/" + year);
-    }else{
+    } else {
       setEventDate(month + "/" + day + "/" + year);
     }
-    
+
   }, []);
 
   const date = new Date();
@@ -242,8 +242,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
     };
     var regex = /^[A-Za-z ]+$/;
 
-    let addressArr: string[] = eventAddress.split(" "); 
-    let formatedAddress: string = addressArr.join("+"); 
+    let addressArr: string[] = eventAddress.split(" ");
+    let formatedAddress: string = addressArr.join("+");
     let obtainedAddress: any = await GetAddress(formatedAddress);
     let countryCode: string = "";
     let isAddressValid: boolean = false;
@@ -317,7 +317,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       (element) => element.stateInitial === eventState
     );
 
-    if (eventSport == "" ) {
+    if (eventSport == "") {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -330,9 +330,9 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       });
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
-    } 
-    
-    else if (nameOfEvent == "" ) {
+    }
+
+    else if (nameOfEvent == "") {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -345,9 +345,9 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       });
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
-    } 
+    }
 
-    else if (eventDate == "" ) {
+    else if (eventDate == "") {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -360,9 +360,9 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       });
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
-    } 
+    }
 
-    else if (eventTime == "" ) {
+    else if (eventTime == "") {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -375,9 +375,9 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       });
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
-    } 
-    
-    else if (eventDetails == "" ) {
+    }
+
+    else if (eventDetails == "") {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -390,9 +390,9 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       });
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
-    } 
+    }
 
-    else if (eventAddress == "" ) {
+    else if (eventAddress == "") {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -405,8 +405,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       });
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
-    } 
-    else if (eventState == "" ) {
+    }
+    else if (eventState == "") {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -419,8 +419,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       });
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
-    } 
-    else if (eventCity == "" ) {
+    }
+    else if (eventCity == "") {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -433,9 +433,9 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       });
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
-    } 
+    }
 
-     else if (regex.test(eventCity) == false) {
+    else if (regex.test(eventCity) == false) {
       Errortoast.show({
         placement: "top",
         render: () => {
@@ -448,7 +448,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       });
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
-    } 
+    }
     else if (obtainedAddress.length < 1) {
       Errortoast.show({
         placement: "top",
@@ -678,7 +678,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
                       <Select.Item label="Pickleball" value="Pickleball" />
                       <Select.Item label="Rugby" value="Rugby" />
                       <Select.Item label="Running" value="Running" />
-                      <Select.Item label="Skateboarding" value="SkateBoarding"/>
+                      <Select.Item label="Skateboarding" value="SkateBoarding" />
                       <Select.Item label="Soccer" value="Soccer" />
                       <Select.Item label="Softball" value="Softball" />
                       <Select.Item label="Spikeball" value="Spikeball" />
@@ -843,7 +843,7 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
                   paddingLeft: 25,
                 }}
               >
-               Maximum 200 characters
+                Maximum 200 characters
               </Text>
 
               {/* <View style={{marginTop:20,flexDirection:'row'}}>
@@ -1137,14 +1137,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     resizeMode: "cover",
   },
-  titleSection:{
+  titleSection: {
     flex: 0.1,
     flexDirection: "row",
     paddingLeft: 20,
     marginTop: 35,
     marginBottom: 3,
   },
-  boxShadow:{
+  boxShadow: {
     backgroundColor: "#E8F1FF",
     shadowColor: "black",
     shadowOffset: { width: -2, height: 4 },

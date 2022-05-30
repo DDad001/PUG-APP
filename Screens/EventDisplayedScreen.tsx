@@ -156,22 +156,22 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
     }
   }
 
-  const handleReportUser =  async() => {
+  const handleReportUser = async () => {
     let reportUser: object;
-    if(radioUserValue.length < 1){
-      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a reason to report this user!</Box>;}});
-    }else{
-      if(radioUserValue == "OtherUser"){
+    if (radioUserValue.length < 1) {
+      Errortoast.show({ placement: "top", render: () => { return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a reason to report this user!</Box>; } });
+    } else {
+      if (radioUserValue == "OtherUser") {
         reportUser = {
-          Id : 0,
-          UserId : userItems.id, 
+          Id: 0,
+          UserId: userItems.id,
           UserBeingReportedId: eventItems.userId,
           ReportDetails: otherReasonUserTxt
         }
-      }else{
+      } else {
         reportUser = {
-          Id : 0,
-          UserId : userItems.id, 
+          Id: 0,
+          UserId: userItems.id,
           UserBeingReportedId: eventItems.userId,
           ReportDetails: radioUserValue
         }
@@ -179,23 +179,23 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
       let bool = await ReportUser(reportUser);
       setShowModal(false);
       setRadioUserValue("");
-      Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>User successfully reported!</Box>}});
+      Successtoast.show({ placement: "top", render: () => { return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>User successfully reported!</Box> } });
     }
   }
 
   const handleReportEvent = async () => {
     let reportEvent: object;
-    if(radioEventValue.length < 1){
-      Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a reason to report this event!</Box>;}});
-    }else{
-      if(radioEventValue == "seven"){
+    if (radioEventValue.length < 1) {
+      Errortoast.show({ placement: "top", render: () => { return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a reason to report this event!</Box>; } });
+    } else {
+      if (radioEventValue == "seven") {
         reportEvent = {
           Id: 0,
           UserId: userItems.id,
-          EventBeingReportedId: eventItems.id, 
+          EventBeingReportedId: eventItems.id,
           ReportDetails: otherReasonEventTxt
         }
-      }else{
+      } else {
         reportEvent = {
           Id: 0,
           UserId: userItems.id,
@@ -205,7 +205,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
       }
       let bool = await ReportEvent(reportEvent);
       setShowModal2(false);
-      Successtoast.show({ placement: "top",render: () => {return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully reported!</Box>}});
+      Successtoast.show({ placement: "top", render: () => { return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Event successfully reported!</Box> } });
     }
   }
 
@@ -360,18 +360,18 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                                                             <EventDisplayedImageComponent />
                                                           </ImageBackground>
                                                           : eventItems.sportOfEvent === "Yoga" ?
-                                                          <ImageBackground source={yoga} resizeMode="cover" style={{ height: 250 }}>
-                                                            <EventDisplayedImageComponent />
-                                                          </ImageBackground>
-                                                          :
-                                                           eventItems.sportOfEvent === "SkateBoarding" ?
-                                                          <ImageBackground source={skatebaording} resizeMode="cover" style={{ height: 250 }}>
-                                                            <EventDisplayedImageComponent />
-                                                          </ImageBackground>
-                                                          :
-                                                          <ImageBackground source={pugEvent} resizeMode="cover" style={{ height: 250 }}>
-                                                            <EventDisplayedImageComponent />
-                                                          </ImageBackground>
+                                                            <ImageBackground source={yoga} resizeMode="cover" style={{ height: 250 }}>
+                                                              <EventDisplayedImageComponent />
+                                                            </ImageBackground>
+                                                            :
+                                                            eventItems.sportOfEvent === "SkateBoarding" ?
+                                                              <ImageBackground source={skatebaording} resizeMode="cover" style={{ height: 250 }}>
+                                                                <EventDisplayedImageComponent />
+                                                              </ImageBackground>
+                                                              :
+                                                              <ImageBackground source={pugEvent} resizeMode="cover" style={{ height: 250 }}>
+                                                                <EventDisplayedImageComponent />
+                                                              </ImageBackground>
 
 
             }
@@ -395,7 +395,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
 
             <View style={{ flexDirection: 'column', flex: 0.93 }}>
               <Text style={{ marginLeft: 15, fontFamily: "Lato_700Bold", }}>Sport being played:</Text>
-              <Text style={{ marginLeft: 15, fontFamily: "Lato_400Regular", fontSize: 17}}>{eventItems.sportOfEvent}</Text>
+              <Text style={{ marginLeft: 15, fontFamily: "Lato_400Regular", fontSize: 17 }}>{eventItems.sportOfEvent}</Text>
             </View>
 
             <Pressable style={{ marginLeft: 9 }}>
@@ -436,7 +436,8 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
 
           <Pressable onPress={() => {
             handleSaveUser();
-            navigation.navigate('profile')}}>
+            navigation.navigate('profile')
+          }}>
             <Center>
               <Modal isOpen={showModal} size="full" onClose={() => setShowModal(false)}>
                 <Modal.Content maxWidth="400px" style={styles.top}>
@@ -467,13 +468,13 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                       {
                         radioUserValue === "OtherUser" ?
                           <View>
-                            <TextInput style={[ styles.LargeTxtInput,{alignItems: "flex-start"}] } onChangeText={(text) => setOtherReasonUserTxt(text)} value={otherReasonUserTxt} accessibilityLabel="Enter your reason here."
-                            multiline={false}
-                            maxLength={200}
-                            placeholder="Enter your reason here..."
-                            placeholderTextColor={"rgba(59, 86, 124, 1)"}
+                            <TextInput style={[styles.LargeTxtInput, { alignItems: "flex-start" }]} onChangeText={(text) => setOtherReasonUserTxt(text)} value={otherReasonUserTxt} accessibilityLabel="Enter your reason here."
+                              multiline={false}
+                              maxLength={200}
+                              placeholder="Enter your reason here..."
+                              placeholderTextColor={"rgba(59, 86, 124, 1)"}
                             />
-                            <Text style={{color: "rgba(59, 86, 124, 1)", paddingLeft: 20}}>Maximum 200 characters</Text>
+                            <Text style={{ color: "rgba(59, 86, 124, 1)", paddingLeft: 20 }}>Maximum 200 characters</Text>
                           </View>
                           : null
                       }
@@ -535,13 +536,13 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                         {
                           radioEventValue === "seven" ?
                             <View>
-                              <TextInput style={[styles.LargeTxtInput, {alignItems: "flex-start"}]} onChangeText={(text) => setOtherReasonEventTxt(text)} value={otherReasonEventTxt}
+                              <TextInput style={[styles.LargeTxtInput, { alignItems: "flex-start" }]} onChangeText={(text) => setOtherReasonEventTxt(text)} value={otherReasonEventTxt}
                                 maxLength={200}
                                 placeholder="Enter your reason for reporting this event..."
                                 accessibilityLabel="Enter the reason you are reporting this event in 200 characters or less."
                                 placeholderTextColor={"rgba(59, 86, 124, 1)"}
-                                />
-                                <Text style={{color: "rgba(59, 86, 124, 1)", paddingLeft: 20}}>Maximum 200 characters </Text>
+                              />
+                              <Text style={{ color: "rgba(59, 86, 124, 1)", paddingLeft: 20 }}>Maximum 200 characters </Text>
                             </View>
                             : null
                         }
@@ -570,18 +571,18 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
               <View style={{ flexDirection: 'row', flex: 1, backgroundColor: '#7E90AB', marginTop: 15, height: 80, shadowRadius: 8, shadowColor: '#333', shadowOffset: { width: 5, height: 5 }, shadowOpacity: 0.4 }}>
 
                 {
-                  profileImage === null ? <Ionicons name="person-circle-sharp" size={65} style={{alignSelf: 'center', marginLeft: 22}} color="black" />
-                  : <Image source={{uri: profileImage}} style={{ height: 55, width: 55, borderRadius: 30, marginTop: 13, marginLeft: 22 }} />
+                  profileImage === null ? <Ionicons name="person-circle-sharp" size={65} style={{ alignSelf: 'center', marginLeft: 22 }} color="black" />
+                    : <Image source={{ uri: profileImage }} style={{ height: 55, width: 55, borderRadius: 30, marginTop: 13, marginLeft: 22 }} />
 
                 }
                 <Text style={{ flex: 0.9, marginTop: 30, marginLeft: 17, fontSize: 16, color: 'white', fontFamily: "Roboto_700Bold" }}>{nameContext}</Text>
 
 
-                <Pressable onPress={handleFollow} style={{justifyContent: "center"}} disabled={disableBtn}>
+                <Pressable onPress={handleFollow} style={{ justifyContent: "center" }} disabled={disableBtn}>
                   <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow: 'hidden', marginLeft: 12, width: 100, height: 35, justifyContent: "center" }} >
                     {
-                      isFollowed ? <Text style={{color: 'white', fontFamily: "Lato_400Regular", alignSelf: "center"}}>Unfollow</Text>
-                        : <Text style={{color: 'white', fontFamily: "Lato_400Regular", alignSelf: "center" }}>Follow</Text>
+                      isFollowed ? <Text style={{ color: 'white', fontFamily: "Lato_400Regular", alignSelf: "center" }}>Unfollow</Text>
+                        : <Text style={{ color: 'white', fontFamily: "Lato_400Regular", alignSelf: "center" }}>Follow</Text>
                     }
                   </View>
                 </Pressable>
@@ -625,7 +626,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderWidth: 1,
     padding: 10,
-    minWidth:200,
+    minWidth: 200,
     borderColor: "white",
     backgroundColor: "white",
     borderRadius: 20,

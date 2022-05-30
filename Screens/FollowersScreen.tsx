@@ -68,9 +68,9 @@ const FollowerItem = ({
       <View style={styles.NotificationView}>
         {
           image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
-          : <Image source={{uri: image}} style={styles.ImageStyle} />
+            : <Image source={{ uri: image }} style={styles.ImageStyle} />
         }
-          
+
         <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 15 }}>
           <Text style={styles.TextStyle}>{username}</Text>
         </View>
