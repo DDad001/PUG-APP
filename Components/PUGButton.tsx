@@ -1,12 +1,11 @@
 import { FC } from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 
-//You can't style a button have to use a pressable!
 const PUGbutton: FC = () => {
   return (
     <>
-      <View style={styles.BtnBox}>  
-            <Text style={{color:'white',fontWeight: "bold",}}>PUG</Text>
+      <View style={styles.BtnBox}>
+        <Text style={{ color: 'white', fontWeight: "bold", }}>PUG</Text>
       </View>
     </>
   );
@@ -18,7 +17,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     backgroundColor: "rgba(10, 50, 109, 0.1)",
-    padding:5,
+    padding: 5,
     borderWidth: 1,
     borderColor: "white",
   },
