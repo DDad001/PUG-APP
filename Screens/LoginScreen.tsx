@@ -49,7 +49,6 @@ import { useToast, Box, Input, keyboardDismissHandlerManager } from "native-base
 import { MaterialIcons } from '@expo/vector-icons';
 import { Icon } from 'native-base';
 import UserContext  from '../Context/UserContext';
-// import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ListViewEventsScreen from "./ListViewEventsScreen";
 
@@ -77,13 +76,6 @@ const Tab = createBottomTabNavigator();
 
 const LoginScreen: FC<Props> = ({navigation}) => {
   const { setUserItems, setUsersNotifications, isSwitchOn, setIsSwitchOn } = useContext<any>(UserContext);
-
-  // const Tabs = () => (
-  //   <Tab.Navigator>
-  //     <Tab.Screen name="index" component={ListViewEventsScreen} 
-  //      options={{headerShown: false, tabBarAccessibilityLabel:'Home Screen',}}/>
-  //   </Tab.Navigator>
-  // );
   
   const Errortoast = useToast();
   const Successtoast = useToast();
@@ -92,11 +84,6 @@ const LoginScreen: FC<Props> = ({navigation}) => {
   const [Password, setPassword] = useState("");
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
   const [loginBtnBg, setLoginBtnBg] = useState("rgba(10, 50, 109, 1)");
-
-  // interface LoginProps {
-  //   Username:string;
-  //   Password:string;
-  // }
 
   const handleLogin = async () => {
     setDisableBtn(true);
@@ -111,15 +98,12 @@ const LoginScreen: FC<Props> = ({navigation}) => {
       setDisableBtn(false);
       setLoginBtnBg("rgba(10, 50, 109, 1)");
     }else{ 
-      //if the user cannot get a token, incorrect username or password toast appears, otherwise if credentials are correct give token!
       let token = await LoginUser(userData);
       if(token.token != null){
         AsyncStorage.setItem("Token", token.token);
         let userItems1 = await GetUserByUsername(Username);
         setUserItems(userItems1);
         console.log("userItems1", userItems1);
-        // let fetchedNotifications = await GetNotificationsByUserId(userItems1.id);
-        // setUsersNotifications(fetchedNotifications.reverse());
         setIsSwitchOn(isSwitchOn);
         setDisableBtn(false);
         setLoginBtnBg("rgba(10, 50, 109, 1)");
@@ -127,7 +111,6 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         setPassword("");
         navigation.navigate('Nav');
       }else{
-        console.log("incorrect credentials try")
         Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: incorrect password or username inputed!</Box>;}});
         setDisableBtn(false);
         setLoginBtnBg("rgba(10, 50, 109, 1)");
