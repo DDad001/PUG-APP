@@ -1,6 +1,5 @@
 import React, { FC, useState, useContext } from "react";
 import { Image, ImageBackground, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View, TouchableWithoutFeedback, Keyboard } from "react-native";
-import man from '../assets/man.jpg';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppLoading from "expo-app-loading";
 import { StatusBar } from 'expo-status-bar';
