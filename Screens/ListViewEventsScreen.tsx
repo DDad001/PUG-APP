@@ -17,25 +17,15 @@ type RootStackParamList ={
     GoToEvent:undefined,
     profile:undefined,
   }
-
-//   interface ProfileCardProps{ 
-//     navigation: string; 
-//     route: string; 
-//     name:string, 
-//     myName:string
-//   }
 type Props = NativeStackScreenProps<RootStackParamList, "GoToEvent">;
 
 let show = false;
 Notifications.setNotificationHandler({
   handleNotification: async () => {
-   show = !show; //every second message will be shown
-    console.log('handleNotification, show:', show);
+   show = !show; 
     
-    //reject promise when you want to hide notification
     if (!show) return Promise.reject('This notification should not be shown');
 
-    //and this code will show it
     return {
       shouldShowAlert: true,
       shouldSetBadge: false,
@@ -67,10 +57,7 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
           NotificationToken:null,
           IsDeleted:false
         };
-        console.log("userUpdate", userData);
         let updateData = await UpdateUser(userData);
-        console.log("updatedData", updateData);
-        console.log(isSwitchOn)
         setUpdateScreen(true);
         setUpdateEventScreen(true);
         setUpdateProfileScreen(true);
@@ -93,9 +80,7 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
             NotificationToken:token,
             IsDeleted:false
           };
-          console.log("userUpdate", userData);
           let updateData = await UpdateUser(userData);
-          console.log("updatedData", updateData);
           setUpdateScreen(true);
           setUpdateEventScreen(true);
           setUpdateProfileScreen(true);
@@ -113,22 +98,18 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
           })
           .then((statusObj) => {
             if (statusObj.status !== "granted") {
-              // alert();
               throw new Error("Permission not granted.");
             }
           })
           .then(() => {
-            console.log("Getting token..");
             return Notifications.getExpoPushTokenAsync();
         })
         .then((response) => {
             const token:any = response.data;
             setPushToken(token);
             handleUpdatingUser(token);
-            console.log(token)
           })
           .catch((err) => {
-            console.log(err);
             return null;
           });
       }, []);
@@ -136,20 +117,16 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
       useEffect(() => {
         const backgroundSubscription =
           Notifications.addNotificationResponseReceivedListener((response) => {
-            console.log(response);
           });
     
         const foregroundSubscription =
           Notifications.addNotificationReceivedListener((notification) => {
-            console.log(notification);
           });
         return () => {
           backgroundSubscription.remove();
           foregroundSubscription.remove();
         };
       }, []);
-
-    //    const navigation = useNavigation();
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -160,7 +137,6 @@ const ListViewEventsScreen: FC<Props> = ({navigation, route}) => {
           </ImageBackground>
       </View>
       </TouchableWithoutFeedback>
-    //   ic:baseline-notifications
     )
 }
 
