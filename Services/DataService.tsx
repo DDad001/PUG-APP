@@ -26,11 +26,7 @@ async function LoginUser(userData:object){
        body:JSON.stringify(userData)
      
    });
-//    if(!res.ok)
-//    {
-//        const message =`An Error has Occured ${res.status}`
-//        throw new Error(message)
-//     }
+
 console.log(res.status)
     let data = await res.json();
     return data;
@@ -62,7 +58,6 @@ async function UpdateUser(User:object){
        throw new Error(message)
     }
     let data = await res.json();
-    console.log(data);
     return data;
 }
 
@@ -80,7 +75,6 @@ async function UpdateUsername(id:number, username:string){
        throw new Error(message)
     }
     let data = await res.json();
-    console.log(data);
     return data;
 }
 
@@ -99,7 +93,6 @@ async function DeleteUser(userToDelete:string) {
         throw new Error(message);
     }
     let data = await res.json();
-    console.log(data);
     return data;
 
 }
@@ -118,7 +111,6 @@ async function UpdatePassword(id: number, password: string){
        throw new Error(message)
     }
     let data = await res.json();
-    console.log(data);
     return data;
 }
 
@@ -144,7 +136,6 @@ async function AddEventItem(newEventItem:object){
         throw new Error(message)
     }
     let data = await res.json();
-    console.log(data)
 }
 
 async function GetEventItems(){
@@ -202,7 +193,6 @@ async function UpdateEventItem(EventUpdate:object){
        throw new Error(message)
     }
     let data = await res.json();
-    console.log(data);
     return data;
 }
 
@@ -221,7 +211,6 @@ async function DeleteEventItem(id:number) {
         throw new Error(message);
     }
     let data = await res.json();
-    console.log(data);
     return data;
 
 }
@@ -279,13 +268,11 @@ async function AddFollower(newFollower:object){
         throw new Error(message)
     }
     let data = await res.json();
-    console.log(data)
 }
 
 async function GetFollowersByUserId(userId:number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Followers/GetFollowersByUserId/${userId}`);
     let data = await res.json();
-    // console.log(data)
     return data;
 }
 
@@ -298,7 +285,6 @@ async function GetFollowId(userId:number,followerId:number){
 async function GetFollowingByUserId(userId:number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Followers/GetFollowingByUserId/${userId}`);
     let data = await res.json();
-    // console.log(data);
     return data;
 }
 
@@ -317,7 +303,6 @@ async function DeleteFollower(userId:number, followerId:number) {
         throw new Error(message);
     }
     let data = await res.json();
-    console.log(data);
     return data;
 
 }
@@ -325,7 +310,6 @@ async function DeleteFollower(userId:number, followerId:number) {
 async function GetIsFollowed(userId:number, followerId:number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Followers/GetIsFollowed/${userId}/${followerId}`);
     let data = await res.json();
-    //console.log(data);
     return data;
 }
 //---------------ALL FETCHES FOR FOLLOWERS CONTROLLER-----------------
@@ -348,7 +332,6 @@ async function AddLikedEvent(newLikedEvent:object){
         throw new Error(message)
     }
     let data = await res.json();
-    console.log(data)
 }
 
 async function GetLikedEventsByUserId(userId:number){
@@ -360,7 +343,6 @@ async function GetLikedEventsByUserId(userId:number){
 async function GetLikedId(userId:number, eventId:number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/LikedEvents/GetLikedId/${userId}/${eventId}`);
     let data = await res.json();
-    console.log(data);
     return data;
 }
 
@@ -379,7 +361,6 @@ async function DeleteLikedEvent(userId:number, eventId:number) {
         throw new Error(message);
     }
     let data = await res.json();
-    console.log(data);
     return data;
 
 }
@@ -387,7 +368,6 @@ async function DeleteLikedEvent(userId:number, eventId:number) {
 async function GetIsLiked(userId:number, eventId:number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/LikedEvents/GetIsLiked/${userId}/${eventId}`);
     let data = await res.json();
-    //console.log(data);
     return data;
 }
 
@@ -413,7 +393,6 @@ async function ReportEvent(eventToReport:object) {
         throw new Error(message);
     }
     let data = await res.json();
-    console.log(data);
     return data;
 
 }
@@ -433,7 +412,6 @@ async function ReportUser(userToReport:object) {
         throw new Error(message);
     }
     let data = await res.json();
-    console.log(data);
     return data;
 
 }
@@ -494,20 +472,17 @@ async function AddNotification(newNotification:object){
         throw new Error(message)
     }
     let data = await res.json();
-    console.log(data)
 }
 
 async function GetNotificationsByUserId(userId:number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Notifications/GetNotificationsByUserId/${userId}`);
     let data = await res.json();
-    console.log(data);
     return data;
 }
 
 async function GetNotificationsByPersonWhoLiked(personWhoLiked: number){
     let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Notifications/GetNotificationsByPersonWhoLiked/${personWhoLiked}`);
     let data = await res.json();
-    console.log(data);
     return data;
 }
 
@@ -526,7 +501,6 @@ async function DeleteNotification(notificationId:number) {
         throw new Error(message);
     }
     let data = await res.json();
-    console.log(data);
     return data;
 
 }
