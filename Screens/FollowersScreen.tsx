@@ -92,11 +92,9 @@ const FollowersScreen: FC = () => {
     if (followersBool) {
       let followersArr: any[] = [];
       let followers = await GetFollowersByUserId(userItems.id);
-      //console.log(followers);
       await followers.map(async (person: any) => {
         let follower: object = await GetUserById(person.userId);
         followersArr.push(follower);
-        //console.log(follower);
       });
 
       setTimeout(() => {
@@ -105,11 +103,9 @@ const FollowersScreen: FC = () => {
     } else {
       let followersArr: any[] = [];
       let followers = await GetFollowersByUserId(viewUserProfile.id);
-      //console.log(followers);
       await followers.map(async (person: any) => {
         let follower: object = await GetUserById(person.userId);
         followersArr.push(follower);
-        //console.log(follower);
       });
 
       setTimeout(() => {
@@ -185,10 +181,12 @@ const FollowersScreen: FC = () => {
               <TextInput
                 style={styles.input}
                 onChangeText={setInput}
-                onSubmitEditing={() => {
-                  // alert(`Your message is: ${input}`);
-                  // setInput("");
+                /*
+                 onSubmitEditing={() => {
+                   alert(`Your message is: ${input}`);
+                   setInput("");
                 }}
+                */
                 placeholder="Search followers"
                 placeholderTextColor={"#959494"}
               />
@@ -213,7 +211,6 @@ const FollowersScreen: FC = () => {
               </View>
             </TouchableHighlight>
           </View>
-              {/* this is a test for pushing changes */}
           <Text style={styles.FollowingText}>Followers</Text>
 
           <SafeAreaView style={styles.containerFlat}>
@@ -282,7 +279,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A326D",
     borderRadius: 10,
     marginLeft: 15,
-    //marginRight: 55,
   },
   unfollowTxt: {
     color: "white",
@@ -303,7 +299,6 @@ const styles = StyleSheet.create({
   },
   NotificationView: {
     flex: 1,
-    // justifyContent: "center",
     paddingLeft: 25,
     flexDirection: "row",
     paddingTop: 5,

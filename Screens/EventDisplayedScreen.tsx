@@ -87,24 +87,17 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showModal2, setShowModal2] = useState<boolean>(false);
 
-  const [selectItem, setSelectItem] = useState<string>("");
-  const [selectReportUser, setSelectReportUser] = useState<boolean>(false);
-  const [selectReportEvent, setSelectReportEvent] = useState<boolean>(false);
-
-  //Report an event other reason
   const [radioEventValue, setRadioEventValue] = useState<string>("");
   const [otherReasonEventTxt, setOtherReasonEventTxt] = useState<string>("");
 
   const [radioUserValue, setRadioUserValue] = useState<string>("");
   const [otherReasonUserTxt, setOtherReasonUserTxt] = useState<string>("");
 
-    const [disabled, setDisabled] = useState(false);
-    const [disableBtn, setDisableBtn] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false);
 
 
   const { userItems, eventItems, nameContext, setUpdateProfileOther, setEventItems, setNameContext, setViewUserProfile, setUpdateProfileScreen, updateEventScreen, setUpdateEventScreen, viewUserProfile, setUpdateNotificationsScreen } = useContext<any>(UserContext);
 
-  // const [isLiked, setIsLiked] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
   const [profileImage, setProfileImage] = useState<any>(null);
 
@@ -153,11 +146,9 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   }
 
   const reportUserOrEvent = (str: string) => {
-    // console.log(str);
+
     if (str.length > 0) {
       if (str === "reportUser") {
-        // setSelectReportUser(true);
-        //show the first modal to report the user!
         setShowModal(true);
       } else {
         setShowModal2(true);
@@ -193,7 +184,6 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
   }
 
   const handleReportEvent = async () => {
-    //data validation on reporting! I need toasts!
     let reportEvent: object;
     if(radioEventValue.length < 1){
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: enter a reason to report this event!</Box>;}});
@@ -202,14 +192,14 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
         reportEvent = {
           Id: 0,
           UserId: userItems.id,
-          EventBeingReportedId: eventItems.id, //get the id of the user you're reporting
+          EventBeingReportedId: eventItems.id, 
           ReportDetails: otherReasonEventTxt
         }
       }else{
         reportEvent = {
           Id: 0,
           UserId: userItems.id,
-          EventBeingReportedId: eventItems.id, //get the id of the user you're reporting
+          EventBeingReportedId: eventItems.id,
           ReportDetails: radioEventValue
         }
       }
@@ -235,7 +225,6 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
 
   const handleFollow = () => {
     setDisableBtn(true);
-    console.log("enabled");
 
     setIsFollowed(!isFollowed);
     let followed = isFollowed;
@@ -256,16 +245,13 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
       AddNotification(addNotification);
       AddFollower(newFollower);
       setUpdateNotificationsScreen(true);
-      //console.log('Followed')
     } else {
       DeleteFollower(userItems.id, eventItems.userId);
-      //console.log('Unfollowed')
     }
     setUpdateProfileScreen(true);
 
     setTimeout(() => {
       setDisableBtn(false);
-      console.log("enabled");
     }, 2000)
   }
 
@@ -276,25 +262,6 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
     setNameContext(`${userData.firstName} ${userData.lastName}`)
     setUpdateProfileOther(true);
   }
-
-  
-
-  // const handleLiked = () => {
-  //   setIsLiked(!isLiked)
-  //   let liked = isLiked;
-  //   if (!liked) {
-  //     let addLike = {
-  //       Id: 0,
-  //       UserId: userItems.id,
-  //       EventId: eventItems.id,
-  //       EventUnliked: false
-  //     }
-  //     AddLikedEvent(addLike)
-  //   } else {
-  //     DeleteLikedEvent(userItems.id, eventItems.id)
-  //   }
-
-  // }
 
   return (
     <>
@@ -431,10 +398,7 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
               <Text style={{ marginLeft: 15, fontFamily: "Lato_400Regular", fontSize: 17}}>{eventItems.sportOfEvent}</Text>
             </View>
 
-            <Pressable onPress={() => console.log('clicked')} style={{ marginLeft: 9 }}>
-              {/* <View style={{ backgroundColor: '#0A326D', borderRadius: 2, overflow:'hidden', marginTop:5, marginLeft: 20, padding:5, width:130, height:30,}} >
-                      <Text style={{marginLeft:7,marginTop:2, color:'white', fontFamily:"Lato_400Regular"}}>Report this...</Text>
-                  </View> */}
+            <Pressable style={{ marginLeft: 9 }}>
               <View>
                 <Box
                   maxW="155"
@@ -443,10 +407,6 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                     backgroundColor: "white",
                     borderColor: "black",
                     borderWidth: 1,
-                    // shadowColor: "black",
-                    // shadowOffset: { width: -2, height: 4 },
-                    // shadowOpacity: 0.5,
-                    // shadowRadius: 3,
                   }}
                 >
                   <Select
@@ -469,9 +429,6 @@ const EventDisplayedScreen: FC<Props> = ({ navigation, route }) => {
                     <Select.Item label="Report User" value="reportUser" />
                     <Select.Item label="Report Event" value="reportEvent" />
                   </Select>
-                  {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-            Please make a selection!
-        </FormControl.ErrorMessage> */}
                 </Box>
               </View>
             </Pressable>
