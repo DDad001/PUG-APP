@@ -46,7 +46,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useToast, Box, Input } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Icon } from 'native-base';
-import UserContext from '../Context/UserContext';
+import UserContext  from '../Context/UserContext';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 type RootStackParamList = {
@@ -73,7 +73,7 @@ const Tab = createBottomTabNavigator();
 
 const LoginScreen: FC<Props> = ({ navigation }) => {
   const { setUserItems, setUsersNotifications, isSwitchOn, setIsSwitchOn } = useContext<any>(UserContext);
-
+  
   const Errortoast = useToast();
   const Successtoast = useToast();
   const [show, setShow] = React.useState(false);
@@ -81,7 +81,6 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
   const [Password, setPassword] = useState("");
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
   const [loginBtnBg, setLoginBtnBg] = useState("rgba(10, 50, 109, 1)");
-
 
   const handleLogin = async () => {
     setDisableBtn(true);
@@ -95,7 +94,7 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
       Errortoast.show({ placement: "top", render: () => { return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: all fields need to be filled!</Box>; } });
       setDisableBtn(false);
       setLoginBtnBg("rgba(10, 50, 109, 1)");
-    } else {
+    }else{ 
       let token = await LoginUser(userData);
       if (token.token != null) {
         AsyncStorage.setItem("Token", token.token);
@@ -107,8 +106,8 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
         setUsername("");
         setPassword("");
         navigation.navigate('Nav');
-      } else {
-        Errortoast.show({ placement: "top", render: () => { return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: incorrect password or username inputed!</Box>; } });
+      }else{
+        Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: incorrect password or username inputed!</Box>;}});
         setDisableBtn(false);
         setLoginBtnBg("rgba(10, 50, 109, 1)");
       }
