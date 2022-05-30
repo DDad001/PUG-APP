@@ -89,8 +89,7 @@ type RootStackParamList = {
   LikedEvents: undefined
 }
 
-
-const LikedEventItems = ({ id, dateOfEvent, timeOfEvent, addressOfEvent, nameOfEvent, getLikedEventsByUser, navigation, sportOfEvent }: any) => {
+const LikedEventItems = ({ id, dateOfEvent,timeOfEvent,addressOfEvent,nameOfEvent, getLikedEventsByUser, navigation, sportOfEvent }: any) => {
   const { userItems, setUpdateScreen, setUpdateProfileScreen } = useContext<any>(UserContext);
   const [isLiked, setIsLiked] = useState<boolean>(true);
   const [disableBtn, setDisableBtn] = useState(false);
@@ -175,48 +174,47 @@ const LikedEventItems = ({ id, dateOfEvent, timeOfEvent, addressOfEvent, nameOfE
                                                               <Image source={pugEvent} style={{ height: 100, width: 145, borderRadius: 8 }} />
             }
 
+                                  <View style={{marginLeft:35}}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                      <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14}} />
+                                        <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16 }}>{dateOfEvent}</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'column', }}>
+                                      <View style={{ flexDirection: 'row', }}>
+                                      <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop:5, marginLeft: 14 }} />
+                                        <Text style={{ marginTop: 8, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16  }}>{timeOfEvent}</Text>
+                                      </View>
 
-            <View style={{ marginLeft: 35 }}>
-              <View style={{ flexDirection: 'row' }}>
-                <MaterialCommunityIcons name="calendar-month" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 6, marginLeft: 14 }} />
-                <Text style={{ marginTop: 9, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16 }}>{dateOfEvent}</Text>
-              </View>
-              <View style={{ flexDirection: 'column', }}>
-                <View style={{ flexDirection: 'row', }}>
-                  <MaterialCommunityIcons name="clock-time-three-outline" size={23} color="rgba(10, 50, 109, 1)" style={{ marginTop: 5, marginLeft: 14 }} />
-                  <Text style={{ marginTop: 8, marginLeft: 5, fontFamily: "Roboto_400Regular", fontSize: 16 }}>{timeOfEvent}</Text>
-                </View>
-
-                <View style={{ flexDirection: 'row', width: 155 }}>
-                  <Text style={{ fontSize: 12, marginLeft: 20, marginTop: 8, fontFamily: "Lato_400Regular" }}>
-                    {
-                      addressOfEvent.length < 40 ? addressOfEvent : longAddresses(addressOfEvent)
-                    }
-                  </Text>
-                </View>
-
-
-              </View>
-            </View>
-          </View>
-          <Text style={{ marginLeft: 4, marginTop: 5, fontFamily: "Lato_700Bold", fontSize: 14 }}>{nameOfEvent}</Text>
+                                      <View style={{ flexDirection: 'row', width: 155}}>
+                                        <Text style={{fontSize:12, marginLeft:20, marginTop:8, fontFamily: "Lato_400Regular"}}>
+                                          {
+                                            addressOfEvent.length < 40 ? addressOfEvent : longAddresses(addressOfEvent)
+                                          }
+                                        </Text>
+                                      </View>
 
 
-          <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-            <Pressable onPress={createOpenLink({ provider: 'google', end: addressOfEvent })}>
-              <MaterialIcons name="location-on" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', marginLeft: 12, padding: 5 }} />
-            </Pressable>
-            <Pressable onPress={handleLiked} disabled={disableBtn} >
-              {
-                isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 6.5, marginLeft: 9 }} />
-                  : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 6.5, marginLeft: 9 }} />
-              }
+                                        </View>
+                                      </View>
+                                    </View>
+                                      <Text style={{marginLeft:4, marginTop:5, fontFamily: "Lato_700Bold", fontSize:14}}>{nameOfEvent}</Text>
 
-            </Pressable>
-          </View>
 
-        </View>
-      </View>
+                                      <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+                                        <Pressable  onPress={createOpenLink({ provider: 'google', end: addressOfEvent})}>
+                                            <MaterialIcons name="location-on" size={16} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', marginLeft: 12, padding:5  }} />
+                                        </Pressable>
+                                      <Pressable onPress={handleLiked} disabled={disableBtn} >
+                                        {
+                                          isLiked ?  <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
+                                          :  <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow:'hidden', padding:6.5,marginLeft:9 }} />
+                                        }
+                                       
+                                      </Pressable>
+                                      </View>
+
+                                  </View>
+                                </View>
 
     </>
   )
@@ -237,7 +235,6 @@ const LikedEventsScreen: FC<Props> = ({ navigation, route }) => {
   }, []);
 
   const getLikedEventsByUser = async () => {
-
     let likedEventsIds: number[] = [];
     let eventsArr: object[] = [];
 
@@ -249,8 +246,8 @@ const LikedEventsScreen: FC<Props> = ({ navigation, route }) => {
         eventsArr.push(event);
         setDisplayEvents(eventsArr)
       }
-    })
-
+    }) 
+    
   }
 
 
@@ -263,11 +260,9 @@ const LikedEventsScreen: FC<Props> = ({ navigation, route }) => {
     setTimeout(() => {
       getLikedEventsByUser();
     }, 1000)
-
-  }
-
-
-
+    
+  }  
+  
   const renderItem = ({ item }: any) => {
     return (
       <LikedEventItems
