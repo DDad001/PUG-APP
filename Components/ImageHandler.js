@@ -11,14 +11,14 @@ const ImageHandler = () => {
     const [pickedImagePath, setPickedImagePath] = useState(userItems.image);
     const [isNewImage, setIsNewImage] = useState(false);
     const saveImage = async () =>{
-        //we are going to start off by getting the file type using a split.
+      
         let fileType = pickedImagePath.split(".")[1];
-        //using FormData to be able to send out data over to the api correctly.
+
         let formData = new FormData();
-        //Getting the file name using a regex (regular expression)
+      
         let fileName = pickedImagePath.replace(/^.*[\\\/]/, "");
         formData.append('photo', {uri:pickedImagePath, name:fileName, type:`image/${fileType}`})
-        //formData.append('photo', {uri: pictureURL, name:fileName, type:`image/${fileType}`})
+
         let res = await fetch(`https://pugbackendwebapp.azurewebsites.net/Image/uploadImage`, {
           method:"POST",
           headers: {
@@ -27,7 +27,7 @@ const ImageHandler = () => {
           body:formData
         })
         let photoUrl = await res.json();
-        console.log(photoUrl.path);
+      
         let userData = {
             Id: userItems.id,
             FirstName: userItems.firstName,
@@ -43,10 +43,8 @@ const ImageHandler = () => {
             Image:photoUrl.path,
             IsDeleted:false
           };
-          console.log("test")
-          console.log(userData)
+
           let updateUserImage = await UpdateUser(userData);
-          console.log(updateUserImage);
           setUpdateScreen(true);
           setUpdateNotificationsScreen(true);
           let updatedUser = await GetUserById(userItems.id);
@@ -62,10 +60,8 @@ const ImageHandler = () => {
       return;
     }
     const result = await ImagePicker.launchImageLibraryAsync();
-    console.log(result);
     if (!result.cancelled) {
       setPickedImagePath(result.uri);
-      console.log(result.uri);
       setIsNewImage(true);
     }
   }
@@ -73,7 +69,7 @@ const ImageHandler = () => {
     return (
         <>
            <View style={{alignItems:'center'}}>
-            <Pressable onPress={() => console.log('Change Photo')}>
+            <Pressable>
                    <View style={{marginTop:20,flexDirection:'row'}}>
                 <Pressable onPress={showImagePicker}>
               <View style={{backgroundColor:'#7E90AB', height:100, width:100, borderRadius:50, marginTop: 8}}>
@@ -87,7 +83,7 @@ const ImageHandler = () => {
                   <MaterialCommunityIcons name="image-plus" size={40} color="white" style={{marginLeft:30, marginTop:30}}/>
                   </View>
                 }
-                {/* <Button title="Save Image" onPress={saveImage}></Button>  */}
+               
               </View>
                 {
                     pickedImagePath !== null && isNewImage ?  

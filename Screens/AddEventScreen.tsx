@@ -61,11 +61,6 @@ import {
 
 import {
   en,
-  // nl,
-  // de,
-  // pl,
-  // pt,
-  //enGB,
   registerTranslation,
 } from "react-native-paper-dates";
 registerTranslation("en", en);
@@ -120,10 +115,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       return;
     }
     const result = await ImagePicker.launchImageLibraryAsync();
-    console.log(result);
     if (!result.cancelled) {
       setPickedImagePath(result.uri);
-      console.log(result.uri);
     }
   };
 
@@ -134,11 +127,9 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       return;
     }
     const result = await ImagePicker.launchCameraAsync();
-    console.log(result);
 
     if (!result.cancelled) {
       setPickedImagePath(result.uri);
-      console.log(result.uri);
     }
   };
 
@@ -197,7 +188,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       setEventDate(month + "/" + day + "/" + year);
     }
     
-    console.log(eventDate);
   }, []);
 
   const date = new Date();
@@ -213,8 +203,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       let hour = hours;
       let minute = minutes;
       let morningOrEvening = "";
-      //console.log(hour)
-      //console.log( minute)
       if (hour > 12) {
         hour = hour - 12;
         morningOrEvening = "pm";
@@ -235,10 +223,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
   );
 
   const HandleCreateEvent = async () => {
-    console.log(eventDate);
     setCreateEventBtnColor("gray");
     setDisableBtn(true);
-    console.log("disabled");
     let newEvent = {
       Id: 0,
       UserID: userItems.id,
@@ -256,9 +242,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
     };
     var regex = /^[A-Za-z ]+$/;
 
-    //what if what the user enters is not a valid address?
-    let addressArr: string[] = eventAddress.split(" "); //split the string array
-    let formatedAddress: string = addressArr.join("+"); //put it in the correct format
+    let addressArr: string[] = eventAddress.split(" "); 
+    let formatedAddress: string = addressArr.join("+"); 
     let obtainedAddress: any = await GetAddress(formatedAddress);
     let countryCode: string = "";
     let isAddressValid: boolean = false;
@@ -274,7 +259,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       cityNames.push(citiesArr[i].name);
     }
 
-    // //save the state to a variable
     let stateFound: any = [];
     let statesArr: any[] = [
       { stateInitial: "al", stateName: "Alabama" },
@@ -479,7 +463,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     }
-    //Added validation to check if the address is inside the United States
     else if (isAddressValid == false || countryCode != "us") {
       Errortoast.show({
         placement: "top",
@@ -494,7 +477,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     }
-    //Added validation to check if the address is inside the state the user themself specified
     else if (eventState != stateFound[0]["stateInitial"]) {
       Errortoast.show({
         placement: "top",
@@ -510,8 +492,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     }
-    //Added validation to check if the address is inside the city the user themself specified
-    //This is additional data validation however it might be too strict to the point it will inconvenience and anger users!
     else if (eventCity != obtainedAddress[0]["address"]["city"]) {
       Errortoast.show({
         placement: "top",
@@ -527,7 +507,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     }
-    //citites from a state are inside an array and checks if the city the user entered is in large arr!
     else if (!cityNames.includes(eventCity)) {
       Errortoast.show({
         placement: "top",
@@ -543,10 +522,8 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
     } else {
       AddEventItem(newEvent);
-      console.log("All good G!");
       setDisableBtn(false);
       setCreateEventBtnColor("rgba(10, 50, 109, 1)");
-      // result = await AddEventItem(newEvent);
       Successtoast.show({
         placement: "top",
         render: () => {
@@ -560,7 +537,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
       setUpdateScreen(true);
       setUpdateProfileScreen(true);
 
-      //clear all the input fields once an event is created
       setEventSport("");
       setNameOfEvent("");
       setEventDate("");
@@ -572,7 +548,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
     }
     setTimeout(() => {
       setDisableBtn(false);
-      console.log("enabled");
     }, 2000);
   };
 
@@ -585,7 +560,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
     },
   };
 
-  // offset -50 works good for iphone 11s!
   const offset = Platform.OS === "android" ? -300 : -25;
 
   let [fontsLoaded, error] = useFonts({
@@ -713,9 +687,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
                       <Select.Item label="Yoga" value="Yoga" />
                       <Select.Item label="Other" value="Other" />
                     </Select>
-                    {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-            Please make a selection!
-        </FormControl.ErrorMessage> */}
                   </Box>
                 </View>
                 <TextInput
@@ -998,9 +969,6 @@ const AddEventScreen: FC<Props> = ({ navigation }) => {
                         <Select.Item label="WI" value="wi" />
                         <Select.Item label="WY" value="wy" />
                       </Select>
-                      {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-            Please make a selection!
-        </FormControl.ErrorMessage> */}
                     </Box>
                   </View>
                 </View>
@@ -1115,26 +1083,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 10,
   },
-  // dateInput: {
-  //   fontFamily: "Roboto_400Regular",
-  //   color: "rgba(59, 86, 124, 1)",
-  //   fontSize: 8,
-  //   height: 55,
-  //   width: 300,
-  //   marginTop: 10,
-  //   marginLeft: 18,
-  //   marginRight: 20,
-  //   marginBottom: 20,
-  //   borderWidth: 1,
-  //   padding: 10,
-  //   borderColor: "white",
-  //   backgroundColor: "white",
-  //   borderRadius: 20,
-  //   shadowColor: "black",
-  //   shadowOffset: { width: -2, height: 4 },
-  //   shadowOpacity: 0.5,
-  //   shadowRadius: 3,
-  // },
   LargeTxtInput: {
     fontFamily: "Roboto_400Regular",
     color: "rgba(59, 86, 124, 1)",
