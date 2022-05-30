@@ -4,11 +4,6 @@ import { ImageBackground, Platform, Pressable, SafeAreaView, ScrollView, StyleSh
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import {
   en,
-  // nl,
-  // de,
-  // pl,
-  // pt,
-  //enGB,
   registerTranslation,
 } from 'react-native-paper-dates'
 registerTranslation('en', en)
@@ -80,10 +75,6 @@ const EditProfileScreen: FC = () => {
      Roboto_900Black_Italic,
    });
  
- //   if (!fontsLoaded) {
- //     return <AppLoading />;
- //   }
- 
    const [isSwitchOn, setIsSwitchOn] = useState(false);
  
    const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
@@ -111,12 +102,12 @@ const EditProfileScreen: FC = () => {
      setDisableBtn(true);
      setEditAccountBtnColor("gray");
      let edittedProfile = {
-       Id: userItems.id, //userId useContext
+       Id: userItems.id,
        FirstName: firstName,
        LastName: lastName,
        Username: username,
-       Salt: userItems.salt, //useContext
-       Hash: userItems.hash,//useContext
+       Salt: userItems.salt, 
+       Hash: userItems.hash,
        DateOfBirth: dob,
        City: city,
        State: updatedState,
@@ -145,12 +136,7 @@ const EditProfileScreen: FC = () => {
      let LastNameInput = regex.test(lastName);
      let CityInput = regex.test(city);
  
-     //console.log(FirstNameInput);
-     //console.log(age);
-     //console.log(userData);
- 
      let result:any;
-     //check if all the fields are empty!
      if(firstName == ""){ 
       Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: You must include a first name to edit account</Box>;}});
       setDisableBtn(false);
@@ -208,20 +194,15 @@ const EditProfileScreen: FC = () => {
     }
      else{
        result = await UpdateUser(edittedProfile);
-       //console.log(result);
        if(!result){
          Errortoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username has already been taken</Box>;}});
          setDisableBtn(false);
          setEditAccountBtnColor("rgba(10, 50, 109, 1)");
-         //setShowModal(true);
        }else{
          Successtoast.show({ placement: "top",render: () => {return <Box style={{zIndex: 1}} bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>Account successfully updated!</Box>}});
          setShowModal(false);
          setDisableBtn(false);
          setEditAccountBtnColor("rgba(10, 50, 109, 1)");
-        //  setTimeout(() => {
-        //    UpdatePassword(userItems.id, password);
-        //  }, 500)
          let updatedUser = await GetUserById(userItems.id);
          setUserItems(updatedUser);
          setUpdateScreen(true);
@@ -229,23 +210,7 @@ const EditProfileScreen: FC = () => {
          setUpdateProfileScreen(true);
          setUpdateProfileOther(true)
        }
-      //  setTimeout(() => {
-      //   setDisableBtn(false);
-      //   console.log("enabled")
-      // }, 2000)
      }
- 
-     // if(password != ""){
-     //   if(password.length < 8){
-     //     Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: password length is too small</Box>;}});
-     //     // setShowModal(true);
-     //   }else{
-         // setTimeout(() => {
-         //   UpdatePassword(userItems.id, password);
-         // }, 1000)
-     //     // setShowModal(false);
-     //   }
-     // }
    }
  
  
@@ -281,7 +246,6 @@ const EditProfileScreen: FC = () => {
      accent: '#f1c40f',
    }, }
  
-   // 150
    const offset = (Platform.OS === 'android') ? -300 : 100;
  
 return (
@@ -368,10 +332,6 @@ return (
             visible={visible}
             onDismiss={onDismiss}
             date={newDate}
-            // validRange={{
-            //   startDate: new Date(2005, 15, 2),  // optional
-            //    endDate: new Date(2005, 3, 2), // optional
-            //  }}
             onConfirm={onChange}
             saveLabel="Save" // optional
             label="Select date" // optional
@@ -488,7 +448,6 @@ return (
         </View>
       </View>
 
-      {/* Flex losses all meaning when scroll view is used! Disregard logic with flex below! */}
       <View style={{ flex: 0.2, alignItems: "center", marginTop: 20, marginBottom:40}}>
         <Pressable
           style={{
@@ -498,7 +457,6 @@ return (
             paddingRight: 60,
           }}
           onPress={handleEditProfile}
-          // disabled={disableBtn}
         >
           <Text style={styles.SaveChangesBtnTxt}>Save Changes</Text>
         </Pressable>
@@ -521,25 +479,11 @@ const styles = StyleSheet.create({
       overlayContainer: {
         flex: 1,
       },
-      // headingTxt: {
-      //   color: "white",
-      //   fontWeight: "600",
-      //   fontFamily: "Roboto_700Bold",
-      //   fontSize: 24,
-      //   // marginTop: 30,
-      // },
-      // subheadingTxt: {
-      //   fontSize: 16,
-      //   paddingLeft: 15,
-      //   color: "white",
-      // },
       input: {
-        //Text styling for the input fields!
         fontFamily: "Roboto_400Regular",
         color: "rgba(59, 86, 124, 1)",
         fontSize: 15,
         height: 55,
-        // marginTop: 10,
         marginLeft: 18,
         marginRight: 20,
         marginBottom: 20,
@@ -560,9 +504,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         height: 55,
         width: 150,
-        // marginTop: 10,
-        marginLeft: 18, //might actually need this!
-        // marginRight: 20,
+        marginLeft: 18,
         marginBottom: 20,
         borderWidth: 1,
         padding: 10,
