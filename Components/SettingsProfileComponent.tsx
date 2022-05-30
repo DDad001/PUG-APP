@@ -1,5 +1,5 @@
 import { FC, useContext } from "react";
-import { Text, ScrollView, StyleSheet, Image, View } from "react-native";
+import { Text, StyleSheet, Image, View } from "react-native";
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
@@ -70,7 +70,7 @@ const SettingsProfileComponent: FC = () => {
       <View style={styles.NotificationView}>
         {
           userItems.image === null ? <Ionicons name="person-circle-sharp" size={100} color="white" />
-          : <Image source={{uri: userItems.image}} style={styles.ImageStyle} />
+            : <Image source={{ uri: userItems.image }} style={styles.ImageStyle} />
         }
         <Text style={styles.TextStyle}>{userItems.username}</Text>
       </View>

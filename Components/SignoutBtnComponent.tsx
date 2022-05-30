@@ -1,6 +1,5 @@
 import { FC, useState, useContext } from "react";
 import { View, StyleSheet, Pressable } from "react-native";
-import AppLoading from "expo-app-loading";
 import {
   useFonts,
   Lato_100Thin,
@@ -35,18 +34,12 @@ import {
   Modal,
   Center,
   Button,
-  FormControl,
-  Input,
-  Select,
   Text,
-  CheckIcon,
-  Box,
 } from "native-base";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-interface SignOutProps{ 
+interface SignOutProps {
   onSignOutPress: Function
 }
 
@@ -80,15 +73,10 @@ const SignoutBtnComponent: FC<SignOutProps> = (props) => {
     Roboto_900Black_Italic,
   });
 
-  // if (!fontsLoaded) {
-  //   return <AppLoading />;
-  // }
-
   const [showSignoutModal, setShowSignoutModal] = useState(false);
 
   const handleSignOut = async () => {
     AsyncStorage.removeItem('Token');
-    console.log('Signed Out');
     props.onSignOutPress();
     setNotificationNumber(0);
   }
@@ -99,13 +87,14 @@ const SignoutBtnComponent: FC<SignOutProps> = (props) => {
         style={{
           backgroundColor: signOutBtnColor,
           borderRadius: 50,
-          alignItems: "center", 
-          //justifyContent: "center",
+          alignItems: "center",
           marginLeft: 100,
           marginRight: 100,
         }}
-        onPress={() => {setShowSignoutModal(true)
-          setSignOutBtnColor("gray")}}
+        onPress={() => {
+          setShowSignoutModal(true)
+          setSignOutBtnColor("gray")
+        }}
         accessibilityLabel="Take Me Home"
       >
         <Text
@@ -125,8 +114,10 @@ const SignoutBtnComponent: FC<SignOutProps> = (props) => {
       <Center style={{ marginTop: 50, flexDirection: "row" }}>
         <Modal
           isOpen={showSignoutModal}
-          onClose={() => {setShowSignoutModal(false)
-            setSignOutBtnColor("#0A326D")}}
+          onClose={() => {
+            setShowSignoutModal(false)
+            setSignOutBtnColor("#0A326D")
+          }}
         >
           <Modal.Content maxWidth="400px">
             <Modal.CloseButton />
@@ -221,7 +212,6 @@ const styles = StyleSheet.create({
   Btn: {},
   NotificationView: {
     flex: 1,
-    // flexDirection: 'row',
     justifyContent: "center",
     marginTop: 60,
   },

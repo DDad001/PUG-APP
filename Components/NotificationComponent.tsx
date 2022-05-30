@@ -64,16 +64,16 @@ const NotificationComponent: FC = () => {
 
   return (
 
-      <View style={styles.NotificationView}>
-        <Image source={Skier} style={styles.ImageStyle} />
-        <View style={{ justifyContent: "center" }}>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={styles.TextStyle}>Scott Morenzone </Text>
-            <Text style={styles.MiddleTextStyle}>liked</Text>
-            <Text style={styles.TextStyle}> your post</Text>
-          </View>
+    <View style={styles.NotificationView}>
+      <Image source={Skier} style={styles.ImageStyle} />
+      <View style={{ justifyContent: "center" }}>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.TextStyle}>Scott Morenzone </Text>
+          <Text style={styles.MiddleTextStyle}>liked</Text>
+          <Text style={styles.TextStyle}> your post</Text>
         </View>
       </View>
+    </View>
 
 
   );
