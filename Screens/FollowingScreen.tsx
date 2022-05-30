@@ -12,18 +12,14 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
-  DatePickerIOSBase
 } from "react-native";
-import FollowingComponent from "../Components/FollowingComponent";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
 import UserContext from "../Context/UserContext";
 import {
   DeleteFollower,
-  GetUserByUsername,
   GetUserById,
   GetFollowingByUserId,
-  GetEventItems,
 } from "../Services/DataService";
 
 import AppLoading from "expo-app-loading";
@@ -61,11 +57,10 @@ import Skier from "../assets/Skier.png";
 import { FlatList } from "native-base";
 
 const FollowerItem = ({
-  
+
   username,
   id,
   image,
-  displayFollowing,
   getFollowing
 }: any) => {
   const { followingBool, userItems, setUpdateProfileScreen } = useContext<any>(UserContext);
@@ -76,12 +71,11 @@ const FollowerItem = ({
   const handleUnfollow = async (unfollowId: number) => {
     setDisableBtn(true);
     setChangeBtnColor("gray");
-    console.log("Deleted");
     await DeleteFollower(userItems.id, unfollowId);
 
-    
+
     getFollowing();
-    
+
     setUpdateProfileScreen(true);
   };
 
@@ -89,18 +83,18 @@ const FollowerItem = ({
   return (
     <View>
       <View style={styles.NotificationView}>
-          {
-            image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
-            : <Image source={{uri: image}} style={styles.ImageStyle} />
-          }
+        {
+          image === null ? <Ionicons name="person-circle-sharp" size={75} style={styles.ImageStyle} color="white" />
+            : <Image source={{ uri: image }} style={styles.ImageStyle} />
+        }
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View style={{ width: 150, alignItems: "center"}}>
+          <View style={{ width: 150, alignItems: "center" }}>
             <Text style={styles.TextStyle}>{username}</Text>
           </View>
 
           {followingBool ? (
             <Pressable
-              style={{ backgroundColor: changeBtnColor, borderRadius: 10, marginLeft: 15,}}
+              style={{ backgroundColor: changeBtnColor, borderRadius: 10, marginLeft: 15, }}
               onPress={() => handleUnfollow(id)}
               accessibilityLabel="Followers Button"
               disabled={disableBtn}
@@ -118,7 +112,7 @@ const FollowingScreen: FC = () => {
   const { userItems, setUpdateProfileScreen, viewUserProfile, followingBool } =
     useContext<any>(UserContext);
   const [displayFollowing, setDisplayFollowing] = useState<any>([]);
-  
+
 
   useEffect(() => {
     getFollowing();
@@ -128,11 +122,9 @@ const FollowingScreen: FC = () => {
     if (followingBool) {
       let followingArr: any[] = [];
       let following = await GetFollowingByUserId(userItems.id);
-      //console.log(followers);
       await following.map(async (person: any) => {
         let follower = await GetUserById(person.followerId);
         followingArr.push(follower);
-        //console.log(follower);
       });
 
       setTimeout(() => {
@@ -141,11 +133,9 @@ const FollowingScreen: FC = () => {
     } else {
       let followingArr: any[] = [];
       let following = await GetFollowingByUserId(viewUserProfile.id);
-      //console.log(followers);
       await following.map(async (person: any) => {
         let follower = await GetUserById(person.followerId);
         followingArr.push(follower);
-        //console.log(follower);
       });
 
       setTimeout(() => {
@@ -154,7 +144,7 @@ const FollowingScreen: FC = () => {
     }
   };
 
-  
+
 
   const renderItem = ({ item }: any) => {
     return (
@@ -164,7 +154,7 @@ const FollowingScreen: FC = () => {
         username={item.username}
         image={item.image}
         displayFollowing={displayFollowing}
-        
+
         getFollowing={getFollowing}
       />
     );
@@ -226,8 +216,6 @@ const FollowingScreen: FC = () => {
                 style={styles.input}
                 onChangeText={setInput}
                 onSubmitEditing={() => {
-                  // alert(`Your message is: ${input}`);
-                  // setInput("");
                 }}
                 placeholder="Search following"
                 placeholderTextColor={"#959494"}
