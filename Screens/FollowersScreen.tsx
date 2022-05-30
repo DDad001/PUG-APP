@@ -189,7 +189,7 @@ const FollowersScreen: FC = () => {
                   // alert(`Your message is: ${input}`);
                   // setInput("");
                 }}
-                placeholder="Search following"
+                placeholder="Search followers"
                 placeholderTextColor={"#959494"}
               />
             </View>
