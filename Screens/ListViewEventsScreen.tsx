@@ -8,21 +8,21 @@ import * as Notifications from "expo-notifications";
 import UserContext from "../Context/UserContext";
 import { UpdateUser } from "../Services/DataService";
 
-type RootStackParamList = {
-  Nav: undefined,
-  event: { name: string },
-  schedule: undefined,
-  cardList: { name: string },
-  GoToEvent: undefined,
-  profile: undefined,
-}
-
+type RootStackParamList ={
+    Nav: undefined,
+    event:{name: string},
+    schedule:undefined,
+    cardList:{name:string},
+    GoToEvent:undefined,
+    profile:undefined,
+  }
 type Props = NativeStackScreenProps<RootStackParamList, "GoToEvent">;
 
 let show = false;
 Notifications.setNotificationHandler({
   handleNotification: async () => {
-    show = !show;
+   show = !show; 
+    
     if (!show) return Promise.reject('This notification should not be shown');
 
     return {
@@ -114,30 +114,56 @@ const ListViewEventsScreen: FC<Props> = ({ navigation, route }) => {
       });
   }, []);
 
-  useEffect(() => {
-    const backgroundSubscription =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-      });
+    useEffect(() => {
+        Notifications.getPermissionsAsync()
+          .then((statusObj) => {
+            if (statusObj.status !== "granted") {
+              return Notifications.requestPermissionsAsync();
+            }
+            return statusObj;
+          })
+          .then((statusObj) => {
+            if (statusObj.status !== "granted") {
+              throw new Error("Permission not granted.");
+            }
+          })
+          .then(() => {
+            return Notifications.getExpoPushTokenAsync();
+        })
+        .then((response) => {
+            const token:any = response.data;
+            setPushToken(token);
+            handleUpdatingUser(token);
+          })
+          .catch((err) => {
+            return null;
+          });
+      }, []);
+    
+      useEffect(() => {
+        const backgroundSubscription =
+          Notifications.addNotificationResponseReceivedListener((response) => {
+          });
+    
+        const foregroundSubscription =
+          Notifications.addNotificationReceivedListener((notification) => {
+          });
+        return () => {
+          backgroundSubscription.remove();
+          foregroundSubscription.remove();
+        };
+      }, []);
 
-    const foregroundSubscription =
-      Notifications.addNotificationReceivedListener((notification) => {
-      });
-    return () => {
-      backgroundSubscription.remove();
-      foregroundSubscription.remove();
-    };
-  }, []);
-
-  return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <ImageBackground source={SoccerBall} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
-          <PUGHeader />
-          <CardListComponent onEventDisplayPress={() => navigation.navigate('event', { name: 'danial' })} onProfilePress={() => navigation.navigate('profile')} />
-        </ImageBackground>
+    return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.container}>
+          <ImageBackground source={SoccerBall} resizeMode="cover" style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}>
+              <PUGHeader/>
+              <CardListComponent onEventDisplayPress={() =>  navigation.navigate('event', {name: 'danial'})} onProfilePress={() => navigation.navigate('profile')}/>
+          </ImageBackground>
       </View>
-    </TouchableWithoutFeedback>
-  )
+      </TouchableWithoutFeedback>
+    )
 }
 
 const styles = StyleSheet.create({
