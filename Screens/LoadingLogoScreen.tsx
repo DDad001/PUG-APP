@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#0A326D",
     },
     Titletxt: {
-        // fontFamily: "Lato" ,
         fontSize: 64,
         fontWeight: "bold",
         color: "white",
