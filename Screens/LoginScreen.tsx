@@ -103,7 +103,6 @@ const LoginScreen: FC<Props> = ({navigation}) => {
         AsyncStorage.setItem("Token", token.token);
         let userItems1 = await GetUserByUsername(Username);
         setUserItems(userItems1);
-        console.log("userItems1", userItems1);
         setIsSwitchOn(isSwitchOn);
         setDisableBtn(false);
         setLoginBtnBg("rgba(10, 50, 109, 1)");
