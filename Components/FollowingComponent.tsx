@@ -78,9 +78,7 @@ const FollowingComponent: FC = () => {
 
         <Pressable
           style={{ backgroundColor: changeBtnColor, borderRadius: 10, marginLeft: 15 }}
-          onPress={() => console.log("Login")}
-          accessibilityLabel="Followers Button"
-        >
+          accessibilityLabel="Followers Button">
           <Text style={styles.unfollowTxt}>Unfollow</Text>
         </Pressable>
       </View>
