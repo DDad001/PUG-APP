@@ -1,7 +1,6 @@
 import { Pressable, View } from "react-native"
-import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
-import { FC, useContext, useState, useEffect } from "react";
-import {AddLikedEvent, DeleteLikedEvent, GetIsLiked, triggerNotificationHandler} from '../Services/DataService'
+import { MaterialIcons } from '@expo/vector-icons';
+import { FC, useContext } from "react";
 import UserContext from "../Context/UserContext";
 import { createOpenLink } from "react-native-open-maps";
 

@@ -8,9 +8,6 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import AppLoading from 'expo-app-loading';
-// import { Divider, Menu, Provider, Button } from 'react-native-paper';
-// import SelectDropdown from 'react-native-select-dropdown'
-// import { IndexPath, Layout, Select, SelectItem } from '@ui-kitten/components';
 
 import {
   useFonts,
@@ -100,42 +97,36 @@ type RootStackParamList = {
 }
 
 
-// type Props = NativeStackScreenProps<RootStackParamList, "cardList">;
-// const navigation = useNavigation();
+const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents }: any) => {
 
-const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addressOfEvent, dateOfEvent, timeOfEvent, sportOfEvent, userId, allEvents}: any) => {
-  
   const [isLiked, setIsLiked] = useState(false);
   const [disableBtn, setDisableBtn] = useState(false);
-  const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen, viewUserProfile, setUpdateNotificationsScreen,  } = useContext<any>(UserContext);
+  const { userItems, setEventItems, setNameContext, setViewUserProfile, updateScreen, setUpdateScreen, setUpdateProfileOther, setUpdateProfileScreen, viewUserProfile, setUpdateNotificationsScreen, } = useContext<any>(UserContext);
   const [profileImage, setProfileImage] = useState<any>(null);
 
   useEffect(() => {
     getNames();
     checkIfLiked();
-    //console.log("Update")
     setUpdateScreen(false);
   }, [updateScreen]);
 
 
-    const [name, setName] = useState<string>("")
+  const [name, setName] = useState<string>("")
 
-    const getNames = async () => {
-      let userData = await GetUserById(userId);
-      setName(`${userData.firstName} ${userData.lastName}`)
-      setProfileImage(userData.image);
-    }
+  const getNames = async () => {
+    let userData = await GetUserById(userId);
+    setName(`${userData.firstName} ${userData.lastName}`)
+    setProfileImage(userData.image);
+  }
 
-    const checkIfLiked = async () => {
-      let liked = await GetIsLiked(userItems.id, event.id);
-      
-      setIsLiked(liked);
-      //console.log(liked);
-    }
-    
+  const checkIfLiked = async () => {
+    let liked = await GetIsLiked(userItems.id, event.id);
+
+    setIsLiked(liked);
+  }
+
   const handleLiked = async () => {
     setDisableBtn(true);
-    console.log("disabled");
 
     setIsLiked(!isLiked)
     let liked = isLiked;
@@ -165,11 +156,10 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 
     setTimeout(() => {
       setDisableBtn(false);
-      console.log("enabled");
     }, 2000)
   }
 
-  const handleSavedEvent = async() => {
+  const handleSavedEvent = async () => {
     setEventItems(event);
     setNameContext(name);
     let userData = await GetUserById(userId);
@@ -177,24 +167,24 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
   }
 
   const handleSaveUser = async () => {
-    
+
     let userData = await GetUserById(userId);
     setViewUserProfile(userData);
     setNameContext(name)
     setUpdateProfileOther(true);
   }
 
- const longAddresses = (address: string) => {
-  let editedAddress: string = "";
-  let ditto: string = "...";
-  if(address.length > 40){
-    for(let i = 0; i<40; i++){
-      editedAddress += address[i];
+  const longAddresses = (address: string) => {
+    let editedAddress: string = "";
+    let ditto: string = "...";
+    if (address.length > 40) {
+      for (let i = 0; i < 40; i++) {
+        editedAddress += address[i];
+      }
     }
+    editedAddress += ditto;
+    return editedAddress;
   }
-  editedAddress += ditto;
-  return editedAddress;
- }
 
   return (
     <View style={styles.card}>
@@ -205,119 +195,119 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
         }}>
           <View style={{ flexDirection: 'row', flex: 1, }}>
             <View>
-            {
-              sportOfEvent === "Basketball" ?
-                <Image source={BasketballEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                : sportOfEvent === "Soccer" ?
-                  <Image source={soccer} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                  : sportOfEvent === "Badminton" ?
-                    <Image source={badminton} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                    : sportOfEvent === "Baseball" ?
-                      <Image source={baseball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                      : sportOfEvent === "Cycling" ?
-                        <Image source={biking1} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                        : sportOfEvent === "Hockey" ?
-                          <Image source={hockey} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                          : sportOfEvent === "Disc golf" ?
-                            <Image source={discGolf1} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                            : sportOfEvent === "Fishing" ?
-                              <Image source={fishing} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                              : sportOfEvent === "Football" ?
-                                <Image source={football} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                : sportOfEvent === "Frisbee" ?
-                                  <Image source={frisbee} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                  : sportOfEvent === "Golf" ?
-                                    <Image source={golf} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                    : sportOfEvent === "Handball" ?
-                                      <Image source={handball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                      : sportOfEvent === "Hiking" ?
-                                        <Image source={hiking} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                        : sportOfEvent === "Cricket" ?
-                                          <Image source={cricketevent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                          : sportOfEvent === "Rugby" ?
-                                            <Image source={rugby} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                            : sportOfEvent === "Pickleball" ?
-                                              <Image source={pickleball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                              : sportOfEvent === "Running" ?
-                                                <Image source={running} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                                : sportOfEvent === "Softball" ?
-                                                  <Image source={softball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                                  : sportOfEvent === "Spikeball" ?
-                                                    <Image source={spikeball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                                    : sportOfEvent === "Tennis" ?
-                                                      <Image source={tennis} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                                      : sportOfEvent === "Lacrosse" ?
-                                                        <Image source={lacrosse} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                                        : sportOfEvent === "Volleyball" ?
-                                                          <Image source={volleyballevent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                                          : sportOfEvent === "Yoga" ?
-                                                           <Image source={yoga} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                                          : sportOfEvent === "SkateBoarding" ?
-                                                           <Image source={skateboarding} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-                                                          :
-                                                          <Image source={pugEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
-            }
+              {
+                sportOfEvent === "Basketball" ?
+                  <Image source={BasketballEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                  : sportOfEvent === "Soccer" ?
+                    <Image source={soccer} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                    : sportOfEvent === "Badminton" ?
+                      <Image source={badminton} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                      : sportOfEvent === "Baseball" ?
+                        <Image source={baseball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                        : sportOfEvent === "Cycling" ?
+                          <Image source={biking1} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                          : sportOfEvent === "Hockey" ?
+                            <Image source={hockey} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                            : sportOfEvent === "Disc golf" ?
+                              <Image source={discGolf1} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                              : sportOfEvent === "Fishing" ?
+                                <Image source={fishing} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                : sportOfEvent === "Football" ?
+                                  <Image source={football} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                  : sportOfEvent === "Frisbee" ?
+                                    <Image source={frisbee} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                    : sportOfEvent === "Golf" ?
+                                      <Image source={golf} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                      : sportOfEvent === "Handball" ?
+                                        <Image source={handball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                        : sportOfEvent === "Hiking" ?
+                                          <Image source={hiking} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                          : sportOfEvent === "Cricket" ?
+                                            <Image source={cricketevent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                            : sportOfEvent === "Rugby" ?
+                                              <Image source={rugby} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                              : sportOfEvent === "Pickleball" ?
+                                                <Image source={pickleball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                : sportOfEvent === "Running" ?
+                                                  <Image source={running} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                  : sportOfEvent === "Softball" ?
+                                                    <Image source={softball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                    : sportOfEvent === "Spikeball" ?
+                                                      <Image source={spikeball} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                      : sportOfEvent === "Tennis" ?
+                                                        <Image source={tennis} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                        : sportOfEvent === "Lacrosse" ?
+                                                          <Image source={lacrosse} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                          : sportOfEvent === "Volleyball" ?
+                                                            <Image source={volleyballevent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                            : sportOfEvent === "Yoga" ?
+                                                              <Image source={yoga} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                              : sportOfEvent === "SkateBoarding" ?
+                                                                <Image source={skateboarding} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+                                                                :
+                                                                <Image source={pugEvent} style={{ flex: 1, height: 90, width: 120, borderRadius: 8 }} />
+              }
             </View>
-            <View style={{ flex:1 }}>
-              <View style={{flex:0.4, flexDirection: 'row' }}>
-                <View style={{flex:1, width: 155, marginLeft: 15, justifyContent:'center'}}>
-                  <Text style={{ marginLeft: 0, fontSize: 12, fontFamily: "Lato_700Bold"}}>{nameOfEvent}</Text>
+            <View style={{ flex: 1 }}>
+              <View style={{ flex: 0.4, flexDirection: 'row' }}>
+                <View style={{ flex: 1, width: 155, marginLeft: 15, justifyContent: 'center' }}>
+                  <Text style={{ marginLeft: 0, fontSize: 12, fontFamily: "Lato_700Bold" }}>{nameOfEvent}</Text>
                 </View>
 
-            {/* Icon section here below!  */}
-            <View style={{flex:0.6, flexDirection: "row", alignItems: 'center', justifyContent: 'space-around' }}>
-                <Pressable onPress={createOpenLink({ provider: 'google', end: addressOfEvent })}>
-                  <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 7 }} />
-                </Pressable>
 
-                <Pressable onPress={handleLiked} disabled={disableBtn}>
-                  {
-                    isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />
-                      : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />
-                  }
+                <View style={{ flex: 0.6, flexDirection: "row", alignItems: 'center', justifyContent: 'space-around' }}>
+                  <Pressable onPress={createOpenLink({ provider: 'google', end: addressOfEvent })}>
+                    <MaterialIcons name="location-on" size={15} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 7 }} />
+                  </Pressable>
 
-                </Pressable>
-            </View>
+                  <Pressable onPress={handleLiked} disabled={disableBtn}>
+                    {
+                      isLiked ? <FontAwesome name="heart" size={13} color="red" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />
+                        : <FontAwesome name="heart-o" size={13} color="white" style={{ backgroundColor: '#0A326D', borderRadius: 3, overflow: 'hidden', padding: 8 }} />
+                    }
+
+                  </Pressable>
+                </View>
 
               </View>
-              <View style={{flex:1, flexDirection: 'column', }}>
-                <View style={{flex:1, flexDirection: 'row' }}>
-                  <View style={{flex: 1, justifyContent: 'center'}}>
+              <View style={{ flex: 1, flexDirection: 'column', }}>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                  <View style={{ flex: 1, justifyContent: 'center' }}>
                     <Text style={{ flexWrap: 'wrap', flexShrink: 1, fontSize: 11, marginLeft: 15, paddingRight: 5, fontFamily: "Lato_400Regular", borderColor: "white", justifyContent: "center" }}>
-                    { 
-                     addressOfEvent.length < 40 ? addressOfEvent : longAddresses(addressOfEvent)
-                    }
+                      {
+                        addressOfEvent.length < 40 ? addressOfEvent : longAddresses(addressOfEvent)
+                      }
                     </Text>
                   </View>
-                  <View style={{flex:0.5, flexDirection: "row", justifyContent: 'flex-start'}}>
-                    <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10}} />
+                  <View style={{ flex: 0.5, flexDirection: "row", justifyContent: 'flex-start' }}>
+                    <MaterialCommunityIcons name="calendar-month" size={18} color="#0A326D" style={{ marginTop: 10 }} />
                     <Text style={{ fontSize: 10, marginTop: 12, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{dateOfEvent}</Text>
                   </View>
                 </View>
 
-                <View style={{ flex:1, flexDirection: 'row' }}>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
                   {/* fiddle with the flex */}
-                  <View style={{flex: 0.9, flexDirection: "row", justifyContent: "flex-start"  }}>
+                  <View style={{ flex: 0.9, flexDirection: "row", justifyContent: "flex-start" }}>
                     <Pressable onPress={() => {
                       ProfileHandler();
                       setEventItems(event);
                       handleSaveUser();
-                      }}>
-                      <View style={{flex: 1, flexDirection: 'row', }}>
+                    }}>
+                      <View style={{ flex: 1, flexDirection: 'row', }}>
                         {
-                          profileImage === null ? <Ionicons name="person-circle-sharp" size={26} style={{marginLeft: 15}} color="black" />
-                          : <Image source={{ uri: profileImage}} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 15 }} />
+                          profileImage === null ? <Ionicons name="person-circle-sharp" size={26} style={{ marginLeft: 15 }} color="black" />
+                            : <Image source={{ uri: profileImage }} style={{ height: 22, width: 22, borderRadius: 10, marginLeft: 15 }} />
                         }
-                        <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>            
-                          {       
+                        <Text style={{ marginLeft: 10, marginTop: 7, fontSize: 10, fontFamily: "Roboto_500Medium" }}>
+                          {
                             name
                           }
                         </Text>
                       </View>
                     </Pressable>
                   </View>
-                    {/* Fiddle with the flex */}
-                  <View style={{flex:0.45,flexDirection: "row" }}>
+
+                  <View style={{ flex: 0.45, flexDirection: "row" }}>
                     <MaterialCommunityIcons name="clock-time-three-outline" size={18} color="#0A326D" style={{ marginLeft: 0, marginTop: 4, }} />
                     <Text style={{ fontSize: 10, marginTop: 7, marginLeft: 4, fontFamily: "Roboto_400Regular" }}>{timeOfEvent}</Text>
                   </View>
@@ -336,103 +326,101 @@ const EventItem = ({ event, id, nameOfEvent, EventHandler, ProfileHandler, addre
 
 const CardListComponent: FC<CardProps> = (props) => {
   const { updateScreen, setUpdateScreen, userItems, setUsersNotifications, notificationsNumber, setNotificationNumber, numberOfNotifications } = useContext<any>(UserContext);
-  
+
   const [allEvents, setAllEvents] = useState<any>([]);
 
-  
+
   useEffect(() => {
     fetchEvents();
     setUpdateScreen(false);
   }, [updateScreen]);
-  
+
   const fetchEvents = async () => {
     let displayEvents = await GetEventItems();
     let fetchedNotifications = await GetNotificationsByUserId(userItems.id);
     let presentEvents: any;
-    //get events from the state the user is in!
-    //additional filter code, events in the state
-    //          == true && userItems["state"] == displayEvents[idx]["stateOfEvent"].toUpperCase()
+
     presentEvents = displayEvents.filter((event: any, idx: number) => isItAPresentOrFutureDay(event['dateOfEvent']));
     setAllEvents(presentEvents);
-    if(numberOfNotifications != 0){
-    let numToDisplay = fetchedNotifications.length - numberOfNotifications
-    if(numToDisplay == 0){
+    if (numberOfNotifications != 0) {
+      let numToDisplay = fetchedNotifications.length - numberOfNotifications
+      if (numToDisplay == 0) {
+        setNotificationNumber(null);
+      } else {
+        setNotificationNumber(numToDisplay);
+      }
+    } else {
       setNotificationNumber(null);
-    }else{
-      setNotificationNumber(numToDisplay);
     }
-  }else{
-    setNotificationNumber(null);
-  }
 
   }
 
-  function isItAPresentOrFutureDay(date: string){
+  function isItAPresentOrFutureDay(date: string) {
     let today: any = new Date();
     const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; 
+    let mm = today.getMonth() + 1;
     let dd = today.getDate();
 
     if (dd < 10) dd = '0' + dd;
-    if(mm < 10) mm = '0' + mm;
+    if (mm < 10) mm = '0' + mm;
 
 
     today = mm + '/' + dd + '/' + yyyy;
     return date >= today;
   }
 
-  function isItAFutureDay(date: string){
+  function isItAFutureDay(date: string) {
     let today: any = new Date();
     const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; 
+    let mm = today.getMonth() + 1;
     let dd = today.getDate();
 
     if (dd < 10) dd = '0' + dd;
-    if(mm < 10) mm = '0' + mm;
+    if (mm < 10) mm = '0' + mm;
 
     today = mm + '/' + dd + '/' + yyyy;
     return date > today;
   }
 
-  function isItAPresentDay(date: string){
+  function isItAPresentDay(date: string) {
     let today: any = new Date();
     const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; 
+    let mm = today.getMonth() + 1;
     let dd = today.getDate();
 
     if (dd < 10) dd = '0' + dd;
-    if(mm < 10) mm = '0' + mm;
+    if (mm < 10) mm = '0' + mm;
 
     today = mm + '/' + dd + '/' + yyyy;
     return date == today;
   }
-  // const [dataFromInput, setDataFromInput] = useState(allEvents);
+
 
   const ProfileHandler = () => {
     props.onProfilePress()
   }
-  
+
   const EventHandler = () => {
     props.onEventDisplayPress()
   }
-  // console.log("allevent", typeof allEvents);
+
 
   const renderItem = ({ item }: any) => {
     return (
-    <EventItem event={item}
-      id={item.id}
-      nameOfEvent={item.nameOfEvent}
-      addressOfEvent={item.addressOfEvent}
-      dateOfEvent={item.dateOfEvent}
-      timeOfEvent={item.timeOfEvent}
-      sportOfEvent={item.sportOfEvent}
-      userId={item.userId}
-      allEvents={allEvents}
-      ProfileHandler={ProfileHandler}
-      EventHandler={EventHandler}
-    />
+      <EventItem event={item}
+        id={item.id}
+        nameOfEvent={item.nameOfEvent}
+        addressOfEvent={item.addressOfEvent}
+        dateOfEvent={item.dateOfEvent}
+        timeOfEvent={item.timeOfEvent}
+        sportOfEvent={item.sportOfEvent}
+        userId={item.userId}
+        allEvents={allEvents}
+        ProfileHandler={ProfileHandler}
+        EventHandler={EventHandler}
+      />
     )
-};
+  };
 
 
   const [visible, setVisible] = React.useState(false);
@@ -466,70 +454,70 @@ const CardListComponent: FC<CardProps> = (props) => {
     return <AppLoading />;
   }
 
-    //this query is done when
-    let searchData: any;
-      function NoFilters(timeFrame: string){
-        if(selectSport != "No Filters"){
-          searchData = allEvents.filter((item:any, idx: number) => {
-            return(
-              item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase()) 
-            )
-          });
-        }else{
-          searchData = allEvents.filter((item:any) => {
-            return(
-              item.cityOfEvent.toLowerCase().includes(input.toLowerCase())
-            )
-          });
-        }
-      }
 
-      function presentDayEvents (timeFrame: string){
-        if(selectSport != "No Filters"){
-          searchData = allEvents.filter((item:any) => {
-            return(
-              item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase()) && isItAPresentDay(item["dateOfEvent"]) == true
-            )
-          });
-        }else{
-          searchData = allEvents.filter((item:any) => {
-            return(
-              item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && isItAPresentDay(item["dateOfEvent"]) == true
-            )
-          });
-        }
-      }
-
-      function futureDayEvents (timeFrame: string){
-        if(selectSport != "No Filters"){
-          searchData = allEvents.filter((item:any) => {
-            return(
-              item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase()) && isItAFutureDay(item["dateOfEvent"]) == true
-            )
-          });
-        }else{
-          searchData = allEvents.filter((item:any) => {
-            return(
-              item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && isItAFutureDay(item["dateOfEvent"]) == true
-            )
-          });
-        }
-      }    
-
-    switch(selectTimeFrame){
-
-      case "PresentEvents":
-        presentDayEvents(selectTimeFrame);
-        break;
-
-      case "FutureEvents":
-        futureDayEvents(selectTimeFrame);
-        break;
-
-      default: 
-        NoFilters(selectTimeFrame);
-        break;
+  let searchData: any;
+  function NoFilters(timeFrame: string) {
+    if (selectSport != "No Filters") {
+      searchData = allEvents.filter((item: any, idx: number) => {
+        return (
+          item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase())
+        )
+      });
+    } else {
+      searchData = allEvents.filter((item: any) => {
+        return (
+          item.cityOfEvent.toLowerCase().includes(input.toLowerCase())
+        )
+      });
     }
+  }
+
+  function presentDayEvents(timeFrame: string) {
+    if (selectSport != "No Filters") {
+      searchData = allEvents.filter((item: any) => {
+        return (
+          item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase()) && isItAPresentDay(item["dateOfEvent"]) == true
+        )
+      });
+    } else {
+      searchData = allEvents.filter((item: any) => {
+        return (
+          item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && isItAPresentDay(item["dateOfEvent"]) == true
+        )
+      });
+    }
+  }
+
+  function futureDayEvents(timeFrame: string) {
+    if (selectSport != "No Filters") {
+      searchData = allEvents.filter((item: any) => {
+        return (
+          item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && item.sportOfEvent.toLowerCase().includes(selectSport.toLowerCase()) && isItAFutureDay(item["dateOfEvent"]) == true
+        )
+      });
+    } else {
+      searchData = allEvents.filter((item: any) => {
+        return (
+          item.cityOfEvent.toLowerCase().includes(input.toLowerCase()) && isItAFutureDay(item["dateOfEvent"]) == true
+        )
+      });
+    }
+  }
+
+  switch (selectTimeFrame) {
+
+    case "PresentEvents":
+      presentDayEvents(selectTimeFrame);
+      break;
+
+    case "FutureEvents":
+      futureDayEvents(selectTimeFrame);
+      break;
+
+    default:
+      NoFilters(selectTimeFrame);
+      break;
+  }
 
 
   return (
@@ -538,7 +526,6 @@ const CardListComponent: FC<CardProps> = (props) => {
         <View style={{ flex: 1 }}>
           <TextInput style={styles.input} onChangeText={(setInput)}
             onSubmitEditing={() => {
-              // alert(`Your message is: ${input}`);
             }}
             placeholder="Search by city..."
             placeholderTextColor={'#959494'}
@@ -552,7 +539,7 @@ const CardListComponent: FC<CardProps> = (props) => {
       </View>
 
       <View style={{ flex: 0, flexDirection: 'row', justifyContent: "space-between", marginTop: 20, marginBottom: 5 }}>
-      <View style={{marginLeft: 10}}>
+        <View style={{ marginLeft: 10 }}>
           <Box
             maxW="155"
             borderRadius={8}
@@ -580,14 +567,11 @@ const CardListComponent: FC<CardProps> = (props) => {
               fontSize={15}
               color={"#0A326D"}
             >
-              
-                <Select.Item label="All Events" value="No Filters" />
-                <Select.Item label="Today's Events" value="PresentEvents" />
-                <Select.Item label="Future Events" value="FutureEvents" />
+
+              <Select.Item label="All Events" value="No Filters" />
+              <Select.Item label="Today's Events" value="PresentEvents" />
+              <Select.Item label="Future Events" value="FutureEvents" />
             </Select>
-            {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-            Please make a selection!
-        </FormControl.ErrorMessage> */}
           </Box>
         </View>
         <View style={{ marginRight: 10 }}>
@@ -618,42 +602,40 @@ const CardListComponent: FC<CardProps> = (props) => {
               fontSize={15}
               color={"#0A326D"}
             >
-              
-                <Select.Item label="All Events" value="No Filters" />
-                <Select.Item label="Badminton" value="Badminton" />
-                <Select.Item label="Baseball" value="Baseball" />
-                <Select.Item label="Basketball" value="Basketball" />
-                <Select.Item label="Cricket" value="Cricket" />
-                <Select.Item label="Cycling" value="Cycling" />
-                <Select.Item label="Disc golf" value="Disc golf" />
-                <Select.Item label="Fishing" value="Fishing" />
-                <Select.Item label="Football" value="Football" />
-                <Select.Item label="Frisbee" value="Frisbee" />
-                <Select.Item label="Golf" value="Golf" />
-                <Select.Item label="Handball" value="Handball" />
-                <Select.Item label="Hiking" value="Handball" />
-                <Select.Item label="Hockey" value="Hockey" />
-                <Select.Item label="Lacrosse" value="Lacrosse" />
-                <Select.Item label="Pickleball" value="Pickleball" />
-                <Select.Item label="Rugby" value="Rugby" />
-                <Select.Item label="Running" value="Running" />
-                <Select.Item label="Soccer" value="Soccer" />
-                <Select.Item label="Softball" value="Softball" />
-                <Select.Item label="Spikeball" value="Spikeball" />
-                <Select.Item label="Tennis" value="Tennis" />
-                <Select.Item label="Volleyball" value="Volleyball" />
-                <Select.Item label="Yoga" value="Yoga" />
-                <Select.Item label="SkateBoarding" value="SkateBoarding" />
-                <Select.Item label="Other" value="Other" />
+
+              <Select.Item label="All Events" value="No Filters" />
+              <Select.Item label="Badminton" value="Badminton" />
+              <Select.Item label="Baseball" value="Baseball" />
+              <Select.Item label="Basketball" value="Basketball" />
+              <Select.Item label="Cricket" value="Cricket" />
+              <Select.Item label="Cycling" value="Cycling" />
+              <Select.Item label="Disc golf" value="Disc golf" />
+              <Select.Item label="Fishing" value="Fishing" />
+              <Select.Item label="Football" value="Football" />
+              <Select.Item label="Frisbee" value="Frisbee" />
+              <Select.Item label="Golf" value="Golf" />
+              <Select.Item label="Handball" value="Handball" />
+              <Select.Item label="Hiking" value="Handball" />
+              <Select.Item label="Hockey" value="Hockey" />
+              <Select.Item label="Lacrosse" value="Lacrosse" />
+              <Select.Item label="Pickleball" value="Pickleball" />
+              <Select.Item label="Rugby" value="Rugby" />
+              <Select.Item label="Running" value="Running" />
+              <Select.Item label="Soccer" value="Soccer" />
+              <Select.Item label="Softball" value="Softball" />
+              <Select.Item label="Spikeball" value="Spikeball" />
+              <Select.Item label="Tennis" value="Tennis" />
+              <Select.Item label="Volleyball" value="Volleyball" />
+              <Select.Item label="Yoga" value="Yoga" />
+              <Select.Item label="SkateBoarding" value="SkateBoarding" />
+              <Select.Item label="Other" value="Other" />
             </Select>
-            {/* <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-            Please make a selection!
-        </FormControl.ErrorMessage> */}
+
           </Box>
         </View>
       </View>
 
-      {/* make into fliatlist when time to map or later */}
+
       <SafeAreaView style={styles.container}>
         <FlatList
           data={searchData}
@@ -668,7 +650,7 @@ const CardListComponent: FC<CardProps> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom:62
+    marginBottom: 62
   },
   card: {
     borderRadius: 8,

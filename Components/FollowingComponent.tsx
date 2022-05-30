@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import {
   Text,
-  ScrollView,
   StyleSheet,
   Image,
   View,
@@ -72,20 +71,20 @@ const FollowingComponent: FC = () => {
   }
 
   return (
-      <View style={styles.NotificationView}>
-        <Image source={Skier} style={styles.ImageStyle} />
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.TextStyle}>Scott Morenzone </Text>
+    <View style={styles.NotificationView}>
+      <Image source={Skier} style={styles.ImageStyle} />
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Text style={styles.TextStyle}>Scott Morenzone </Text>
 
-          <Pressable
-            style={{backgroundColor: changeBtnColor, borderRadius: 10, marginLeft: 15}}
-            onPress={() => console.log("Login")}
-            accessibilityLabel="Followers Button"
-          >
-            <Text style={styles.unfollowTxt}>Unfollow</Text>
-          </Pressable>
-        </View>
+        <Pressable
+          style={{ backgroundColor: changeBtnColor, borderRadius: 10, marginLeft: 15 }}
+          onPress={() => console.log("Login")}
+          accessibilityLabel="Followers Button"
+        >
+          <Text style={styles.unfollowTxt}>Unfollow</Text>
+        </Pressable>
       </View>
+    </View>
   );
 };
 
@@ -114,8 +113,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingTop: 5,
     paddingBottom: 34,
-    // marginLeft: 10,
-    //marginRight: 25,
   },
   MiddleTextStyle: {
     color: "white",
