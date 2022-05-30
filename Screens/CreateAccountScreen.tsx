@@ -13,7 +13,6 @@ import {
   TouchableWithoutFeedback,
   Platform
 } from "react-native";
-// import { Datepicker, Icon, Layout } from "@ui-kitten/components";
 import PUGbutton from "../Components/PUGButton";
 import CourtPicture from "../assets/Court.png";
 import AppLoading from "expo-app-loading";
@@ -50,11 +49,6 @@ import {
 
 import {
   en,
-  // nl,
-  // de,
-  // pl,
-  // pt,
-  //enGB,
   registerTranslation,
 } from 'react-native-paper-dates'
 registerTranslation('en', en)
@@ -102,10 +96,8 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
   const [newUsername, setNewUsername] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
 
-  //Native base useStates
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const [date, setDate] = useState<Date>(new Date());
   const Errortoast = useToast();
   const Successtoast = useToast();
   const [DOB, setDOB] = useState<string>("MM/DD/YYYY");
@@ -128,7 +120,6 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
   const handleCreateAccount = async () => {
     setDisableBtn(true);
     setCreateAccountBtnColor("gray")
-    console.log("disabled");
     let userData = {
       Id: 0,
       FirstName: newFirstName,
@@ -150,7 +141,6 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
         age--;
     }
 
-    //Get the info of the cities of a state
     let citiesArr:any = await GetCitiesByState(state);
     let cityNames: string[] = [];
 
@@ -162,10 +152,6 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
     let FirstNameInput = regex.test(newFirstName);
     let LastNameInput = regex.test(newLastName);
     let CityInput = regex.test(city);
-
-    console.log(FirstNameInput);
-    console.log(age);
-    console.log(userData);
 
     let result:any;
     if(newFirstName == ""){ 
@@ -235,7 +221,6 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
     }
     else{
       result = await createAccount(userData);
-      console.log(result);
       if(!result){
         Errortoast.show({ placement: "top",render: () => {return <Box bg="danger.500" px="2" py="1" rounded="sm" mb={5}>Error: username has already been taken</Box>;}});
         setDisableBtn(false);
@@ -245,7 +230,6 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
       navigation.navigate('Nav');
       let userItems1 = await GetUserByUsername(userData.Username);
       setUserItems(userItems1);
-      //console.log(userItems1);
       }
     }
 
@@ -406,24 +390,6 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
                 }}
                 >Minimum of 8 characters</Text>
           </View>
-
-
-         
-        {/* shadowColor: "black",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.5,
-    shadowRadius: 3, */}
-
-              {/* <Datepicker
-                style={[styles.input, {}]}
-                // date={new Date(2000, 0, 1)}
-                initialVisibleDate={new Date(2000, 0, 1)}
-                date={date}
-                min={new Date(1900, 0, 0)}
-                max={new Date(2004, 7, 4)}
-                onSelect={(nextDate) => setDate(nextDate)}
-              /> */}
-
                 <View></View>
                 <PaperProvider theme={theme}>
                   <View style={{flexDirection:'row',flex: 1}}>
@@ -432,10 +398,6 @@ const CreateAccountScreen: FC<Props> = ({navigation}) => {
                   visible={visible}
                   onDismiss={onDismiss}
                   date={newDate}
-                  // validRange={{
-                  //   startDate: new Date(2005, 15, 2),  // optional
-                  //    endDate: new Date(2005, 3, 2), // optional
-                  //  }}
                   onConfirm={onChange}
                   saveLabel="Save" // optional
                   label="Select date" // optional
@@ -654,25 +616,11 @@ const styles = StyleSheet.create({
   overlayContainer: {
     flex: 1,
   },
-  // headingTxt: {
-  //   color: "white",
-  //   fontWeight: "600",
-  //   fontFamily: "Roboto_700Bold",
-  //   fontSize: 24,
-  //   // marginTop: 30,
-  // },
-  // subheadingTxt: {
-  //   fontSize: 16,
-  //   paddingLeft: 15,
-  //   color: "white",
-  // },
   input: {
-    //Text styling for the input fields!
     fontFamily: "Roboto_400Regular",
     color: "rgba(59, 86, 124, 1)",
     fontSize: 15,
     height: 55,
-    // marginTop: 10,
     marginLeft: 18,
     marginRight: 20,
     marginBottom: 20,
@@ -693,9 +641,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     height: 55,
     width: 150,
-    // marginTop: 10,
-    marginLeft: 18, //might actually need this!
-    // marginRight: 20,
+    marginLeft: 18,
     marginBottom: 20,
     borderWidth: 1,
     padding: 10,
@@ -729,12 +675,10 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   UsernameInput: {
-    //Text styling for the input fields!
     fontFamily: "Roboto_400Regular",
     color: "rgba(59, 86, 124, 1)",
     fontSize: 15,
     height: 55,
-    // marginTop: 10,
     marginLeft: 18,
     marginRight: 20,
     borderWidth: 1,
