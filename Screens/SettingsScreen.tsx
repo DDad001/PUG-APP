@@ -22,27 +22,26 @@ import {
 import VolleyballPicture from "../assets/VolleyBall.png";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-
-type RootStackParamList ={
-  Nav: undefined,
-  event:{name:string},
-  profile:{name:string},
-  PastEvents:undefined,
-  LikedEvents:undefined,
-  settings:undefined,
-  EditProfile:undefined,
-  following:undefined,
-  LookAtEvent:undefined,
-  OtherPersonsFollowers:undefined,
-  OtherPersonsFollowings:undefined,
-  YourActiveEvents:undefined,
-  followers:undefined,
-  FAQ:undefined,
-  login: undefined
-}
+type RootStackParamList = {
+  Nav: undefined;
+  event: { name: string };
+  profile: { name: string };
+  PastEvents: undefined;
+  LikedEvents: undefined;
+  settings: undefined;
+  EditProfile: undefined;
+  following: undefined;
+  LookAtEvent: undefined;
+  OtherPersonsFollowers: undefined;
+  OtherPersonsFollowings: undefined;
+  YourActiveEvents: undefined;
+  followers: undefined;
+  FAQ: undefined;
+  login: undefined;
+};
 type Props = NativeStackScreenProps<RootStackParamList, "Nav">;
 
-const SettingsScreen: FC<Props> = ({navigation, route}) => {
+const SettingsScreen: FC<Props> = ({ navigation, route }) => {
   let [fontsLoaded] = useFonts({
     Lato_100Thin,
     Lato_100Thin_Italic,
@@ -67,10 +66,16 @@ const SettingsScreen: FC<Props> = ({navigation, route}) => {
         resizeMode="cover"
         style={{ height: "100%", width: "100%", backgroundColor: "#0A326D" }}
       >
-          <View style={styles.overlayContainer}>
-            <SettingsProfileComponent/>
-            <SettingsNotificationsComponent onHelpPress={() =>  navigation.navigate('FAQ')} onEditProfilePress={() => navigation.navigate('EditProfile')} onDeleteAccountPress={() => navigation.navigate('login')}/>
-            <SignoutBtnComponent onSignOutPress={() => navigation.navigate('login')} />
+        <View style={styles.overlayContainer}>
+          <SettingsProfileComponent />
+          <SettingsNotificationsComponent
+            onHelpPress={() => navigation.navigate("FAQ")}
+            onEditProfilePress={() => navigation.navigate("EditProfile")}
+            onDeleteAccountPress={() => navigation.navigate("login")}
+          />
+          <SignoutBtnComponent
+            onSignOutPress={() => navigation.navigate("login")}
+          />
         </View>
       </ImageBackground>
     </View>
